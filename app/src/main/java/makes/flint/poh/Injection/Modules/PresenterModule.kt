@@ -1,6 +1,9 @@
 package makes.flint.poh.Injection.Modules
 
 import dagger.Module
+import dagger.Provides
+import makes.flint.poh.data.dataController.DataController
+import makes.flint.poh.main.MainPresenter
 
 /**
  * DataModule
@@ -8,9 +11,9 @@ import dagger.Module
  */
 @Module open class PresenterModule {
 
-//    @Provides
-//    fun provideHomePresenter(dataController: DataController, nudgFactory: NudgFactory): HomePresenter {
-//        return HomePresenter(dataController, nudgFactory)
-//    }
+    @Provides
+    fun provideMainPresenter(dataController: DataController): MainPresenter {
+        return MainPresenter(dataController)
+    }
 
 }

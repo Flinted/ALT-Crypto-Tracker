@@ -1,4 +1,4 @@
-package makes.flint.poh.Views.Base
+package makes.flint.poh.base
 
 import android.app.Application
 import com.jakewharton.threetenabp.AndroidThreeTen

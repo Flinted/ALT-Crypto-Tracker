@@ -2,6 +2,7 @@ package makes.flint.poh.Injection.Components
 
 import dagger.Component
 import makes.flint.poh.Injection.Modules.PresenterModule
+import makes.flint.poh.main.MainPresenter
 import javax.inject.Singleton
 
 /**
@@ -11,5 +12,5 @@ import javax.inject.Singleton
 @Singleton
 @Component(modules = arrayOf(PresenterModule::class))
 interface PresenterComponent {
-//    fun provideHomePresenter():HomePresenter
+    fun provideMainPresenter(): MainPresenter
 }
