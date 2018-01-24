@@ -1,7 +1,7 @@
-package makes.flint.poh.Injection.Components
+package makes.flint.poh.injection.components
 
 import dagger.Component
-import makes.flint.poh.Injection.Modules.DataModule
+import makes.flint.poh.injection.modules.DataModule
 import makes.flint.poh.data.dataController.DataController
 import makes.flint.poh.data.dataController.dataManagers.ApiManager
 import makes.flint.poh.data.dataController.dataManagers.RealmManager

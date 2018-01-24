@@ -5,6 +5,9 @@ package makes.flint.poh.data.response
  * Copyright © 2018 Flint Makes. All rights reserved.
  */
 class APIResponseList: ResponseList {
+
+    // Properties
+
     override lateinit var responseState: String
     override lateinit var message: String
     override lateinit var baseImageURL: String

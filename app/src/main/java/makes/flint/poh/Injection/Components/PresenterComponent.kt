@@ -1,7 +1,7 @@
-package makes.flint.poh.Injection.Components
+package makes.flint.poh.injection.components
 
 import dagger.Component
-import makes.flint.poh.Injection.Modules.PresenterModule
+import makes.flint.poh.injection.modules.PresenterModule
 import makes.flint.poh.main.MainPresenter
 import javax.inject.Singleton
 

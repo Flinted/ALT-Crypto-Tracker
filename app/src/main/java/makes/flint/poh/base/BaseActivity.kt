@@ -2,7 +2,7 @@ package makes.flint.poh.base
 
 import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
-import makes.flint.poh.Injection.Components.PresenterComponent
+import makes.flint.poh.injection.components.PresenterComponent
 import org.jetbrains.anko.AnkoLogger
 
 /**

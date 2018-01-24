@@ -4,12 +4,12 @@ import android.app.Application
 import com.jakewharton.threetenabp.AndroidThreeTen
 import io.realm.Realm
 import io.realm.RealmConfiguration
-import makes.flint.poh.Injection.Components.DaggerDataComponent
-import makes.flint.poh.Injection.Components.DaggerPresenterComponent
-import makes.flint.poh.Injection.Components.DataComponent
-import makes.flint.poh.Injection.Components.PresenterComponent
-import makes.flint.poh.Injection.Modules.DataModule
-import makes.flint.poh.Injection.Modules.PresenterModule
+import makes.flint.poh.injection.components.DaggerDataComponent
+import makes.flint.poh.injection.components.DaggerPresenterComponent
+import makes.flint.poh.injection.components.DataComponent
+import makes.flint.poh.injection.components.PresenterComponent
+import makes.flint.poh.injection.modules.DataModule
+import makes.flint.poh.injection.modules.PresenterModule
 
 /**
  * BaseApplication

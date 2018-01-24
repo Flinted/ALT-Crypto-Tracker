@@ -5,6 +5,8 @@ package makes.flint.poh.data.response
  * Copyright © 2018 Flint Makes. All rights reserved.
  */
 class APICoinResponse: CoinResponse {
+    // Properties
+
     override lateinit var name: String
     override lateinit var id: String
     override lateinit var url: String
@@ -14,4 +16,5 @@ class APICoinResponse: CoinResponse {
     override lateinit var algorithm: String
     override lateinit var proofType: String
     override lateinit var sortOrder: String
+
 }

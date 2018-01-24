@@ -1,4 +1,4 @@
-package makes.flint.poh.Injection.Modules
+package makes.flint.poh.injection.modules
 
 import dagger.Module
 import dagger.Provides
