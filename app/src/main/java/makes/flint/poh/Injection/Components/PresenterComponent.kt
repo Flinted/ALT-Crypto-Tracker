@@ -1,6 +1,7 @@
 package makes.flint.poh.injection.components
 
 import dagger.Component
+import makes.flint.poh.injection.modules.DataModule
 import makes.flint.poh.injection.modules.PresenterModule
 import makes.flint.poh.main.MainPresenter
 import javax.inject.Singleton
@@ -10,7 +11,7 @@ import javax.inject.Singleton
  * Copyright © 2018 Flint Makes.. All rights reserved.
  */
 @Singleton
-@Component(modules = arrayOf(PresenterModule::class))
+@Component(modules = arrayOf(PresenterModule::class, DataModule::class))
 interface PresenterComponent {
     fun provideMainPresenter(): MainPresenter
 }

@@ -11,23 +11,24 @@ import org.jetbrains.anko.AnkoLogger
  */
 open class BaseActivity : AppCompatActivity(), AnkoLogger {
 
-    internal lateinit var presenter: BaseContractPresenter<*>
+    internal var presenter: BaseContractPresenter<*>? = null
 
     protected fun getBaseApplication(): BaseApplication = application as BaseApplication
 
-    protected fun getPresenterComponent() : PresenterComponent = getBaseApplication().getPresenterComponent()
+    protected fun getPresenterComponent(): PresenterComponent = getBaseApplication().getPresenterComponent()
 
-    protected fun attachPresenter(presenter:BaseContractPresenter<*>) {
+    protected fun attachPresenter(presenter: BaseContractPresenter<*>) {
+        println("BASE")
         this.presenter = presenter
     }
 
     override fun onDestroy() {
-        presenter.detachView()
+        presenter?.detachView()
         super.onDestroy()
     }
 
-    fun showToast(stringId : Int, toastLength: Int) {
-        Toast.makeText(this,getString(stringId), toastLength).show()
+    fun showToast(stringId: Int, toastLength: Int) {
+        Toast.makeText(this, getString(stringId), toastLength).show()
     }
 
     fun showLoading() {
@@ -38,7 +39,7 @@ open class BaseActivity : AppCompatActivity(), AnkoLogger {
 
     }
 
-    fun showError(stringId : Int) {
+    fun showError(stringId: Int) {
         showToast(stringId, Toast.LENGTH_SHORT)
     }
 

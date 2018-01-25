@@ -1,8 +1,6 @@
 package makes.flint.poh.main
 
 import android.os.Bundle
-import android.os.PersistableBundle
-import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
 import makes.flint.poh.R
@@ -18,19 +16,19 @@ class MainActivity: BaseActivity(), MainContractView {
     // Private Properties
     private lateinit var mainPresenter: MainPresenter
 
-    // Lifecycle
-    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val toolbar = findViewById(R.id.toolbar) as Toolbar
-        setSupportActionBar(toolbar)
         bindViews()
+        println("HERE WE GO!")
         mainPresenter = getPresenterComponent().provideMainPresenter()
         mainPresenter.attachView(this)
         attachPresenter(mainPresenter)
+        mainPresenter.initialise()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        println("OPTIONS")
         menuInflater.inflate(R.menu.menu_main, menu)
         return true
     }

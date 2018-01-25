@@ -8,7 +8,9 @@ import javax.inject.Inject
  * RealmManager
  * Copyright © 2018 Flint Makes.. All rights reserved.
  */
-class RealmManager @Inject constructor(private var realm: Realm) : DataSource {
+class RealmManager @Inject constructor() : DataSource {
+
+    private lateinit var realm: Realm
 
     override fun open() {
         realm = Realm.getDefaultInstance()

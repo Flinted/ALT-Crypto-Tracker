@@ -42,7 +42,7 @@ dependencies {
     final THREE_TEN_VERSION = '1.0.5'
     final SUPPORT_LIBRARY_VERSION = '26.1.0'
     final JUNIT_VERSION = '4.12'
-    final LOGGING_INTERCEPTOR_VERSION = '3.2.0'
+    final LOGGING_INTERCEPTOR_VERSION = '3.4.1'
     final RETROFIT_VERSION = '2.2.0'
     final RXANDROID_VERSION = '1.2.1'
     final RXJAVA_VERSION = '1.1.6'
@@ -75,6 +75,7 @@ dependencies {
     api "com.squareup.retrofit2:converter-gson:$RETROFIT_VERSION"
     api "com.squareup.retrofit2:adapter-rxjava:$RETROFIT_VERSION"
     api "com.squareup.okhttp3:logging-interceptor:$LOGGING_INTERCEPTOR_VERSION"
+    api 'com.squareup.okhttp3:okhttp:3.4.1'
 
     // RX
     api "io.reactivex:rxjava:$RXJAVA_VERSION"
