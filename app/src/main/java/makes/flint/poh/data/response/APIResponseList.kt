@@ -14,7 +14,14 @@ class APIResponseList: ResponseList {
 
     @SerializedName("Message")
     override lateinit var message: String
+
+    @SerializedName("BaseImageUrl")
     override lateinit var baseImageURL: String
+
+    @SerializedName("BaseLinkUrl")
     override lateinit var baseURL: String
+
+    @SerializedName("Data")
     override lateinit var data: Map<String, CoinResponse>
+
 }

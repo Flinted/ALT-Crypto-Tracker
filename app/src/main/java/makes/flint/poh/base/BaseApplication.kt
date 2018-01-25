@@ -3,7 +3,6 @@ package makes.flint.poh.base
 import android.app.Application
 import com.jakewharton.threetenabp.AndroidThreeTen
 import io.realm.Realm
-import io.realm.RealmConfiguration
 import makes.flint.poh.injection.components.DaggerDataComponent
 import makes.flint.poh.injection.components.DaggerPresenterComponent
 import makes.flint.poh.injection.components.DataComponent
@@ -28,10 +27,6 @@ class BaseApplication : Application() {
 
     private fun initialiseRealm() {
         Realm.init(this)
-        val realmConfiguration = RealmConfiguration.Builder()
-                .deleteRealmIfMigrationNeeded()
-                .build()
-        Realm.setDefaultConfiguration(realmConfiguration)
     }
 
     fun getAppComponent(): DataComponent = dataComponent ?: initialiseDataComponent()

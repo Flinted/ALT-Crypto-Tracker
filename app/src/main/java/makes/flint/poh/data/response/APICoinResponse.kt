@@ -1,5 +1,7 @@
 package makes.flint.poh.data.response
 
+import com.google.gson.annotations.SerializedName
+
 /**
  * CoinResponse
  * Copyright © 2018 Flint Makes. All rights reserved.
@@ -7,14 +9,30 @@ package makes.flint.poh.data.response
 class APICoinResponse: CoinResponse {
     // Properties
 
+    @SerializedName("Name")
     override lateinit var name: String
-    override lateinit var id: String
-    override lateinit var url: String
-    override lateinit var imageUrl: String
-    override lateinit var coinName: String
-    override lateinit var fullName: String
-    override lateinit var algorithm: String
-    override lateinit var proofType: String
-    override lateinit var sortOrder: String
 
+    @SerializedName("Id")
+    override lateinit var id: String
+
+    @SerializedName("Url")
+    override lateinit var url: String
+
+    @SerializedName("ImageUrl")
+    override lateinit var imageUrl: String
+
+    @SerializedName("CoinName")
+    override lateinit var coinName: String
+
+    @SerializedName("FullName")
+    override lateinit var fullName: String
+
+    @SerializedName("Algorithm")
+    override lateinit var algorithm: String
+
+    @SerializedName("ProofType")
+    override lateinit var proofType: String
+
+    @SerializedName("SortOrder")
+    override lateinit var sortOrder: String
 }
