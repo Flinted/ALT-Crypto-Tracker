@@ -31,11 +31,11 @@ open class BaseActivity : AppCompatActivity(), AnkoLogger {
         Toast.makeText(this, getString(stringId), toastLength).show()
     }
 
-    fun showLoading() {
+    open fun showLoading() {
 
     }
 
-    fun hideLoading() {
+    open fun hideLoading() {
 
     }
 

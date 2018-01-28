@@ -1,4 +1,4 @@
-package makes.flint.poh.main
+package makes.flint.poh.ui.main
 
 import makes.flint.poh.base.BasePresenter
 import makes.flint.poh.data.dataController.DataController
@@ -11,5 +11,6 @@ class MainPresenter(private var dataController: DataController): BasePresenter<M
 
     override fun initialise() {
         view?.initialiseListAdapter()
+        view?.setSwipeRefreshListener()
     }
 }

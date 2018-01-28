@@ -2,6 +2,7 @@ package makes.flint.poh.data.services.interfaces
 
 import makes.flint.poh.data.response.coinSummary.SummaryCoinResponse
 import retrofit2.http.GET
+import retrofit2.http.Query
 import rx.Observable
 
 /**
@@ -11,5 +12,8 @@ import rx.Observable
 interface CMCAPIService {
 
     @GET("/v1/ticker")
-    fun coinListGET(): Observable<Array<SummaryCoinResponse>>
+    fun coinListGET(
+     @Query("limit") limit: Int
+    ) : Observable<Array<SummaryCoinResponse>>
+
 }

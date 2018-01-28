@@ -1,14 +1,16 @@
-package makes.flint.poh.main
+package makes.flint.poh.ui.main
 
 import android.os.Bundle
+import android.support.v4.content.ContextCompat
+import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.Menu
 import android.view.MenuItem
 import makes.flint.poh.R
 import makes.flint.poh.base.BaseActivity
-import makes.flint.poh.coinlist.CoinListAdapter
-import makes.flint.poh.coinlist.CoinListAdapterContractView
+import makes.flint.poh.ui.coinlist.CoinListAdapter
+import makes.flint.poh.ui.coinlist.CoinListAdapterContractView
 
 /**
  * MainActivity
@@ -17,6 +19,7 @@ import makes.flint.poh.coinlist.CoinListAdapterContractView
 class MainActivity : BaseActivity(), MainContractView {
     // View Bindings
     private lateinit var coinListRecyclerView: RecyclerView
+    private lateinit var swipeRefresh: SwipeRefreshLayout
 
     // Private Properties
     private lateinit var mainPresenter: MainPresenter
@@ -34,7 +37,6 @@ class MainActivity : BaseActivity(), MainContractView {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        println("xxy ONCREATEOPTIONS")
         menuInflater.inflate(R.menu.menu_main, menu)
         return true
     }
@@ -48,9 +50,8 @@ class MainActivity : BaseActivity(), MainContractView {
     }
 
     override fun initialiseListAdapter() {
-        println("xxy INITIALISING LIST")
         val presenterComponent = getPresenterComponent()
-        val coinListAdapter = CoinListAdapter(presenterComponent)
+        val coinListAdapter = CoinListAdapter(presenterComponent, this)
         val layoutManager = LinearLayoutManager(this)
         coinListRecyclerView.layoutManager = layoutManager
         coinListRecyclerView.adapter = coinListAdapter
@@ -60,5 +61,24 @@ class MainActivity : BaseActivity(), MainContractView {
     // Private Functions
     private fun bindViews() {
         this.coinListRecyclerView = findViewById(R.id.coin_list_recycler_view)
+        this.swipeRefresh = findViewById(R.id.coin_list_refresh_layout)
+    }
+
+    override fun setSwipeRefreshListener() {
+        val refreshColour = ContextCompat.getColor(this, R.color.colorAccent)
+        swipeRefresh.setColorSchemeColors(refreshColour)
+        swipeRefresh.setOnRefreshListener {
+            coinListAdapter.refreshList()
+        }
+    }
+
+    override fun showLoading() {
+        super.showLoading()
+        swipeRefresh.isRefreshing = true
+    }
+
+    override fun hideLoading() {
+        super.hideLoading()
+        swipeRefresh.isRefreshing = false
     }
 }

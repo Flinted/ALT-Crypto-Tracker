@@ -1,4 +1,4 @@
-package makes.flint.poh.main
+package makes.flint.poh.ui.main
 
 import makes.flint.poh.base.BaseContractPresenter
 import makes.flint.poh.base.BaseContractView
@@ -9,6 +9,7 @@ import makes.flint.poh.base.BaseContractView
  */
 interface MainContractView: BaseContractView {
     fun initialiseListAdapter()
+    fun setSwipeRefreshListener()
 }
 
 interface MainContractPresenter: BaseContractPresenter<BaseContractView> {

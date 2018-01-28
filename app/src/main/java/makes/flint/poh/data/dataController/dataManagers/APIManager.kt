@@ -13,6 +13,6 @@ import javax.inject.Inject
 class ApiManager @Inject constructor(private val cmcAPIService: CMCAPIService): DataSource {
 
     fun getCoinList(): Observable<Array<SummaryCoinResponse>> {
-         return cmcAPIService.coinListGET()
+         return cmcAPIService.coinListGET(0)
     }
 }

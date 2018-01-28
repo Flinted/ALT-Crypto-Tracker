@@ -3,7 +3,7 @@ package makes.flint.poh.injection.modules
 import dagger.Module
 import dagger.Provides
 import makes.flint.poh.data.dataController.DataController
-import makes.flint.poh.main.MainPresenter
+import makes.flint.poh.ui.main.MainPresenter
 
 /**
  * DataModule

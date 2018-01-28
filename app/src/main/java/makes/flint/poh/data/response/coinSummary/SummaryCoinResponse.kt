@@ -1,92 +1,74 @@
 package makes.flint.poh.data.response.coinSummary
 
 import com.google.gson.annotations.SerializedName
+import makes.flint.poh.data.response.CoinResponse
 import java.math.BigDecimal
 
 /**
  * CoinResponse
  * Copyright © 2018 Flint Makes. All rights reserved.
  */
-const val CHANGE_UP_SIGNIFICANT = 0
-const val CHANGE_UP_MODERATE = 1
-const val CHANGE_STATIC = 2
-const val CHANGE_DOWN_MODERATE = 3
-const val CHANGE_DOWN_SIGNIFICANT = 4
 
-class SummaryCoinResponse {
+class SummaryCoinResponse : CoinResponse {
+
     // Properties
 
-    @SerializedName("name") lateinit var name: String
+    @SerializedName("name") override lateinit var name: String
 
-    @SerializedName("id") lateinit var id: String
+    @SerializedName("id") override lateinit var id: String
 
-    @SerializedName("symbol") lateinit var symbol: String
+    @SerializedName("symbol") override lateinit var symbol: String
 
     @SerializedName("rank") lateinit var rank: String
 
-    @SerializedName("price_usd") lateinit var priceUSD: String
+    //Optional Properties
+    @SerializedName("price_usd")
+    var priceUSD: String? = null
 
-    @SerializedName("price_btc") lateinit var priceBTC: String
+    @SerializedName("price_btc")
+    var priceBTC: String? = null
 
-    @SerializedName("24h_volume_usd") lateinit var volume24hUSD: String
+    @SerializedName("24h_volume_usd")
+    var volume24hUSD: String? = null
 
-    @SerializedName("market_cap_usd") lateinit var marketCapUSD: String
+    @SerializedName("market_cap_usd")
+    var marketCapUSD: String? = null
 
-    @SerializedName("available_supply") lateinit var availableSupply: String
+    @SerializedName("available_supply")
+    var availableSupply: String? = null
 
-    @SerializedName("total_supply") lateinit var totalSupply: String
+    @SerializedName("total_supply")
+    var totalSupply: String? = null
 
-    @SerializedName("percent_change_1h") lateinit var percentChange1h: String
+    @SerializedName("percent_change_1h") override var percentChange1H: String? = null
 
-    @SerializedName("percent_change_24h") lateinit var percentChange24h: String
+    @SerializedName("percent_change_24h") override var percentChange24H: String? = null
 
-    @SerializedName("percent_change_7d") lateinit var percentChange7d: String
+    @SerializedName("percent_change_7d") override var percentChange7D: String? = null
 
-    internal fun rankInt() = rank.toInt()
+    // Functions
 
-    internal fun stabilisedPrice(): String {
-        val bdMarketCapUSD = BigDecimal(marketCapUSD)
-        val bdBillion = BigDecimal("1000000000")
-        val billionCoinPrice = bdMarketCapUSD.divide(bdBillion)
-        return billionCoinPrice.toPlainString()
+    override fun provideRank() = rank.toInt()
+
+    override fun providePriceUSD(): BigDecimal? {
+        priceUSD ?: return null
+        return BigDecimal(priceUSD)
+    }
+    override fun providePriceBTC(): BigDecimal? {
+        priceBTC ?: return null
+        return BigDecimal(priceBTC)
+    }
+    override fun provideVolume24Hour(): BigDecimal? {
+        volume24hUSD ?: return null
+        return BigDecimal(volume24hUSD)
     }
 
-    fun oneHourStatus(): Int {
-        val floatChange = percentChange1h.toFloat()
-        val changeState = assessChange(floatChange)
-        return changeState
-    }
-    fun twentyFourHourStatus(): Int {
-        val floatChange = percentChange24h.toFloat()
-        val changeState = assessChange(floatChange)
-        return changeState
+    override fun provideMarketCapUSD(): BigDecimal? {
+        marketCapUSD ?: return null
+        return BigDecimal(marketCapUSD)
     }
 
-    fun sevenDayStatus(): Int {
-        val floatChange = percentChange7d.toFloat()
-        val changeState = assessChange(floatChange)
-        return changeState
-    }
+    override fun provideAvailableSupply() = availableSupply
 
-    private fun assessChange(floatChange: Float): Int {
-        return when {
-            floatChange in 5f..15f -> CHANGE_UP_MODERATE
-            floatChange > 15f -> CHANGE_UP_SIGNIFICANT
-            floatChange in -15f..-5f -> CHANGE_DOWN_MODERATE
-            floatChange < -15f -> CHANGE_DOWN_SIGNIFICANT
-            else -> CHANGE_STATIC
-        }
-    }
+    override fun provideTotalSupply() = totalSupply
 }
-
-internal fun SummaryCoinResponse.compareRank(comparator: SummaryCoinResponse): Int {
-    if (this.rankInt() == comparator.rankInt()) {
-        return 0
-    }
-    if (this.rankInt() < comparator.rankInt()) {
-        return -1
-    }
-    return 1
-}
-
-

@@ -1,4 +1,4 @@
-package makes.flint.poh.coinlist
+package makes.flint.poh.ui.coinlist
 
 import android.support.v7.widget.RecyclerView
 import android.view.View
@@ -11,7 +11,6 @@ import makes.flint.poh.R
  * Copyright © 2018 Flint Makes. All rights reserved.
  */
 class CoinListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
     var name: TextView = itemView.findViewById(R.id.coin_name)
     var ticker: TextView = itemView.findViewById(R.id.coin_ticker)
     var price: TextView = itemView.findViewById(R.id.coin_price)
