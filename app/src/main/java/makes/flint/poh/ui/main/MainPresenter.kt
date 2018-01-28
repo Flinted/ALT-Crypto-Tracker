@@ -11,6 +11,7 @@ class MainPresenter(private var dataController: DataController): BasePresenter<M
 
     override fun initialise() {
         view?.initialiseListAdapter()
-        view?.setSwipeRefreshListener()
+        view?.initialiseSwipeRefreshListener()
+        view?.initialiseBottomBar()
     }
 }

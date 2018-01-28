@@ -9,7 +9,8 @@ import makes.flint.poh.base.BaseContractView
  */
 interface MainContractView: BaseContractView {
     fun initialiseListAdapter()
-    fun setSwipeRefreshListener()
+    fun initialiseSwipeRefreshListener()
+    fun initialiseBottomBar()
 }
 
 interface MainContractPresenter: BaseContractPresenter<BaseContractView> {

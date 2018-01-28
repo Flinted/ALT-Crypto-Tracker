@@ -4,4 +4,6 @@
     <string name="coin_list_row_title_1h">1H</string>
     <string name="coin_list_row_title_24h">24H</string>
     <string name="coin_list_row_title_7d">7D</string>
+    <string name="bottombar_title_market">Market</string>
+    <string name="bottombar_title_tracker">Tracker</string>
 </resources>

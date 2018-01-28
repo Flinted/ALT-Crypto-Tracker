@@ -13,13 +13,17 @@ class SummaryCoinResponse : CoinResponse {
 
     // Properties
 
-    @SerializedName("name") override lateinit var name: String
+    @SerializedName("name")
+    override lateinit var name: String
 
-    @SerializedName("id") override lateinit var id: String
+    @SerializedName("id")
+    override lateinit var id: String
 
-    @SerializedName("symbol") override lateinit var symbol: String
+    @SerializedName("symbol")
+    override lateinit var symbol: String
 
-    @SerializedName("rank") lateinit var rank: String
+    @SerializedName("rank")
+    lateinit var rank: String
 
     //Optional Properties
     @SerializedName("price_usd")
@@ -40,11 +44,14 @@ class SummaryCoinResponse : CoinResponse {
     @SerializedName("total_supply")
     var totalSupply: String? = null
 
-    @SerializedName("percent_change_1h") override var percentChange1H: String? = null
+    @SerializedName("percent_change_1h")
+    override var percentChange1H: String? = null
 
-    @SerializedName("percent_change_24h") override var percentChange24H: String? = null
+    @SerializedName("percent_change_24h")
+    override var percentChange24H: String? = null
 
-    @SerializedName("percent_change_7d") override var percentChange7D: String? = null
+    @SerializedName("percent_change_7d")
+    override var percentChange7D: String? = null
 
     // Functions
 

@@ -24,4 +24,14 @@
 
     <include layout="@layout/content_main"/>
 
+    <android.support.design.widget.BottomNavigationView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/navigation_bottom_bar"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_gravity="bottom"
+        android:background="@color/colorPrimary"
+        app:elevation="16dp"
+        app:itemIconTint="@drawable/bottom_bar_state_selector"
+        app:itemTextColor="@drawable/bottom_bar_state_selector"/>
 </android.support.design.widget.CoordinatorLayout>
