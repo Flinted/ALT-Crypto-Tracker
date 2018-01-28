@@ -6,10 +6,10 @@ import java.math.RoundingMode
 
 /**
  * PriceData
- * Copyright © 2018 Intelligent Loyalty Limited. All rights reserved.
+ * Copyright © 2018 Flint Makes. All rights reserved.
  */
 private const val ONE_BILLION = "1000000000"
-private const val NO_INFORMATION = "No Information"
+private const val NO_INFORMATION = ""
 class PriceData(coinResponse: CoinResponse) {
 
     // Properties

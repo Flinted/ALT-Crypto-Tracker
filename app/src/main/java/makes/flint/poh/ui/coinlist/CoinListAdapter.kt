@@ -8,13 +8,13 @@ import android.view.ViewGroup
 import makes.flint.poh.R
 import makes.flint.poh.data.coinListItem.*
 import makes.flint.poh.injection.components.PresenterComponent
-import makes.flint.poh.ui.main.MainActivity
+import makes.flint.poh.ui.market.MarketFragment
 
 /**
  * CoinListAdapter
  * Copyright © 2018 Flint Makes. All rights reserved.
  */
-class CoinListAdapter(presenterComponent: PresenterComponent, private var mainActivity: MainActivity)
+class CoinListAdapter(presenterComponent: PresenterComponent, private var marketFragment: MarketFragment)
     : RecyclerView.Adapter<RecyclerView.ViewHolder>(), CoinListAdapterContractView {
 
     // Public Properties
@@ -99,11 +99,11 @@ class CoinListAdapter(presenterComponent: PresenterComponent, private var mainAc
     }
 
     override fun showLoading() {
-        mainActivity.showLoading()
+        marketFragment.showLoading()
     }
 
     override fun hideLoading() {
-        mainActivity.hideLoading()
+        marketFragment.hideLoading()
     }
 
     override fun showError(stringId: Int) {

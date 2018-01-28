@@ -10,8 +10,6 @@ import makes.flint.poh.data.dataController.DataController
 class MainPresenter(private var dataController: DataController): BasePresenter<MainContractView>()  {
 
     override fun initialise() {
-        view?.initialiseListAdapter()
-        view?.initialiseSwipeRefreshListener()
         view?.initialiseBottomBar()
     }
 }

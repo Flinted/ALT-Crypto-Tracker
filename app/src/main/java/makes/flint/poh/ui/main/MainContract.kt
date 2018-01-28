@@ -5,14 +5,12 @@ import makes.flint.poh.base.BaseContractView
 
 /**
  * MainContract
- * Copyright © 2018 Intelligent Loyalty Limited. All rights reserved.
+ * Copyright © 2018 Flint Makes. All rights reserved.
  */
 interface MainContractView: BaseContractView {
-    fun initialiseListAdapter()
-    fun initialiseSwipeRefreshListener()
     fun initialiseBottomBar()
 }
 
-interface MainContractPresenter: BaseContractPresenter<BaseContractView> {
+interface MainContractPresenter<in V:BaseContractView>: BaseContractPresenter<V> {
 
 }

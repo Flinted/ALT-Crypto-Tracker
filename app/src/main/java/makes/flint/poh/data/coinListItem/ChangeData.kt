@@ -4,10 +4,11 @@ import makes.flint.poh.data.response.CoinResponse
 
 /**
  * ChangeData
- * Copyright © 2018 Intelligent Loyalty Limited. All rights reserved.
+ * Copyright © 2018 Flint Makes. All rights reserved.
  */
 class ChangeData(coinResponse: CoinResponse) {
 
+    // Properties
     internal var percentChange1H = coinResponse.percentChange1H
     internal var percentChange24H = coinResponse.percentChange24H
     internal var percentChange7D = coinResponse.percentChange7D
@@ -15,6 +16,7 @@ class ChangeData(coinResponse: CoinResponse) {
     internal val status24H = assessChange(percentChange24H)
     internal val status7D= assessChange(percentChange7D)
 
+    // Private Functions
     private fun assessChange(change: String?): Int {
         change ?: return CHANGE_UNKNOWN
         val floatChange = change.toFloat()

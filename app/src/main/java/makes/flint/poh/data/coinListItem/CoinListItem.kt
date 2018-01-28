@@ -4,7 +4,7 @@ import makes.flint.poh.data.response.CoinResponse
 
 /**
  * CoinListItem
- * Copyright © 2018 Intelligent Loyalty Limited. All rights reserved.
+ * Copyright © 2018 Flint Makes. All rights reserved.
  */
 const val CHANGE_UP_EXTREME = 0
 const val CHANGE_UP_SIGNIFICANT = 1
@@ -30,12 +30,11 @@ class CoinListItem(
     internal var totalSupply = coinResponse.provideTotalSupply()
 }
 
+// Extension Functions
 internal fun CoinListItem.compareRank(comparator: CoinListItem): Int {
-    if (this.rank == comparator.rank) {
-        return 0
+    return when {
+        this.rank == comparator.rank -> 0
+        this.rank < comparator.rank -> -1
+        else -> 1
     }
-    if (this.rank < comparator.rank) {
-        return -1
-    }
-    return 1
 }

@@ -18,7 +18,6 @@ open class BaseActivity : AppCompatActivity(), AnkoLogger {
     protected fun getPresenterComponent(): PresenterComponent = getBaseApplication().getPresenterComponent()
 
     protected fun attachPresenter(presenter: BaseContractPresenter<*>) {
-        println("BASE")
         this.presenter = presenter
     }
 
