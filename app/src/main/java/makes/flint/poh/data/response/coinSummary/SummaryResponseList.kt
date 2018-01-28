@@ -1,12 +1,13 @@
-package makes.flint.poh.data.response
+package makes.flint.poh.data.response.coinSummary
 
 import com.google.gson.annotations.SerializedName
+import makes.flint.poh.data.response.ResponseList
 
 /**
- * APIResponseList
+ * SummaryResponseList
  * Copyright © 2018 Flint Makes. All rights reserved.
  */
-class APIResponseList: ResponseList {
+class SummaryResponseList : ResponseList {
 
     // Properties
     @SerializedName("Response")
@@ -22,6 +23,6 @@ class APIResponseList: ResponseList {
     override lateinit var baseURL: String
 
     @SerializedName("Data")
-    override lateinit var data: Map<String, CoinResponse>
+    override lateinit var data: Map<String, SummaryCoinResponse>
 
 }

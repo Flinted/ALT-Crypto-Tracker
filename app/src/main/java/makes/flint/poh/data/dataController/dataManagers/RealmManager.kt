@@ -12,11 +12,11 @@ class RealmManager @Inject constructor() : DataSource {
 
     private lateinit var realm: Realm
 
-    override fun open() {
+    fun open() {
         realm = Realm.getDefaultInstance()
     }
 
-    override fun close() {
+    fun close() {
         realm.close()
     }
 

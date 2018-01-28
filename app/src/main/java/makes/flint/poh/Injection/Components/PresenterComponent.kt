@@ -1,6 +1,7 @@
 package makes.flint.poh.injection.components
 
 import dagger.Component
+import makes.flint.poh.coinlist.CoinListAdapterPresenter
 import makes.flint.poh.injection.modules.DataModule
 import makes.flint.poh.injection.modules.PresenterModule
 import makes.flint.poh.main.MainPresenter
@@ -14,4 +15,6 @@ import javax.inject.Singleton
 @Component(modules = arrayOf(PresenterModule::class, DataModule::class))
 interface PresenterComponent {
     fun provideMainPresenter(): MainPresenter
+
+    fun provideCoinListAdapterPresenter(): CoinListAdapterPresenter
 }

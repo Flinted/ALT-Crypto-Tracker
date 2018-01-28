@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">POH</string>
     <string name="action_settings">Settings</string>
+    <string name="coin_list_row_title_1h">1H</string>
+    <string name="coin_list_row_title_24h">24H</string>
+    <string name="coin_list_row_title_7d">7D</string>
 </resources>

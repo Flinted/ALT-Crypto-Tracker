@@ -1,8 +1,8 @@
 package makes.flint.poh.data.dataController.dataManagers
 
 import makes.flint.poh.data.dataController.dataSource.DataSource
-import makes.flint.poh.data.response.APIResponseList
-import makes.flint.poh.data.services.interfaces.CryptoCompareAPIService
+import makes.flint.poh.data.response.coinSummary.SummaryCoinResponse
+import makes.flint.poh.data.services.interfaces.CMCAPIService
 import rx.Observable
 import javax.inject.Inject
 
@@ -10,15 +10,9 @@ import javax.inject.Inject
  * APIManager
  * Copyright © 2018 Flint Makes. All rights reserved.
  */
-class ApiManager @Inject constructor(private val cryptoCompareAPIService: CryptoCompareAPIService): DataSource {
+class ApiManager @Inject constructor(private val cmcAPIService: CMCAPIService): DataSource {
 
-    override fun open() {
-    }
-
-    override fun close() {
-    }
-
-    fun coinListGET(): Observable<APIResponseList> {
-         return cryptoCompareAPIService.coinListGET()
+    fun getCoinList(): Observable<Array<SummaryCoinResponse>> {
+         return cmcAPIService.coinListGET()
     }
 }

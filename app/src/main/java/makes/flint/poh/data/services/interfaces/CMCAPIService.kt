@@ -1,6 +1,6 @@
 package makes.flint.poh.data.services.interfaces
 
-import makes.flint.poh.data.response.APIResponseList
+import makes.flint.poh.data.response.coinSummary.SummaryCoinResponse
 import retrofit2.http.GET
 import rx.Observable
 
@@ -8,8 +8,8 @@ import rx.Observable
  * CryptoCompareAPIServiceInterface
  * Copyright © 2018 Intelligent Loyalty Limited. All rights reserved.
  */
-interface CryptoCompareAPIService {
+interface CMCAPIService {
 
-    @GET("/data/all/coinlist")
-    fun coinListGET(): Observable<APIResponseList>
+    @GET("/v1/ticker")
+    fun coinListGET(): Observable<Array<SummaryCoinResponse>>
 }

@@ -8,6 +8,7 @@ import makes.flint.poh.base.BaseContractView
  * Copyright © 2018 Intelligent Loyalty Limited. All rights reserved.
  */
 interface MainContractView: BaseContractView {
+    fun initialiseListAdapter()
 }
 
 interface MainContractPresenter: BaseContractPresenter<BaseContractView> {

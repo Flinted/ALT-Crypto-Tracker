@@ -2,7 +2,7 @@ package makes.flint.poh.data.dataController
 
 import makes.flint.poh.data.dataController.dataManagers.ApiManager
 import makes.flint.poh.data.dataController.dataManagers.RealmManager
-import makes.flint.poh.data.response.APIResponseList
+import makes.flint.poh.data.response.coinSummary.SummaryCoinResponse
 import rx.Observable
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
@@ -15,8 +15,8 @@ import javax.inject.Inject
 open class DataController @Inject constructor(private val apiManager: ApiManager,
                                               private val realmManager: RealmManager) {
 
-    fun getCoinList(): Observable<APIResponseList> {
-        return apiManager.coinListGET()
+    fun getCoinList(): Observable<Array<SummaryCoinResponse>> {
+        return apiManager.getCoinList()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
     }

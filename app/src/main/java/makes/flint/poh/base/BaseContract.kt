@@ -15,7 +15,7 @@ interface BaseContractView {
 
 
 interface BaseContractPresenter<in V:BaseContractView> {
-    fun attachView(bridge: V)
+    fun attachView(view: V)
 
     fun detachView()
 

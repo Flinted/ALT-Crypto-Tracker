@@ -6,13 +6,15 @@ import makes.flint.poh.BuildConfig
 import makes.flint.poh.data.dataController.DataController
 import makes.flint.poh.data.dataController.dataManagers.ApiManager
 import makes.flint.poh.data.dataController.dataManagers.RealmManager
-import makes.flint.poh.data.services.interfaces.CryptoCompareAPIService
+import makes.flint.poh.data.services.interfaces.CMCAPIService
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
+import okhttp3.Protocol
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
@@ -43,6 +45,7 @@ import javax.inject.Singleton
     @Provides
     fun provideOKHttpClient(httpLoggingInterceptor: HttpLoggingInterceptor): OkHttpClient {
         val builder = OkHttpClient.Builder()
+                .protocols(Collections.singletonList(Protocol.HTTP_1_1))
                 .addNetworkInterceptor(provideHeaderInterceptor())
                 .readTimeout(30, TimeUnit.SECONDS)
                 .connectTimeout(30, TimeUnit.SECONDS)
@@ -55,7 +58,7 @@ import javax.inject.Singleton
 
     @Provides
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
-        val baseURL = "https://min-api.cryptocompare.com/"
+        val baseURL = "https://api.coinmarketcap.com"
         val callAdapterFactory = RxJavaCallAdapterFactory.create()
         val gsonConverterFactory = GsonConverterFactory.create()
         val retrofit = Retrofit.Builder()
@@ -70,13 +73,13 @@ import javax.inject.Singleton
     // Services
 
     @Provides
-    fun provideCryptoCompareAPIService(retrofit: Retrofit): CryptoCompareAPIService {
-        return retrofit.create(CryptoCompareAPIService::class.java)
+    fun provideCryptoCompareAPIService(retrofit: Retrofit): CMCAPIService {
+        return retrofit.create(CMCAPIService::class.java)
     }
 
     @Provides
     @Singleton
-    fun provideApiManager(cryptoCompareAPIService: CryptoCompareAPIService): ApiManager {
+    fun provideApiManager(cryptoCompareAPIService: CMCAPIService): ApiManager {
         return ApiManager(cryptoCompareAPIService)
     }
 
