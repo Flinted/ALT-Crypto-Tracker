@@ -28,6 +28,8 @@ class CoinListItem(
     internal val volume24Hour = coinResponse.provideVolume24Hour()
     internal var availableSupply = coinResponse.provideAvailableSupply()
     internal var totalSupply = coinResponse.provideTotalSupply()
+
+    internal fun symbolFormatted() = "($symbol)"
 }
 
 // Extension Functions

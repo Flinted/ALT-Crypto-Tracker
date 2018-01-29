@@ -10,6 +10,10 @@ import java.math.RoundingMode
  */
 private const val ONE_BILLION = "1000000000"
 private const val NO_INFORMATION = ""
+private const val THRESHOLD_3_DECIMAL = "0.99"
+private const val THRESHOLD_4_DECIMAL = "0.099"
+private const val THRESHOLD_5_DECIMAL = "0.0099"
+
 class PriceData(coinResponse: CoinResponse) {
 
     // Properties
@@ -18,6 +22,17 @@ class PriceData(coinResponse: CoinResponse) {
     internal val marketCapUSD = coinResponse.provideMarketCapUSD()
     internal val stabilisedPrice = createStabilisedPrice()
 
+    internal fun priceUSDFormatted(): String {
+        priceUSD ?: return "No Price"
+        val roundingMode = RoundingMode.HALF_EVEN
+        return when {
+            priceUSD > decimal3Threshold -> "$${priceUSD.setScale(2, roundingMode).toPlainString()}"
+            priceUSD > decimal4Threshold -> "$${priceUSD.setScale(3, roundingMode).toPlainString()}"
+            priceUSD > decimal5Threshold -> "$${priceUSD.setScale(4, roundingMode).toPlainString()}"
+            else -> "$${priceUSD.setScale(7, RoundingMode.HALF_EVEN).toPlainString()}"
+        }
+    }
+
     // Private Functions
     private fun createStabilisedPrice(): String {
         marketCapUSD ?: return NO_INFORMATION
@@ -25,5 +40,11 @@ class PriceData(coinResponse: CoinResponse) {
         val billionCoinPrice = marketCapUSD.divide(billion)
         val roundedBillionCoinPrice = billionCoinPrice.setScale(2, RoundingMode.HALF_EVEN)
         return "$" + roundedBillionCoinPrice.toPlainString()
+    }
+
+    companion object {
+        val decimal3Threshold = BigDecimal(THRESHOLD_3_DECIMAL)
+        val decimal4Threshold = BigDecimal(THRESHOLD_4_DECIMAL)
+        val decimal5Threshold = BigDecimal(THRESHOLD_5_DECIMAL)
     }
 }

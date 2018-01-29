@@ -4,11 +4,13 @@ import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentTransaction
+import android.support.v7.widget.SearchView
 import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
 import makes.flint.poh.R
 import makes.flint.poh.base.BaseActivity
+import makes.flint.poh.ui.interfaces.FilterView
 import makes.flint.poh.ui.market.MarketFragment
 import makes.flint.poh.ui.tracker.TrackerFragment
 
@@ -95,9 +97,35 @@ class MainActivity : BaseActivity(), MainContractView {
         }
     }
 
+    private fun getShownFilterView(): FilterView? {
+        val fragmentId = bottomBar.selectedItemId.toString()
+        val fragment = supportFragmentManager.findFragmentByTag(fragmentId) ?: return null
+        if (fragment is FilterView) {
+            return fragment
+        }
+        return null
+    }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
         return true
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
+        val searchItem = menu?.findItem(R.id.action_search)
+        val searchView = searchItem?.actionView as SearchView
+        searchView.maxWidth = Integer.MAX_VALUE
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String): Boolean {
+                getShownFilterView()?.filterFor(newText)
+                return true
+            }
+        })
+        return super.onPrepareOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {

@@ -1,6 +1,7 @@
 package makes.flint.poh.ui.market
 
 import android.os.Bundle
+import android.support.design.widget.FloatingActionButton
 import android.support.v4.content.ContextCompat
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
@@ -12,16 +13,18 @@ import makes.flint.poh.R
 import makes.flint.poh.base.BaseFragment
 import makes.flint.poh.ui.coinlist.CoinListAdapter
 import makes.flint.poh.ui.coinlist.CoinListAdapterContractView
+import makes.flint.poh.ui.interfaces.FilterView
 
 /**
  * MarketFragment
  * Copyright © 2018 Flint Makes. All rights reserved.
  */
-class MarketFragment: BaseFragment(), MarketContractView {
+class MarketFragment : BaseFragment(), MarketContractView, FilterView {
 
     // View Bindings
     private lateinit var coinListRecyclerView: RecyclerView
     private lateinit var swipeRefresh: SwipeRefreshLayout
+    private lateinit var goToTopFAB: FloatingActionButton
 
     // Properties
     private lateinit var marketPresenter: MarketPresenter
@@ -38,7 +41,7 @@ class MarketFragment: BaseFragment(), MarketContractView {
         return view
     }
 
-    // Overriden Functions
+    // Overridden Functions
     override fun initialiseListAdapter() {
         val presenterComponent = getPresenterComponent()
         val coinListAdapter = CoinListAdapter(presenterComponent, this)
@@ -56,6 +59,39 @@ class MarketFragment: BaseFragment(), MarketContractView {
         }
     }
 
+    override fun initialiseScrollListener() {
+        coinListRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            var yPosition = 0
+            override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+                yPosition += dy
+                handleScrollChange(yPosition)
+                super.onScrolled(recyclerView, dx, dy)
+            }
+        })
+    }
+
+    override fun initialiseFABonClick() {
+        goToTopFAB.setOnClickListener {
+            coinListRecyclerView.smoothScrollToPosition(0)
+        }
+    }
+
+    private fun handleScrollChange(yPosition: Int) {
+        if (yPosition < 2500) {
+            hideGoToTopFAB()
+            return
+        }
+        showGoToTopFAB()
+    }
+
+    private fun showGoToTopFAB() {
+        goToTopFAB.show()
+    }
+
+    private fun hideGoToTopFAB() {
+        goToTopFAB.hide()
+    }
+
     override fun showLoading() {
         super.showLoading()
         swipeRefresh.isRefreshing = true
@@ -65,11 +101,16 @@ class MarketFragment: BaseFragment(), MarketContractView {
         super.hideLoading()
         swipeRefresh.isRefreshing = false
     }
+
     // Private Functions
     private fun bindViews(view: View?) {
         view ?: return
         this.coinListRecyclerView = view.findViewById(R.id.coin_list_recycler_view)
         this.swipeRefresh = view.findViewById(R.id.coin_list_refresh_layout)
+        this.goToTopFAB = view.findViewById(R.id.coin_list_FAB)
     }
 
+    override fun filterFor(input: String) {
+        coinListAdapter.filterFor(input)
+    }
 }

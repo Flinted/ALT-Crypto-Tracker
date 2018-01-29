@@ -1,9 +1,13 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
-    <dimen name="margin_medium_6dp">6dp</dimen>
-    <dimen name="text_large">16sp</dimen>
+
     <dimen name="margin_small_4dp">4dp</dimen>
+    <dimen name="margin_medium_6dp">6dp</dimen>
     <dimen name="margin_large_8dp">8dp</dimen>
-    <dimen name="status_icon_size">30dp</dimen>
+    <dimen name="margin_xLarge_16dp">16dp</dimen>
+
     <dimen name="text_size_small">12sp</dimen>
+    <dimen name="text_large">16sp</dimen>
+
+    <dimen name="status_icon_size">30dp</dimen>
 </resources>

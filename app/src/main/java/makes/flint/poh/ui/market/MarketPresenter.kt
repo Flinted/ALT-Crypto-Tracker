@@ -14,5 +14,7 @@ class MarketPresenter @Inject constructor(private var dataController: DataContro
     override fun initialise() {
         view?.initialiseListAdapter()
         view?.initialiseSwipeRefreshListener()
+        view?.initialiseScrollListener()
+        view?.initialiseFABonClick()
     }
 }

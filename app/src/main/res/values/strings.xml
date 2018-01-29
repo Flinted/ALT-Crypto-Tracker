@@ -6,4 +6,6 @@
     <string name="coin_list_row_title_7d">7D</string>
     <string name="bottombar_title_market">Market</string>
     <string name="bottombar_title_tracker">Tracker</string>
+    <string name="action_search">Search</string>
+    <string name="action_faq">FAQ</string>
 </resources>

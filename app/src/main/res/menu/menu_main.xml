@@ -7,7 +7,7 @@
         android:icon="@android:drawable/ic_menu_search"
         app:showAsAction="ifRoom|collapseActionView"
         app:actionViewClass="android.support.v7.widget.SearchView"
-        android:title="Search"/>
+        android:title="@string/action_search"/>
 
     <item
         android:id="@+id/action_settings"
@@ -17,6 +17,6 @@
     <item
         android:id="@+id/action_clear"
         android:orderInCategory="200"
-        android:title="Clear Data"
+        android:title="@string/action_faq"
         app:showAsAction="never"/>
 </menu>

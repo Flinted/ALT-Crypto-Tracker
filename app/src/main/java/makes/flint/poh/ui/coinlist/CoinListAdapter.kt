@@ -2,9 +2,12 @@ package makes.flint.poh.ui.coinlist
 
 import android.content.Context
 import android.support.v4.content.ContextCompat
+import android.support.v7.widget.CardView
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.Filterable
 import makes.flint.poh.R
 import makes.flint.poh.data.coinListItem.*
 import makes.flint.poh.injection.components.PresenterComponent
@@ -14,11 +17,20 @@ import makes.flint.poh.ui.market.MarketFragment
  * CoinListAdapter
  * Copyright © 2018 Flint Makes. All rights reserved.
  */
-class CoinListAdapter(presenterComponent: PresenterComponent, private var marketFragment: MarketFragment)
-    : RecyclerView.Adapter<RecyclerView.ViewHolder>(), CoinListAdapterContractView {
+class CoinListAdapter(presenterComponent: PresenterComponent,
+                      private var marketFragment: MarketFragment)
+    : RecyclerView.Adapter<RecyclerView.ViewHolder>(), CoinListAdapterContractView, Filterable {
 
     // Public Properties
     override var coinList: MutableList<CoinListItem> = mutableListOf()
+        set(value) {
+            field = value
+            filteredCoins = coinList
+            notifyDataSetChanged()
+        }
+
+    // Internal Properties
+    internal var filteredCoins = coinList
         set(value) {
             field = value
             notifyDataSetChanged()
@@ -34,7 +46,7 @@ class CoinListAdapter(presenterComponent: PresenterComponent, private var market
     }
 
     override fun getItemCount(): Int {
-        return coinList.size
+        return filteredCoins.size
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder {
@@ -45,17 +57,24 @@ class CoinListAdapter(presenterComponent: PresenterComponent, private var market
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
         val coinListViewHolder = holder as CoinListViewHolder
-        val coin = coinList[position]
+        val coin = filteredCoins[position]
         coinListViewHolder.name.text = coin.name
-        coinListViewHolder.ticker.text = "(${coin.symbol})"
-        coinListViewHolder.price.text = coin.priceData.priceUSD?.toPlainString()
+        coinListViewHolder.ticker.text = coin.symbolFormatted()
+        coinListViewHolder.price.text = coin.priceData.priceUSDFormatted()
         coinListViewHolder.rank.text = coin.rank.toString()
         coinListViewHolder.stabilisedPrice.text = coin.priceData.stabilisedPrice
-        coinListViewHolder.oneHourChange.text = coin.changeData.percentChange1H.toString()
-        coinListViewHolder.twentyFourHourChange.text = coin.changeData.percentChange24H.toString()
-        coinListViewHolder.sevenDayChange.text = coin.changeData.percentChange7D.toString()
+        coinListViewHolder.oneHourChange.text = coin.changeData.change1HFormatted()
+        coinListViewHolder.twentyFourHourChange.text = coin.changeData.change24HFormatted()
+        coinListViewHolder.sevenDayChange.text = coin.changeData.change7DFormatted()
         val context = coinListViewHolder.oneHourIndicator.context
         setIndicators(coin, coinListViewHolder, context)
+        setOnClickListener(coinListViewHolder.card, coin)
+    }
+
+    private fun setOnClickListener(card: CardView, coin: CoinListItem) {
+        card.setOnClickListener {
+            println("${coin.name} Clicked!")
+        }
     }
 
     private fun setIndicators(coin: CoinListItem, coinListViewHolder: CoinListViewHolder, context: Context) {
@@ -112,5 +131,17 @@ class CoinListAdapter(presenterComponent: PresenterComponent, private var market
 
     override fun refreshList() {
         presenter.initialise()
+    }
+
+    override fun filterFor(input: String) {
+        filter.filter(input)
+    }
+
+    override fun getFilter(): Filter {
+        return CoinFilter(coinList, object : CoinFilterCallback {
+            override fun publishResults(filteredList: MutableList<CoinListItem>) {
+                filteredCoins = filteredList
+            }
+        })
     }
 }

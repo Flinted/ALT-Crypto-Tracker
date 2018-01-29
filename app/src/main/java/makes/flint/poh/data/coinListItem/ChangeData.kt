@@ -14,7 +14,13 @@ class ChangeData(coinResponse: CoinResponse) {
     internal var percentChange7D = coinResponse.percentChange7D
     internal val status1H = assessChange(percentChange1H)
     internal val status24H = assessChange(percentChange24H)
-    internal val status7D= assessChange(percentChange7D)
+    internal val status7D = assessChange(percentChange7D)
+
+    internal fun change1HFormatted() = "${percentChange1H.toString()}%"
+
+    internal fun change24HFormatted() = "${percentChange24H.toString()}%"
+
+    internal fun change7DFormatted() = "${percentChange7D.toString()}%"
 
     // Private Functions
     private fun assessChange(change: String?): Int {

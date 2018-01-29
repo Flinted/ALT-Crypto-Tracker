@@ -11,6 +11,7 @@ import makes.flint.poh.data.coinListItem.CoinListItem
 interface CoinListAdapterContractView: BaseContractView {
     var coinList: MutableList<CoinListItem>
     fun refreshList()
+    fun filterFor(input: String)
 }
 
 interface CoinListAdapterContractPresenter: BaseContractPresenter<BaseContractView> {

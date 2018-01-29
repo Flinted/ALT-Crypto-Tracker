@@ -10,6 +10,8 @@ import makes.flint.poh.base.BaseContractView
 interface MarketContractView: BaseContractView {
     fun initialiseListAdapter()
     fun initialiseSwipeRefreshListener()
+    fun initialiseScrollListener()
+    fun initialiseFABonClick()
 }
 
 interface MarketContractPresenter: BaseContractPresenter<MarketContractView> {
