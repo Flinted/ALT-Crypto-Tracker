@@ -6,9 +6,11 @@ import android.support.v4.content.ContextCompat
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import makes.flint.poh.R
 import makes.flint.poh.base.BaseFragment
 import makes.flint.poh.ui.coinlist.CoinListAdapter
@@ -25,6 +27,7 @@ class MarketFragment : BaseFragment(), MarketContractView, FilterView {
     private lateinit var coinListRecyclerView: RecyclerView
     private lateinit var swipeRefresh: SwipeRefreshLayout
     private lateinit var goToTopFAB: FloatingActionButton
+    private lateinit var lastSyncTime: TextView
 
     // Properties
     private lateinit var marketPresenter: MarketPresenter
@@ -85,10 +88,12 @@ class MarketFragment : BaseFragment(), MarketContractView, FilterView {
     }
 
     private fun showGoToTopFAB() {
+        lastSyncTime.gravity = Gravity.END
         goToTopFAB.show()
     }
 
     private fun hideGoToTopFAB() {
+        lastSyncTime.gravity = Gravity.CENTER
         goToTopFAB.hide()
     }
 
@@ -108,6 +113,7 @@ class MarketFragment : BaseFragment(), MarketContractView, FilterView {
         this.coinListRecyclerView = view.findViewById(R.id.coin_list_recycler_view)
         this.swipeRefresh = view.findViewById(R.id.coin_list_refresh_layout)
         this.goToTopFAB = view.findViewById(R.id.coin_list_FAB)
+        this.lastSyncTime = view.findViewById(R.id.last_sync_time)
     }
 
     override fun filterFor(input: String) {

@@ -7,12 +7,14 @@ import rx.Observable
 import javax.inject.Inject
 
 /**
- * APIManager
+ * APIRepository
  * Copyright © 2018 Flint Makes. All rights reserved.
  */
-class ApiManager @Inject constructor(private val cmcAPIService: CMCAPIService): DataSource {
+class ApiRepository @Inject constructor(private val cmcAPIService: CMCAPIService) : DataSource {
+
+    var cachedCoinList: Observable<Array<SummaryCoinResponse>>? = null
 
     fun getCoinList(): Observable<Array<SummaryCoinResponse>> {
-         return cmcAPIService.coinListGET(0)
+        return cmcAPIService.coinListGET(0)
     }
 }

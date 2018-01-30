@@ -34,6 +34,7 @@ class CoinListAdapterPresenter @Inject constructor(private var dataController: D
                 throw error
             }
             override fun onNext(apiResponseList: Array<SummaryCoinResponse>) {
+                dataController.updateCMCTimeStamp()
                 onGetCoinListSuccess(apiResponseList)
             }
         })
@@ -45,5 +46,6 @@ class CoinListAdapterPresenter @Inject constructor(private var dataController: D
         val mutableListCoinResponse = apiResponseList.toMutableList() as MutableList<CoinResponse>
         val coinListItems = CoinListItemFactory().makeCoinListItems(mutableListCoinResponse)
         adapter?.coinList = coinListItems
+        adapter?.updateLastSync()
     }
 }

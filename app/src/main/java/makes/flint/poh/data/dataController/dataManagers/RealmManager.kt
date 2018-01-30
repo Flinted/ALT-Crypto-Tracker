@@ -1,6 +1,8 @@
 package makes.flint.poh.data.dataController.dataManagers
 
 import io.realm.Realm
+import io.realm.RealmObject
+import makes.flint.poh.data.CMCTimeStamp
 import makes.flint.poh.data.dataController.dataSource.DataSource
 import javax.inject.Inject
 
@@ -30,5 +32,15 @@ class RealmManager @Inject constructor() : DataSource {
 
     fun cancelTransaction() {
         realm.cancelTransaction()
+    }
+
+    fun lastSyncCMCGET(): CMCTimeStamp? {
+        open()
+        val timeStamp = realm.where(CMCTimeStamp::class.java).findFirst()
+        return timeStamp
+    }
+
+    fun <T : RealmObject> copyOrUpdate(itemToCopy: T) {
+        realm.copyToRealmOrUpdate(itemToCopy)
     }
 }

@@ -12,6 +12,7 @@ interface CoinListAdapterContractView: BaseContractView {
     var coinList: MutableList<CoinListItem>
     fun refreshList()
     fun filterFor(input: String)
+    fun updateLastSync()
 }
 
 interface CoinListAdapterContractPresenter: BaseContractPresenter<BaseContractView> {

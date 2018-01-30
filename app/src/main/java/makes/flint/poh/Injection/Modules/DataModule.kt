@@ -4,7 +4,7 @@ import dagger.Module
 import dagger.Provides
 import makes.flint.poh.BuildConfig
 import makes.flint.poh.data.dataController.DataController
-import makes.flint.poh.data.dataController.dataManagers.ApiManager
+import makes.flint.poh.data.dataController.dataManagers.ApiRepository
 import makes.flint.poh.data.dataController.dataManagers.RealmManager
 import makes.flint.poh.data.services.interfaces.CMCAPIService
 import okhttp3.Interceptor
@@ -79,8 +79,8 @@ import javax.inject.Singleton
 
     @Provides
     @Singleton
-    fun provideApiManager(cryptoCompareAPIService: CMCAPIService): ApiManager {
-        return ApiManager(cryptoCompareAPIService)
+    fun provideApiManager(cryptoCompareAPIService: CMCAPIService): ApiRepository {
+        return ApiRepository(cryptoCompareAPIService)
     }
 
     @Provides
@@ -91,7 +91,7 @@ import javax.inject.Singleton
 
     @Provides
     @Singleton
-    fun provideDataController(apiManager: ApiManager, realmManager: RealmManager): DataController {
+    fun provideDataController(apiManager: ApiRepository, realmManager: RealmManager): DataController {
         return DataController(apiManager, realmManager)
     }
 

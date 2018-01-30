@@ -144,4 +144,8 @@ class CoinListAdapter(presenterComponent: PresenterComponent,
             }
         })
     }
+
+    override fun updateLastSync() {
+        // RXAction callback to update timeStamp!
+    }
 }
