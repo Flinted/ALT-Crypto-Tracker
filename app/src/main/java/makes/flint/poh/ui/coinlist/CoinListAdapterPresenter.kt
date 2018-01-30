@@ -1,11 +1,13 @@
 package makes.flint.poh.ui.coinlist
 
 import makes.flint.poh.base.BaseContractView
+import makes.flint.poh.data.coinListItem.CoinListItem
 import makes.flint.poh.data.dataController.DataController
+import makes.flint.poh.data.dataController.callbacks.RepositoryCallback
+import makes.flint.poh.data.favouriteCoins.FavouriteCoin
 import makes.flint.poh.data.response.CoinResponse
 import makes.flint.poh.data.response.coinSummary.SummaryCoinResponse
 import makes.flint.poh.factories.CoinListItemFactory
-import rx.Subscriber
 import javax.inject.Inject
 
 /**
@@ -27,25 +29,53 @@ class CoinListAdapterPresenter @Inject constructor(private var dataController: D
 
     override fun initialise() {
         adapter?.showLoading()
-        dataController.getCoinList().subscribe(object : Subscriber<Array<SummaryCoinResponse>>() {
-            override fun onCompleted() {}
+        dataController.getCoinList(object : RepositoryCallback<SummaryCoinResponse> {
             override fun onError(error: Throwable) {
                 adapter?.hideLoading()
-                throw error
             }
-            override fun onNext(apiResponseList: Array<SummaryCoinResponse>) {
-                dataController.updateCMCTimeStamp()
-                onGetCoinListSuccess(apiResponseList)
+
+            override fun onRetrieve(refreshed: Boolean, lastSync: String, results: List<SummaryCoinResponse>) {
+                if (!refreshed) {
+                    adapter?.hideLoading()
+                    adapter?.notRefreshed()
+                    onGetCoinListSuccess(results)
+                    return
+                }
+                onGetCoinListSuccess(results)
+                updateLastSync(lastSync)
             }
         })
     }
 
-    @Suppress("UNCHECKED_CAST")
-    private fun onGetCoinListSuccess(apiResponseList: Array<SummaryCoinResponse>) {
+    private fun updateLastSync(lastSync: String) {
         adapter?.hideLoading()
-        val mutableListCoinResponse = apiResponseList.toMutableList() as MutableList<CoinResponse>
-        val coinListItems = CoinListItemFactory().makeCoinListItems(mutableListCoinResponse)
+        adapter?.updateLastSync(lastSync)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    private fun onGetCoinListSuccess(apiResponseList: List<SummaryCoinResponse>) {
+        val mutableListCoinResponse = apiResponseList.toMutableList<CoinResponse>()
+        val favouriteCoins = dataController.getFavouriteCoins()
+        val coinListItems = CoinListItemFactory().makeCoinListItems(mutableListCoinResponse, favouriteCoins)
         adapter?.coinList = coinListItems
-        adapter?.updateLastSync()
+    }
+
+    fun onLongPress(coin: CoinListItem, position: Int): Boolean {
+        val symbol = coin.symbol
+        val favouriteCoin = dataController.getFavouriteCoin(symbol)
+        toggleCoinStatus(favouriteCoin, coin)
+        adapter?.itemChangedAt(position)
+        return true
+    }
+
+    private fun toggleCoinStatus(favouriteCoin: FavouriteCoin?, coin: CoinListItem) {
+        favouriteCoin?.let {
+            dataController.deleteFavouriteCoin(favouriteCoin)
+            coin.isFavourite = false
+            return
+        }
+        dataController.storeFavouriteCoin(FavouriteCoin(coin.symbol))
+        coin.isFavourite = true
     }
 }
+

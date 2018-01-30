@@ -2,8 +2,7 @@ package makes.flint.poh.ui.main
 
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentTransaction
+import android.support.v4.view.ViewPager
 import android.support.v7.widget.SearchView
 import android.support.v7.widget.Toolbar
 import android.view.Menu
@@ -11,8 +10,7 @@ import android.view.MenuItem
 import makes.flint.poh.R
 import makes.flint.poh.base.BaseActivity
 import makes.flint.poh.ui.interfaces.FilterView
-import makes.flint.poh.ui.market.MarketFragment
-import makes.flint.poh.ui.tracker.TrackerFragment
+import org.jetbrains.anko.support.v4.onPageChangeListener
 
 /**
  * MainActivity
@@ -22,10 +20,12 @@ class MainActivity : BaseActivity(), MainContractView {
 
     // View Bindings
     private lateinit var bottomBar: BottomNavigationView
+    private lateinit var viewPager: ViewPager
     private lateinit var toolbar: Toolbar
 
     // Private Properties
     private lateinit var mainPresenter: MainPresenter
+    private lateinit var viewPagerAdapter: ViewPagerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,8 +39,23 @@ class MainActivity : BaseActivity(), MainContractView {
 
     private fun bindViews() {
         this.bottomBar = findViewById(R.id.navigation_bottom_bar)
+        this.viewPager = findViewById(R.id.fragment_container)
         this.toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
+    }
+
+    override fun initialiseViewPager() {
+        viewPagerAdapter = ViewPagerAdapter(supportFragmentManager)
+        viewPager.adapter = viewPagerAdapter
+        viewPager.onPageChangeListener {
+            onPageSelected {
+                val selectedId = when (it) {
+                    0 -> R.id.bottom_bar_market
+                    else -> R.id.bottom_bar_tracker
+                }
+                bottomBar.selectedItemId = selectedId
+            }
+        }
     }
 
     override fun initialiseBottomBar() {
@@ -55,51 +70,15 @@ class MainActivity : BaseActivity(), MainContractView {
 
     private fun handleBottomBarSelection(item: MenuItem) {
         val itemId = item.itemId
-        var fragment = supportFragmentManager.findFragmentByTag(itemId.toString())
-        fragment?.let {
-            showFragment(it, itemId)
-            return
-        }
-        fragment = when (itemId) {
-            R.id.bottom_bar_market -> MarketFragment()
-            R.id.bottom_bar_tracker -> TrackerFragment()
-            else -> MarketFragment()
-        }
-        addFragment(fragment, itemId)
-    }
-
-    private fun addFragment(fragment: Fragment, id: Int) {
-        val transaction = supportFragmentManager.beginTransaction()
-        transaction.add(R.id.fragment_container, fragment, id.toString())
-        transaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left, R.anim.slide_in_right, R.anim.slide_out_right)
-        hideAlternateFragment(transaction, id)
-        transaction.commit()
-    }
-
-    private fun showFragment(fragment: Fragment, id: Int) {
-        val transaction = supportFragmentManager.beginTransaction()
-        transaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left, R.anim.slide_in_left, R.anim
-                .slide_out_left)
-        transaction.show(fragment)
-        hideAlternateFragment(transaction, id)
-        transaction.commit()
-    }
-
-    private fun hideAlternateFragment(transaction: FragmentTransaction, id: Int) {
-        val fragmentToHideId = when (id) {
-            R.id.bottom_bar_market -> R.id.bottom_bar_tracker
-            R.id.bottom_bar_tracker -> R.id.bottom_bar_market
-            else -> R.id.bottom_bar_tracker
-        }
-        val fragment = supportFragmentManager.findFragmentByTag(fragmentToHideId.toString())
-        fragment?.let {
-            transaction.hide(it)
+        when (itemId) {
+            R.id.bottom_bar_market -> viewPager.setCurrentItem(0, true)
+            else -> viewPager.setCurrentItem(1, true)
         }
     }
 
     private fun getShownFilterView(): FilterView? {
-        val fragmentId = bottomBar.selectedItemId.toString()
-        val fragment = supportFragmentManager.findFragmentByTag(fragmentId) ?: return null
+        val currentPosition = viewPager.currentItem
+        val fragment = viewPagerAdapter.getFragment(currentPosition)
         if (fragment is FilterView) {
             return fragment
         }

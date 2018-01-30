@@ -9,6 +9,7 @@ import makes.flint.poh.base.BaseContractView
  */
 interface MainContractView: BaseContractView {
     fun initialiseBottomBar()
+    fun initialiseViewPager()
 }
 
 interface MainContractPresenter<in V:BaseContractView>: BaseContractPresenter<V> {

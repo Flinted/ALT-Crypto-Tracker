@@ -16,5 +16,6 @@ class MarketPresenter @Inject constructor(private var dataController: DataContro
         view?.initialiseSwipeRefreshListener()
         view?.initialiseScrollListener()
         view?.initialiseFABonClick()
+        view?.initialiseSyncListener()
     }
 }

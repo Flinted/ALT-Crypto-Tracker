@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                             xmlns:app="http://schemas.android.com/apk/res-auto"
+                                             android:layout_width="match_parent"
+                                             android:layout_height="match_parent"
+                                             android:layout_margin="@dimen/margin_small_4dp">
+
+    <TextView
+        android:id="@+id/coin_rank"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_medium_6dp"
+        android:textSize="@dimen/text_large"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/coin_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_medium_6dp"
+        android:textSize="@dimen/text_large"
+        app:layout_constraintStart_toEndOf="@id/coin_rank"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/coin_ticker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_medium_6dp"
+        android:textSize="@dimen/text_large"
+        app:layout_constraintLeft_toRightOf="@id/coin_name"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/coin_price_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_medium_6dp"
+        android:text="Price: "
+        android:textSize="@dimen/text_size_small"
+        app:layout_constraintBottom_toBottomOf="@id/coin_price"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/coin_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_medium_6dp"
+        app:layout_constraintStart_toEndOf="@id/coin_price_title"
+        app:layout_constraintTop_toBottomOf="@id/coin_rank"/>
+
+    <TextView
+        android:id="@+id/stabilised_price_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_medium_6dp"
+        android:text="Price 1B: "
+        android:textSize="@dimen/text_size_small"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/coin_price"/>
+
+    <TextView
+        android:id="@+id/coin_stabilised_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_medium_6dp"
+        android:textSize="@dimen/text_size_small"
+        app:layout_constraintStart_toEndOf="@id/stabilised_price_title"
+        app:layout_constraintTop_toBottomOf="@id/coin_price"/>
+
+    <!--One Hour Indicator -->
+
+    <TextView
+        android:id="@+id/title_1h"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/coin_list_row_title_1h"
+        app:layout_constraintEnd_toEndOf="@id/indicator_1h"
+        app:layout_constraintStart_toStartOf="@id/indicator_1h"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <ImageView
+        android:id="@+id/indicator_1h"
+        android:layout_width="@dimen/status_icon_size"
+        android:layout_height="@dimen/status_icon_size"
+        android:layout_marginEnd="@dimen/margin_xLarge_16dp"
+        android:layout_marginStart="@dimen/margin_xLarge_16dp"
+        android:src="@drawable/ic_movement_static_24dp"
+        app:layout_constraintEnd_toStartOf="@id/indicator_24h"
+        app:layout_constraintTop_toBottomOf="@id/title_1h"/>
+
+    <TextView
+        android:id="@+id/coin_1h_change"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_size_small"
+        app:layout_constraintEnd_toEndOf="@id/indicator_1h"
+        app:layout_constraintStart_toStartOf="@id/indicator_1h"
+        app:layout_constraintTop_toBottomOf="@id/indicator_1h"/>
+
+    <!--24 Hour Indicator -->
+
+    <TextView
+        android:id="@+id/title_24h"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/coin_list_row_title_24h"
+        app:layout_constraintEnd_toEndOf="@id/indicator_24h"
+        app:layout_constraintStart_toStartOf="@id/indicator_24h"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <ImageView
+        android:id="@+id/indicator_24h"
+        android:layout_width="@dimen/status_icon_size"
+        android:layout_height="@dimen/status_icon_size"
+        android:layout_marginEnd="@dimen/margin_xLarge_16dp"
+        android:layout_marginStart="@dimen/margin_xLarge_16dp"
+        android:src="@drawable/ic_movement_static_24dp"
+        app:layout_constraintEnd_toStartOf="@id/indicator_7d"
+        app:layout_constraintTop_toBottomOf="@id/title_24h"/>
+
+    <TextView
+        android:id="@+id/coin_24h_change"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_size_small"
+        app:layout_constraintEnd_toEndOf="@id/indicator_24h"
+        app:layout_constraintStart_toStartOf="@id/indicator_24h"
+        app:layout_constraintTop_toBottomOf="@id/indicator_24h"/>
+
+    <!--Seven Day Indicator -->
+
+    <TextView
+        android:id="@+id/title_7d"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/coin_list_row_title_7d"
+        app:layout_constraintEnd_toEndOf="@id/indicator_7d"
+        app:layout_constraintStart_toStartOf="@id/indicator_7d"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <ImageView
+        android:id="@+id/indicator_7d"
+        android:layout_width="@dimen/status_icon_size"
+        android:layout_height="@dimen/status_icon_size"
+        android:layout_marginEnd="@dimen/margin_xLarge_16dp"
+        android:layout_marginStart="@dimen/margin_xLarge_16dp"
+        android:src="@drawable/ic_movement_static_24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title_7d"/>
+
+    <TextView
+        android:id="@+id/coin_7d_change"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_size_small"
+        app:layout_constraintEnd_toEndOf="@id/indicator_7d"
+        app:layout_constraintStart_toStartOf="@id/indicator_7d"
+        app:layout_constraintTop_toBottomOf="@id/indicator_7d"/>
+
+</android.support.constraint.ConstraintLayout>

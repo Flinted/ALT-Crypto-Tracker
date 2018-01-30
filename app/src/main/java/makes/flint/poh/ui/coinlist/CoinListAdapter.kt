@@ -9,9 +9,11 @@ import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
 import makes.flint.poh.R
-import makes.flint.poh.data.coinListItem.*
+import makes.flint.poh.configuration.IndicatorCustomiser
+import makes.flint.poh.data.coinListItem.CoinListItem
 import makes.flint.poh.injection.components.PresenterComponent
 import makes.flint.poh.ui.market.MarketFragment
+import rx.subjects.PublishSubject
 
 /**
  * CoinListAdapter
@@ -26,7 +28,6 @@ class CoinListAdapter(presenterComponent: PresenterComponent,
         set(value) {
             field = value
             filteredCoins = coinList
-            notifyDataSetChanged()
         }
 
     // Internal Properties
@@ -38,6 +39,10 @@ class CoinListAdapter(presenterComponent: PresenterComponent,
 
     // Private Properties
     private var presenter = presenterComponent.provideCoinListAdapterPresenter()
+
+    private var syncUpdate: PublishSubject<String?> = PublishSubject.create()
+
+    private var indicatorCustomiser = IndicatorCustomiser()
 
     // Lifecycle
     init {
@@ -51,101 +56,106 @@ class CoinListAdapter(presenterComponent: PresenterComponent,
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder {
         val layoutInflater = LayoutInflater.from(parent?.context)
-        val itemView = layoutInflater.inflate(R.layout.coin_list_row, parent, false)
+        val layout = when (viewType) {
+            2 -> R.layout.coin_list_row_favourite
+            else -> R.layout.coin_list_row
+        }
+        val itemView = layoutInflater.inflate(layout, parent, false)
         return CoinListViewHolder(itemView)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
         val coinListViewHolder = holder as CoinListViewHolder
         val coin = filteredCoins[position]
+        val context = coinListViewHolder.oneHourIndicator.context
+        initialiseCoinViews(coin, coinListViewHolder)
+        initialise1HourViews(coin, coinListViewHolder, context)
+        initialise24HourViews(coin, coinListViewHolder, context)
+        initialise7DayViews(coin, coinListViewHolder, context)
+        setOnClickListener(coinListViewHolder.card, coin, position)
+    }
+
+    override fun onSyncCompleted() = syncUpdate.asObservable()
+
+    private fun initialiseCoinViews(coin: CoinListItem, coinListViewHolder: CoinListViewHolder) {
         coinListViewHolder.name.text = coin.name
         coinListViewHolder.ticker.text = coin.symbolFormatted()
         coinListViewHolder.price.text = coin.priceData.priceUSDFormatted()
         coinListViewHolder.rank.text = coin.rank.toString()
         coinListViewHolder.stabilisedPrice.text = coin.priceData.stabilisedPrice
-        coinListViewHolder.oneHourChange.text = coin.changeData.change1HFormatted()
-        coinListViewHolder.twentyFourHourChange.text = coin.changeData.change24HFormatted()
-        coinListViewHolder.sevenDayChange.text = coin.changeData.change7DFormatted()
-        val context = coinListViewHolder.oneHourIndicator.context
-        setIndicators(coin, coinListViewHolder, context)
-        setOnClickListener(coinListViewHolder.card, coin)
     }
 
-    private fun setOnClickListener(card: CardView, coin: CoinListItem) {
+    private fun initialise1HourViews(coin: CoinListItem, holder: CoinListViewHolder, context: Context) {
+        holder.oneHourChange.text = coin.changeData.change1HFormatted()
+        val status = coin.changeData.status1H
+        val icon = ContextCompat.getDrawable(context, indicatorCustomiser.getIcon(status))
+        val colour = ContextCompat.getColor(context, indicatorCustomiser.getColor(status))
+        holder.oneHourIndicator.setImageDrawable(icon)
+        holder.oneHourChange.setTextColor(colour)
+    }
+
+    private fun initialise24HourViews(coin: CoinListItem, holder: CoinListViewHolder, context: Context) {
+        holder.twentyFourHourChange.text = coin.changeData.change24HFormatted()
+        val status = coin.changeData.status24H
+        val icon = ContextCompat.getDrawable(context, indicatorCustomiser.getIcon(status))
+        val colour = ContextCompat.getColor(context, indicatorCustomiser.getColor(status))
+        holder.twentyFourHourIndicator.setImageDrawable(icon)
+        holder.twentyFourHourChange.setTextColor(colour)
+    }
+
+    private fun initialise7DayViews(coin: CoinListItem, holder: CoinListViewHolder, context: Context) {
+        holder.sevenDayChange.text = coin.changeData.change7DFormatted()
+        val status = coin.changeData.status7D
+        val icon = ContextCompat.getDrawable(context, indicatorCustomiser.getIcon(status))
+        val colour = ContextCompat.getColor(context, indicatorCustomiser.getColor(status))
+        holder.sevenDayIndicator.setImageDrawable(icon)
+        holder.sevenDayChange.setTextColor(colour)
+    }
+
+    private fun setOnClickListener(card: CardView, coin: CoinListItem, position: Int) {
         card.setOnClickListener {
             println("${coin.name} Clicked!")
         }
-    }
-
-    private fun setIndicators(coin: CoinListItem, coinListViewHolder: CoinListViewHolder, context: Context) {
-        val oneHour = coin.changeData.status1H
-        val twentyFourHour = coin.changeData.status24H
-        val sevenDay = coin.changeData.status7D
-        val oneHourIcon = ContextCompat.getDrawable(context, getIcon(oneHour))
-        val twentyFourHourIcon = ContextCompat.getDrawable(context, getIcon(twentyFourHour))
-        val sevenDayIcon = ContextCompat.getDrawable(context, getIcon(sevenDay))
-        val oneHourColour = ContextCompat.getColor(context, getColour(oneHour))
-        val twentyFourHourColour = ContextCompat.getColor(context, getColour(twentyFourHour))
-        val sevenDayColour = ContextCompat.getColor(context, getColour(sevenDay))
-        coinListViewHolder.oneHourIndicator.setImageDrawable(oneHourIcon)
-        coinListViewHolder.twentyFourHourIndicator.setImageDrawable(twentyFourHourIcon)
-        coinListViewHolder.sevenDayIndicator.setImageDrawable(sevenDayIcon)
-        coinListViewHolder.oneHourChange.setTextColor(oneHourColour)
-        coinListViewHolder.twentyFourHourChange.setTextColor(twentyFourHourColour)
-        coinListViewHolder.sevenDayChange.setTextColor(sevenDayColour)
-    }
-
-    private fun getColour(status: Int): Int {
-        return when (status) {
-            CHANGE_DOWN_MODERATE, CHANGE_DOWN_SIGNIFICANT, CHANGE_DOWN_EXTREME, CHANGE_STATIC_NEGATIVE
-            -> R.color.colorRed
-            CHANGE_UNKNOWN -> R.color.colorOffBlack
-            else -> R.color.colorGreen
+        card.setOnLongClickListener {
+            presenter.onLongPress(coin, position)
         }
     }
 
-    private fun getIcon(status: Int): Int {
-        return when (status) {
-            CHANGE_UP_EXTREME -> R.drawable.ic_up_extreme_24dp
-            CHANGE_UP_MODERATE -> R.drawable.ic_up_moderate_24dp
-            CHANGE_UP_SIGNIFICANT -> R.drawable.ic_up_significant_24dp
-            CHANGE_DOWN_MODERATE -> R.drawable.ic_down_moderate_24dp
-            CHANGE_DOWN_SIGNIFICANT -> R.drawable.ic_down_significant_24dp
-            CHANGE_DOWN_EXTREME -> R.drawable.ic_down_extreme_24dp
-            CHANGE_UNKNOWN -> R.drawable.ic_change_unknown_24dp
-            else -> R.drawable.ic_movement_static_24dp
-        }
-    }
+    override fun showLoading() = marketFragment.showLoading()
 
-    override fun showLoading() {
-        marketFragment.showLoading()
-    }
-
-    override fun hideLoading() {
-        marketFragment.hideLoading()
-    }
+    override fun hideLoading() = marketFragment.hideLoading()
 
     override fun showError(stringId: Int) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun refreshList() {
-        presenter.initialise()
-    }
+    override fun refreshList() = presenter.initialise()
 
-    override fun filterFor(input: String) {
-        filter.filter(input)
-    }
+    override fun filterFor(input: String) = filter.filter(input)
 
     override fun getFilter(): Filter {
-        return CoinFilter(coinList, object : CoinFilterCallback {
+        val callback = makeCoinFilterCallback()
+        return CoinFilter(coinList, callback)
+    }
+
+    private fun makeCoinFilterCallback(): CoinFilterCallback {
+        return object : CoinFilterCallback {
             override fun publishResults(filteredList: MutableList<CoinListItem>) {
                 filteredCoins = filteredList
             }
-        })
+        }
     }
 
-    override fun updateLastSync() {
-        // RXAction callback to update timeStamp!
+    override fun updateLastSync(lastSync: String) = syncUpdate.onNext(lastSync)
+
+    override fun notRefreshed() = syncUpdate.onNext(null)
+
+    override fun itemChangedAt(position: Int) = notifyItemChanged(position)
+
+    override fun getItemViewType(position: Int): Int {
+        return when {
+            filteredCoins[position].isFavourite -> 2
+            else -> super.getItemViewType(position)
+        }
     }
 }

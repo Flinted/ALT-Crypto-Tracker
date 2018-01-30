@@ -19,7 +19,8 @@ const val CHANGE_UNKNOWN = 8
 class CoinListItem(
         coinResponse: CoinResponse,
         internal val priceData: PriceData,
-        internal val changeData: ChangeData
+        internal val changeData: ChangeData,
+        internal var isFavourite: Boolean
 ) {
     internal val name = coinResponse.name
     internal val id = coinResponse.id

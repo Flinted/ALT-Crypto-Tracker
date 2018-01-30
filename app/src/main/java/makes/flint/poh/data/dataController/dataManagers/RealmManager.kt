@@ -2,8 +2,8 @@ package makes.flint.poh.data.dataController.dataManagers
 
 import io.realm.Realm
 import io.realm.RealmObject
-import makes.flint.poh.data.CMCTimeStamp
 import makes.flint.poh.data.dataController.dataSource.DataSource
+import makes.flint.poh.data.favouriteCoins.FavouriteCoin
 import javax.inject.Inject
 
 /**
@@ -12,14 +12,18 @@ import javax.inject.Inject
  */
 class RealmManager @Inject constructor() : DataSource {
 
-    private lateinit var realm: Realm
+    private var realm = Realm.getDefaultInstance()
 
     fun open() {
-        realm = Realm.getDefaultInstance()
+        if (realm.isClosed) {
+            realm = Realm.getDefaultInstance()
+        }
     }
 
     fun close() {
-        realm.close()
+        if (!realm.isClosed) {
+            realm.close()
+        }
     }
 
     fun beginTransaction() {
@@ -34,13 +38,33 @@ class RealmManager @Inject constructor() : DataSource {
         realm.cancelTransaction()
     }
 
-    fun lastSyncCMCGET(): CMCTimeStamp? {
+    fun <T : RealmObject> copyOrUpdate(itemToCopy: T) {
         open()
-        val timeStamp = realm.where(CMCTimeStamp::class.java).findFirst()
-        return timeStamp
+        realm.executeTransaction {
+            realm.copyToRealmOrUpdate(itemToCopy)
+        }
     }
 
-    fun <T : RealmObject> copyOrUpdate(itemToCopy: T) {
-        realm.copyToRealmOrUpdate(itemToCopy)
+    fun getFavouriteCoins(): MutableList<FavouriteCoin> {
+        open()
+        val results = realm.where(FavouriteCoin::class.java).findAll()
+        results?.let {
+            return realm.copyFromRealm(results)
+        }
+        return mutableListOf()
+    }
+
+    fun getFavouriteCoin(symbol: String): FavouriteCoin? {
+        open()
+        return realm.where(FavouriteCoin::class.java)
+                .equalTo("symbol", symbol)
+                .findFirst()
+    }
+
+    fun <T : RealmObject> remove(itemToRemove: T) {
+        open()
+        realm.executeTransaction {
+            itemToRemove.deleteFromRealm()
+        }
     }
 }

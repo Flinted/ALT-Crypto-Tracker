@@ -12,6 +12,7 @@ interface MarketContractView: BaseContractView {
     fun initialiseSwipeRefreshListener()
     fun initialiseScrollListener()
     fun initialiseFABonClick()
+    fun initialiseSyncListener()
 }
 
 interface MarketContractPresenter: BaseContractPresenter<MarketContractView> {

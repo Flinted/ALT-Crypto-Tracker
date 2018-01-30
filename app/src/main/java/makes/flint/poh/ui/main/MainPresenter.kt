@@ -11,5 +11,6 @@ class MainPresenter(private var dataController: DataController): BasePresenter<M
 
     override fun initialise() {
         view?.initialiseBottomBar()
+        view?.initialiseViewPager()
     }
 }

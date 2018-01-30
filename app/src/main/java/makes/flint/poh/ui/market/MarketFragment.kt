@@ -11,11 +11,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import makes.flint.poh.R
+import makes.flint.poh.base.BaseActivity
 import makes.flint.poh.base.BaseFragment
 import makes.flint.poh.ui.coinlist.CoinListAdapter
 import makes.flint.poh.ui.coinlist.CoinListAdapterContractView
 import makes.flint.poh.ui.interfaces.FilterView
+import rx.functions.Action1
 
 /**
  * MarketFragment
@@ -76,7 +79,24 @@ class MarketFragment : BaseFragment(), MarketContractView, FilterView {
     override fun initialiseFABonClick() {
         goToTopFAB.setOnClickListener {
             coinListRecyclerView.smoothScrollToPosition(0)
+            return@setOnClickListener
         }
+    }
+
+    override fun initialiseSyncListener() {
+        coinListAdapter.onSyncCompleted().subscribe(object : Action1<String?> {
+            override fun call(lastSync: String?) {
+                updateLastSyncTextView(lastSync)
+            }
+        })
+    }
+
+    private fun updateLastSyncTextView(lastSync: String?) {
+        lastSync ?: let {
+            (activity as BaseActivity).showToast(R.string.app_name, Toast.LENGTH_SHORT)
+            return
+        }
+        lastSyncTime.text = lastSync
     }
 
     private fun handleScrollChange(yPosition: Int) {
