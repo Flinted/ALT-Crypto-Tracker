@@ -4,9 +4,11 @@ import dagger.Module
 import dagger.Provides
 import makes.flint.poh.BuildConfig
 import makes.flint.poh.data.dataController.DataController
+import makes.flint.poh.data.dataController.cache.UIObjectCache
 import makes.flint.poh.data.dataController.dataManagers.ApiRepository
 import makes.flint.poh.data.dataController.dataManagers.RealmManager
 import makes.flint.poh.data.services.interfaces.CMCAPIService
+import makes.flint.poh.data.services.interfaces.CryptoCompareAPIService
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Protocol
@@ -16,13 +18,15 @@ import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.*
 import java.util.concurrent.TimeUnit
+import javax.inject.Named
 import javax.inject.Singleton
 
 /**
  * DataModule
  * Copyright © 2018 Flint Makes. All rights reserved.
  */
-@Module open class DataModule() {
+@Module
+open class DataModule() {
 
     private fun provideHeaderInterceptor(): Interceptor {
         val interceptor = Interceptor { chain ->
@@ -37,8 +41,8 @@ import javax.inject.Singleton
 
     @Provides
     fun provideHttpLoggingInterceptor(): HttpLoggingInterceptor {
-        val httpLoggingInterceptor = HttpLoggingInterceptor();
-        httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
+        val httpLoggingInterceptor = HttpLoggingInterceptor()
+        httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.HEADERS
         return httpLoggingInterceptor
     }
 
@@ -49,38 +53,59 @@ import javax.inject.Singleton
                 .addNetworkInterceptor(provideHeaderInterceptor())
                 .readTimeout(30, TimeUnit.SECONDS)
                 .connectTimeout(30, TimeUnit.SECONDS)
-        if (BuildConfig.DEBUG ) {
+        if (BuildConfig.DEBUG) {
             builder.addInterceptor(httpLoggingInterceptor)
         }
-        val client =  builder.build()
+        val client = builder.build()
         return client
     }
 
     @Provides
-    fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
-        val baseURL = "https://api.coinmarketcap.com"
+    @Named("CoinMarketCap")
+    fun provideCMCRetrofit(okHttpClient: OkHttpClient): Retrofit {
         val callAdapterFactory = RxJavaCallAdapterFactory.create()
         val gsonConverterFactory = GsonConverterFactory.create()
-        val retrofit = Retrofit.Builder()
-                .baseUrl(baseURL)
+        return Retrofit.Builder()
+                .baseUrl("https://api.coinmarketcap.com")
                 .addCallAdapterFactory(callAdapterFactory)
                 .addConverterFactory(gsonConverterFactory)
                 .client(okHttpClient)
                 .build()
-        return retrofit
+    }
+
+    @Provides
+    @Named("CryptoCompare")
+    fun provideCrypoCompareRetrofit(okHttpClient: OkHttpClient): Retrofit {
+        val callAdapterFactory = RxJavaCallAdapterFactory.create()
+        val gsonConverterFactory = GsonConverterFactory.create()
+        return Retrofit.Builder()
+                .baseUrl("https://min-api.cryptocompare.com")
+                .addCallAdapterFactory(callAdapterFactory)
+                .addConverterFactory(gsonConverterFactory)
+                .client(okHttpClient)
+                .build()
     }
 
     // Services
 
     @Provides
-    fun provideCryptoCompareAPIService(retrofit: Retrofit): CMCAPIService {
+    @Singleton
+    fun provideCMCAPIService(@Named("CoinMarketCap") retrofit: Retrofit): CMCAPIService {
         return retrofit.create(CMCAPIService::class.java)
     }
 
     @Provides
     @Singleton
-    fun provideApiManager(cryptoCompareAPIService: CMCAPIService): ApiRepository {
-        return ApiRepository(cryptoCompareAPIService)
+    fun provideCryptoCompareAPIService(@Named("CryptoCompare") retrofit: Retrofit): CryptoCompareAPIService {
+        return retrofit.create(CryptoCompareAPIService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideApiManager(cmcApiService: CMCAPIService,
+                          cryptoCompareAPIService: CryptoCompareAPIService):
+            ApiRepository {
+        return ApiRepository(cmcApiService, cryptoCompareAPIService)
     }
 
     @Provides
@@ -91,8 +116,8 @@ import javax.inject.Singleton
 
     @Provides
     @Singleton
-    fun provideDataController(apiManager: ApiRepository, realmManager: RealmManager): DataController {
-        return DataController(apiManager, realmManager)
+    fun provideDataController(apiManager: ApiRepository, realmManager: RealmManager, uiObjectCache: UIObjectCache): DataController {
+        return DataController(apiManager, realmManager, uiObjectCache)
     }
 
 }

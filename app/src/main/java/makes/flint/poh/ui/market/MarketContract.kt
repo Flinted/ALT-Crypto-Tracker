@@ -7,13 +7,18 @@ import makes.flint.poh.base.BaseContractView
  * MarketContract
  * Copyright © 2018 Flint Makes. All rights reserved.
  */
-interface MarketContractView: BaseContractView {
+interface MarketContractView : BaseContractView {
     fun initialiseListAdapter()
     fun initialiseSwipeRefreshListener()
     fun initialiseScrollListener()
     fun initialiseFABonClick()
-    fun initialiseSyncListener()
+    fun initialiseAdapterListeners()
+    fun showDialogForCoin(coinSymbol: String)
+    fun updateMarketSummary(oneHour: String, twentyFourHour: String, sevenDay: String, coins: Int)
 }
 
-interface MarketContractPresenter: BaseContractPresenter<MarketContractView> {
+interface MarketContractPresenter : BaseContractPresenter<MarketContractView> {
+    fun onCoinSelected(coinSymbol: String)
+    fun refresh()
+    fun onDestroy()
 }

@@ -1,6 +1,7 @@
 package makes.flint.poh.base
 
 import android.app.Application
+import com.github.mikephil.charting.utils.Utils
 import com.jakewharton.threetenabp.AndroidThreeTen
 import io.realm.Realm
 import io.realm.RealmConfiguration
@@ -23,6 +24,7 @@ class BaseApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         AndroidThreeTen.init(this)
+        Utils.init(this)
         initialiseRealm()
     }
 

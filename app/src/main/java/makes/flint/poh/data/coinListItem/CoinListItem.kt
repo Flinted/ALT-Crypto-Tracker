@@ -1,6 +1,9 @@
 package makes.flint.poh.data.coinListItem
 
 import makes.flint.poh.data.response.CoinResponse
+import makes.flint.poh.ui.interfaces.SortableCoin
+import makes.flint.poh.utility.NumberFormatter
+import java.math.BigDecimal
 
 /**
  * CoinListItem
@@ -18,26 +21,45 @@ const val CHANGE_UNKNOWN = 8
 
 class CoinListItem(
         coinResponse: CoinResponse,
-        internal val priceData: PriceData,
-        internal val changeData: ChangeData,
-        internal var isFavourite: Boolean
-) {
-    internal val name = coinResponse.name
+        override val priceData: PriceData,
+        override val changeData: ChangeData,
+        override var isFavourite: Boolean
+) : SortableCoin, MarketListItem {
+    override val name = coinResponse.name
     internal val id = coinResponse.id
     internal val symbol = coinResponse.symbol
-    internal val rank = coinResponse.provideRank()
-    internal val volume24Hour = coinResponse.provideVolume24Hour()
+    override val rank = coinResponse.provideRank()
+    override val volume24Hour = coinResponse.provideVolume24Hour()
     internal var availableSupply = coinResponse.provideAvailableSupply()
     internal var totalSupply = coinResponse.provideTotalSupply()
+    internal var symbolFormatted = "($symbol)"
+    internal var searchKey = "$name($symbol)"
 
-    internal fun symbolFormatted() = "($symbol)"
-}
+    fun volume24HourFormatted(): String {
+        volume24Hour?.let{
+            return NumberFormatter.formatCurrency(it, 0)
+        }
+        return "Unknown"
+    }
 
-// Extension Functions
-internal fun CoinListItem.compareRank(comparator: CoinListItem): Int {
-    return when {
-        this.rank == comparator.rank -> 0
-        this.rank < comparator.rank -> -1
-        else -> 1
+    fun marketCapFormatted(): String {
+        return priceData.marketCapFormatted()
+    }
+
+    fun availableSupplyFormatted(): String {
+        availableSupply?.let{
+            val number = BigDecimal(it)
+            return NumberFormatter.format(number, 0)
+        }
+        return "Unknown"
+    }
+
+    fun totalSupplyFormatted(): String {
+        totalSupply?.let{
+            val number = BigDecimal(it)
+            return NumberFormatter.format(number, 0)
+        }
+        return "Unknown"
     }
 }
+

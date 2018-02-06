@@ -11,14 +11,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import makes.flint.poh.R
-import makes.flint.poh.base.BaseActivity
 import makes.flint.poh.base.BaseFragment
-import makes.flint.poh.ui.coinlist.CoinListAdapter
-import makes.flint.poh.ui.coinlist.CoinListAdapterContractView
+import makes.flint.poh.errors.ErrorHandler
 import makes.flint.poh.ui.interfaces.FilterView
-import rx.functions.Action1
+import makes.flint.poh.ui.main.MainActivity
+import makes.flint.poh.ui.market.coinDetail.CoinDetailDialog
+import makes.flint.poh.ui.market.coinlist.CoinListAdapter
+import makes.flint.poh.ui.market.coinlist.CoinListAdapterContractView
 
 /**
  * MarketFragment
@@ -31,14 +31,15 @@ class MarketFragment : BaseFragment(), MarketContractView, FilterView {
     private lateinit var swipeRefresh: SwipeRefreshLayout
     private lateinit var goToTopFAB: FloatingActionButton
     private lateinit var lastSyncTime: TextView
+    private lateinit var marketSummary: TextView
 
     // Properties
-    private lateinit var marketPresenter: MarketPresenter
+    private lateinit var marketPresenter: MarketContractPresenter
     private lateinit var coinListAdapter: CoinListAdapterContractView
 
     // Lifecycle
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater?.inflate(R.layout.content_main, container, false)
+        val view = inflater?.inflate(R.layout.fragment_market, container, false)
         marketPresenter = getPresenterComponent().provideMarketPresenter()
         marketPresenter.attachView(this)
         this.attachPresenter(marketPresenter)
@@ -47,10 +48,16 @@ class MarketFragment : BaseFragment(), MarketContractView, FilterView {
         return view
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        marketPresenter.onDestroy()
+        coinListAdapter.onDestroy()
+    }
+
     // Overridden Functions
     override fun initialiseListAdapter() {
         val presenterComponent = getPresenterComponent()
-        val coinListAdapter = CoinListAdapter(presenterComponent, this)
+        val coinListAdapter = CoinListAdapter(presenterComponent)
         val layoutManager = LinearLayoutManager(context)
         coinListRecyclerView.layoutManager = layoutManager
         coinListRecyclerView.adapter = coinListAdapter
@@ -61,6 +68,7 @@ class MarketFragment : BaseFragment(), MarketContractView, FilterView {
         val refreshColour = ContextCompat.getColor(context, R.color.colorAccent)
         swipeRefresh.setColorSchemeColors(refreshColour)
         swipeRefresh.setOnRefreshListener {
+            (activity as MainActivity).clearSearchTerms()
             coinListAdapter.refreshList()
         }
     }
@@ -79,21 +87,29 @@ class MarketFragment : BaseFragment(), MarketContractView, FilterView {
     override fun initialiseFABonClick() {
         goToTopFAB.setOnClickListener {
             coinListRecyclerView.smoothScrollToPosition(0)
-            return@setOnClickListener
         }
     }
 
-    override fun initialiseSyncListener() {
-        coinListAdapter.onSyncCompleted().subscribe(object : Action1<String?> {
-            override fun call(lastSync: String?) {
-                updateLastSyncTextView(lastSync)
+    override fun initialiseAdapterListeners() {
+        coinListAdapter.onSyncCompleted().subscribe { lastSync -> updateLastSyncTextView(lastSync) }
+        coinListAdapter.onCoinSelected().subscribe { coinSymbol -> marketPresenter.onCoinSelected(coinSymbol) }
+        coinListAdapter.onRefreshStateChange().subscribe {
+            if (it) {
+                showLoading()
+                return@subscribe
             }
-        })
+            hideLoading()
+        }
+    }
+
+    override fun updateMarketSummary(oneHour: String, twentyFourHour: String, sevenDay: String, coins: Int) {
+        val summaryString = getString(R.string.market_summary, twentyFourHour, sevenDay, coins)
+        this.marketSummary.text = summaryString
     }
 
     private fun updateLastSyncTextView(lastSync: String?) {
         lastSync ?: let {
-            (activity as BaseActivity).showToast(R.string.app_name, Toast.LENGTH_SHORT)
+            showError(ErrorHandler.ERROR_SYNC_TIMEOUT)
             return
         }
         lastSyncTime.text = lastSync
@@ -107,6 +123,16 @@ class MarketFragment : BaseFragment(), MarketContractView, FilterView {
         showGoToTopFAB()
     }
 
+    override fun showDialogForCoin(coinSymbol: String) {
+        val fragmentManager = activity.fragmentManager
+        val shownCoinDetail = fragmentManager.findFragmentByTag("CoinDetailDialog")
+        shownCoinDetail?.let {
+            fragmentManager.beginTransaction().remove(it).commit()
+        }
+        val newCoinDetail = CoinDetailDialog.getInstanceFor(coinSymbol)
+        newCoinDetail.show(fragmentManager, "CoinDetailDialog")
+    }
+
     private fun showGoToTopFAB() {
         lastSyncTime.gravity = Gravity.END
         goToTopFAB.show()
@@ -118,22 +144,21 @@ class MarketFragment : BaseFragment(), MarketContractView, FilterView {
     }
 
     override fun showLoading() {
-        super.showLoading()
         swipeRefresh.isRefreshing = true
     }
 
     override fun hideLoading() {
-        super.hideLoading()
         swipeRefresh.isRefreshing = false
     }
 
     // Private Functions
     private fun bindViews(view: View?) {
         view ?: return
-        this.coinListRecyclerView = view.findViewById(R.id.coin_list_recycler_view)
+        this.coinListRecyclerView = view.findViewById(R.id.market_recycler_view)
         this.swipeRefresh = view.findViewById(R.id.coin_list_refresh_layout)
         this.goToTopFAB = view.findViewById(R.id.coin_list_FAB)
-        this.lastSyncTime = view.findViewById(R.id.last_sync_time)
+        this.lastSyncTime = view.findViewById(R.id.market_bottom_ticker)
+        this.marketSummary = view.findViewById(R.id.market_top_ticker)
     }
 
     override fun filterFor(input: String) {

@@ -1,6 +1,8 @@
 package makes.flint.poh.data.coinListItem
 
+import makes.flint.poh.configuration.POHSettings
 import makes.flint.poh.data.response.CoinResponse
+import makes.flint.poh.utility.NumberFormatter
 import java.math.BigDecimal
 import java.math.RoundingMode
 
@@ -24,13 +26,14 @@ class PriceData(coinResponse: CoinResponse) {
 
     internal fun priceUSDFormatted(): String {
         priceUSD ?: return "No Price"
-        val roundingMode = RoundingMode.HALF_EVEN
-        return when {
-            priceUSD > decimal3Threshold -> "$${priceUSD.setScale(2, roundingMode).toPlainString()}"
-            priceUSD > decimal4Threshold -> "$${priceUSD.setScale(3, roundingMode).toPlainString()}"
-            priceUSD > decimal5Threshold -> "$${priceUSD.setScale(4, roundingMode).toPlainString()}"
-            else -> "$${priceUSD.setScale(7, RoundingMode.HALF_EVEN).toPlainString()}"
+        val roundingMode = POHSettings.roundingMode
+        val roundedNumber = when {
+            priceUSD > decimal3Threshold -> priceUSD.setScale(2, roundingMode)
+            priceUSD > decimal4Threshold -> priceUSD.setScale(3, roundingMode)
+            priceUSD > decimal5Threshold -> priceUSD.setScale(4, roundingMode)
+            else -> priceUSD.setScale(7, roundingMode)
         }
+        return NumberFormatter.formatCurrency(roundedNumber)
     }
 
     // Private Functions
@@ -39,12 +42,26 @@ class PriceData(coinResponse: CoinResponse) {
         val billion = BigDecimal(ONE_BILLION)
         val billionCoinPrice = marketCapUSD.divide(billion)
         val roundedBillionCoinPrice = billionCoinPrice.setScale(2, RoundingMode.HALF_EVEN)
-        return "$" + roundedBillionCoinPrice.toPlainString()
+        return NumberFormatter.formatCurrency(roundedBillionCoinPrice, 2)
     }
 
     companion object {
         val decimal3Threshold = BigDecimal(THRESHOLD_3_DECIMAL)
         val decimal4Threshold = BigDecimal(THRESHOLD_4_DECIMAL)
         val decimal5Threshold = BigDecimal(THRESHOLD_5_DECIMAL)
+    }
+
+    fun priceBTCFormatted(): String {
+        priceBTC?.let {
+            return NumberFormatter.format(it, 8)
+        }
+        return "Unknown"
+    }
+
+    fun marketCapFormatted(): String {
+        marketCapUSD?.let {
+            return NumberFormatter.formatCurrency(it, 0)
+        }
+        return "Unknown"
     }
 }

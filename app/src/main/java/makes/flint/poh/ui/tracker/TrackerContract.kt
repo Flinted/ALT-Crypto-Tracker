@@ -7,9 +7,16 @@ import makes.flint.poh.base.BaseContractView
  * TrackerContract
  * Copyright © 2018 Flint Makes. All rights reserved.
  */
-interface TrackerContractView: BaseContractView {
+interface TrackerContractView : BaseContractView {
+    fun initialiseChartListeners()
+    fun initialiseTrackerList()
+    fun initialiseAddCoinButtonListener()
+    fun initialiseConstraintSets()
+    fun showNoTrackerEntriesMessage()
+    fun initialiseTrackerListListeners()
+    fun initialiseRefreshListener()
+    fun initialiseSummaryPager()
 }
 
-interface TrackerContractPresenter: BaseContractPresenter<BaseContractView> {
-
+interface TrackerContractPresenter : BaseContractPresenter<TrackerContractView> {
 }

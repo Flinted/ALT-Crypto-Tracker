@@ -2,6 +2,7 @@ package makes.flint.poh.base
 
 import android.support.v4.app.Fragment
 import android.widget.Toast
+import makes.flint.poh.errors.ErrorHandler
 import makes.flint.poh.injection.components.PresenterComponent
 
 /**
@@ -37,7 +38,7 @@ open class BaseFragment : Fragment() {
 
     }
 
-    fun showError(stringId: Int) {
-        showToast(stringId, Toast.LENGTH_SHORT)
+    fun showError(stringId: Int?) {
+        ErrorHandler.showError(activity, stringId)
     }
 }

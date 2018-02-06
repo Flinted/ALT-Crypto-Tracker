@@ -8,7 +8,7 @@ import makes.flint.poh.base.BaseContractView
  * Copyright © 2018 Flint Makes. All rights reserved.
  */
 interface MainContractView: BaseContractView {
-    fun initialiseBottomBar()
+    fun initialiseBottomBar(startingTab: String)
     fun initialiseViewPager()
 }
 

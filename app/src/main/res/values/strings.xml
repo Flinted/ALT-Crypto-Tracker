@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">POH: Proof Of Hodl</string>
+    <string name="app_name">cryptohound</string>
     <string name="action_settings">Settings</string>
     <string name="coin_list_row_title_1h">1H</string>
     <string name="coin_list_row_title_24h">24H</string>
@@ -8,4 +8,24 @@
     <string name="bottombar_title_tracker">Tracker</string>
     <string name="action_search">Search</string>
     <string name="action_faq">FAQ</string>
+    <string name="market_summary" formatted="false">Market Avg: 24H: %1$s  7D: %2$s  Size: %3$d</string>
+    <string name="tracker_fragment_no_entries_placeholder">No entries yet :(</string>
+    <string name="error_api_failure">There was a problem getting data, please try again.</string>
+    <string name="error_general_error">There was a problem, please try again</string>
+    <string name="error_transaction_failure">There was a problem adding your transaction.</string>
+    <string name="error_sync_timeout">Last Sync was too recent.</string>
+    <string name="bottombar_title_settings">Settings</string>
+
+    <string-array name="sort_options">
+        <item>Rank</item>
+        <item>Rank(reversed)</item>
+        <item>A..Z</item>
+        <item>Z..A</item>
+        <item>1H change</item>
+        <item>1H change(reversed)</item>
+        <item>24H change</item>
+        <item>24H change(reversed)</item>
+        <item>7D change</item>
+        <item>7D change(reversed)</item>
+    </string-array>
 </resources>

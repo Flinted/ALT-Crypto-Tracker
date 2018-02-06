@@ -1,5 +1,6 @@
 package makes.flint.poh.data.coinListItem
 
+import makes.flint.poh.configuration.POHSettings
 import makes.flint.poh.data.response.CoinResponse
 
 /**
@@ -27,12 +28,12 @@ class ChangeData(coinResponse: CoinResponse) {
         change ?: return CHANGE_UNKNOWN
         val floatChange = change.toFloat()
         return when {
-            floatChange > 50f -> CHANGE_UP_EXTREME
-            floatChange > 15f -> CHANGE_UP_SIGNIFICANT
-            floatChange in 5f..15f -> CHANGE_UP_MODERATE
-            floatChange < -50f -> CHANGE_DOWN_EXTREME
-            floatChange < -15f -> CHANGE_DOWN_SIGNIFICANT
-            floatChange in -15f..-5f -> CHANGE_DOWN_MODERATE
+            floatChange > POHSettings.changeUp3 -> CHANGE_UP_EXTREME
+            floatChange > POHSettings.changeUp2 -> CHANGE_UP_SIGNIFICANT
+            floatChange > POHSettings.changeUp1 -> CHANGE_UP_MODERATE
+            floatChange < POHSettings.changeDown3 -> CHANGE_DOWN_EXTREME
+            floatChange < POHSettings.changeDown2 -> CHANGE_DOWN_SIGNIFICANT
+            floatChange < POHSettings.changeDown1 -> CHANGE_DOWN_MODERATE
             floatChange < 0f -> CHANGE_STATIC_NEGATIVE
             else -> CHANGE_STATIC_POSITIVE
         }

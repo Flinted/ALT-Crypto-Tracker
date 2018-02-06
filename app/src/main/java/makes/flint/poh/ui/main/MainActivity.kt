@@ -9,6 +9,7 @@ import android.view.Menu
 import android.view.MenuItem
 import makes.flint.poh.R
 import makes.flint.poh.base.BaseActivity
+import makes.flint.poh.configuration.START_TRACKER
 import makes.flint.poh.ui.interfaces.FilterView
 import org.jetbrains.anko.support.v4.onPageChangeListener
 
@@ -22,10 +23,11 @@ class MainActivity : BaseActivity(), MainContractView {
     private lateinit var bottomBar: BottomNavigationView
     private lateinit var viewPager: ViewPager
     private lateinit var toolbar: Toolbar
+    private lateinit var searchView: SearchView
 
     // Private Properties
     private lateinit var mainPresenter: MainPresenter
-    private lateinit var viewPagerAdapter: ViewPagerAdapter
+    private lateinit var viewPagerAdapter: MainViewPagerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,34 +47,43 @@ class MainActivity : BaseActivity(), MainContractView {
     }
 
     override fun initialiseViewPager() {
-        viewPagerAdapter = ViewPagerAdapter(supportFragmentManager)
+        viewPagerAdapter = MainViewPagerAdapter(supportFragmentManager)
         viewPager.adapter = viewPagerAdapter
         viewPager.onPageChangeListener {
             onPageSelected {
                 val selectedId = when (it) {
                     0 -> R.id.bottom_bar_market
-                    else -> R.id.bottom_bar_tracker
+                    1 -> R.id.bottom_bar_tracker
+                    else -> R.id.bottom_bar_settings
                 }
                 bottomBar.selectedItemId = selectedId
             }
         }
     }
 
-    override fun initialiseBottomBar() {
+    override fun initialiseBottomBar(startingTab: String) {
         bottomBar.inflateMenu(R.menu.bottom_bar_menu)
         bottomBar.setOnNavigationItemSelectedListener({ item ->
             item.isChecked = true
             handleBottomBarSelection(item)
             true
         })
-        bottomBar.selectedItemId = R.id.bottom_bar_market
+        bottomBar.selectedItemId = getStartingTabId(startingTab)
+    }
+
+    private fun getStartingTabId(startingTab: String): Int {
+        return when (startingTab) {
+            START_TRACKER -> R.id.bottom_bar_tracker
+            else -> R.id.bottom_bar_market
+        }
     }
 
     private fun handleBottomBarSelection(item: MenuItem) {
         val itemId = item.itemId
         when (itemId) {
             R.id.bottom_bar_market -> viewPager.setCurrentItem(0, true)
-            else -> viewPager.setCurrentItem(1, true)
+            R.id.bottom_bar_tracker -> viewPager.setCurrentItem(1, true)
+            else -> viewPager.setCurrentItem(2, true)
         }
     }
 
@@ -91,27 +102,30 @@ class MainActivity : BaseActivity(), MainContractView {
     }
 
     override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
-        val searchItem = menu?.findItem(R.id.action_search)
-        val searchView = searchItem?.actionView as SearchView
+        menu ?: return super.onPrepareOptionsMenu(menu)
+        initialiseSearchMenu(menu)
+        return super.onPrepareOptionsMenu(menu)
+    }
+
+    private fun initialiseSearchMenu(menu: Menu) {
+        val searchItem = menu.findItem(R.id.action_search)
+        searchView = searchItem?.actionView as SearchView
         searchView.maxWidth = Integer.MAX_VALUE
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String): Boolean {
-                return false
-            }
-
+            override fun onQueryTextSubmit(query: String) = false
             override fun onQueryTextChange(newText: String): Boolean {
                 getShownFilterView()?.filterFor(newText)
                 return true
             }
         })
-        return super.onPrepareOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         val id = item?.itemId ?: return false
-        if (id == R.id.action_settings) {
-            return true
-        }
         return super.onOptionsItemSelected(item)
+    }
+
+    fun clearSearchTerms() {
+        searchView.isIconified = true
     }
 }

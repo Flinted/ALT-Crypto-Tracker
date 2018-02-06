@@ -6,7 +6,7 @@ android {
     compileSdkVersion 26
     defaultConfig {
         applicationId "makes.flint.poh"
-        minSdkVersion 18
+        minSdkVersion 19
         targetSdkVersion 26
         versionCode 1
         versionName "0.1.0"
@@ -51,6 +51,7 @@ dependencies {
     final SPOON_VERSION = '1.7.1'
     final SUPPORT_TEST_VERSION = '0.5'
     final UI_AUTOMATOR_VERSION = '2.1.2'
+    final MP_ANDROID_CHART_VERSION = 'v3.0.3'
 
     //Anko
     compile "org.jetbrains.anko:anko-support-v4:$ANKO_VERSION"
@@ -69,6 +70,8 @@ dependencies {
     compile "com.google.dagger:dagger:$DAGGER_VERSION"
     provided "javax.annotation:jsr250-api:$ANNOTATION_VERSION"
 
+    // MPAndroidChart
+    implementation "com.github.PhilJay:MPAndroidChart:$MP_ANDROID_CHART_VERSION"
     // Retrofit
     api "com.google.code.gson:gson:$GSON_VERSION"
     api "com.squareup.retrofit2:retrofit:$RETROFIT_VERSION"

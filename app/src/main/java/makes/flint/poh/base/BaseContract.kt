@@ -10,11 +10,11 @@ interface BaseContractView {
 
     fun hideLoading()
 
-    fun showError(stringId: Int)
+    fun showError(stringId: Int?)
 }
 
 
-interface BaseContractPresenter<in V:BaseContractView> {
+interface BaseContractPresenter<in V : BaseContractView> {
     fun attachView(view: V)
 
     fun detachView()

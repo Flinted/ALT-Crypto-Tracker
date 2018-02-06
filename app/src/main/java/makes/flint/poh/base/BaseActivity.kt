@@ -2,16 +2,18 @@ package makes.flint.poh.base
 
 import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
+import makes.flint.poh.errors.ErrorHandler
 import makes.flint.poh.injection.components.PresenterComponent
 import org.jetbrains.anko.AnkoLogger
+
 
 /**
  * BaseActivity
  * Copyright © 2018 Flint Makes.. All rights reserved.
  */
-open class BaseActivity : AppCompatActivity(), AnkoLogger {
+abstract class BaseActivity : AppCompatActivity(), AnkoLogger {
 
-    internal var presenter: BaseContractPresenter<*>? = null
+    private var presenter: BaseContractPresenter<*>? = null
 
     protected fun getBaseApplication(): BaseApplication = application as BaseApplication
 
@@ -38,8 +40,7 @@ open class BaseActivity : AppCompatActivity(), AnkoLogger {
 
     }
 
-    fun showError(stringId: Int) {
-        showToast(stringId, Toast.LENGTH_SHORT)
+    fun showError(stringId: Int?) {
+        ErrorHandler.showError(this, stringId)
     }
-
 }
