@@ -19,4 +19,7 @@ interface TrackerContractView : BaseContractView {
 }
 
 interface TrackerContractPresenter : BaseContractPresenter<TrackerContractView> {
+    fun refreshCache()
+    fun onDestroy()
+    fun refreshTrackerEntries()
 }

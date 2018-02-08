@@ -10,17 +10,30 @@ import java.math.BigDecimal
  * TrackerListItem
  * Copyright © 2018 Flint Makes. All rights reserved.
  */
-class TrackerListItem(internal val name: String, internal val symbol: String, internal val id: String) : TrackerAssessable {
+class TrackerListItem(internal val name: String,
+                      internal val symbol: String,
+                      internal val id: String,
+                      internal val associatedCoin: CoinListItem?,
+                      internal var transactions: MutableList<TrackerListTransaction>) : TrackerAssessable {
+    internal var numberOwned = getNumberOwned()
+    internal var numberOwnedFormatted = makeNumberOwnedFormatted()
+    internal var symbolFormatted = makeSymbolFormatted()
+    internal var purchasePriceTotal = makePurchasePriceTotalAccurate()
+    internal var currentValueUSD = makeCurrentValueUSDAccurate()
+    internal var currentPriceUSDFormatted = makeCurrentValueUSDFormatted()
+    internal var currentValueBTC = makeCurrentValueBTCAccurate()
+    internal var currentPriceBTCFormatted = makeCurrentValueBTCFormatted()
+    internal var dollarCostAverage = makeDollarCostAverage()
+    internal var dollarCostAverageFormatted = makeDollarCostAverageFormatted()
+    override var percentageChange = makePercentageChange()
+    internal var percentageChangeFormatted = makePercentageChangeFormatted()
 
-    internal lateinit var transactions: MutableList<TrackerListTransaction>
-    internal var associatedCoin: CoinListItem? = null
-
-    fun getSymbolFormatted(): String {
+    private fun makeSymbolFormatted(): String {
         return "($symbol)"
     }
 
-    fun getNumberOwnedFormatted(): String {
-        return NumberFormatter.format(getNumberOwned(), 8)
+    private fun makeNumberOwnedFormatted(): String {
+        return NumberFormatter.format(numberOwned, 8)
     }
 
     private fun getNumberOwned(): BigDecimal {
@@ -30,42 +43,44 @@ class TrackerListItem(internal val name: String, internal val symbol: String, in
         return total
     }
 
-    fun getPercentageChangeFormatted(): String {
-        val change = getPercentageChange()
-        return NumberFormatter.formatPercentage(change, 2)
+    private fun makePercentageChangeFormatted(): String {
+        return NumberFormatter.formatPercentage(percentageChange, 2)
     }
 
-    override fun getPercentageChange(): BigDecimal {
+    private fun makePercentageChange(): BigDecimal {
+        if (purchasePriceTotal == BigDecimal.ZERO) {
+            return BigDecimal.ZERO
+        }
         val currentPrice = getDecimalTotal(associatedCoin?.priceData?.priceUSD)
-        val purchasePrice = getPurchasePriceTotalAccurate()
+        val purchasePrice = purchasePriceTotal
         val difference = currentPrice.minus(purchasePrice)
         val movement = difference.divide(purchasePrice, POHSettings.roundingMode)
         return movement.setScale(4, POHSettings.roundingMode)
     }
 
-    internal fun getPurchasePriceTotalAccurate(): BigDecimal {
+    private fun makePurchasePriceTotalAccurate(): BigDecimal {
         return transactions.fold(BigDecimal.ZERO) { sum, entry ->
             sum.add(entry.transactionTotal())
         }
     }
 
-    fun getCurrentValueUSDAccurate(): BigDecimal {
+    private fun makeCurrentValueUSDAccurate(): BigDecimal {
         val currentPrice = associatedCoin?.priceData?.priceUSD
         return getDecimalTotal(currentPrice)
     }
 
-    fun getCurrentValueBTCAccurate(): BigDecimal {
+    private fun makeCurrentValueBTCAccurate(): BigDecimal {
         val currentPrice = associatedCoin?.priceData?.priceBTC
         return getDecimalTotal(currentPrice)
     }
 
-    fun getCurrentValueUSDFormatted(): String {
+    private fun makeCurrentValueUSDFormatted(): String {
         val currentPrice = associatedCoin?.priceData?.priceUSD
         val totalPrice = getDecimalTotal(currentPrice).setScale(2, POHSettings.roundingMode)
         return NumberFormatter.formatCurrency(totalPrice, 2)
     }
 
-    fun getCurrentValueBTCFormatted(): String {
+    private fun makeCurrentValueBTCFormatted(): String {
         val currentPrice = associatedCoin?.priceData?.priceBTC
         val totalPrice = getDecimalTotal(currentPrice).setScale(8, POHSettings.roundingMode)
         return "B${NumberFormatter.format(totalPrice, 8)}"
@@ -73,23 +88,23 @@ class TrackerListItem(internal val name: String, internal val symbol: String, in
 
     private fun getDecimalTotal(price: BigDecimal?): BigDecimal {
         associatedCoin ?: return BigDecimal.ZERO
-        val numberOwned = getNumberOwned()
         return numberOwned.multiply(price)
     }
 
     fun getCurrentAssetPriceFormatted(): String {
-        return associatedCoin?.priceData?.priceUSDFormatted() ?: ""
+        return associatedCoin?.priceData?.priceUSDFormatted ?: ""
     }
 
-    fun getDollarCostAverageFormatted(): String {
-        val average = getDollarCostAverage()
+    private fun makeDollarCostAverageFormatted(): String {
+        val average = dollarCostAverage
         return NumberFormatter.formatCurrency(average, 2)
     }
 
-    private fun getDollarCostAverage(): BigDecimal {
-        val numberOwned = getNumberOwned()
-        val totalCost = getPurchasePriceTotalAccurate()
-        val dollarCostAverage = totalCost.divide(numberOwned, POHSettings.roundingMode)
+    private fun makeDollarCostAverage(): BigDecimal {
+        if (numberOwned.equals(BigDecimal.ZERO)) {
+            return BigDecimal.ZERO
+        }
+        val dollarCostAverage = purchasePriceTotal.divide(numberOwned, POHSettings.roundingMode)
         return dollarCostAverage.setScale(2, POHSettings.roundingMode)
     }
 }

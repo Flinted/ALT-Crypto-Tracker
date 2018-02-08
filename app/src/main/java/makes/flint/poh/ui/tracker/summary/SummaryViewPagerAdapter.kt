@@ -38,7 +38,6 @@ class SummaryViewPagerAdapter(fragmentManager: FragmentManager) : FragmentStateP
     }
 
     fun setNewSummary(summary: Summary) {
-        println("VIEWPAGERING")
         fragments.forEach {
             it.updateForSummary(summary)
         }

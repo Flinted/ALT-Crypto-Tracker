@@ -2,11 +2,14 @@ package makes.flint.poh.ui.main
 
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
+import android.support.design.widget.CoordinatorLayout
 import android.support.v4.view.ViewPager
 import android.support.v7.widget.SearchView
 import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.view.ViewTreeObserver
 import makes.flint.poh.R
 import makes.flint.poh.base.BaseActivity
 import makes.flint.poh.configuration.START_TRACKER
@@ -20,13 +23,14 @@ import org.jetbrains.anko.support.v4.onPageChangeListener
 class MainActivity : BaseActivity(), MainContractView {
 
     // View Bindings
+    private lateinit var masterLayout: CoordinatorLayout
     private lateinit var bottomBar: BottomNavigationView
     private lateinit var viewPager: ViewPager
     private lateinit var toolbar: Toolbar
     private lateinit var searchView: SearchView
 
     // Private Properties
-    private lateinit var mainPresenter: MainPresenter
+    private lateinit var mainPresenter: MainContractPresenter
     private lateinit var viewPagerAdapter: MainViewPagerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,10 +43,22 @@ class MainActivity : BaseActivity(), MainContractView {
         mainPresenter.initialise()
     }
 
+    // This method waits until all child views are created and then triggers an
+    // emission of the cached data to all subscribers.
+    override fun initialiseData() {
+        viewPager.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
+            override fun onGlobalLayout() {
+                viewPager.viewTreeObserver.removeOnGlobalLayoutListener(this)
+                mainPresenter.emitData()
+            }
+        })
+    }
+
     private fun bindViews() {
         this.bottomBar = findViewById(R.id.navigation_bottom_bar)
         this.viewPager = findViewById(R.id.fragment_container)
         this.toolbar = findViewById(R.id.toolbar)
+        this.masterLayout = findViewById(R.id.master_layout)
         setSupportActionBar(toolbar)
     }
 
@@ -129,3 +145,9 @@ class MainActivity : BaseActivity(), MainContractView {
         searchView.isIconified = true
     }
 }
+
+inline fun View.waitForLayout(crossinline callback: () -> Unit) = {
+    this
+
+}
+

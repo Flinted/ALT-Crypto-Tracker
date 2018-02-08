@@ -15,6 +15,7 @@ interface MarketContractView : BaseContractView {
     fun initialiseAdapterListeners()
     fun showDialogForCoin(coinSymbol: String)
     fun updateMarketSummary(oneHour: String, twentyFourHour: String, sevenDay: String, coins: Int)
+    fun updateLastSyncTime(lastSync: String?)
 }
 
 interface MarketContractPresenter : BaseContractPresenter<MarketContractView> {

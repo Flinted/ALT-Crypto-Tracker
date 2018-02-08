@@ -77,11 +77,11 @@ class TrackerEntryDialog : BaseDialogFragment(), TrackerEntryDialogContractView 
 
     override fun displayTrackerEntry(trackerEntry: TrackerListItem) {
         coinName.text = trackerEntry.name
-        coinSymbol.text = trackerEntry.getSymbolFormatted()
-        currentAmount.text = trackerEntry.getNumberOwnedFormatted()
-        currentValueUSD.text = trackerEntry.getCurrentValueUSDFormatted()
-        currentValueBTC.text = trackerEntry.getCurrentValueBTCFormatted()
-        percentageChange.text = trackerEntry.getPercentageChangeFormatted()
+        coinSymbol.text = trackerEntry.symbolFormatted
+        currentAmount.text = trackerEntry.numberOwnedFormatted
+        currentValueUSD.text = trackerEntry.currentPriceUSDFormatted
+        currentValueBTC.text = trackerEntry.currentPriceBTCFormatted
+        percentageChange.text = trackerEntry.percentageChangeFormatted
     }
 
     override fun initialiseTransactionsList(transactions: MutableList<TrackerListTransaction>) {
@@ -93,8 +93,8 @@ class TrackerEntryDialog : BaseDialogFragment(), TrackerEntryDialogContractView 
     }
 
     override fun initialiseTransactionsListListener() {
-        transactionsListAdapter.onSummaryRefreshRequired().subscribe(){
-            if(!it) {
+        transactionsListAdapter.onSummaryRefreshRequired().subscribe {
+            if (!it) {
                 trackerEntryDialogPresenter.deleteCurrentEntry()
                 return@subscribe
             }

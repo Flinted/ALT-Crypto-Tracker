@@ -39,7 +39,6 @@ class SummaryFragment : BaseFragment(), SummaryUpdatable {
     }
 
     override fun updateForSummary(summary: Summary) {
-        println("SETTING!")
         initialValue.text = summary.initialValueFormatted()
         currentValueUSD.text = summary.currentValueFiatFormatted()
         currentValueBTC.text = summary.currentValueBTCFormatted()

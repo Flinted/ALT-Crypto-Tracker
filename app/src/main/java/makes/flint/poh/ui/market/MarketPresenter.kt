@@ -1,6 +1,7 @@
 package makes.flint.poh.ui.market
 
 import makes.flint.poh.base.BasePresenter
+import makes.flint.poh.data.coinListItem.marketData.MarketData
 import makes.flint.poh.data.dataController.DataController
 import rx.Subscription
 import javax.inject.Inject
@@ -12,7 +13,8 @@ import javax.inject.Inject
 class MarketPresenter @Inject constructor(private var dataController: DataController)
     : BasePresenter<MarketContractView>(), MarketContractPresenter {
 
-    private var cacheSubscriber: Subscription? = null
+    private var marketDataSubscriber: Subscription? = null
+    private var lastSyncSubscriber: Subscription? = null
 
     override fun initialise() {
         subscribeForCacheRefresh()
@@ -21,21 +23,24 @@ class MarketPresenter @Inject constructor(private var dataController: DataContro
         view?.initialiseScrollListener()
         view?.initialiseFABonClick()
         view?.initialiseAdapterListeners()
-        refresh()
     }
 
     override fun refresh() {
-        updateMarketSummary()
+        dataController.refreshRequested()
     }
 
     private fun subscribeForCacheRefresh() {
-        cacheSubscriber = dataController.refreshSubscriber().subscribe() {
-            refresh()
+        marketDataSubscriber = dataController.marketRefreshSubscriber().subscribe {
+            updateMarketSummary(it)
+            view?.hideLoading()
+        }
+        lastSyncSubscriber = dataController.lastSyncSubscriber().subscribe{
+            view?.updateLastSyncTime(it)
         }
     }
 
     override fun onDestroy() {
-        cacheSubscriber = null
+        marketDataSubscriber = null
         detachView()
     }
 
@@ -43,8 +48,8 @@ class MarketPresenter @Inject constructor(private var dataController: DataContro
         view?.showDialogForCoin(coinSymbol)
     }
 
-    private fun updateMarketSummary() {
-        val marketData = dataController.getMarketData() ?: return
+    private fun updateMarketSummary(marketData: MarketData?) {
+        marketData ?: return
         val oneHour = marketData.oneHourAverageFormatted()
         val twentyFourHour = marketData.twentyFourHourAverageFormatted()
         val sevenDay = marketData.sevenDayAverageFormatted()

@@ -42,12 +42,8 @@ class CoinListAdapter(presenterComponent: PresenterComponent)
     private var indicatorCustomiser = IndicatorCustomiser()
 
     // RX Actions
-    private var syncUpdate: PublishSubject<String?> = PublishSubject.create()
     private var coinSelected: PublishSubject<String> = PublishSubject.create()
-    private var isRefreshing: PublishSubject<Boolean> = PublishSubject.create()
-    override fun onSyncCompleted() = syncUpdate.asObservable()
     override fun onCoinSelected() = coinSelected.asObservable()
-    override fun onRefreshStateChange() = isRefreshing.asObservable()
 
     // Lifecycle
     init {
@@ -94,7 +90,7 @@ class CoinListAdapter(presenterComponent: PresenterComponent)
     private fun initialiseCoinViews(coin: CoinListItem, coinListViewHolder: CoinListViewHolder) {
         coinListViewHolder.name.text = coin.name
         coinListViewHolder.ticker.text = coin.symbolFormatted
-        coinListViewHolder.price.text = coin.priceData.priceUSDFormatted()
+        coinListViewHolder.price.text = coin.priceData.priceUSDFormatted
         coinListViewHolder.rank.text = coin.rank.toString()
     }
 
@@ -138,13 +134,11 @@ class CoinListAdapter(presenterComponent: PresenterComponent)
         }
     }
 
-    override fun showLoading() = isRefreshing.onNext(true)
+    override fun showLoading() {}
 
-    override fun hideLoading() = isRefreshing.onNext(false)
+    override fun hideLoading() {}
 
     override fun showError(stringId: Int?) {}
-
-    override fun refreshList() = presenter.refresh()
 
     override fun filterFor(input: String) = filter.filter(input)
 
@@ -160,10 +154,6 @@ class CoinListAdapter(presenterComponent: PresenterComponent)
             }
         }
     }
-
-    override fun updateLastSync(lastSync: String) = syncUpdate.onNext(lastSync)
-
-    override fun notRefreshed() = syncUpdate.onNext(null)
 
     override fun itemChangedAt(position: Int) = notifyItemChanged(position)
 

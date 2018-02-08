@@ -9,11 +9,11 @@ import java.math.BigDecimal
  * Copyright © 2018 Flint Makes. All rights reserved.
  */
 interface TrackerAssessable {
-    fun getPercentageChange(): BigDecimal
+    var percentageChange : BigDecimal
 }
 
 fun TrackerAssessable.assessChange(): Int {
-    val floatChange = getPercentageChange().toFloat()
+    val floatChange = percentageChange.toFloat()
     return when {
         floatChange > POHSettings.trackerChangeUp3 -> CHANGE_UP_EXTREME
         floatChange > POHSettings.trackerChangeUp2 -> CHANGE_UP_SIGNIFICANT

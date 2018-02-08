@@ -43,10 +43,10 @@ object POHSettings {
 
     // Portfolio Thresholds
 
-    var trackerChangeUp3 = 100f
-    var trackerChangeUp2 = 50f
-    var trackerChangeUp1 = 20f
-    var trackerChangeDown1 = -20f
-    var trackerChangeDown2 = -50f
-    var trackerChangeDown3 = -100f
+    var trackerChangeUp3 = 1.5f
+    var trackerChangeUp2 = 0.1f
+    var trackerChangeUp1 = 0.2f
+    var trackerChangeDown1 = -0.2f
+    var trackerChangeDown2 = -0.4f
+    var trackerChangeDown3 = -0.6f
 }

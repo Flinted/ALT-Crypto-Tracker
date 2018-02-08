@@ -2,9 +2,9 @@ package makes.flint.poh.ui.tracker.addCoinDialog
 
 import makes.flint.poh.data.coinListItem.CoinListItem
 import makes.flint.poh.data.dataController.DataController
-import makes.flint.poh.data.dataController.callbacks.RepositoryCallbackArray
 import makes.flint.poh.errors.ErrorHandler
 import makes.flint.poh.factories.TrackerEntryDataFactory
+import rx.Subscription
 import java.math.BigDecimal
 import java.math.RoundingMode
 import javax.inject.Inject
@@ -20,6 +20,8 @@ class AddCoinDialogPresenter @Inject constructor(private val dataController: Dat
     private var dialog: AddCoinDialogContractView? = null
     private var selectedCoin: CoinListItem? = null
 
+    private var coinListSubscriber: Subscription? = null
+
     override fun attachView(view: AddCoinDialogContractView) {
         this.dialog = view
     }
@@ -29,19 +31,17 @@ class AddCoinDialogPresenter @Inject constructor(private val dataController: Dat
     }
 
     override fun initialise() {
-        initialiseCoinAutoSuggest()
+        initialiseCoinListSubscriber()
         dialog?.initialiseFABListener()
         dialog?.initialiseInputListeners()
         dialog?.initialiseDateSelectListener()
+        dataController.refreshRequested()
     }
 
-    private fun initialiseCoinAutoSuggest() {
-        dataController.getCoinListNew(object : RepositoryCallbackArray<CoinListItem> {
-            override fun onError(error: Throwable) {}
-            override fun onRetrieve(refreshed: Boolean, lastSync: String, results: List<CoinListItem>) {
-                dialog?.initialiseCoinAutoSuggest(results)
-            }
-        })
+    private fun initialiseCoinListSubscriber() {
+        this.coinListSubscriber = dataController.coinRefreshSubscriber().subscribe {
+            dialog?.initialiseCoinAutoSuggest(it)
+        }
     }
 
     override fun updateSelectedCoin(coin: CoinListItem?) {
@@ -73,8 +73,8 @@ class AddCoinDialogPresenter @Inject constructor(private val dataController: Dat
     }
 
     override fun prepareDateSelected(day: Int, month: Int, year: Int) {
-        val day2digit = if (day < 10) "0${day}" else day.toString()
-        val month2digit = if (month < 10) "0${month}" else month.toString()
+        val day2digit = if (day < 10) "0$day" else day.toString()
+        val month2digit = if (month < 10) "0$month" else month.toString()
         val year4digit = year.toString()
         val dateString = "$day2digit/$month2digit/$year4digit"
         dialog?.setDateSelected(dateString)

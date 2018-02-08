@@ -10,8 +10,10 @@ import makes.flint.poh.base.BaseContractView
 interface MainContractView: BaseContractView {
     fun initialiseBottomBar(startingTab: String)
     fun initialiseViewPager()
+    fun initialiseData()
 }
 
-interface MainContractPresenter<in V:BaseContractView>: BaseContractPresenter<V> {
+interface MainContractPresenter: BaseContractPresenter<MainContractView> {
+    fun emitData()
 
 }

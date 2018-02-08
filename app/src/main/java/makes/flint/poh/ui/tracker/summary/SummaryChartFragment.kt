@@ -37,7 +37,7 @@ class SummaryChartFragment : BaseFragment(), SummaryUpdatable {
     override fun updateForSummary(summary: Summary) {
         val data = summary.getTrackerEntries()
         val pieEntries = data.map {
-            PieEntry(it.getCurrentValueUSDAccurate().toFloat(), it.symbol)
+            PieEntry(it.currentValueUSD.toFloat(), it.symbol)
         }
         val colorPrimary = ContextCompat.getColor(context, R.color.colorPrimary)
         val colorPrimaryDark = ContextCompat.getColor(context, R.color.colorPrimaryDark)

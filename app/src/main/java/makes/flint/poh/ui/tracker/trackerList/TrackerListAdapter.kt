@@ -65,12 +65,12 @@ class TrackerListAdapter(presenterComponent: PresenterComponent) : RecyclerView.
         val status = entry.assessChange()
         val context = viewHolder.indicator.context
         viewHolder.coinName.text = entry.name
-        viewHolder.coinSymbol.text = entry.getSymbolFormatted()
-        viewHolder.numberOwned.text = entry.getNumberOwnedFormatted()
+        viewHolder.coinSymbol.text = entry.symbolFormatted
+        viewHolder.numberOwned.text = entry.numberOwnedFormatted
         viewHolder.currentPrice.text = entry.getCurrentAssetPriceFormatted()
-        viewHolder.dollarCostAverage.text = entry.getDollarCostAverageFormatted()
-        viewHolder.currentValue.text = entry.getCurrentValueUSDFormatted()
-        viewHolder.currentProfit.text = entry.getPercentageChangeFormatted()
+        viewHolder.dollarCostAverage.text = entry.dollarCostAverageFormatted
+        viewHolder.currentValue.text = entry.currentPriceUSDFormatted
+        viewHolder.currentProfit.text = entry.percentageChangeFormatted
         viewHolder.currentProfit.setTextColor(ContextCompat.getColor(context, indicatorCustomiser.getColor(status)))
         viewHolder.indicator.setImageDrawable(ContextCompat.getDrawable(context, indicatorCustomiser.getIcon(status)))
         setOnClickListener(viewHolder.itemContent, entry)
@@ -98,8 +98,6 @@ class TrackerListAdapter(presenterComponent: PresenterComponent) : RecyclerView.
     override fun updateSummaryFragmentFor(summary: Summary) = summaryPrepared.onNext(summary)
 
     override fun getItemCount() = filteredTrackerEntries.size
-
-    override fun refreshList() = trackerAdapterPresenter.initialise()
 
     override fun showNoTrackerEntriesMessage() = noEntriesFound.onNext(true)
 

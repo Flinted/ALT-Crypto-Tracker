@@ -14,7 +14,7 @@ import java.math.RoundingMode
 class Summary(private val initialValue: BigDecimal,
               private val currentFiatValue: BigDecimal,
               private val currentBTCValue: BigDecimal,
-              private val percentageChange: BigDecimal,
+              override var percentageChange: BigDecimal,
               private val data: List<TrackerListItem>) : TrackerAssessable {
 
     fun initialValueFormatted(): String {
@@ -37,9 +37,5 @@ class Summary(private val initialValue: BigDecimal,
         return NumberFormatter.formatPercentage(rounded, 2)
     }
 
-    override fun getPercentageChange() = percentageChange
-
     fun getTrackerEntries() = data
-
 }
-

@@ -25,7 +25,6 @@ class ApiRepository @Inject constructor(private val cmcAPIService: CMCAPIService
 ) : DataSource {
 
     var cachedHistoricalResponse: HashMap<String, HistoricalDataResponse> = hashMapOf()
-    var lastSync: TimeStamp? = null
     var lastSyncHistorical: TimeStamp? = null
 
     fun coinsGET(): Observable<Array<SummaryCoinResponse>>? {

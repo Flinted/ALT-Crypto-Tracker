@@ -30,32 +30,35 @@ class CoinListItem(
     internal val symbol = coinResponse.symbol
     override val rank = coinResponse.provideRank()
     override val volume24Hour = coinResponse.provideVolume24Hour()
-    internal var availableSupply = coinResponse.provideAvailableSupply()
+    internal val availableSupply = coinResponse.provideAvailableSupply()
     internal var totalSupply = coinResponse.provideTotalSupply()
     internal var symbolFormatted = "($symbol)"
     internal var searchKey = "$name($symbol)"
+    internal val availableSupplyFormatted = availableSupplyFormatted()
+    internal val totalSupplyFormatted = totalSupplyFormatted()
+    internal val volume24HourFormatted = volume24HourFormatted()
 
-    fun volume24HourFormatted(): String {
-        volume24Hour?.let{
+    private fun volume24HourFormatted(): String {
+        volume24Hour?.let {
             return NumberFormatter.formatCurrency(it, 0)
         }
         return "Unknown"
     }
 
-    fun marketCapFormatted(): String {
-        return priceData.marketCapFormatted()
+    internal fun marketCapFormatted(): String {
+        return priceData.marketCapFormatted
     }
 
-    fun availableSupplyFormatted(): String {
-        availableSupply?.let{
+    private fun availableSupplyFormatted(): String {
+        availableSupply?.let {
             val number = BigDecimal(it)
             return NumberFormatter.format(number, 0)
         }
         return "Unknown"
     }
 
-    fun totalSupplyFormatted(): String {
-        totalSupply?.let{
+    private fun totalSupplyFormatted(): String {
+        totalSupply?.let {
             val number = BigDecimal(it)
             return NumberFormatter.format(number, 0)
         }

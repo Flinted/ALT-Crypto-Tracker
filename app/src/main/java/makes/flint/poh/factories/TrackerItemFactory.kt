@@ -19,10 +19,9 @@ class TrackerItemFactory @Inject constructor() {
             return trackerListItems
         }
         data.forEach {
-            val item = TrackerListItem(it.name, it.symbol, it.id)
             val coin = findCoinFor(it.name, coinListItems)
-            item.associatedCoin = coin
             val listTransactions: MutableList<TrackerListTransaction> = makeListTransactions(it.transactions)
+            val item = TrackerListItem(it.name, it.symbol, it.id, coin, listTransactions)
             item.transactions = listTransactions
             trackerListItems.add(item)
         }

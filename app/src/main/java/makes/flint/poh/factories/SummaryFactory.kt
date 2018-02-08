@@ -37,19 +37,19 @@ class SummaryFactory @Inject constructor() {
 
     private fun getInitialFiatValueFor(data: List<TrackerListItem>): BigDecimal {
         return data.fold(BigDecimal.ZERO) { acc, entry ->
-            acc.add(entry.getPurchasePriceTotalAccurate())
+            acc.add(entry.purchasePriceTotal)
         }
     }
 
     private fun getCurrentFiatValueFor(data: List<TrackerListItem>): BigDecimal {
         return data.fold(BigDecimal.ZERO) { acc, entry ->
-            acc.add(entry.getCurrentValueUSDAccurate())
+            acc.add(entry.currentValueUSD)
         }
     }
 
     private fun getCurrentBTCValueFor(data: List<TrackerListItem>): BigDecimal {
         return data.fold(BigDecimal.ZERO) { acc, entry ->
-            acc.add(entry.getCurrentValueBTCAccurate())
+            acc.add(entry.currentValueBTC)
         }
     }
 

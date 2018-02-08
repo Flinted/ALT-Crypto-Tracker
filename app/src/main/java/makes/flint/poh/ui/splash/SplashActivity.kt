@@ -22,6 +22,7 @@ class SplashActivity : BaseActivity(), SplashContractView {
     }
 
     override fun proceedToMainActivity() {
+        println("PROCEEDING")
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
         finish()

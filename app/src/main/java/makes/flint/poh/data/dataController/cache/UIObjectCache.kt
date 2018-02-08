@@ -26,21 +26,24 @@ class UIObjectCache @Inject constructor(private val coinListItemFactory: CoinLis
     private var lastUpdate: TimeStamp? = null
     internal var coinListItems: List<CoinListItem> = mutableListOf()
     internal var trackerListItems: List<TrackerListItem> = mutableListOf()
-    internal var summary: Summary? = Summary(BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, mutableListOf())
+    internal var summary: Summary = Summary(BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, mutableListOf())
     internal var marketData: MarketData? = null
 
-    private var hasRefreshed: PublishSubject<Boolean> = PublishSubject.create()
-    internal fun onNewSync() = hasRefreshed.asObservable()
+    private var hasRefreshedCoins: PublishSubject<List<CoinListItem>> = PublishSubject.create()
+    private var hasRefreshedTrackerItems: PublishSubject<List<TrackerListItem>> = PublishSubject.create()
+    private var hasRefreshedSummary: PublishSubject<Summary> = PublishSubject.create()
+    private var hasRefreshedMarketData: PublishSubject<MarketData> = PublishSubject.create()
+    private var hasUpdatedTimeStamp: PublishSubject<String> = PublishSubject.create()
+    internal fun getCoinsSubscription() = hasRefreshedCoins.asObservable()
+    internal fun getTrackerListSubscription() = hasRefreshedTrackerItems.asObservable()
+    internal fun getSummarySubscription() = hasRefreshedSummary.asObservable()
+    internal fun getMarketSubscription() = hasRefreshedMarketData.asObservable()
+    internal fun getSyncTimeSubscription() = hasUpdatedTimeStamp.asObservable()
 
-    private fun shouldReSyncData() = lastUpdate?.shouldReSync() ?: true
-    fun coinListItemsCacheIsValid() = coinListItems.isNotEmpty() && !shouldReSyncData()
-    fun trackerListItemsCacheIsValid() = trackerListItems.isNotEmpty() && !shouldReSyncData()
-    fun summaryCacheIsValid() = summary != null && !shouldReSyncData()
-    fun lastSyncTime() = lastUpdate?.timeStampISO8601 ?: ""
+    fun shouldReSyncData() = lastUpdate?.shouldReSync() ?: true
 
     fun updateCacheForNewData(data: MutableList<SummaryCoinResponse>?, favouritesData: MutableList<FavouriteCoin>,
-                              trackerData: List<TrackerEntryData>,
-                              cacheCallback: CacheCallback) {
+                              trackerData: List<TrackerEntryData>) {
         data ?: return
         val coinResponses = data as MutableList<CoinResponse>
         val coinListItems = coinListItemFactory.makeCoinListItems(coinResponses, favouritesData)
@@ -52,26 +55,26 @@ class UIObjectCache @Inject constructor(private val coinListItemFactory: CoinLis
         this.trackerListItems = trackerListItems
         this.summary = summary
         this.lastUpdate = TimeStamp()
-        cacheCallback.cacheRefreshed()
-        hasRefreshed.onNext(true)
+        hasRefreshedCoins.onNext(coinListItems)
+        hasRefreshedTrackerItems.onNext(trackerListItems)
+        hasRefreshedSummary.onNext(summary)
+        hasRefreshedMarketData.onNext(marketData)
+        hasUpdatedTimeStamp.onNext(lastUpdate?.timeStampISO8601)
     }
 
-    fun updateFavouriteCoins(favouriteCoins: MutableList<FavouriteCoin>, cacheCallback: CacheCallback) {
+    fun updateFavouriteCoins(favouriteCoins: MutableList<FavouriteCoin>) {
         val updatedCoins = coinListItemFactory.updateFavouriteCoins(coinListItems, favouriteCoins)
         this.coinListItems = updatedCoins as List<CoinListItem>
-        cacheCallback.cacheRefreshed()
+        hasRefreshedCoins.onNext(updatedCoins)
+        hasRefreshedMarketData.onNext(marketData)
     }
 
-    fun updateTrackerEntries(trackerEntries: List<TrackerEntryData>, cacheCallback: CacheCallback) {
+    fun updateTrackerEntries(trackerEntries: List<TrackerEntryData>) {
         val updatedTrackerEntries = trackerItemFactory.makeTrackerItems(trackerEntries, coinListItems)
         val updatedSummary = summaryFactory.makeSummaryFor(updatedTrackerEntries)
         this.trackerListItems = updatedTrackerEntries
         this.summary = updatedSummary
-        cacheCallback.cacheRefreshed()
+        hasRefreshedTrackerItems.onNext(trackerListItems)
+        hasRefreshedSummary.onNext(summary)
     }
-}
-
-interface CacheCallback {
-    fun refreshError(error: Throwable)
-    fun cacheRefreshed()
 }

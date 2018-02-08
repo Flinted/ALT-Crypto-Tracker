@@ -8,11 +8,16 @@ import makes.flint.poh.data.dataController.DataController
  * MainPresenter
  * Copyright © 2018 Flint Makes. All rights reserved.
  */
-class MainPresenter(private var dataController: DataController): BasePresenter<MainContractView>()  {
+class MainPresenter(private var dataController: DataController) : BasePresenter<MainContractView>(), MainContractPresenter {
 
     override fun initialise() {
         val startingTab = POHSettings.startingScreen
         view?.initialiseViewPager()
         view?.initialiseBottomBar(startingTab)
+        view?.initialiseData()
+    }
+
+    override fun emitData() {
+        dataController.refreshRequested()
     }
 }

@@ -106,12 +106,12 @@ class CoinDetailDialog : BaseDialogFragment(), CoinDetailContractView {
         this.coinName.text = coin?.name
         this.coinSymbol.text = coin?.symbolFormatted
         this.rank.text = coin?.rank.toString()
-        this.priceFiat.text = coin?.priceData?.priceUSDFormatted()
-        this.priceBTC.text = coin?.priceData?.priceBTCFormatted()
+        this.priceFiat.text = coin?.priceData?.priceUSDFormatted
+        this.priceBTC.text = coin?.priceData?.priceBTCFormatted
         this.priceBillionCoin.text = coin?.priceData?.stabilisedPrice
-        this.volume24H.text = coin?.volume24HourFormatted()
-        this.supplyAvailable.text = coin?.availableSupplyFormatted()
-        this.supplyTotal.text = coin?.totalSupplyFormatted()
+        this.volume24H.text = coin?.volume24HourFormatted
+        this.supplyAvailable.text = coin?.availableSupplyFormatted
+        this.supplyTotal.text = coin?.totalSupplyFormatted
         this.marketCap.text = coin?.marketCapFormatted()
         if (coin?.symbol == "DOGE") {
             this.priceBTCTitle.text = "Price(DOGE):"

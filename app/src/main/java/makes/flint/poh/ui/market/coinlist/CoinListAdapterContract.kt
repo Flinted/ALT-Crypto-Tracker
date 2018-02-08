@@ -11,14 +11,9 @@ import rx.Observable
  */
 interface CoinListAdapterContractView : BaseContractView {
     var coinList: MutableList<CoinListItem>
-    fun refreshList()
     fun filterFor(input: String)
-    fun updateLastSync(lastSync: String)
-    fun notRefreshed()
-    fun onSyncCompleted(): Observable<String?>
     fun itemChangedAt(position: Int)
     fun onCoinSelected(): Observable<String>
-    fun onRefreshStateChange(): Observable<Boolean>
     fun onDestroy()
 }
 

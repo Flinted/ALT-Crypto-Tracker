@@ -67,14 +67,10 @@ class TrackerFragment : BaseFragment(), TrackerContractView, FilterView {
         return view
     }
 
-    override fun onResume() {
-        super.onResume()
-        trackerListAdapter.refreshList()
-    }
-
     override fun onDestroy() {
         super.onDestroy()
         trackerListAdapter.onDestroy()
+        trackerPresenter.onDestroy()
     }
 
     private fun bindViews(view: View?) {
@@ -195,16 +191,6 @@ class TrackerFragment : BaseFragment(), TrackerContractView, FilterView {
         }
         val newCoinDetail = TrackerEntryDialog.getInstanceFor(item)
         newCoinDetail.show(fragmentManager, "TrackerEntryDetail")
-        initialiseTrackerEntryDialogListener(newCoinDetail)
-    }
-
-    private fun initialiseTrackerEntryDialogListener(newCoinDetail: TrackerEntryDialog) {
-        newCoinDetail.onEntryDeleted().subscribe {
-            if (!it) {
-                return@subscribe
-            }
-            trackerListAdapter.refreshList()
-        }
     }
 
     override fun initialiseRefreshListener() {
@@ -212,7 +198,7 @@ class TrackerFragment : BaseFragment(), TrackerContractView, FilterView {
         swipeRefresh.setColorSchemeColors(refreshColour)
         swipeRefresh.setOnRefreshListener {
             (activity as MainActivity).clearSearchTerms()
-            trackerListAdapter.refreshList()
+            trackerPresenter.refreshCache()
         }
     }
 
@@ -242,7 +228,7 @@ class TrackerFragment : BaseFragment(), TrackerContractView, FilterView {
             if (!it) {
                 return@subscribe
             }
-            trackerListAdapter.initialiseTrackerList()
+            trackerPresenter.refreshTrackerEntries()
         }
     }
 

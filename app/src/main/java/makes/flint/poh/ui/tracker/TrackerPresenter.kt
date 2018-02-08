@@ -2,6 +2,7 @@ package makes.flint.poh.ui.tracker
 
 import makes.flint.poh.base.BasePresenter
 import makes.flint.poh.data.dataController.DataController
+import rx.Subscription
 import javax.inject.Inject
 
 /**
@@ -12,7 +13,20 @@ class TrackerPresenter @Inject constructor(private var dataController: DataContr
         BasePresenter<TrackerContractView>(),
         TrackerContractPresenter {
 
+    private var coinListSubscriber: Subscription? = null
+
+    override fun refreshCache() {
+        dataController.refreshRequested()
+    }
+
+    override fun onDestroy() {
+        detachView()
+        coinListSubscriber?.unsubscribe()
+        coinListSubscriber = null
+    }
+
     override fun initialise() {
+        initialiseCoinListSubscriber()
         view?.initialiseChartListeners()
         view?.initialiseAddCoinButtonListener()
         view?.initialiseConstraintSets()
@@ -20,5 +34,14 @@ class TrackerPresenter @Inject constructor(private var dataController: DataContr
         view?.initialiseTrackerListListeners()
         view?.initialiseRefreshListener()
         view?.initialiseSummaryPager()
+    }
+
+    private fun initialiseCoinListSubscriber() {
+        coinListSubscriber = dataController.coinRefreshSubscriber().subscribe {
+            view?.hideLoading()
+        }
+    }
+
+    override fun refreshTrackerEntries() {
     }
 }

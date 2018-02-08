@@ -69,7 +69,7 @@ class MarketFragment : BaseFragment(), MarketContractView, FilterView {
         swipeRefresh.setColorSchemeColors(refreshColour)
         swipeRefresh.setOnRefreshListener {
             (activity as MainActivity).clearSearchTerms()
-            coinListAdapter.refreshList()
+            marketPresenter.refresh()
         }
     }
 
@@ -91,15 +91,7 @@ class MarketFragment : BaseFragment(), MarketContractView, FilterView {
     }
 
     override fun initialiseAdapterListeners() {
-        coinListAdapter.onSyncCompleted().subscribe { lastSync -> updateLastSyncTextView(lastSync) }
         coinListAdapter.onCoinSelected().subscribe { coinSymbol -> marketPresenter.onCoinSelected(coinSymbol) }
-        coinListAdapter.onRefreshStateChange().subscribe {
-            if (it) {
-                showLoading()
-                return@subscribe
-            }
-            hideLoading()
-        }
     }
 
     override fun updateMarketSummary(oneHour: String, twentyFourHour: String, sevenDay: String, coins: Int) {
@@ -107,7 +99,7 @@ class MarketFragment : BaseFragment(), MarketContractView, FilterView {
         this.marketSummary.text = summaryString
     }
 
-    private fun updateLastSyncTextView(lastSync: String?) {
+    override fun updateLastSyncTime(lastSync: String?) {
         lastSync ?: let {
             showError(ErrorHandler.ERROR_SYNC_TIMEOUT)
             return

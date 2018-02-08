@@ -16,7 +16,6 @@ interface TrackerAdapterContractView : BaseContractView {
     fun initialiseTrackerList()
     fun showNoTrackerEntriesMessage()
     fun onTrackerEntrySelected(): Observable<TrackerListItem>
-    fun refreshList()
     fun onNoEntriesPresent(): Observable<Boolean>
     fun didHaveEntries()
     fun onRefreshStateChange(): Observable<Boolean>
