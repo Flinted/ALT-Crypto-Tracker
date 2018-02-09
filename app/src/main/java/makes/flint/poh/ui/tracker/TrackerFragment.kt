@@ -16,7 +16,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import makes.flint.poh.R
 import makes.flint.poh.base.BaseFragment
-import makes.flint.poh.data.Summary
 import makes.flint.poh.data.trackerListItem.TrackerListItem
 import makes.flint.poh.ui.interfaces.FilterView
 import makes.flint.poh.ui.main.MainActivity
@@ -38,6 +37,7 @@ const val CHART_OFF_SCREEN = 2
 
 class TrackerFragment : BaseFragment(), TrackerContractView, FilterView {
 
+    // View Bindings
     private lateinit var trackerConstraint: ConstraintLayout
     private lateinit var trackerRecycler: RecyclerView
     private lateinit var summaryViewPager: SummaryViewPager
@@ -49,6 +49,7 @@ class TrackerFragment : BaseFragment(), TrackerContractView, FilterView {
     private lateinit var hideSummaryAreaButton: ImageView
     private lateinit var showSummaryAreaButton: ImageView
 
+    // Properties
     private val originalConstraint = ConstraintSet()
     private val noChartConstraint = ConstraintSet()
     private val chartViewConstraint = ConstraintSet()
@@ -57,6 +58,7 @@ class TrackerFragment : BaseFragment(), TrackerContractView, FilterView {
     private lateinit var trackerListAdapter: TrackerAdapterContractView
     private lateinit var summaryPagerAdapter: SummaryViewPagerAdapter
 
+    // Lifecycle
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater?.inflate(R.layout.fragment_tracker, container, false)
         trackerPresenter = getPresenterComponent().provideTrackerPresenter()
@@ -88,6 +90,7 @@ class TrackerFragment : BaseFragment(), TrackerContractView, FilterView {
         initialiseConstraintSets()
     }
 
+    // Initialisation
     override fun initialiseConstraintSets() {
         originalConstraint.clone(trackerConstraint)
         noChartConstraint.clone(trackerConstraint)
@@ -99,25 +102,6 @@ class TrackerFragment : BaseFragment(), TrackerContractView, FilterView {
     override fun initialiseSummaryPager() {
         summaryPagerAdapter = SummaryViewPagerAdapter(activity.supportFragmentManager)
         summaryViewPager.adapter = summaryPagerAdapter
-    }
-
-    private fun configureNoChartConstraint() {
-        noChartConstraint.setVisibility(R.id.tracker_chart_area, View.GONE)
-        noChartConstraint.setVisibility(R.id.tracker_hide_summary_area_button, View.GONE)
-        noChartConstraint.setVisibility(R.id.tracker_show_summary_area_button, View.VISIBLE)
-        noChartConstraint.connect(R.id.tracker_recycler_view, ConstraintSet.TOP, R.id.tracker_show_summary_area_button,
-                ConstraintSet.BOTTOM)
-    }
-
-    private fun configureChartViewConstraint() {
-        chartViewConstraint.connect(
-                R.id.tracker_chart_area,
-                ConstraintSet.BOTTOM,
-                ConstraintSet.PARENT_ID,
-                ConstraintSet.BOTTOM)
-        chartViewConstraint.constrainHeight(R.id.tracker_chart_area, ViewGroup.LayoutParams.MATCH_PARENT)
-        chartViewConstraint.setVisibility(R.id.tracker_show_chart_button, View.GONE)
-        chartViewConstraint.setVisibility(R.id.tracker_show_portfolio_button, View.VISIBLE)
     }
 
     override fun initialiseTrackerList() {
@@ -140,24 +124,9 @@ class TrackerFragment : BaseFragment(), TrackerContractView, FilterView {
         })
     }
 
-    private fun hideAddCoinFAB() {
-        if (!trackerRecycler.canScrollVertically(0)) {
-            return
-        }
-        addCoinButton.hide()
-    }
-
-    private fun showAddCoinFAB() {
-        addCoinButton.show()
-    }
-
     override fun initialiseTrackerListListeners() {
         trackerListAdapter.onTrackerEntrySelected().subscribe {
             makeTrackerEntryDialogFor(it)
-        }
-        trackerListAdapter.onSummaryPrepared().subscribe {
-            println("ONNEXT ${it.currentValueFiatFormatted()}")
-            updateSummaryFragment(it)
         }
         trackerListAdapter.onNoEntriesPresent().subscribe(Action1<Boolean> {
             if (!it) {
@@ -166,31 +135,6 @@ class TrackerFragment : BaseFragment(), TrackerContractView, FilterView {
             }
             showNoTrackerEntriesMessage()
         })
-        trackerListAdapter.onRefreshStateChange().subscribe {
-            if (it) {
-                showLoading()
-                return@subscribe
-            }
-            hideLoading()
-        }
-    }
-
-    private fun updateSummaryFragment(summary: Summary) {
-        summaryPagerAdapter.setNewSummary(summary)
-    }
-
-    private fun hideNoTrackerEntriesMessage() {
-        noEntriesPlaceHolder.visibility = View.GONE
-    }
-
-    private fun makeTrackerEntryDialogFor(item: TrackerListItem) {
-        val fragmentManager = activity.fragmentManager
-        val shownCoinDetail = fragmentManager.findFragmentByTag("TrackerEntryDetail")
-        shownCoinDetail?.let {
-            fragmentManager.beginTransaction().remove(it).commit()
-        }
-        val newCoinDetail = TrackerEntryDialog.getInstanceFor(item)
-        newCoinDetail.show(fragmentManager, "TrackerEntryDetail")
     }
 
     override fun initialiseRefreshListener() {
@@ -202,33 +146,9 @@ class TrackerFragment : BaseFragment(), TrackerContractView, FilterView {
         }
     }
 
-    override fun showNoTrackerEntriesMessage() {
-        noEntriesPlaceHolder.visibility = View.VISIBLE
-    }
-
     override fun initialiseAddCoinButtonListener() {
         addCoinButton.setOnClickListener {
             showAddCoinDialog()
-        }
-    }
-
-    private fun showAddCoinDialog() {
-        val fragmentManager = activity.fragmentManager
-        val shownAddCoin = fragmentManager.findFragmentByTag("AddCoin")
-        shownAddCoin?.let {
-            fragmentManager.beginTransaction().remove(it).commit()
-        }
-        val addCoinDialog = AddCoinDialog()
-        addCoinDialog.show(fragmentManager, "AddCoin")
-        setListenerForAddCoinDialog(addCoinDialog)
-    }
-
-    private fun setListenerForAddCoinDialog(addCoinDialog: AddCoinDialog) {
-        addCoinDialog.onTransactionAdded().subscribe {
-            if (!it) {
-                return@subscribe
-            }
-            trackerPresenter.refreshTrackerEntries()
         }
     }
 
@@ -245,6 +165,54 @@ class TrackerFragment : BaseFragment(), TrackerContractView, FilterView {
         cancelChartButton.setOnClickListener {
             changeChartVisibility(CHART_OFF_SCREEN)
         }
+    }
+
+    private fun configureNoChartConstraint() {
+        noChartConstraint.setVisibility(R.id.tracker_chart_area, View.GONE)
+        noChartConstraint.setVisibility(R.id.tracker_hide_summary_area_button, View.GONE)
+        noChartConstraint.setVisibility(R.id.tracker_show_summary_area_button, View.VISIBLE)
+        noChartConstraint.connect(R.id.tracker_recycler_view, ConstraintSet.TOP, R.id.tracker_show_summary_area_button,
+                ConstraintSet.BOTTOM)
+    }
+
+    private fun configureChartViewConstraint() {
+        chartViewConstraint.connect(
+                R.id.tracker_chart_area,
+                ConstraintSet.BOTTOM,
+                ConstraintSet.PARENT_ID,
+                ConstraintSet.BOTTOM)
+        chartViewConstraint.constrainHeight(R.id.tracker_chart_area, ViewGroup.LayoutParams.MATCH_PARENT)
+        chartViewConstraint.setVisibility(R.id.tracker_show_chart_button, View.GONE)
+        chartViewConstraint.setVisibility(R.id.tracker_show_portfolio_button, View.VISIBLE)
+    }
+
+    private fun hideAddCoinFAB() {
+        if (!trackerRecycler.canScrollVertically(0)) {
+            return
+        }
+        addCoinButton.hide()
+    }
+
+    private fun showAddCoinFAB() {
+        addCoinButton.show()
+    }
+
+    private fun hideNoTrackerEntriesMessage() {
+        noEntriesPlaceHolder.visibility = View.GONE
+    }
+
+    private fun makeTrackerEntryDialogFor(item: TrackerListItem) {
+        val fragmentManager = activity.fragmentManager
+        val shownCoinDetail = fragmentManager.findFragmentByTag("TrackerEntryDetail")
+        shownCoinDetail?.let {
+            fragmentManager.beginTransaction().remove(it).commit()
+        }
+        val newCoinDetail = TrackerEntryDialog.getInstanceFor(item)
+        newCoinDetail.show(fragmentManager, "TrackerEntryDetail")
+    }
+
+    override fun showNoTrackerEntriesMessage() {
+        noEntriesPlaceHolder.visibility = View.VISIBLE
     }
 
     override fun filterFor(input: String) {
@@ -271,5 +239,26 @@ class TrackerFragment : BaseFragment(), TrackerContractView, FilterView {
 
     override fun hideLoading() {
         swipeRefresh.isRefreshing = false
+    }
+
+    // Add Coin Dialog 
+    private fun showAddCoinDialog() {
+        val fragmentManager = activity.fragmentManager
+        val shownAddCoin = fragmentManager.findFragmentByTag("AddCoin")
+        shownAddCoin?.let {
+            fragmentManager.beginTransaction().remove(it).commit()
+        }
+        val addCoinDialog = AddCoinDialog()
+        addCoinDialog.show(fragmentManager, "AddCoin")
+        setListenerForAddCoinDialog(addCoinDialog)
+    }
+
+    private fun setListenerForAddCoinDialog(addCoinDialog: AddCoinDialog) {
+        addCoinDialog.onTransactionAdded().subscribe {
+            if (!it) {
+                return@subscribe
+            }
+            trackerPresenter.refreshTrackerEntries()
+        }
     }
 }

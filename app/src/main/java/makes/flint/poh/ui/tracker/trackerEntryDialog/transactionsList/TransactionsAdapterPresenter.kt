@@ -7,7 +7,7 @@ import javax.inject.Inject
 
 /**
  * TransactionsAdapterPresenter
- * Copyright © 2018 Intelligent Loyalty Limited. All rights reserved.
+ * Copyright © 2018 Flint Makes. All rights reserved.
  */
 class TransactionsAdapterPresenter @Inject constructor(private var dataController: DataController) :
         BasePresenter<TransactionAdapterContractView>(), TransactionAdapterContractPresenter {
