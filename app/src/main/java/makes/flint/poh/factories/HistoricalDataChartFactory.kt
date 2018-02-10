@@ -25,6 +25,7 @@ class HistoricalDataChartFactory(private var dataSet: Array<HistoricalDataUnitRe
     }
 
     fun createLineChart(context: Context): LineChart {
+        println("NO OF ENTRIES ${dataSet.size}")
         val entries = makeEntries()
         val lineDataSet = makeLineDataSet(entries, context)
         val chart = makeLineChart(context)
@@ -58,13 +59,14 @@ class HistoricalDataChartFactory(private var dataSet: Array<HistoricalDataUnitRe
             axisLeft.setDrawGridLines(false)
             axisRight.textColor = Color.WHITE
             axisRight.setDrawGridLines(false)
-            animateXY(2000, 2000)
+            animateXY(1000, 1000)
         }
     }
 
     private fun makeEntries(): MutableList<Entry> {
         val entries: MutableList<Entry> = mutableListOf()
         var count = 0f
+        println("MAKING ENTRIES ${dataSet.size}")
         dataSet.forEach {
             val close = it.close ?: return@forEach
             val entry = Entry(count, close)
@@ -141,7 +143,7 @@ class HistoricalDataChartFactory(private var dataSet: Array<HistoricalDataUnitRe
             axisLeft.setDrawGridLines(false)
             axisRight.textColor = Color.WHITE
             axisRight.setDrawGridLines(false)
-            animateXY(2000, 2000)
+            animateXY(1000, 1000)
         }
     }
 
@@ -155,7 +157,7 @@ class HistoricalDataChartFactory(private var dataSet: Array<HistoricalDataUnitRe
             axisLeft.setDrawGridLines(false)
             axisRight.textColor = Color.WHITE
             axisRight.setDrawGridLines(false)
-            animateXY(2000, 2000)
+            animateXY(1000, 1000)
         }
     }
 

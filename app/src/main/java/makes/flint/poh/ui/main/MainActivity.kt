@@ -8,12 +8,12 @@ import android.support.v7.widget.SearchView
 import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.view.ViewTreeObserver
 import makes.flint.poh.R
 import makes.flint.poh.base.BaseActivity
+import makes.flint.poh.configuration.POHSettings
 import makes.flint.poh.configuration.START_TRACKER
-import makes.flint.poh.ui.interfaces.FilterView
+import makes.flint.poh.ui.interfaces.*
 import org.jetbrains.anko.support.v4.onPageChangeListener
 
 /**
@@ -65,6 +65,7 @@ class MainActivity : BaseActivity(), MainContractView {
     override fun initialiseViewPager() {
         viewPagerAdapter = MainViewPagerAdapter(supportFragmentManager)
         viewPager.adapter = viewPagerAdapter
+        viewPager.offscreenPageLimit = 2
         viewPager.onPageChangeListener {
             onPageSelected {
                 val selectedId = when (it) {
@@ -120,7 +121,34 @@ class MainActivity : BaseActivity(), MainContractView {
     override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
         menu ?: return super.onPrepareOptionsMenu(menu)
         initialiseSearchMenu(menu)
+        initialiseSortingMenu(menu)
         return super.onPrepareOptionsMenu(menu)
+    }
+
+    private fun initialiseSortingMenu(menu: Menu) {
+        val currentSort = POHSettings.sortPreference
+        val id = mainPresenter.getIdForSortType(currentSort) ?: let {
+            return
+        }
+        val currentSortMenuItem = menu.findItem(id)
+        currentSortMenuItem.isChecked = true
+    }
+
+    private fun updateSortForSelection(id: Int) {
+        getSortForId(id)
+    }
+
+    private fun getSortForId(id: Int) {
+        val sortType = mainPresenter.getSortTypeForId(id) ?: let {
+            return
+        }
+        POHSettings.sortPreference = sortType
+        mainPresenter.emitData()
+    }
+
+    override fun initialiseSortingMaps() {
+        createIdToSortMap()
+        createSortToIdMap()
     }
 
     private fun initialiseSearchMenu(menu: Menu) {
@@ -138,16 +166,49 @@ class MainActivity : BaseActivity(), MainContractView {
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         val id = item?.itemId ?: return false
+        item.isChecked = true
+        updateSortForSelection(id)
         return super.onOptionsItemSelected(item)
     }
 
-    fun clearSearchTerms() {
+
+    internal fun clearSearchTerms() {
         searchView.isIconified = true
     }
+
+    private fun createSortToIdMap() {
+        val map = hashMapOf(
+                SORT_RANK to R.id.sort_rank_ascending,
+                SORT_RANK_REV to R.id.sort_rank_descending,
+                SORT_NAME to R.id.sort_alphabetical_ascending,
+                SORT_NAME_REV to R.id.sort_alphabetical_descending,
+                SORT_VOLUME to R.id.sort_volume_ascending,
+                SORT_VOLUME_REV to R.id.sort_volume_descending,
+                SORT_TWENTY_FOUR_HOUR to R.id.sort_24H_ascending,
+                SORT_TWENTY_FOUR_HOUR_REV to R.id.sort_24H_descending,
+                SORT_ONE_HOUR to R.id.sort_1H_ascending,
+                SORT_ONE_HOUR_REV to R.id.sort_1H_descending,
+                SORT_SEVEN_DAY to R.id.sort_7D_ascending,
+                SORT_SEVEN_DAY_REV to R.id.sort_1H_descending
+        )
+        mainPresenter.storeSortToIdMap(map)
+    }
+
+    private fun createIdToSortMap() {
+        val map = hashMapOf(
+                R.id.sort_rank_ascending to SORT_RANK,
+                R.id.sort_rank_descending to SORT_RANK_REV,
+                R.id.sort_alphabetical_ascending to SORT_NAME,
+                R.id.sort_alphabetical_descending to SORT_RANK_REV,
+                R.id.sort_1H_ascending to SORT_ONE_HOUR,
+                R.id.sort_1H_descending to SORT_ONE_HOUR_REV,
+                R.id.sort_24H_ascending to SORT_TWENTY_FOUR_HOUR,
+                R.id.sort_24H_descending to SORT_TWENTY_FOUR_HOUR_REV,
+                R.id.sort_7D_ascending to SORT_SEVEN_DAY,
+                R.id.sort_7D_descending to SORT_SEVEN_DAY_REV,
+                R.id.sort_volume_ascending to SORT_VOLUME,
+                R.id.sort_volume_descending to SORT_VOLUME_REV
+        )
+        mainPresenter.storeIdToSortMap(map)
+    }
 }
-
-inline fun View.waitForLayout(crossinline callback: () -> Unit) = {
-    this
-
-}
-

@@ -40,6 +40,9 @@ class MarketPresenter @Inject constructor(private var dataController: DataContro
     }
 
     override fun onDestroy() {
+        lastSyncSubscriber?.unsubscribe()
+        marketDataSubscriber?.unsubscribe()
+        lastSyncSubscriber = null
         marketDataSubscriber = null
         detachView()
     }

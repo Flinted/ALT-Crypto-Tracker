@@ -29,14 +29,13 @@ import javax.inject.Singleton
 open class DataModule() {
 
     private fun provideHeaderInterceptor(): Interceptor {
-        val interceptor = Interceptor { chain ->
+        return Interceptor { chain ->
             val request = chain.request().newBuilder()
                     .addHeader("Content-Type:", "application/json")
                     .addHeader("Accept", "application/json")
                     .build()
             chain.proceed(request)
         }
-        return interceptor
     }
 
     @Provides
@@ -56,8 +55,7 @@ open class DataModule() {
         if (BuildConfig.DEBUG) {
             builder.addInterceptor(httpLoggingInterceptor)
         }
-        val client = builder.build()
-        return client
+        return builder.build()
     }
 
     @Provides
@@ -119,5 +117,4 @@ open class DataModule() {
     fun provideDataController(apiManager: ApiRepository, realmManager: RealmManager, uiObjectCache: UIObjectCache): DataController {
         return DataController(apiManager, realmManager, uiObjectCache)
     }
-
 }

@@ -67,6 +67,7 @@ class UIObjectCache @Inject constructor(private val coinListItemFactory: CoinLis
         this.coinListItems = updatedCoins as List<CoinListItem>
         hasRefreshedCoins.onNext(updatedCoins)
         hasRefreshedMarketData.onNext(marketData)
+        hasUpdatedTimeStamp.onNext(lastUpdate?.timeStampISO8601)
     }
 
     fun updateTrackerEntries(trackerEntries: List<TrackerEntryData>) {

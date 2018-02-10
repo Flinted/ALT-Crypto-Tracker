@@ -80,8 +80,11 @@ open class DataController @Inject constructor(private val apiRepository: ApiRepo
 
     fun getCoinForSymbol(coinSymbol: String) = cache.coinListItems.find { it.symbol == coinSymbol }
 
-    fun getHistoricalDataFor(callback: RepositoryCallbackSingle<HistoricalDataResponse?>, coinSymbol: String) {
-        apiRepository.getHistoricalDataFor(callback, coinSymbol)
+    fun getHistoricalDataFor(callback: RepositoryCallbackSingle<HistoricalDataResponse?>,
+                             coinSymbol: String,
+                             dataResolution: Int,
+                             chartResolution: Int) {
+        apiRepository.getHistoricalDataFor(callback, coinSymbol, dataResolution, chartResolution)
     }
 
     fun getCopyOfTrackerEntry(coinName: String?, symbol: String?): TrackerEntryData? {

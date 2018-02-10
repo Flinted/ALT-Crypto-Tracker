@@ -241,7 +241,7 @@ class TrackerFragment : BaseFragment(), TrackerContractView, FilterView {
         swipeRefresh.isRefreshing = false
     }
 
-    // Add Coin Dialog 
+    // Add Coin Dialog
     private fun showAddCoinDialog() {
         val fragmentManager = activity.fragmentManager
         val shownAddCoin = fragmentManager.findFragmentByTag("AddCoin")

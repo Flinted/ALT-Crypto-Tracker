@@ -11,7 +11,6 @@ import rx.Observable
  */
 interface AddCoinDialogContractView : BaseContractView {
     fun initialiseFABListener()
-    fun initialiseMultiLineSuggestionInput()
     fun initialiseInputListeners()
     fun displayUpdatedPurchasePrice(purchasePrice: String)
     fun endDialog()

@@ -25,7 +25,7 @@ object POHSettings {
     var refreshGap = 5L
     var exchange = "CCCAGG"
     var limit = 750
-    var startingScreen = START_TRACKER
+    var startingScreen = START_MARKET
 
     //Sorting
 

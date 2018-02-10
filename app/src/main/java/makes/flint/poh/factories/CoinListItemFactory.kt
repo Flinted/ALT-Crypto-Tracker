@@ -31,7 +31,7 @@ class CoinListItemFactory @Inject constructor() {
         val coinListMap = makeFavouritesHashMap(favouriteCoins)
         val coinListItems = inputItems.map { makeCoinListItem(it, coinListMap) } as MutableList<CoinListItem>
         itemsInAverage = coinListItems.size
-        return coinListItems.sortedByFavouritesThen(POHSettings.sortPreference, POHSettings.sortReversed)
+        return coinListItems.sortedByFavouritesThen(POHSettings.sortPreference)
     }
 
     private fun makeFavouritesHashMap(favouriteCoins: MutableList<FavouriteCoin>?): HashMap<String, FavouriteCoin> {
@@ -50,7 +50,7 @@ class CoinListItemFactory @Inject constructor() {
         cachedCoins.forEach {
             it.isFavourite = favouritesMap[it.symbol] != null
         }
-        return mutableCachedCoins.sortedByFavouritesThen(POHSettings.sortPreference, POHSettings.sortReversed)
+        return mutableCachedCoins.sortedByFavouritesThen(POHSettings.sortPreference)
     }
 
     // Private Functions

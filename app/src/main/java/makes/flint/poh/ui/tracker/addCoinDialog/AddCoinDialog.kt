@@ -82,9 +82,6 @@ class AddCoinDialog : BaseDialogFragment(), AddCoinDialogContractView {
         dialog.window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
     }
 
-    override fun initialiseMultiLineSuggestionInput() {
-    }
-
     override fun initialiseFABListener() {
         addEntryFAB.setOnClickListener {
             makeTrackerEntryData()

@@ -10,8 +10,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_large_8dp"
+        android:ellipsize="end"
+        android:maxLines="1"
         android:textColor="@color/colorAccent"
         android:textSize="@dimen/text_xLarge_20sp"
+        app:layout_constraintEnd_toStartOf="@id/dialog_coin_detail_price_fiat_title"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         />

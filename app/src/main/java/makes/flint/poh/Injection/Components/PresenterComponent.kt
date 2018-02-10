@@ -10,6 +10,7 @@ import makes.flint.poh.ui.market.coinlist.CoinListAdapterPresenter
 import makes.flint.poh.ui.splash.SplashPresenter
 import makes.flint.poh.ui.tracker.TrackerPresenter
 import makes.flint.poh.ui.tracker.addCoinDialog.AddCoinDialogPresenter
+import makes.flint.poh.ui.tracker.summary.summaryFragments.SummaryPresenter
 import makes.flint.poh.ui.tracker.trackerEntryDialog.TrackerEntryDialogPresenter
 import makes.flint.poh.ui.tracker.trackerEntryDialog.transactionsList.TransactionsAdapterPresenter
 import makes.flint.poh.ui.tracker.trackerList.TrackerAdapterPresenter
@@ -41,4 +42,6 @@ interface PresenterComponent {
     fun provideTransactionsAdapterPresenter(): TransactionsAdapterPresenter
 
     fun provideSplashPresenter(): SplashPresenter
+
+    fun provideSummaryPresenter(): SummaryPresenter
 }

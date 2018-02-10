@@ -4,8 +4,6 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
 import android.view.ViewGroup
-import makes.flint.poh.data.Summary
-import makes.flint.poh.ui.interfaces.SummaryUpdatable
 
 /**
  * SummaryViewPagerAdapter
@@ -13,11 +11,11 @@ import makes.flint.poh.ui.interfaces.SummaryUpdatable
  */
 class SummaryViewPagerAdapter(fragmentManager: FragmentManager) : FragmentStatePagerAdapter(fragmentManager) {
 
-    private val fragments: MutableList<SummaryUpdatable> = mutableListOf()
+    private val fragments: MutableList<SummaryContractView> = mutableListOf()
 
     override fun instantiateItem(container: ViewGroup?, position: Int): Any {
         val fragment = super.instantiateItem(container, position) as Fragment
-        fragments.add(position, fragment as SummaryUpdatable)
+        fragments.add(position, fragment as SummaryContractView)
         return fragment
     }
 
@@ -35,11 +33,5 @@ class SummaryViewPagerAdapter(fragmentManager: FragmentManager) : FragmentStateP
 
     override fun getCount(): Int {
         return 2
-    }
-
-    fun setNewSummary(summary: Summary) {
-        fragments.forEach {
-            it.updateForSummary(summary)
-        }
     }
 }

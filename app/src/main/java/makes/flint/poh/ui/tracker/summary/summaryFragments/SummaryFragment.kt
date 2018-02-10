@@ -1,4 +1,4 @@
-package makes.flint.poh.ui.tracker.summary
+package makes.flint.poh.ui.tracker.summary.summaryFragments
 
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
@@ -11,24 +11,33 @@ import makes.flint.poh.base.BaseFragment
 import makes.flint.poh.configuration.IndicatorCustomiser
 import makes.flint.poh.data.Summary
 import makes.flint.poh.data.interfaces.assessChange
-import makes.flint.poh.ui.interfaces.SummaryUpdatable
 
 /**
  * SummaryFragment
  * Copyright © 2018 Flint Makes. All rights reserved.
  */
-class SummaryFragment : BaseFragment(), SummaryUpdatable {
+class SummaryFragment : BaseFragment(), SummaryContractView {
 
     private lateinit var initialValue: TextView
     private lateinit var currentValueUSD: TextView
     private lateinit var currentValueBTC: TextView
     private lateinit var changePercentage: TextView
+    private lateinit var summaryPresenter: SummaryContractPresenter
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater?.inflate(R.layout.fragment_summary, container, false)
         view ?: return super.onCreateView(inflater, container, savedInstanceState)
+        this.summaryPresenter = getPresenterComponent().provideSummaryPresenter()
+        summaryPresenter.attachView(this)
+        attachPresenter(summaryPresenter)
         bindViews(view)
+        summaryPresenter.initialise()
         return view
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        summaryPresenter.onDestroy()
     }
 
     private fun bindViews(view: View) {

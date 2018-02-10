@@ -11,59 +11,49 @@
 
     <item
         android:id="@+id/sort_options"
-        android:title="Sort Options"
         android:icon="@drawable/ic_sort_24dp"
-        app:showAsAction="ifRoom|withText">
+        android:title="Sort Options"
+        app:showAsAction="ifRoom|withText"
+        >
         <menu>
-            <item
-                android:id="@+id/sort_rank_Ascending"
-                android:checkable="true"
-                android:title="Rank"/>
-            <item
-                android:id="@+id/sort_rank_descending"
-                android:checkable="true"
-                android:checked="true"
-                android:title="Rank(descending)"/>
-            <item
-                android:id="@+id/sort_alphabetical_ascending"
-                android:checkable="true"
-                android:title="A-Z"/>
-            <item
-                android:id="@+id/sort_alphabetical_descending"
-                android:checkable="true"
-                android:title="Z-A"/>
-            <item
-                android:id="@+id/sort_1H_ascending"
-                android:checkable="true"
-                android:title="1H change"/>
-            <item
-                android:id="@+id/sort_1H_descending"
-                android:checkable="true"
-                android:title="1H change(descending)"/>
-            <item
-                android:id="@+id/sort_24H_ascending"
-                android:checkable="true"
-                android:title="24H change"/>
-            <item
-                android:id="@+id/sort_24H_descending"
-                android:checkable="true"
-                android:title="24H change(descending)"/>
-            <item
-                android:id="@+id/sort_7D_ascending"
-                android:checkable="true"
-                android:title="7D change"/>
-            <item
-                android:id="@+id/sort_7D_descending"
-                android:checkable="true"
-                android:title="7D change(descending)"/>
-            <item
-                android:id="@+id/sort_volume_ascending"
-                android:checkable="true"
-                android:title="24H volume"/>
-            <item
-                android:id="@+id/sort_volume_descending"
-                android:checkable="true"
-                android:title="24H volume(descending)"/>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/sort_rank_ascending"
+                    android:title="Rank"/>
+                <item
+                    android:id="@+id/sort_rank_descending"
+                    android:title="Rank(descending)"/>
+                <item
+                    android:id="@+id/sort_alphabetical_ascending"
+                    android:title="A-Z"/>
+                <item
+                    android:id="@+id/sort_alphabetical_descending"
+                    android:title="Z-A"/>
+                <item
+                    android:id="@+id/sort_1H_ascending"
+                    android:title="1H change"/>
+                <item
+                    android:id="@+id/sort_1H_descending"
+                    android:title="1H change(descending)"/>
+                <item
+                    android:id="@+id/sort_24H_ascending"
+                    android:title="24H change"/>
+                <item
+                    android:id="@+id/sort_24H_descending"
+                    android:title="24H change(descending)"/>
+                <item
+                    android:id="@+id/sort_7D_ascending"
+                    android:title="7D change"/>
+                <item
+                    android:id="@+id/sort_7D_descending"
+                    android:title="7D change(descending)"/>
+                <item
+                    android:id="@+id/sort_volume_ascending"
+                    android:title="24H volume"/>
+                <item
+                    android:id="@+id/sort_volume_descending"
+                    android:title="24H volume(descending)"/>
+            </group>
         </menu>
     </item>
 </menu>
