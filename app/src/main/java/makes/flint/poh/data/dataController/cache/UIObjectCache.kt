@@ -33,7 +33,7 @@ class UIObjectCache @Inject constructor(private val coinListItemFactory: CoinLis
     private var hasRefreshedTrackerItems: PublishSubject<List<TrackerListItem>> = PublishSubject.create()
     private var hasRefreshedSummary: PublishSubject<Summary> = PublishSubject.create()
     private var hasRefreshedMarketData: PublishSubject<MarketData> = PublishSubject.create()
-    private var hasUpdatedTimeStamp: PublishSubject<String> = PublishSubject.create()
+    private var hasUpdatedTimeStamp: PublishSubject<TimeStamp> = PublishSubject.create()
     internal fun getCoinsSubscription() = hasRefreshedCoins.asObservable()
     internal fun getTrackerListSubscription() = hasRefreshedTrackerItems.asObservable()
     internal fun getSummarySubscription() = hasRefreshedSummary.asObservable()
@@ -59,7 +59,7 @@ class UIObjectCache @Inject constructor(private val coinListItemFactory: CoinLis
         hasRefreshedTrackerItems.onNext(trackerListItems)
         hasRefreshedSummary.onNext(summary)
         hasRefreshedMarketData.onNext(marketData)
-        hasUpdatedTimeStamp.onNext(lastUpdate?.timeStampISO8601)
+        hasUpdatedTimeStamp.onNext(lastUpdate)
     }
 
     fun updateFavouriteCoins(favouriteCoins: MutableList<FavouriteCoin>) {
@@ -67,7 +67,7 @@ class UIObjectCache @Inject constructor(private val coinListItemFactory: CoinLis
         this.coinListItems = updatedCoins as List<CoinListItem>
         hasRefreshedCoins.onNext(updatedCoins)
         hasRefreshedMarketData.onNext(marketData)
-        hasUpdatedTimeStamp.onNext(lastUpdate?.timeStampISO8601)
+        hasUpdatedTimeStamp.onNext(lastUpdate)
     }
 
     fun updateTrackerEntries(trackerEntries: List<TrackerEntryData>) {

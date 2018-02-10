@@ -30,7 +30,6 @@ object POHSettings {
     //Sorting
 
     var sortPreference = SORT_RANK
-    var sortReversed = false
 
     // Market Thresholds
 

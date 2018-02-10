@@ -27,6 +27,7 @@ import makes.flint.poh.ui.market.coinlist.CoinListAdapterContractView
 class MarketFragment : BaseFragment(), MarketContractView, FilterView {
 
     // View Bindings
+
     private lateinit var coinListRecyclerView: RecyclerView
     private lateinit var swipeRefresh: SwipeRefreshLayout
     private lateinit var goToTopFAB: FloatingActionButton
@@ -34,10 +35,12 @@ class MarketFragment : BaseFragment(), MarketContractView, FilterView {
     private lateinit var marketSummary: TextView
 
     // Properties
+
     private lateinit var marketPresenter: MarketContractPresenter
     private lateinit var coinListAdapter: CoinListAdapterContractView
 
     // Lifecycle
+
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater?.inflate(R.layout.fragment_market, container, false)
         marketPresenter = getPresenterComponent().provideMarketPresenter()
@@ -55,6 +58,7 @@ class MarketFragment : BaseFragment(), MarketContractView, FilterView {
     }
 
     // Overridden Functions
+
     override fun initialiseListAdapter() {
         val presenterComponent = getPresenterComponent()
         val coinListAdapter = CoinListAdapter(presenterComponent)
@@ -107,14 +111,6 @@ class MarketFragment : BaseFragment(), MarketContractView, FilterView {
         lastSyncTime.text = lastSync
     }
 
-    private fun handleScrollChange(yPosition: Int) {
-        if (yPosition < 2500) {
-            hideGoToTopFAB()
-            return
-        }
-        showGoToTopFAB()
-    }
-
     override fun showDialogForCoin(coinSymbol: String) {
         val fragmentManager = activity.fragmentManager
         val shownCoinDetail = fragmentManager.findFragmentByTag("CoinDetailDialog")
@@ -125,22 +121,16 @@ class MarketFragment : BaseFragment(), MarketContractView, FilterView {
         newCoinDetail.show(fragmentManager, "CoinDetailDialog")
     }
 
-    private fun showGoToTopFAB() {
-        lastSyncTime.gravity = Gravity.END
-        goToTopFAB.show()
-    }
-
-    private fun hideGoToTopFAB() {
-        lastSyncTime.gravity = Gravity.CENTER
-        goToTopFAB.hide()
-    }
-
     override fun showLoading() {
         swipeRefresh.isRefreshing = true
     }
 
     override fun hideLoading() {
         swipeRefresh.isRefreshing = false
+    }
+
+    override fun filterFor(input: String) {
+        coinListAdapter.filterFor(input)
     }
 
     // Private Functions
@@ -153,7 +143,21 @@ class MarketFragment : BaseFragment(), MarketContractView, FilterView {
         this.marketSummary = view.findViewById(R.id.market_top_ticker)
     }
 
-    override fun filterFor(input: String) {
-        coinListAdapter.filterFor(input)
+    private fun handleScrollChange(yPosition: Int) {
+        if (yPosition < 2500) {
+            hideGoToTopFAB()
+            return
+        }
+        showGoToTopFAB()
+    }
+
+    private fun showGoToTopFAB() {
+        lastSyncTime.gravity = Gravity.END
+        goToTopFAB.show()
+    }
+
+    private fun hideGoToTopFAB() {
+        lastSyncTime.gravity = Gravity.CENTER
+        goToTopFAB.hide()
     }
 }

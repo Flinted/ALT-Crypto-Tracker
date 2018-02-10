@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                             xmlns:app="http://schemas.android.com/apk/res-auto"
+                                             android:layout_width="match_parent"
+                                             android:layout_height="0dp">
+
+    <TextView
+        android:id="@+id/settings_market_up_extreme"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:labelFor="@id/settings_market_up_extreme_input"
+        android:text="Up(extreme)"
+        />
+
+    <EditText
+        android:id="@+id/settings_market_up_extreme_input"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_small_4dp"
+        android:background="@color/colorPrimarySoft"
+        android:inputType="numberDecimal"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/settings_market_up_moderate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:labelFor="@id/settings_market_up_moderate_input"
+        android:text="Up(moderate)"
+        app:layout_constraintTop_toTopOf="@id/settings_market_up_moderate_input"
+        />
+
+    <EditText
+        android:id="@+id/settings_market_up_moderate_input"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_small_4dp"
+        android:background="@color/colorPrimarySoft"
+        android:inputType="numberDecimal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/settings_market_up_extreme_input"/>
+
+    <TextView
+        android:id="@+id/settings_market_up_minor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:labelFor="@id/settings_market_up_minor_input"
+        android:text="Up(minor)"
+        app:layout_constraintTop_toTopOf="@id/settings_market_up_minor_input"
+        />
+
+    <EditText
+        android:id="@+id/settings_market_up_minor_input"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_small_4dp"
+        android:background="@color/colorPrimarySoft"
+        android:inputType="numberDecimal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/settings_market_up_moderate_input"/>
+
+    <TextView
+        android:id="@+id/settings_market_down_extreme"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:labelFor="@id/settings_market_down_extreme_input"
+        android:text="Down(extreme)"
+        app:layout_constraintTop_toTopOf="@id/settings_market_down_extreme_input"
+        />
+
+    <EditText
+        android:id="@+id/settings_market_down_extreme_input"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_small_4dp"
+        android:background="@color/colorPrimarySoft"
+        android:inputType="numberDecimal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/settings_market_down_moderate_input"/>
+
+    <TextView
+        android:id="@+id/settings_market_down_moderate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:labelFor="@id/settings_market_down_moderate_input"
+        android:text="Down(moderate)"
+        app:layout_constraintTop_toTopOf="@id/settings_market_down_moderate_input"
+        />
+
+    <EditText
+        android:id="@+id/settings_market_down_moderate_input"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_small_4dp"
+        android:background="@color/colorPrimarySoft"
+        android:inputType="numberDecimal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/settings_market_down_minor_input"/>
+
+    <TextView
+        android:id="@+id/settings_market_down_minor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:labelFor="@id/settings_market_down_minor_input"
+        android:text="Down(minor)"
+        app:layout_constraintTop_toTopOf="@id/settings_market_down_minor_input"
+        />
+
+    <EditText
+        android:id="@+id/settings_market_down_minor_input"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_small_4dp"
+        android:background="@color/colorPrimarySoft"
+        android:inputType="numberDecimal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/settings_market_up_minor_input"/>
+</android.support.constraint.ConstraintLayout>

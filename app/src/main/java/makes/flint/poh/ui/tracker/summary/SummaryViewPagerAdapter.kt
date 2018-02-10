@@ -4,6 +4,9 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
 import android.view.ViewGroup
+import makes.flint.poh.ui.tracker.summary.summaryFragments.SummaryChartFragment
+import makes.flint.poh.ui.tracker.summary.summaryFragments.SummaryContractView
+import makes.flint.poh.ui.tracker.summary.summaryFragments.SummaryFragment
 
 /**
  * SummaryViewPagerAdapter

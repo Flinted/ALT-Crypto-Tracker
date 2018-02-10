@@ -4,6 +4,7 @@ import io.realm.RealmObject
 import io.realm.annotations.PrimaryKey
 import makes.flint.poh.configuration.POHSettings
 import makes.flint.poh.data.services.interfaces.RealmDeletable
+import makes.flint.poh.utility.DateFormatter
 import org.threeten.bp.LocalDate
 import org.threeten.bp.ZoneOffset
 import org.threeten.bp.ZonedDateTime
@@ -23,7 +24,7 @@ open class TimeStamp() : RealmObject(), RealmDeletable {
     internal var timeStampISO8601: String
 
     constructor(date: String) : this() {
-        val localDate = LocalDate.parse(date, FORMATTER)
+        val localDate = LocalDate.parse(date, DateFormatter.DATE)
         val time = localDate.atStartOfDay(ZoneOffset.UTC)
         this.timeStampISO8601 = time.format(DateTimeFormatter.ISO_OFFSET_DATE_TIME)
     }
@@ -41,9 +42,5 @@ open class TimeStamp() : RealmObject(), RealmDeletable {
 
     override fun nestedDeleteFromRealm() {
         this.deleteFromRealm()
-    }
-
-    companion object {
-        private val FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy")
     }
 }

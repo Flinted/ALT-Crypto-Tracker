@@ -11,6 +11,8 @@ import makes.flint.poh.data.tracker.TRANSACTION_BUY
 import makes.flint.poh.data.tracker.TRANSACTION_SELL
 import makes.flint.poh.data.trackerListItem.TrackerListTransaction
 import makes.flint.poh.injection.components.PresenterComponent
+import makes.flint.poh.utility.DateFormatter
+import org.threeten.bp.ZonedDateTime
 import rx.subjects.PublishSubject
 
 /**
@@ -54,7 +56,9 @@ class TransactionsListAdapter(presenterComponent: PresenterComponent) : Recycler
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
         val viewHolder = holder as TransactionsListViewHolder
         val entry = transactionEntries[position]
-        viewHolder.date.text = entry.purchaseDate.timeStampISO8601
+        val timeStamp = entry.purchaseDate.timeStampISO8601
+        val formattedDate = ZonedDateTime.parse(timeStamp).format(DateFormatter.DATE)
+        viewHolder.date.text = formattedDate
         viewHolder.quantity.text = entry.quantity.toPlainString()
         viewHolder.pricePaid.text = entry.pricePaid.toPlainString()
         viewHolder.totalCost.text = entry.transactionTotal().toPlainString()

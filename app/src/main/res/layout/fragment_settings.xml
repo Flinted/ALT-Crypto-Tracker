@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                 xmlns:app="http://schemas.android.com/apk/res-auto"
                                                  android:layout_width="match_parent"
                                                  android:layout_height="match_parent"
-                                                 android:background="@color/colorPrimarySoft">
+                                                 android:background="@color/colorPrimaryDark">
 
     <include
         android:id="@+id/settings_top_ticker"
@@ -14,7 +15,375 @@
         android:layout_marginBottom="16dp"
         android:layout_marginTop="@dimen/market_information_height"
         >
+        <!--Screen Select-->
+        <TextView
+            android:id="@+id/settings_start_screen_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_large_8dp"
+            android:text="Starting screen:"
+            android:textColor="@color/colorOffWhite"
+            app:layout_constraintBottom_toBottomOf="@id/settings_start_screen_selector"
+            app:layout_constraintStart_toStartOf="parent"/>
 
+        <Spinner
+            android:id="@+id/settings_start_screen_selector"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_large_8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/settings_start_screen_title"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+        <!--Currency-->
+        <TextView
+            android:id="@+id/settings_currency_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_large_8dp"
+            android:text="Currency:"
+            android:textColor="@color/colorOffWhite"
+            app:layout_constraintBottom_toBottomOf="@id/settings_currency_selector"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <Spinner
+            android:id="@+id/settings_currency_selector"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_large_8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/settings_currency_title"
+            app:layout_constraintTop_toBottomOf="@id/settings_start_screen_selector"
+            />
+
+        <TextView
+            android:id="@+id/settings_default_sort_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_large_8dp"
+            android:text="Default sort:"
+            android:textColor="@color/colorOffWhite"
+            app:layout_constraintBottom_toBottomOf="@id/settings_default_sort_selector"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <Spinner
+            android:id="@+id/settings_default_sort_selector"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_large_8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/settings_default_sort_title"
+            app:layout_constraintTop_toBottomOf="@id/settings_currency_selector"
+            />
+
+        <TextView
+            android:id="@+id/settings_market_size_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_large_8dp"
+            android:text="Market size:"
+            android:textColor="@color/colorOffWhite"
+            app:layout_constraintBottom_toBottomOf="@id/settings_market_size_selector"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <Spinner
+            android:id="@+id/settings_market_size_selector"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_large_8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/settings_market_size_title"
+            app:layout_constraintTop_toBottomOf="@id/settings_default_sort_selector"
+            />
+
+        <TextView
+            android:id="@+id/settings_status_thresholds_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_large_8dp"
+            android:text="Status levels"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/text_large"
+            app:layout_constraintTop_toBottomOf="@id/settings_market_size_selector"
+            />
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/settings_market_status_levels"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="@dimen/margin_large_8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/settings_tracker_status_levels"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/settings_status_thresholds_title"
+            >
+
+            <TextView
+                android:id="@+id/settings_market_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Market"
+                android:textColor="@color/colorAccent"/>
+
+            <TextView
+                android:id="@+id/settings_market_up_extreme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:labelFor="@id/settings_market_up_extreme_input"
+                android:text="Up(extreme)"
+                android:textColor="@color/colorOffWhite"
+                app:layout_constraintTop_toTopOf="@id/settings_market_up_extreme_input"
+                />
+
+            <EditText
+                android:id="@+id/settings_market_up_extreme_input"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_small_4dp"
+                android:background="@color/colorPrimarySoft"
+                android:inputType="numberDecimal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/settings_market_title"/>
+
+            <TextView
+                android:id="@+id/settings_market_up_moderate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:labelFor="@id/settings_market_up_moderate_input"
+                android:text="Up(moderate)"
+                android:textColor="@color/colorOffWhite"
+                app:layout_constraintTop_toTopOf="@id/settings_market_up_moderate_input"
+                />
+
+            <EditText
+                android:id="@+id/settings_market_up_moderate_input"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_small_4dp"
+                android:background="@color/colorPrimarySoft"
+                android:inputType="numberDecimal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/settings_market_up_extreme_input"/>
+
+            <TextView
+                android:id="@+id/settings_market_up_minor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:labelFor="@id/settings_market_up_minor_input"
+                android:text="Up(minor)"
+                android:textColor="@color/colorOffWhite"
+                app:layout_constraintTop_toTopOf="@id/settings_market_up_minor_input"
+                />
+
+            <EditText
+                android:id="@+id/settings_market_up_minor_input"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_small_4dp"
+                android:background="@color/colorPrimarySoft"
+                android:inputType="numberDecimal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/settings_market_up_moderate_input"/>
+
+            <TextView
+                android:id="@+id/settings_market_down_extreme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:labelFor="@id/settings_market_down_extreme_input"
+                android:text="Down(extreme)"
+                android:textColor="@color/colorOffWhite"
+                app:layout_constraintTop_toTopOf="@id/settings_market_down_extreme_input"
+                />
+
+            <EditText
+                android:id="@+id/settings_market_down_extreme_input"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_small_4dp"
+                android:background="@color/colorPrimarySoft"
+                android:inputType="numberDecimal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/settings_market_down_moderate_input"/>
+
+            <TextView
+                android:id="@+id/settings_market_down_moderate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:labelFor="@id/settings_market_down_moderate_input"
+                android:text="Down(moderate)"
+                android:textColor="@color/colorOffWhite"
+                app:layout_constraintTop_toTopOf="@id/settings_market_down_moderate_input"
+                />
+
+            <EditText
+                android:id="@+id/settings_market_down_moderate_input"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_small_4dp"
+                android:background="@color/colorPrimarySoft"
+                android:inputType="numberDecimal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/settings_market_down_minor_input"/>
+
+            <TextView
+                android:id="@+id/settings_market_down_minor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:labelFor="@id/settings_market_down_minor_input"
+                android:text="Down(minor)"
+                android:textColor="@color/colorOffWhite"
+                app:layout_constraintTop_toTopOf="@id/settings_market_down_minor_input"
+                />
+
+            <EditText
+                android:id="@+id/settings_market_down_minor_input"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_small_4dp"
+                android:background="@color/colorPrimarySoft"
+                android:inputType="numberDecimal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/settings_market_up_minor_input"/>
+        </android.support.constraint.ConstraintLayout>
+
+        <!--TRACKER STATUS-->
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/settings_tracker_status_levels"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="@dimen/margin_large_8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/settings_market_status_levels"
+            app:layout_constraintTop_toBottomOf="@id/settings_status_thresholds_title">
+
+            <TextView
+                android:id="@+id/settings_tracker_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tracker"
+                android:textColor="@color/colorAccent"/>
+
+            <TextView
+                android:id="@+id/settings_tracker_up_extreme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:labelFor="@id/settings_tracker_up_extreme_input"
+                android:text="Up(extreme)"
+                android:textColor="@color/colorOffWhite"
+                app:layout_constraintTop_toTopOf="@id/settings_tracker_up_extreme_input"
+                />
+
+            <EditText
+                android:id="@+id/settings_tracker_up_extreme_input"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_small_4dp"
+                android:background="@color/colorPrimarySoft"
+                android:inputType="numberDecimal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/settings_tracker_title"/>
+
+            <TextView
+                android:id="@+id/settings_tracker_up_moderate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:labelFor="@id/settings_tracker_up_moderate_input"
+                android:text="Up(moderate)"
+                android:textColor="@color/colorOffWhite"
+                app:layout_constraintTop_toTopOf="@id/settings_tracker_up_moderate_input"
+                />
+
+            <EditText
+                android:id="@+id/settings_tracker_up_moderate_input"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_small_4dp"
+                android:background="@color/colorPrimarySoft"
+                android:inputType="numberDecimal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/settings_tracker_up_extreme_input"/>
+
+            <TextView
+                android:id="@+id/settings_tracker_up_minor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:labelFor="@id/settings_market_up_minor_input"
+                android:text="Up(minor)"
+                android:textColor="@color/colorOffWhite"
+                app:layout_constraintTop_toTopOf="@id/settings_tracker_up_minor_input"
+                />
+
+            <EditText
+                android:id="@+id/settings_tracker_up_minor_input"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_small_4dp"
+                android:background="@color/colorPrimarySoft"
+                android:inputType="numberDecimal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/settings_tracker_up_moderate_input"/>
+
+            <TextView
+                android:id="@+id/settings_tracker_down_extreme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:labelFor="@id/settings_market_down_extreme_input"
+                android:text="Down(extreme)"
+                android:textColor="@color/colorOffWhite"
+                app:layout_constraintTop_toTopOf="@id/settings_tracker_down_extreme_input"
+                />
+
+            <EditText
+                android:id="@+id/settings_tracker_down_extreme_input"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_small_4dp"
+                android:background="@color/colorPrimarySoft"
+                android:inputType="numberDecimal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/settings_tracker_down_moderate_input"/>
+
+            <TextView
+                android:id="@+id/settings_tracker_down_moderate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:labelFor="@id/settings_tracker_down_moderate_input"
+                android:text="Down(moderate)"
+                android:textColor="@color/colorOffWhite"
+                app:layout_constraintTop_toTopOf="@id/settings_tracker_down_moderate_input"
+                />
+
+            <EditText
+                android:id="@+id/settings_tracker_down_moderate_input"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_small_4dp"
+                android:background="@color/colorPrimarySoft"
+                android:inputType="numberDecimal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/settings_tracker_down_minor_input"/>
+
+            <TextView
+                android:id="@+id/settings_tracker_down_minor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:labelFor="@id/settings_tracker_down_minor_input"
+                android:text="Down(minor)"
+                android:textColor="@color/colorOffWhite"
+                app:layout_constraintTop_toTopOf="@id/settings_tracker_down_minor_input"
+                />
+
+            <EditText
+                android:id="@+id/settings_tracker_down_minor_input"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_small_4dp"
+                android:background="@color/colorPrimarySoft"
+                android:inputType="numberDecimal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/settings_tracker_up_minor_input"/>
+        </android.support.constraint.ConstraintLayout>
     </android.support.constraint.ConstraintLayout>
 
     <include

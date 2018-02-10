@@ -16,12 +16,15 @@ import javax.inject.Inject
  */
 class CoinListItemFactory @Inject constructor() {
 
+    // Private Properties
+
     private var oneHourMarket = 0f
     private var twentyFourHourMarket = 0f
     private var sevenDayMarket = 0f
     private var itemsInAverage = 0
 
     // Internal Functions
+
     internal fun makeCoinListItems(inputItems: MutableList<CoinResponse>,
                                    favouriteCoins: MutableList<FavouriteCoin>?
     ): MutableList<CoinListItem> {
@@ -34,17 +37,9 @@ class CoinListItemFactory @Inject constructor() {
         return coinListItems.sortedByFavouritesThen(POHSettings.sortPreference)
     }
 
-    private fun makeFavouritesHashMap(favouriteCoins: MutableList<FavouriteCoin>?): HashMap<String, FavouriteCoin> {
-        favouriteCoins ?: return hashMapOf()
-        val favouritesMap = HashMap<String, FavouriteCoin>()
-        favouriteCoins.forEach {
-            favouritesMap[it.symbol] = it
-        }
-        return favouritesMap
-    }
-
-    fun updateFavouriteCoins(cachedCoins: List<CoinListItem>?, favouriteCoins: MutableList<FavouriteCoin>):
-            MutableList<CoinListItem>? {
+    internal fun updateFavouriteCoins(cachedCoins: List<CoinListItem>?,
+                                      favouriteCoins: MutableList<FavouriteCoin>
+    ): MutableList<CoinListItem>? {
         val mutableCachedCoins = cachedCoins?.toMutableList() ?: return mutableListOf()
         val favouritesMap = makeFavouritesHashMap(favouriteCoins)
         cachedCoins.forEach {
@@ -53,7 +48,10 @@ class CoinListItemFactory @Inject constructor() {
         return mutableCachedCoins.sortedByFavouritesThen(POHSettings.sortPreference)
     }
 
+    internal fun getMarketData() = MarketData(oneHourMarket, twentyFourHourMarket, sevenDayMarket, itemsInAverage)
+
     // Private Functions
+
     private fun makeCoinListItem(inputItem: CoinResponse,
                                  favouriteCoins: HashMap<String, FavouriteCoin>
     ): CoinListItem {
@@ -66,7 +64,12 @@ class CoinListItemFactory @Inject constructor() {
         return CoinListItem(inputItem, priceData, changeData, isFavourite)
     }
 
-    fun getMarketData(): MarketData {
-        return MarketData(oneHourMarket, twentyFourHourMarket, sevenDayMarket, itemsInAverage)
+    private fun makeFavouritesHashMap(favouriteCoins: MutableList<FavouriteCoin>?): HashMap<String, FavouriteCoin> {
+        favouriteCoins ?: return hashMapOf()
+        val favouritesMap = HashMap<String, FavouriteCoin>()
+        favouriteCoins.forEach {
+            favouritesMap[it.symbol] = it
+        }
+        return favouritesMap
     }
 }

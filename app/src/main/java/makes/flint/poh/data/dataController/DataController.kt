@@ -1,6 +1,7 @@
 package makes.flint.poh.data.dataController
 
 import makes.flint.poh.data.Summary
+import makes.flint.poh.data.TimeStamp
 import makes.flint.poh.data.coinListItem.CoinListItem
 import makes.flint.poh.data.coinListItem.marketData.MarketData
 import makes.flint.poh.data.dataController.cache.UIObjectCache
@@ -40,7 +41,7 @@ open class DataController @Inject constructor(private val apiRepository: ApiRepo
         return cache.getMarketSubscription()
     }
 
-    fun lastSyncSubscriber(): Observable<String> {
+    fun lastSyncSubscriber(): Observable<TimeStamp> {
         return cache.getSyncTimeSubscription()
     }
 

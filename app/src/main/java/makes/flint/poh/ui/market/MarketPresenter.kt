@@ -3,6 +3,8 @@ package makes.flint.poh.ui.market
 import makes.flint.poh.base.BasePresenter
 import makes.flint.poh.data.coinListItem.marketData.MarketData
 import makes.flint.poh.data.dataController.DataController
+import makes.flint.poh.utility.DateFormatter
+import org.threeten.bp.ZonedDateTime
 import rx.Subscription
 import javax.inject.Inject
 
@@ -13,9 +15,11 @@ import javax.inject.Inject
 class MarketPresenter @Inject constructor(private var dataController: DataController)
     : BasePresenter<MarketContractView>(), MarketContractPresenter {
 
+    // Private Properties
     private var marketDataSubscriber: Subscription? = null
     private var lastSyncSubscriber: Subscription? = null
 
+    // Lifecycle
     override fun initialise() {
         subscribeForCacheRefresh()
         view?.initialiseListAdapter()
@@ -29,22 +33,24 @@ class MarketPresenter @Inject constructor(private var dataController: DataContro
         dataController.refreshRequested()
     }
 
-    private fun subscribeForCacheRefresh() {
-        marketDataSubscriber = dataController.marketRefreshSubscriber().subscribe {
-            updateMarketSummary(it)
-            view?.hideLoading()
-        }
-        lastSyncSubscriber = dataController.lastSyncSubscriber().subscribe{
-            view?.updateLastSyncTime(it)
-        }
-    }
-
     override fun onDestroy() {
         lastSyncSubscriber?.unsubscribe()
         marketDataSubscriber?.unsubscribe()
         lastSyncSubscriber = null
         marketDataSubscriber = null
         detachView()
+    }
+
+    private fun subscribeForCacheRefresh() {
+        marketDataSubscriber = dataController.marketRefreshSubscriber().subscribe {
+            updateMarketSummary(it)
+            view?.hideLoading()
+        }
+        lastSyncSubscriber = dataController.lastSyncSubscriber().subscribe {
+            val timeString = it.timeStampISO8601
+            val formattedTimeStamp = ZonedDateTime.parse(timeString).format(DateFormatter.DATE_TIME)
+            view?.updateLastSyncTime(formattedTimeStamp)
+        }
     }
 
     override fun onCoinSelected(coinSymbol: String) {
