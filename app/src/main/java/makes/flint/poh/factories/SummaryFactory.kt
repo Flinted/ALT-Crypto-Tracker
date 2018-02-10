@@ -52,5 +52,4 @@ class SummaryFactory @Inject constructor() {
             acc.add(entry.currentValueBTC)
         }
     }
-
 }

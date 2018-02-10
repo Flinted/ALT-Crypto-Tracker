@@ -23,6 +23,8 @@ import rx.subjects.PublishSubject
  * Copyright © 2018 Flint Makes. All rights reserved.
  */
 class TrackerEntryDialog : BaseDialogFragment(), TrackerEntryDialogContractView {
+
+    // Static Builder
     companion object {
         fun getInstanceFor(entry: TrackerListItem): TrackerEntryDialog {
             val fragment = TrackerEntryDialog()
@@ -31,6 +33,7 @@ class TrackerEntryDialog : BaseDialogFragment(), TrackerEntryDialogContractView 
         }
     }
 
+    // View Bindings
     private lateinit var deleteButton: ImageView
     private lateinit var coinName: TextView
     private lateinit var coinSymbol: TextView
@@ -40,14 +43,17 @@ class TrackerEntryDialog : BaseDialogFragment(), TrackerEntryDialogContractView 
     private lateinit var percentageChange: TextView
     private lateinit var transactionsList: RecyclerView
     private lateinit var trackerEntryDialogPresenter: TrackerEntryDialogContractPresenter
-    private lateinit var entry: TrackerListItem
 
+    // Private properties
+    private lateinit var entry: TrackerListItem
     private lateinit var transactionsListAdapter: TransactionsListAdapter
 
     // RX Actions
     private var entryDeleted: PublishSubject<Boolean> = PublishSubject.create()
 
     override fun onEntryDeleted() = entryDeleted.asObservable()
+
+    // Lifecycle
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,6 +70,11 @@ class TrackerEntryDialog : BaseDialogFragment(), TrackerEntryDialogContractView 
         return view
     }
 
+    override fun onStart() {
+        super.onStart()
+        dialog.window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+    }
+
     private fun bindViews(view: View) {
         this.deleteButton = view.findViewById(R.id.dialog_tracker_delete)
         this.coinName = view.findViewById(R.id.dialog_tracker_coin_name)
@@ -74,6 +85,8 @@ class TrackerEntryDialog : BaseDialogFragment(), TrackerEntryDialogContractView 
         this.transactionsList = view.findViewById(R.id.dialog_tracker_transactions_recycler)
         this.percentageChange = view.findViewById(R.id.dialog_tracker_percentage_change)
     }
+
+    // Public functions
 
     override fun displayTrackerEntry(trackerEntry: TrackerListItem) {
         coinName.text = trackerEntry.name
@@ -127,11 +140,6 @@ class TrackerEntryDialog : BaseDialogFragment(), TrackerEntryDialogContractView 
     override fun onDeletionOfEntry() {
         entryDeleted.onNext(true)
         dismiss()
-    }
-
-    override fun onStart() {
-        super.onStart()
-        dialog.window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
     }
 
     override fun showLoading() {

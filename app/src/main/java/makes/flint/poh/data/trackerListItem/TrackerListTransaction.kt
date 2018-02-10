@@ -1,6 +1,7 @@
 package makes.flint.poh.data.trackerListItem
 
 import makes.flint.poh.data.tracker.TrackerTransaction
+import makes.flint.poh.utility.NumberFormatter
 import java.math.BigDecimal
 
 /**
@@ -20,7 +21,12 @@ class TrackerListTransaction(data: TrackerTransaction) {
     internal var exchange = data.exchange
     internal var notes = data.notes
 
-    internal fun transactionTotal(): BigDecimal {
-        return quantity.multiply(pricePaid).add(fees)
+    internal fun transactionTotalFormatted(): String {
+        val total = quantity.multiply(pricePaid).add(fees)
+        return NumberFormatter.formatCurrency(total, 2)
+    }
+
+    fun pricePaidFormatted(): String {
+        return NumberFormatter.formatCurrency(pricePaid, 5)
     }
 }

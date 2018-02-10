@@ -6,26 +6,17 @@
                                              android:layout_margin="@dimen/margin_small_4dp">
 
     <TextView
-        android:id="@+id/coin_rank"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_medium_6dp"
-        android:textColor="@color/colorOffBlack"
-        android:textSize="@dimen/text_large"
-        app:layout_constraintStart_toEndOf="@id/coin_ticker"
-        app:layout_constraintTop_toBottomOf="@id/dialog_coin_detail_name"/>
-
-    <TextView
-        android:id="@+id/dialog_coin_detail_name"
-        android:layout_width="wrap_content"
+        android:id="@+id/coin_list_name"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_medium_6dp"
         android:ellipsize="end"
         android:maxLines="1"
-        android:maxWidth="160dp"
         android:textColor="@color/colorOffBlack"
-        android:textSize="@dimen/text_large"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="@dimen/text_size_small"
+        app:layout_constraintBottom_toBottomOf="@id/coin_ticker"
+        app:layout_constraintEnd_toStartOf="@id/indicator_1h"
+        app:layout_constraintStart_toEndOf="@id/coin_ticker"
         app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
@@ -35,8 +26,9 @@
         android:layout_marginStart="@dimen/margin_medium_6dp"
         android:textColor="@color/colorOffBlack"
         android:textSize="@dimen/text_large"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/dialog_coin_detail_name"/>
+        app:layout_constraintTop_toTopOf="parent"/>
 
 
     <TextView
@@ -46,8 +38,9 @@
         android:layout_marginStart="@dimen/margin_medium_6dp"
         android:textColor="@color/colorOffBlack"
         android:textSize="@dimen/text_large"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/coin_ticker"/>
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
 
     <!--One Hour Indicator -->
 
@@ -65,7 +58,7 @@
         android:id="@+id/indicator_1h"
         android:layout_width="@dimen/status_icon_size"
         android:layout_height="@dimen/status_icon_size"
-        android:layout_marginEnd="@dimen/margin_xLarge_16dp"
+        android:layout_marginEnd="@dimen/margin_xxLarge_20dp"
         android:layout_marginStart="@dimen/margin_xLarge_16dp"
         android:src="@drawable/ic_movement_static_24dp"
         app:layout_constraintEnd_toStartOf="@id/indicator_24h"
@@ -96,7 +89,7 @@
         android:id="@+id/indicator_24h"
         android:layout_width="@dimen/status_icon_size"
         android:layout_height="@dimen/status_icon_size"
-        android:layout_marginEnd="@dimen/margin_xLarge_16dp"
+        android:layout_marginEnd="@dimen/margin_xxLarge_20dp"
         android:layout_marginStart="@dimen/margin_xLarge_16dp"
         android:src="@drawable/ic_movement_static_24dp"
         app:layout_constraintEnd_toStartOf="@id/indicator_7d"
@@ -126,7 +119,7 @@
         android:id="@+id/indicator_7d"
         android:layout_width="@dimen/status_icon_size"
         android:layout_height="@dimen/status_icon_size"
-        android:layout_marginEnd="25dp"
+        android:layout_marginEnd="45dp"
         android:layout_marginStart="@dimen/margin_xLarge_16dp"
         android:src="@drawable/ic_movement_static_24dp"
         app:layout_constraintEnd_toEndOf="parent"

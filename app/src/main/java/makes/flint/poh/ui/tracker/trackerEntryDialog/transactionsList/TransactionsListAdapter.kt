@@ -22,17 +22,24 @@ import rx.subjects.PublishSubject
 class TransactionsListAdapter(presenterComponent: PresenterComponent) : RecyclerView.Adapter<RecyclerView.ViewHolder>(),
         TransactionAdapterContractView {
 
+    // RX Actions
     private var summaryRefreshRequired: PublishSubject<Boolean> = PublishSubject.create()
+
     override fun onSummaryRefreshRequired() = summaryRefreshRequired.asObservable()
 
-    var transactionEntries: MutableList<TrackerListTransaction> = mutableListOf()
+    // Internal properties
+
+    internal var transactionEntries: MutableList<TrackerListTransaction> = mutableListOf()
         set(value) {
             field = value
             notifyDataSetChanged()
         }
 
+    // Private properties
+
     private var transactionsAdapterPresenter = presenterComponent.provideTransactionsAdapterPresenter()
 
+    // Lifecycle
     init {
         transactionsAdapterPresenter.attachView(this)
         transactionsAdapterPresenter.initialise()
@@ -60,8 +67,8 @@ class TransactionsListAdapter(presenterComponent: PresenterComponent) : Recycler
         val formattedDate = ZonedDateTime.parse(timeStamp).format(DateFormatter.DATE)
         viewHolder.date.text = formattedDate
         viewHolder.quantity.text = entry.quantity.toPlainString()
-        viewHolder.pricePaid.text = entry.pricePaid.toPlainString()
-        viewHolder.totalCost.text = entry.transactionTotal().toPlainString()
+        viewHolder.pricePaid.text = entry.pricePaidFormatted()
+        viewHolder.totalCost.text = entry.transactionTotalFormatted()
         viewHolder.notes.text = entry.notes
         initialiseDeleteButton(viewHolder.deleteButton, entry, position)
     }

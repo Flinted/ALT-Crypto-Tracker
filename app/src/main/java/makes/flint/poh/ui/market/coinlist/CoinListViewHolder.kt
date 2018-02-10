@@ -14,10 +14,9 @@ import makes.flint.poh.R
 class CoinListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     var card: CardView = itemView.findViewById(R.id.main_card)
-    var name: TextView = itemView.findViewById(R.id.dialog_coin_detail_name)
+    var name: TextView = itemView.findViewById(R.id.coin_list_name)
     var ticker: TextView = itemView.findViewById(R.id.coin_ticker)
     var price: TextView = itemView.findViewById(R.id.coin_price)
-    var rank: TextView = itemView.findViewById(R.id.coin_rank)
     var favouriteIcon: ImageView = itemView.findViewById(R.id.coin_list_item_favourite_checkbox)
     var oneHourChange: TextView = itemView.findViewById(R.id.coin_1h_change)
     var twentyFourHourChange: TextView = itemView.findViewById(R.id.coin_24h_change)

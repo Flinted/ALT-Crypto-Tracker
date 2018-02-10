@@ -19,6 +19,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="end"
         android:src="@drawable/ic_favorite_border_24dp"
+        android:background="@color/colorPrimary"
         android:tag="unchecked"
         />
 

@@ -9,7 +9,17 @@
         android:id="@+id/transaction_item_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_large_8dp"
+        android:layout_marginStart="@dimen/margin_xLarge_16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/transaction_item_total_cost_title"/>
+
+    <TextView
+        android:id="@+id/transaction_item_total_cost_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_xLarge_16dp"
+        android:text="Total:"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
@@ -18,8 +28,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_large_8dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/transaction_item_date"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/transaction_item_total_cost_title"
+        app:layout_constraintTop_toTopOf="parent"
         />
 
     <TextView
@@ -27,6 +38,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toEndOf="@id/transaction_item_date"
+        app:layout_constraintTop_toTopOf="@id/transaction_item_date"
+        />
+
+    <TextView
+        android:id="@+id/transaction_item_quantity_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Qty:"
+        app:layout_constraintEnd_toStartOf="@id/transaction_item_quantity"
         app:layout_constraintTop_toTopOf="parent"
         />
 
@@ -36,6 +56,15 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toStartOf="@id/transaction_item_delete"
         app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/transaction_item_price_paid_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Price:"
+        app:layout_constraintEnd_toStartOf="@id/transaction_item_price_paid"
+        app:layout_constraintTop_toBottomOf="@id/transaction_item_quantity"
         />
 
     <TextView
@@ -50,7 +79,7 @@
         android:id="@+id/transaction_item_notes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/transaction_item_total_cost"
+        app:layout_constraintTop_toBottomOf="@id/transaction_item_price_paid"
         />
 
     <ImageView
