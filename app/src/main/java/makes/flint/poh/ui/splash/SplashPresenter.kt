@@ -1,6 +1,8 @@
 package makes.flint.poh.ui.splash
 
 import makes.flint.poh.base.BasePresenter
+import makes.flint.poh.configuration.POHSettings
+import makes.flint.poh.configuration.SettingsData
 import makes.flint.poh.data.dataController.DataController
 import rx.Subscription
 import javax.inject.Inject
@@ -15,12 +17,18 @@ class SplashPresenter @Inject constructor(private val dataController: DataContro
     private var coinListSubscriber: Subscription? = null
 
     override fun initialise() {
+        initialiseSettings()
         coinListSubscriber = dataController.coinRefreshSubscriber().subscribe {
-            println("Refreshed SPLASH")
             view?.proceedToMainActivity()
             clearSubscription()
         }
         dataController.refreshRequested()
+    }
+
+    private fun initialiseSettings() {
+        val settings = dataController.getSettings() ?: SettingsData()
+        POHSettings.updateSettings(settings)
+        dataController.storeSettings(settings)
     }
 
     private fun clearSubscription() {

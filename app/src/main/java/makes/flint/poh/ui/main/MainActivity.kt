@@ -54,6 +54,11 @@ class MainActivity : BaseActivity(), MainContractView {
         })
     }
 
+    override fun onResume() {
+        super.onResume()
+        mainPresenter.emitData()
+    }
+
     private fun bindViews() {
         this.bottomBar = findViewById(R.id.navigation_bottom_bar)
         this.viewPager = findViewById(R.id.fragment_container)

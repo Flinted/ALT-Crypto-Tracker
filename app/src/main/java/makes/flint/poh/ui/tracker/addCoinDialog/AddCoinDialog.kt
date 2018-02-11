@@ -3,19 +3,19 @@ package makes.flint.poh.ui.tracker.addCoinDialog
 import android.app.DatePickerDialog
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
-import android.support.v4.content.ContextCompat
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.AutoCompleteTextView
+import android.widget.EditText
+import android.widget.ImageView
+import android.widget.TextView
 import makes.flint.poh.R
 import makes.flint.poh.base.BaseDialogFragment
 import makes.flint.poh.data.coinListItem.CoinListItem
 import makes.flint.poh.data.tracker.TRANSACTION_BUY
-import makes.flint.poh.data.tracker.TRANSACTION_MINED
-import makes.flint.poh.data.tracker.TRANSACTION_SELL
 import makes.flint.poh.errors.ErrorHandler
 import rx.subjects.PublishSubject
 import java.util.*
@@ -37,7 +37,6 @@ class AddCoinDialog : BaseDialogFragment(), AddCoinDialogContractView {
     private lateinit var currentPriceDisplay: TextView
     private lateinit var purchasePriceDisplay: TextView
     private lateinit var feesInput: EditText
-    private lateinit var typeSelector: RadioGroup
 
     private lateinit var addEntryFAB: FloatingActionButton
     private lateinit var addCoinDialogPresenter: AddCoinDialogContractPresenter
@@ -52,7 +51,7 @@ class AddCoinDialog : BaseDialogFragment(), AddCoinDialogContractView {
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        val view = inflater?.inflate(R.layout.dialog_add_coin, container)
+        val view = inflater?.inflate(R.layout.dialog_buy_asset, container)
         view ?: return super.onCreateView(inflater, container, savedInstanceState)
         bindViews(view)
         addCoinDialogPresenter.initialise()
@@ -71,7 +70,6 @@ class AddCoinDialog : BaseDialogFragment(), AddCoinDialogContractView {
         this.dateInput = view.findViewById(R.id.date_of_purchase)
         this.notesInput = view.findViewById(R.id.transaction_notes)
         this.calendarButton = view.findViewById(R.id.transaction_date_select)
-        this.typeSelector = view.findViewById(R.id.transaction_type_selector)
         this.purchasePriceDisplay = view.findViewById(R.id.value_at_purchase)
         this.currentPriceDisplay = view.findViewById(R.id.value_current)
         this.addEntryFAB = view.findViewById(R.id.add_coin_fab)
@@ -96,22 +94,11 @@ class AddCoinDialog : BaseDialogFragment(), AddCoinDialogContractView {
         val fees = feesInput.text.toString()
         val date = dateInput.text.toString()
         val notes = notesInput.text.toString()
-        val typeId = getTransactionType(typeSelector.checkedRadioButtonId)
+        val typeId = TRANSACTION_BUY
         addCoinDialogPresenter.onAddEntryRequested(coinName, exchange, quantity, price, fees, date, notes, typeId)
     }
 
-    private fun getTransactionType(typeId: Int): String {
-        return when (typeId) {
-            R.id.radio_buy -> TRANSACTION_BUY
-            R.id.radio_sell -> TRANSACTION_SELL
-            else -> TRANSACTION_MINED
-        }
-    }
-
     override fun initialiseInputListeners() {
-        typeSelector.setOnCheckedChangeListener { _, id ->
-            onCheckedChange(id)
-        }
         val listener = makeTextChangeListener()
         quantityInput.addTextChangedListener(listener)
         priceInput.addTextChangedListener(listener)
@@ -177,32 +164,6 @@ class AddCoinDialog : BaseDialogFragment(), AddCoinDialogContractView {
 
     override fun displayUpdatedCurrentPrice(currentPrice: String) {
         currentPriceDisplay.text = currentPrice
-    }
-
-    private fun onCheckedChange(id: Int) {
-        when (id) {
-            R.id.radio_mined -> updateForMined()
-            R.id.radio_sell -> updateForSell()
-            else -> updateForBuy()
-        }
-    }
-
-    private fun updateForBuy() {
-        val color = ContextCompat.getColor(activity, R.color.colorPrimarySoft)
-        updateViewsForTransactionType(true, color)
-        updatePriceCalculation()
-    }
-
-    private fun updateForSell() {
-        val color = ContextCompat.getColor(activity, R.color.colorPrimarySoft)
-        updateViewsForTransactionType(true, color)
-        updatePriceCalculation()
-    }
-
-    private fun updateForMined() {
-        val color = ContextCompat.getColor(activity, R.color.colorOffBlack)
-        updateViewsForTransactionType(false, color)
-        purchasePriceDisplay.text = "N/A"
     }
 
     private fun updateViewsForTransactionType(isEnabled: Boolean, color: Int) {

@@ -2,6 +2,7 @@ package makes.flint.poh.data.dataController.dataManagers
 
 import io.realm.Realm
 import io.realm.RealmObject
+import makes.flint.poh.configuration.SettingsData
 import makes.flint.poh.data.dataController.dataSource.DataSource
 import makes.flint.poh.data.favouriteCoins.FavouriteCoin
 import makes.flint.poh.data.tracker.TrackerDataEntry
@@ -106,5 +107,9 @@ class RealmManager @Inject constructor() : DataSource {
                     .findFirst()
             entry?.nestedDeleteFromRealm()
         }
+    }
+
+    fun getSettings(): SettingsData? {
+        return realm.where(SettingsData::class.java).findFirst()
     }
 }

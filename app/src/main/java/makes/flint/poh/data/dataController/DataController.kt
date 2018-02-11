@@ -1,5 +1,6 @@
 package makes.flint.poh.data.dataController
 
+import makes.flint.poh.configuration.SettingsData
 import makes.flint.poh.data.Summary
 import makes.flint.poh.data.TimeStamp
 import makes.flint.poh.data.coinListItem.CoinListItem
@@ -116,5 +117,13 @@ open class DataController @Inject constructor(private val apiRepository: ApiRepo
             return
         }
         refreshCache()
+    }
+
+    fun getSettings(): SettingsData? {
+        return realmManager.getSettings()
+    }
+
+    fun storeSettings(settings: SettingsData) {
+        realmManager.copyOrUpdate(settings)
     }
 }

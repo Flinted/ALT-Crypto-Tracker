@@ -43,6 +43,7 @@ dependencies {
     final SUPPORT_LIBRARY_VERSION = '26.1.0'
     final JUNIT_VERSION = '4.12'
     final LOGGING_INTERCEPTOR_VERSION = '3.4.1'
+    final OKHTTP_VERSION = '3.8.0'
     final RETROFIT_VERSION = '2.2.0'
     final RXANDROID_VERSION = '1.2.1'
     final RXJAVA_VERSION = '1.1.6'
@@ -72,13 +73,14 @@ dependencies {
 
     // MPAndroidChart
     implementation "com.github.PhilJay:MPAndroidChart:$MP_ANDROID_CHART_VERSION"
+
     // Retrofit
     api "com.google.code.gson:gson:$GSON_VERSION"
     api "com.squareup.retrofit2:retrofit:$RETROFIT_VERSION"
     api "com.squareup.retrofit2:converter-gson:$RETROFIT_VERSION"
     api "com.squareup.retrofit2:adapter-rxjava:$RETROFIT_VERSION"
     api "com.squareup.okhttp3:logging-interceptor:$LOGGING_INTERCEPTOR_VERSION"
-    api 'com.squareup.okhttp3:okhttp:3.4.1'
+    api "com.squareup.okhttp3:okhttp:$OKHTTP_VERSION"
 
     // RX
     api "io.reactivex:rxjava:$RXJAVA_VERSION"
@@ -88,7 +90,6 @@ dependencies {
     compile "com.jakewharton.threetenabp:threetenabp:$THREE_TEN_VERSION"
 
     // Test
-    testCompile "junit:junit:4.12"
     androidTestCompile "org.mockito:mockito-core:$MOCKITO_VERSION"
     androidTestCompile "com.android.support:support-annotations:$SUPPORT_LIBRARY_VERSION"
     androidTestCompile "com.android.support.test:runner:$SUPPORT_TEST_VERSION"

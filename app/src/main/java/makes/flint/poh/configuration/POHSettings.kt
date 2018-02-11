@@ -12,8 +12,6 @@ const val START_TRACKER = "StartTracker"
 
 object POHSettings {
 
-    private val settingsKey = "POHSettings"
-
     // Formatting
 
     var currency = "USD"
@@ -48,4 +46,27 @@ object POHSettings {
     var trackerChangeDown1 = -0.2f
     var trackerChangeDown2 = -0.4f
     var trackerChangeDown3 = -0.6f
+
+    fun updateSettings(settings: SettingsData) {
+        currency = settings.currencyCode
+        symbol = settings.symbol
+        sortPreference = settings.defaultSort
+        roundingMode = settings.roundingMode
+        startingScreen = settings.startingScreen
+        exchange = settings.exchangeFilter
+        limit = settings.syncLimit
+        refreshGap = settings.refreshGap
+        changeUp1 = settings.marketUp1
+        changeUp2 = settings.marketUp2
+        changeUp3 = settings.marketUp3
+        changeDown1 = settings.marketDown1
+        changeDown2 = settings.marketDown2
+        changeDown3 = settings.marketDown3
+        trackerChangeUp1 = settings.trackerUp1
+        trackerChangeUp2 = settings.trackerUp2
+        trackerChangeUp3 = settings.trackerUp3
+        trackerChangeDown1 = settings.trackerDown1
+        trackerChangeDown2 = settings.trackerDown2
+        trackerChangeDown3 = settings.trackerDown3
+    }
 }
