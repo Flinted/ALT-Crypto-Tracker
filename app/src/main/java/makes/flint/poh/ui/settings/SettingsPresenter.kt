@@ -12,5 +12,7 @@ class SettingsPresenter @Inject constructor(private val dataController: DataCont
         SettingsContractPresenter {
 
     override fun initialise() {
+        val settings = dataController.getSettings() ?: return
+        view?.displayCurrentSettings(settings)
     }
 }

@@ -7,10 +7,11 @@
 
     <TextView
         android:id="@+id/dialog_coin_detail_name"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_large_8dp"
         android:ellipsize="end"
+        android:gravity="start"
         android:maxLines="1"
         android:textColor="@color/colorAccent"
         android:textSize="@dimen/text_xLarge_20sp"
@@ -125,12 +126,32 @@
     <FrameLayout
         android:id="@+id/dialog_coin_detail_chart_holder"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="230dp"
         android:layout_marginTop="@dimen/margin_xLarge_16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/dialog_coin_detail_billion_coin"
         />
+
+    <RadioGroup
+        android:id="@+id/dialog_coin_detail_chart_resolution_selector"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/dialog_coin_detail_chart_holder">
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Minutes"/>
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hours"/>
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Days"/>
+    </RadioGroup>
 
     <ProgressBar
         android:id="@+id/dialog_coin_detail_loading_spinner"
@@ -162,7 +183,7 @@
         android:textColor="@color/colorOffWhite"
         android:textSize="@dimen/text_large"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/dialog_coin_detail_chart_holder"/>
+        app:layout_constraintTop_toBottomOf="@id/dialog_coin_detail_chart_resolution_selector"/>
 
     <TextView
         android:id="@+id/dialog_coin_detail_volume_24h"
@@ -172,7 +193,7 @@
         android:textColor="@color/colorOffWhite"
         android:textSize="@dimen/text_large"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/dialog_coin_detail_chart_holder"/>
+        app:layout_constraintTop_toBottomOf="@id/dialog_coin_detail_chart_resolution_selector"/>
 
     <TextView
         android:id="@+id/dialog_coin_detail_available_supply_title"

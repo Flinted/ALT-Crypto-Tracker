@@ -8,6 +8,8 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
+import com.github.mikephil.charting.charts.BarChart
+import com.github.mikephil.charting.charts.LineChart
 import makes.flint.poh.R
 import makes.flint.poh.base.BaseDialogFragment
 import makes.flint.poh.data.coinListItem.CoinListItem
@@ -121,16 +123,13 @@ class CoinDetailDialog : BaseDialogFragment(), CoinDetailContractView {
 
     override fun initialiseChangeChartButton() {
         changeChartButton.setOnClickListener {
-            coinDetailPresenter.getHistoricalDataFor(CHART_ALL)
+            val currentData = coinDetailPresenter.getCurrentHistoricalDataResponse() ?: return@setOnClickListener
+            when (chartHolder.getChildAt(0)) {
+                is LineChart -> displayHistoricalDataResponse(currentData.data, BAR_CHART)
+                is BarChart -> displayHistoricalDataResponse(currentData.data, CANDLE_CHART)
+                else -> displayHistoricalDataResponse(currentData.data, LINE_CHART)
+            }
             chartHolder.removeViewAt(0)
-
-//            val currentData = coinDetailPresenter.getCurrentHistoricalDataResponse()
-//            when (chartHolder.getChildAt(0)) {
-//                is LineChart -> displayHistoricalDataResponse(currentData.data, BAR_CHART)
-//                is BarChart -> displayHistoricalDataResponse(currentData.data, CANDLE_CHART)
-//                else -> displayHistoricalDataResponse(currentData.data, LINE_CHART)
-//            }
-//            chartHolder.removeViewAt(0)
         }
     }
 

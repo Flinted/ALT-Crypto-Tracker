@@ -28,4 +28,23 @@
         <item>7D change</item>
         <item>7D change(reversed)</item>
     </string-array>
+
+    <string-array name="start_screen_options">
+        <item>Market</item>
+        <item>Tracker</item>
+    </string-array>
+
+    <string-array name="market_size_options">
+        <item>100</item>
+        <item>250</item>
+        <item>500</item>
+        <item>750</item>
+        <item>1000</item>
+        <item>1500</item>
+        <item>All</item>
+    </string-array>
+
+    <string-array name="currency_options">
+        <item>US Dollars</item>
+    </string-array>
 </resources>

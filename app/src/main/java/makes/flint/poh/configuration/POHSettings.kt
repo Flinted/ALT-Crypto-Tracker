@@ -51,7 +51,6 @@ object POHSettings {
         currency = settings.currencyCode
         symbol = settings.symbol
         sortPreference = settings.defaultSort
-        roundingMode = settings.roundingMode
         startingScreen = settings.startingScreen
         exchange = settings.exchangeFilter
         limit = settings.syncLimit

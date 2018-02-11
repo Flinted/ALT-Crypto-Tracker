@@ -37,6 +37,7 @@ class CoinDetailPresenter @Inject constructor(private var dataController: DataCo
     private var coinDetailDialog: CoinDetailContractView? = null
     private lateinit var coinSymbol: String
     private val chartData: SparseArray<HistoricalDataResponse> = SparseArray()
+    private var currentUnit = MINUTE_DATA
     private var chartType = BAR_CHART
 
     override fun initialise() {
@@ -51,6 +52,10 @@ class CoinDetailPresenter @Inject constructor(private var dataController: DataCo
         coinDetailDialog?.showLoading()
         val apiResolution = getAPIResolutionForRequestedChartType(chartResolution)
         getDataForResolution(apiResolution, chartResolution, callback)
+    }
+
+    override fun getCurrentHistoricalDataResponse(): HistoricalDataResponse? {
+        return chartData[currentUnit]
     }
 
     private fun getDataForResolution(apiResolution: Int,
@@ -82,19 +87,19 @@ class CoinDetailPresenter @Inject constructor(private var dataController: DataCo
     }
 
     private fun prepareDataFor(chartResolution: Int, result: HistoricalDataResponse): Array<HistoricalDataUnitResponse> {
-        val invertedData = result.data.reversedArray()
-        val subset = when (chartResolution) {
-            CHART_1H -> invertedData.copyOfRange(0, 59)
-            CHART_6h -> invertedData.copyOfRange(0, 359)
-            CHART_24H -> invertedData
-            CHART_3D -> invertedData.copyOfRange(0, 71)
-            CHART_7D -> invertedData
-            CHART_30D -> invertedData.copyOfRange(0, 29)
-            CHART_90D -> invertedData.copyOfRange(0, 89)
-            CHART_1Y -> invertedData.copyOfRange(0, 364)
-            else -> invertedData
-        }
-        return subset.reversedArray()
+        val invertedData = result.data
+//        val subset = when (chartResolution) {
+//            CHART_1H -> invertedData.copyOfRange(0, 59)
+//            CHART_6h -> invertedData.copyOfRange(0, 359)
+//            CHART_24H -> invertedData
+//            CHART_3D -> invertedData.copyOfRange(0, 71)
+//            CHART_7D -> invertedData
+//            CHART_30D -> invertedData.copyOfRange(0, 29)
+//            CHART_90D -> invertedData.copyOfRange(0, 89)
+//            CHART_1Y -> invertedData.copyOfRange(0, 364)
+//            else -> invertedData
+//        }
+        return invertedData
     }
 
     private fun getAPIResolutionForRequestedChartType(chartType: Int): Int {

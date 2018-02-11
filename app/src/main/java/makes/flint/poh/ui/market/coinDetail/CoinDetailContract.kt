@@ -3,6 +3,7 @@ package makes.flint.poh.ui.market.coinDetail
 import makes.flint.poh.base.BaseContractPresenter
 import makes.flint.poh.base.BaseContractView
 import makes.flint.poh.data.coinListItem.CoinListItem
+import makes.flint.poh.data.response.histoResponse.HistoricalDataResponse
 import makes.flint.poh.data.response.histoResponse.HistoricalDataUnitResponse
 
 /**
@@ -17,5 +18,6 @@ interface CoinDetailContractView : BaseContractView {
 
 interface CoinDetailContractPresenter : BaseContractPresenter<CoinDetailContractView> {
     fun initialise(coinSymbol: String)
-    fun getHistoricalDataFor(dataResolution: Int)
+    fun getHistoricalDataFor(chartResolution: Int)
+    fun getCurrentHistoricalDataResponse(): HistoricalDataResponse?
 }

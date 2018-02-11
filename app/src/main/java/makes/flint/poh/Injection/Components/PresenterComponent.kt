@@ -7,6 +7,7 @@ import makes.flint.poh.ui.main.MainPresenter
 import makes.flint.poh.ui.market.MarketPresenter
 import makes.flint.poh.ui.market.coinDetail.CoinDetailPresenter
 import makes.flint.poh.ui.market.coinlist.CoinListAdapterPresenter
+import makes.flint.poh.ui.settings.SettingsPresenter
 import makes.flint.poh.ui.splash.SplashPresenter
 import makes.flint.poh.ui.tracker.TrackerPresenter
 import makes.flint.poh.ui.tracker.addCoinDialog.AddCoinDialogPresenter
@@ -44,4 +45,6 @@ interface PresenterComponent {
     fun provideSplashPresenter(): SplashPresenter
 
     fun provideSummaryPresenter(): SummaryPresenter
+
+    fun provideSettingsPresenter(): SettingsPresenter
 }

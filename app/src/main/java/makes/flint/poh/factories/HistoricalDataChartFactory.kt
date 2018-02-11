@@ -25,7 +25,6 @@ class HistoricalDataChartFactory(private var dataSet: Array<HistoricalDataUnitRe
     }
 
     fun createLineChart(context: Context): LineChart {
-        println("NO OF ENTRIES ${dataSet.size}")
         val entries = makeEntries()
         val lineDataSet = makeLineDataSet(entries, context)
         val chart = makeLineChart(context)
@@ -49,24 +48,9 @@ class HistoricalDataChartFactory(private var dataSet: Array<HistoricalDataUnitRe
         return chart
     }
 
-    private fun makeCandleChart(context: Context): CandleStickChart {
-        return CandleStickChart(context).apply {
-            setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDark))
-            xAxis.textColor = Color.WHITE
-            xAxis.position = XAxis.XAxisPosition.BOTTOM
-            xAxis.setDrawGridLines(false)
-            axisLeft.textColor = Color.WHITE
-            axisLeft.setDrawGridLines(false)
-            axisRight.textColor = Color.WHITE
-            axisRight.setDrawGridLines(false)
-            animateXY(1000, 1000)
-        }
-    }
-
     private fun makeEntries(): MutableList<Entry> {
         val entries: MutableList<Entry> = mutableListOf()
         var count = 0f
-        println("MAKING ENTRIES ${dataSet.size}")
         dataSet.forEach {
             val close = it.close ?: return@forEach
             val entry = Entry(count, close)
@@ -119,14 +103,14 @@ class HistoricalDataChartFactory(private var dataSet: Array<HistoricalDataUnitRe
         return CandleDataSet(entries, label).apply {
             setDrawIcons(false)
             setDrawValues(false)
+            shadowColorSameAsCandle = true
             axisDependency = YAxis.AxisDependency.LEFT
-            shadowColor = Color.WHITE
-            shadowWidth = 0.7f
+            shadowWidth = 1f
             highLightColor = Color.WHITE
             highlightLineWidth = 1f
             decreasingColor = ContextCompat.getColor(context, R.color.colorRed)
             decreasingPaintStyle = Paint.Style.FILL
-            increasingColor = ContextCompat.getColor(context, R.color.colorAccent)
+            increasingColor = ContextCompat.getColor(context, R.color.colorGreen)
             increasingPaintStyle = Paint.Style.FILL_AND_STROKE
             neutralColor = Color.DKGRAY
         }
@@ -135,13 +119,14 @@ class HistoricalDataChartFactory(private var dataSet: Array<HistoricalDataUnitRe
 
     private fun makeLineChart(context: Context): LineChart {
         return LineChart(context).apply {
-            setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDark))
-            xAxis.textColor = Color.WHITE
+            setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimarySoft))
+            xAxis.textColor = Color.BLACK
             xAxis.position = XAxis.XAxisPosition.BOTTOM
             xAxis.setDrawGridLines(false)
-            axisLeft.textColor = Color.WHITE
+            axisLeft.textColor = Color.BLACK
+            setPinchZoom(false)
             axisLeft.setDrawGridLines(false)
-            axisRight.textColor = Color.WHITE
+            axisRight.textColor = Color.BLACK
             axisRight.setDrawGridLines(false)
             animateXY(1000, 1000)
         }
@@ -149,13 +134,29 @@ class HistoricalDataChartFactory(private var dataSet: Array<HistoricalDataUnitRe
 
     private fun makeBarChart(context: Context): BarChart {
         return BarChart(context).apply {
-            setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDark))
-            xAxis.textColor = Color.WHITE
+            setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimarySoft))
+            xAxis.textColor = Color.BLACK
             xAxis.position = XAxis.XAxisPosition.BOTTOM
             xAxis.setDrawGridLines(false)
-            axisLeft.textColor = Color.WHITE
+            setPinchZoom(false)
+            axisLeft.textColor = Color.BLACK
             axisLeft.setDrawGridLines(false)
-            axisRight.textColor = Color.WHITE
+            axisRight.textColor = Color.BLACK
+            axisRight.setDrawGridLines(false)
+            animateXY(1000, 1000)
+        }
+    }
+
+    private fun makeCandleChart(context: Context): CandleStickChart {
+        return CandleStickChart(context).apply {
+            setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimarySoft))
+            xAxis.textColor = Color.BLACK
+            xAxis.position = XAxis.XAxisPosition.BOTTOM
+            xAxis.setDrawGridLines(false)
+            axisLeft.textColor = Color.BLACK
+            axisLeft.setDrawGridLines(false)
+            setPinchZoom(false)
+            axisRight.textColor = Color.BLACK
             axisRight.setDrawGridLines(false)
             animateXY(1000, 1000)
         }

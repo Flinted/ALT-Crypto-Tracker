@@ -3,21 +3,19 @@ package makes.flint.poh.configuration
 import io.realm.RealmObject
 import io.realm.annotations.PrimaryKey
 import makes.flint.poh.ui.interfaces.SORT_RANK
-import java.math.RoundingMode
 import java.util.*
 
 /**
  * SettingsData
  * Copyright © 2018 FlintMakes. All rights reserved.
  */
-class SettingsData : RealmObject() {
+open class SettingsData : RealmObject() {
 
     @PrimaryKey
-    private val id = UUID.randomUUID().toString()
+    private var id = UUID.randomUUID().toString()
 
     var currencyCode = "USD"
     var symbol = "$"
-    var roundingMode = RoundingMode.HALF_EVEN
 
     var refreshGap = 5L
     var exchangeFilter = "CCCAGG"
