@@ -4,8 +4,8 @@ import makes.flint.poh.data.TimeStamp
 import makes.flint.poh.data.coinListItem.CoinListItem
 import makes.flint.poh.data.tracker.TRANSACTION_MINED
 import makes.flint.poh.data.tracker.TRANSACTION_SELL
-import makes.flint.poh.data.tracker.TrackerEntryData
-import makes.flint.poh.data.tracker.TrackerTransaction
+import makes.flint.poh.data.tracker.TrackerDataEntry
+import makes.flint.poh.data.tracker.TrackerDataTransaction
 import javax.inject.Inject
 
 /**
@@ -14,7 +14,7 @@ import javax.inject.Inject
  */
 class TrackerEntryDataFactory @Inject constructor() {
 
-    fun makeTrackerEntryDataFor(trackerEntryData: TrackerEntryData?,
+    fun makeTrackerEntryDataFor(trackerEntryData: TrackerDataEntry?,
                                 coin: CoinListItem?,
                                 exchange: String?,
                                 quantity: String?,
@@ -23,15 +23,15 @@ class TrackerEntryDataFactory @Inject constructor() {
                                 date: String,
                                 notes: String?,
                                 type: String
-    ): TrackerEntryData? {
+    ): TrackerDataEntry? {
         coin ?: return null
         val quantityInput = !quantity.isNullOrBlank()
         val priceInput = !price.isNullOrBlank() || type == TRANSACTION_MINED
         if (!quantityInput || !priceInput) {
             return null
         }
-        val trackerEntry = trackerEntryData ?: TrackerEntryData(coin.symbol, coin.name)
-        val transaction = TrackerTransaction()
+        val trackerEntry = trackerEntryData ?: TrackerDataEntry(coin.symbol, coin.name)
+        val transaction = TrackerDataTransaction()
         transaction.exchange = exchange
         transaction.quantity = getQuantityForType(type, quantity)
         transaction.pricePaid = price

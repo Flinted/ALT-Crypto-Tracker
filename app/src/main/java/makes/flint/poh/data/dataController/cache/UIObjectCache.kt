@@ -7,13 +7,12 @@ import makes.flint.poh.data.coinListItem.marketData.MarketData
 import makes.flint.poh.data.favouriteCoins.FavouriteCoin
 import makes.flint.poh.data.response.CoinResponse
 import makes.flint.poh.data.response.coinSummary.SummaryCoinResponse
-import makes.flint.poh.data.tracker.TrackerEntryData
+import makes.flint.poh.data.tracker.TrackerDataEntry
 import makes.flint.poh.data.trackerListItem.TrackerListItem
 import makes.flint.poh.factories.CoinListItemFactory
 import makes.flint.poh.factories.SummaryFactory
 import makes.flint.poh.factories.TrackerItemFactory
 import rx.subjects.PublishSubject
-import java.math.BigDecimal
 import javax.inject.Inject
 
 /**
@@ -26,7 +25,7 @@ class UIObjectCache @Inject constructor(private val coinListItemFactory: CoinLis
     private var lastUpdate: TimeStamp? = null
     internal var coinListItems: List<CoinListItem> = mutableListOf()
     internal var trackerListItems: List<TrackerListItem> = mutableListOf()
-    internal var summary: Summary = Summary(BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, mutableListOf())
+    internal var summary: Summary = summaryFactory.makeEmptySummary()
     internal var marketData: MarketData? = null
 
     private var hasRefreshedCoins: PublishSubject<List<CoinListItem>> = PublishSubject.create()
@@ -43,7 +42,7 @@ class UIObjectCache @Inject constructor(private val coinListItemFactory: CoinLis
     fun shouldReSyncData() = lastUpdate?.shouldReSync() ?: true
 
     fun updateCacheForNewData(data: MutableList<SummaryCoinResponse>?, favouritesData: MutableList<FavouriteCoin>,
-                              trackerData: List<TrackerEntryData>) {
+                              trackerData: List<TrackerDataEntry>) {
         data ?: return
         val coinResponses = data as MutableList<CoinResponse>
         val coinListItems = coinListItemFactory.makeCoinListItems(coinResponses, favouritesData)
@@ -70,7 +69,7 @@ class UIObjectCache @Inject constructor(private val coinListItemFactory: CoinLis
         hasUpdatedTimeStamp.onNext(lastUpdate)
     }
 
-    fun updateTrackerEntries(trackerEntries: List<TrackerEntryData>) {
+    fun updateTrackerEntries(trackerEntries: List<TrackerDataEntry>) {
         val updatedTrackerEntries = trackerItemFactory.makeTrackerItems(trackerEntries, coinListItems)
         val updatedSummary = summaryFactory.makeSummaryFor(updatedTrackerEntries)
         this.trackerListItems = updatedTrackerEntries

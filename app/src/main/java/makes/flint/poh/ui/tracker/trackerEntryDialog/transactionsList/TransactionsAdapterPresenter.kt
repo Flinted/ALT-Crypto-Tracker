@@ -2,7 +2,7 @@ package makes.flint.poh.ui.tracker.trackerEntryDialog.transactionsList
 
 import makes.flint.poh.base.BasePresenter
 import makes.flint.poh.data.dataController.DataController
-import makes.flint.poh.data.trackerListItem.TrackerListTransaction
+import makes.flint.poh.data.trackerListItem.TrackerTransaction
 import javax.inject.Inject
 
 /**
@@ -12,7 +12,7 @@ import javax.inject.Inject
 class TransactionsAdapterPresenter @Inject constructor(private var dataController: DataController) :
         BasePresenter<TransactionAdapterContractView>(), TransactionAdapterContractPresenter {
 
-    override fun deleteCurrentEntry(entry: TrackerListTransaction, position: Int) {
+    override fun deleteCurrentEntry(entry: TrackerTransaction, position: Int) {
         val idToDelete = entry.dataId
         dataController.deleteTransactionFor(idToDelete)
         view?.successfullyDeletedTransaction(entry)

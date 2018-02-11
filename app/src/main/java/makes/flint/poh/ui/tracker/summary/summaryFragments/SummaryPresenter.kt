@@ -7,7 +7,7 @@ import javax.inject.Inject
 
 /**
  * SummaryPresenter
- * Copyright © 2018 Intelligent Loyalty Limited. All rights reserved.
+ * Copyright © 2018 Flint Makes. All rights reserved.
  */
 class SummaryPresenter @Inject constructor(private val dataController: DataController) : BasePresenter<SummaryContractView>(),
         SummaryContractPresenter {

@@ -5,7 +5,7 @@ import makes.flint.poh.base.BaseContractView
 
 /**
  * SplashContract
- * Copyright © 2018 Intelligent Loyalty Limited. All rights reserved.
+ * Copyright © 2018 Flint Makes. All rights reserved.
  */
 interface SplashContractView : BaseContractView {
     fun proceedToMainActivity()

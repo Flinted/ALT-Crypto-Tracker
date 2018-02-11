@@ -69,6 +69,63 @@
         />
 
     <TextView
+        android:id="@+id/summary_amount_spent_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Value spent: "
+        android:textColor="@color/colorWhite"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/summary_initial_value_title"
+        />
+
+    <TextView
+        android:id="@+id/summary_amount_spent_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorWhite"
+        app:layout_constraintStart_toEndOf="@id/summary_amount_spent_title"
+        app:layout_constraintTop_toBottomOf="@id/summary_initial_value"
+        />
+
+    <TextView
+        android:id="@+id/summary_amount_sold_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Value sold: "
+        android:textColor="@color/colorWhite"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/summary_amount_spent_title"
+        />
+
+    <TextView
+        android:id="@+id/summary_amount_sold_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorWhite"
+        app:layout_constraintStart_toEndOf="@id/summary_amount_sold_title"
+        app:layout_constraintTop_toBottomOf="@id/summary_amount_spent_value"
+        />
+
+    <TextView
+        android:id="@+id/summary_current_standing_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Current standing: "
+        android:textColor="@color/colorWhite"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/summary_amount_sold_title"
+        />
+
+    <TextView
+        android:id="@+id/summary_current_standing_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorWhite"
+        app:layout_constraintStart_toEndOf="@id/summary_current_standing_title"
+        app:layout_constraintTop_toBottomOf="@id/summary_amount_sold_value"
+        />
+
+    <TextView
         android:id="@+id/summary_change_percentage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -4,8 +4,8 @@ import io.realm.Realm
 import io.realm.RealmObject
 import makes.flint.poh.data.dataController.dataSource.DataSource
 import makes.flint.poh.data.favouriteCoins.FavouriteCoin
-import makes.flint.poh.data.tracker.TrackerEntryData
-import makes.flint.poh.data.tracker.TrackerTransaction
+import makes.flint.poh.data.tracker.TrackerDataEntry
+import makes.flint.poh.data.tracker.TrackerDataTransaction
 import javax.inject.Inject
 
 /**
@@ -70,9 +70,9 @@ class RealmManager @Inject constructor() : DataSource {
         }
     }
 
-    fun getCopyOfTrackerEntry(coinName: String, symbol: String): TrackerEntryData? {
+    fun getCopyOfTrackerEntry(coinName: String, symbol: String): TrackerDataEntry? {
         open()
-        val result = realm.where(TrackerEntryData::class.java)
+        val result = realm.where(TrackerDataEntry::class.java)
                 .equalTo("name", coinName)
                 .equalTo("symbol", symbol)
                 .findFirst()
@@ -80,9 +80,9 @@ class RealmManager @Inject constructor() : DataSource {
         return realm.copyFromRealm(result)
     }
 
-    fun getAllTrackerDataEntries(): List<TrackerEntryData> {
+    fun getAllTrackerDataEntries(): List<TrackerDataEntry> {
         open()
-        val results = realm.where(TrackerEntryData::class.java)
+        val results = realm.where(TrackerDataEntry::class.java)
                 .findAll()
         results ?: return emptyList()
         return realm.copyFromRealm(results)
@@ -91,7 +91,7 @@ class RealmManager @Inject constructor() : DataSource {
     fun deleteTrackerEntryDataFor(id: String) {
         open()
         realm.executeTransaction {
-            val entry = realm.where(TrackerEntryData::class.java)
+            val entry = realm.where(TrackerDataEntry::class.java)
                     .equalTo("id", id)
                     .findFirst()
             entry?.nestedDeleteFromRealm()
@@ -101,7 +101,7 @@ class RealmManager @Inject constructor() : DataSource {
     fun deleteTransactionFor(id: String) {
         open()
         realm.executeTransaction {
-            val entry = realm.where(TrackerTransaction::class.java)
+            val entry = realm.where(TrackerDataTransaction::class.java)
                     .equalTo("id", id)
                     .findFirst()
             entry?.nestedDeleteFromRealm()

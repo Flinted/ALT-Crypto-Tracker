@@ -7,16 +7,16 @@ import makes.flint.poh.data.services.interfaces.RealmDeletable
 import java.util.*
 
 /**
- * TrackerEntryData
- * Copyright © 2018 Intelligent Loyalty Limited. All rights reserved.
+ * TrackerDataEntry
+ * Copyright © 2018 Flint Makes. All rights reserved.
  */
-open class TrackerEntryData constructor() : RealmObject(), RealmDeletable {
+open class TrackerDataEntry constructor() : RealmObject(), RealmDeletable {
 
     @PrimaryKey
     internal var id = UUID.randomUUID().toString()
     internal lateinit var symbol: String
     internal lateinit var name: String
-    internal var transactions: RealmList<TrackerTransaction> = RealmList()
+    internal var transactions: RealmList<TrackerDataTransaction> = RealmList()
 
     constructor(symbol: String, name: String) : this() {
         this.symbol = symbol

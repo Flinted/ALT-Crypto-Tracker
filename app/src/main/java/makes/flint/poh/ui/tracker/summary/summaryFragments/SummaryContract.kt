@@ -6,7 +6,7 @@ import makes.flint.poh.data.Summary
 
 /**
  * SummaryContract
- * Copyright © 2018 Intelligent Loyalty Limited. All rights reserved.
+ * Copyright © 2018 Flint Makes. All rights reserved.
  */
 interface SummaryContractView : BaseContractView {
     fun updateForSummary(summary: Summary)

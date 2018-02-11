@@ -11,7 +11,7 @@ import makes.flint.poh.data.dataController.dataManagers.RealmManager
 import makes.flint.poh.data.favouriteCoins.FavouriteCoin
 import makes.flint.poh.data.response.coinSummary.SummaryCoinResponse
 import makes.flint.poh.data.response.histoResponse.HistoricalDataResponse
-import makes.flint.poh.data.tracker.TrackerEntryData
+import makes.flint.poh.data.tracker.TrackerDataEntry
 import makes.flint.poh.data.trackerListItem.TrackerListItem
 import rx.Observable
 import rx.Subscriber
@@ -88,13 +88,13 @@ open class DataController @Inject constructor(private val apiRepository: ApiRepo
         apiRepository.getHistoricalDataFor(callback, coinSymbol, dataResolution, chartResolution)
     }
 
-    fun getCopyOfTrackerEntry(coinName: String?, symbol: String?): TrackerEntryData? {
+    fun getCopyOfTrackerEntry(coinName: String?, symbol: String?): TrackerDataEntry? {
         coinName ?: return null
         symbol ?: return null
         return realmManager.getCopyOfTrackerEntry(coinName, symbol)
     }
 
-    fun storeTrackerEntry(preparedEntry: TrackerEntryData) {
+    fun storeTrackerEntry(preparedEntry: TrackerDataEntry) {
         realmManager.copyOrUpdate(preparedEntry)
         updateTrackerEntries()
     }

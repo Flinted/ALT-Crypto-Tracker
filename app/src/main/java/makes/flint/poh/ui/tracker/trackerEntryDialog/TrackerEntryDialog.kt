@@ -13,7 +13,7 @@ import android.widget.TextView
 import makes.flint.poh.R
 import makes.flint.poh.base.BaseDialogFragment
 import makes.flint.poh.data.trackerListItem.TrackerListItem
-import makes.flint.poh.data.trackerListItem.TrackerListTransaction
+import makes.flint.poh.data.trackerListItem.TrackerTransaction
 import makes.flint.poh.errors.ErrorHandler
 import makes.flint.poh.ui.tracker.trackerEntryDialog.transactionsList.TransactionsListAdapter
 import rx.subjects.PublishSubject
@@ -97,7 +97,7 @@ class TrackerEntryDialog : BaseDialogFragment(), TrackerEntryDialogContractView 
         percentageChange.text = trackerEntry.percentageChangeFormatted
     }
 
-    override fun initialiseTransactionsList(transactions: MutableList<TrackerListTransaction>) {
+    override fun initialiseTransactionsList(transactions: MutableList<TrackerTransaction>) {
         transactionsListAdapter = TransactionsListAdapter(getPresenterComponent())
         val layoutManager = LinearLayoutManager(activity)
         transactionsList.layoutManager = layoutManager

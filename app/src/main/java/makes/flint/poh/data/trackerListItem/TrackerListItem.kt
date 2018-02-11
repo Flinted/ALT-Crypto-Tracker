@@ -14,19 +14,51 @@ class TrackerListItem(internal val name: String,
                       internal val symbol: String,
                       internal val id: String,
                       internal val associatedCoin: CoinListItem?,
-                      internal var transactions: MutableList<TrackerListTransaction>) : TrackerAssessable {
-    internal var numberOwned = getNumberOwned()
-    internal var numberOwnedFormatted = makeNumberOwnedFormatted()
-    internal var symbolFormatted = makeSymbolFormatted()
-    internal var purchasePriceTotal = makePurchasePriceTotalAccurate()
-    internal var currentValueUSD = makeCurrentValueUSDAccurate()
-    internal var currentPriceUSDFormatted = makeCurrentValueUSDFormatted()
-    internal var currentValueBTC = makeCurrentValueBTCAccurate()
-    internal var currentPriceBTCFormatted = makeCurrentValueBTCFormatted()
-    internal var dollarCostAverage = makeDollarCostAverage()
-    internal var dollarCostAverageFormatted = makeDollarCostAverageFormatted()
+                      internal var transactions: MutableList<TrackerTransaction>) : TrackerAssessable {
+    internal val numberOwned = getNumberOwned()
+    internal val numberOwnedFormatted = makeNumberOwnedFormatted()
+    internal val symbolFormatted = makeSymbolFormatted()
+    internal val purchasePriceTotal = makePurchasePriceTotalAccurate()
+    internal val amountSpent = makeAmountSpent()
+    internal val amountSold = makeAmountSold()
+    internal val currentStanding = makeCurrentStanding()
+    internal val currentValueUSD = makeCurrentValueUSDAccurate()
+    internal val currentPriceUSDFormatted = makeCurrentValueUSDFormatted()
+    internal val currentValueBTC = makeCurrentValueBTCAccurate()
+    internal val currentPriceBTCFormatted = makeCurrentValueBTCFormatted()
+    internal val dollarCostAverage = makeDollarCostAverage()
+    internal val dollarCostAverageFormatted = makeDollarCostAverageFormatted()
     override var percentageChange = makePercentageChange()
-    internal var percentageChangeFormatted = makePercentageChangeFormatted()
+    internal val percentageChangeFormatted = makePercentageChangeFormatted()
+
+    private fun makeAmountSpent(): BigDecimal {
+        return transactions.fold(BigDecimal.ZERO) { sum, entry ->
+            val isSale = entry is TrackerTransactionSale
+            val amountSpent = if (isSale) {
+                BigDecimal.ZERO
+            } else {
+                entry.totalTransactionValue
+            }
+            sum.add(amountSpent)
+        }
+    }
+
+    private fun makeAmountSold(): BigDecimal {
+        return transactions.fold(BigDecimal.ZERO) { sum, entry ->
+            val isSale = entry is TrackerTransactionSale
+            val amountSpent = if (isSale) {
+                entry.totalTransactionValue
+            } else {
+                BigDecimal.ZERO
+            }
+            sum.add(amountSpent)
+        }
+    }
+
+    private fun makeCurrentStanding(): BigDecimal {
+        return amountSpent.minus(amountSold)
+    }
+
 
     private fun makeSymbolFormatted(): String {
         return "($symbol)"
@@ -101,7 +133,7 @@ class TrackerListItem(internal val name: String,
     }
 
     private fun makeDollarCostAverage(): BigDecimal {
-        if (numberOwned.equals(BigDecimal.ZERO)) {
+        if (numberOwned == BigDecimal.ZERO) {
             return BigDecimal.ZERO
         }
         val dollarCostAverage = purchasePriceTotal.divide(numberOwned, POHSettings.roundingMode)

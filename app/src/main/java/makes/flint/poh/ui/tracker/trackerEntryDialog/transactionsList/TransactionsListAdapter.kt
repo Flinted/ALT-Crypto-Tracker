@@ -7,9 +7,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
 import makes.flint.poh.R
-import makes.flint.poh.data.tracker.TRANSACTION_BUY
-import makes.flint.poh.data.tracker.TRANSACTION_SELL
-import makes.flint.poh.data.trackerListItem.TrackerListTransaction
+import makes.flint.poh.data.trackerListItem.TrackerTransaction
+import makes.flint.poh.data.trackerListItem.TrackerTransactionBuy
+import makes.flint.poh.data.trackerListItem.TrackerTransactionSale
 import makes.flint.poh.injection.components.PresenterComponent
 import makes.flint.poh.utility.DateFormatter
 import org.threeten.bp.ZonedDateTime
@@ -17,7 +17,7 @@ import rx.subjects.PublishSubject
 
 /**
  * TransactionsListAdapter
- * Copyright © 2018 Intelligent Loyalty Limited. All rights reserved.
+ * Copyright © 2018 Flint Makes. All rights reserved.
  */
 class TransactionsListAdapter(presenterComponent: PresenterComponent) : RecyclerView.Adapter<RecyclerView.ViewHolder>(),
         TransactionAdapterContractView {
@@ -29,7 +29,7 @@ class TransactionsListAdapter(presenterComponent: PresenterComponent) : Recycler
 
     // Internal properties
 
-    internal var transactionEntries: MutableList<TrackerListTransaction> = mutableListOf()
+    internal var transactionEntries: MutableList<TrackerTransaction> = mutableListOf()
         set(value) {
             field = value
             notifyDataSetChanged()
@@ -73,7 +73,7 @@ class TransactionsListAdapter(presenterComponent: PresenterComponent) : Recycler
         initialiseDeleteButton(viewHolder.deleteButton, entry, position)
     }
 
-    private fun initialiseDeleteButton(deleteButton: ImageView, entry: TrackerListTransaction, position: Int) {
+    private fun initialiseDeleteButton(deleteButton: ImageView, entry: TrackerTransaction, position: Int) {
         val listener = makeDeleteDialogListener(entry, position)
         deleteButton.setOnClickListener {
             val dialog = AlertDialog.Builder(deleteButton.context)
@@ -87,7 +87,7 @@ class TransactionsListAdapter(presenterComponent: PresenterComponent) : Recycler
         }
     }
 
-    private fun makeDeleteDialogListener(entry: TrackerListTransaction, position: Int): DialogInterface
+    private fun makeDeleteDialogListener(entry: TrackerTransaction, position: Int): DialogInterface
     .OnClickListener {
         return DialogInterface.OnClickListener { _, choice ->
             when (choice) {
@@ -97,7 +97,7 @@ class TransactionsListAdapter(presenterComponent: PresenterComponent) : Recycler
         }
     }
 
-    override fun successfullyDeletedTransaction(entry: TrackerListTransaction) {
+    override fun successfullyDeletedTransaction(entry: TrackerTransaction) {
         transactionEntries.remove(entry)
         notifyDataSetChanged()
         if (transactionEntries.isEmpty()) {
@@ -118,9 +118,9 @@ class TransactionsListAdapter(presenterComponent: PresenterComponent) : Recycler
 
     override fun getItemViewType(position: Int): Int {
         val entry = transactionEntries[position]
-        return when (entry.transactionType) {
-            TRANSACTION_BUY -> 1
-            TRANSACTION_SELL -> 2
+        return when (entry) {
+            is TrackerTransactionBuy -> 1
+            is TrackerTransactionSale -> 2
             else -> super.getItemViewType(position)
         }
     }

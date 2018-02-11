@@ -17,16 +17,36 @@ class SummaryFactory @Inject constructor() {
             return makeEmptySummary()
         }
         val initialValue = getInitialFiatValueFor(data)
+        val amountSpent = getAmountSpentFiat(data)
+        val amountSold = getAmountSoldFiat(data)
         val currentValueUSD = getCurrentFiatValueFor(data)
         val currentValueBTC = getCurrentBTCValueFor(data)
         val percentageChange = calculatePercentageChange(initialValue, currentValueUSD)
-        val summary = Summary(initialValue, currentValueUSD, currentValueBTC, percentageChange, data)
-        return summary
+        return Summary(
+                initialValue,
+                amountSpent,
+                amountSold,
+                currentValueUSD,
+                currentValueBTC,
+                percentageChange,
+                data)
     }
 
-    private fun makeEmptySummary(): Summary {
+    private fun getAmountSoldFiat(data: List<TrackerListItem>): BigDecimal {
+        return data.fold(BigDecimal.ZERO) { acc, entry ->
+            acc.add(entry.amountSold)
+        }
+    }
+
+    private fun getAmountSpentFiat(data: List<TrackerListItem>): BigDecimal {
+        return data.fold(BigDecimal.ZERO) { acc, entry ->
+            acc.add(entry.amountSpent)
+        }
+    }
+
+    internal fun makeEmptySummary(): Summary {
         val zero = BigDecimal.ZERO
-        return Summary(zero, zero, zero, zero, mutableListOf())
+        return Summary(zero, zero, zero, zero, zero, zero, mutableListOf())
     }
 
     private fun calculatePercentageChange(initialValue: BigDecimal, currentValue: BigDecimal): BigDecimal {
