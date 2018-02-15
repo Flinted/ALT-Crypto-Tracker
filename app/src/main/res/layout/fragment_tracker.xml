@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <makes.flint.poh.ui.tracker.summary.SummaryViewPager
+            <makes.flint.alt.ui.tracker.summary.SummaryViewPager
                 android:id="@+id/tracker_chart_area"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"

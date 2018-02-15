@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="makes.flint.poh">
+          package="makes.flint.alt">
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <application
-        android:name="makes.flint.poh.base.BaseApplication"
+        android:name="makes.flint.alt.base.BaseApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -14,7 +14,7 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name="makes.flint.poh.ui.splash.SplashActivity"
+            android:name="makes.flint.alt.ui.splash.SplashActivity"
             android:theme="@style/SplashTheme"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -24,7 +24,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="makes.flint.poh.ui.main.MainActivity"
+            android:name="makes.flint.alt.ui.main.MainActivity"
             android:theme="@style/AppTheme"
             android:screenOrientation="portrait">
         </activity>

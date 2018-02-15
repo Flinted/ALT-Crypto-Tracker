@@ -5,7 +5,7 @@ apply plugin: 'realm-android'
 android {
     compileSdkVersion 26
     defaultConfig {
-        applicationId "makes.flint.poh"
+        applicationId "makes.flint.alt"
         minSdkVersion 19
         targetSdkVersion 26
         versionCode 1
