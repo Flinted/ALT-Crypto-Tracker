@@ -70,13 +70,12 @@ class MainActivity : BaseActivity(), MainContractView {
     override fun initialiseViewPager() {
         viewPagerAdapter = MainViewPagerAdapter(supportFragmentManager)
         viewPager.adapter = viewPagerAdapter
-        viewPager.offscreenPageLimit = 2
+        viewPager.offscreenPageLimit = 1
         viewPager.onPageChangeListener {
             onPageSelected {
                 val selectedId = when (it) {
                     0 -> R.id.bottom_bar_market
-                    1 -> R.id.bottom_bar_tracker
-                    else -> R.id.bottom_bar_settings
+                    else -> R.id.bottom_bar_tracker
                 }
                 bottomBar.selectedItemId = selectedId
             }
@@ -104,8 +103,7 @@ class MainActivity : BaseActivity(), MainContractView {
         val itemId = item.itemId
         when (itemId) {
             R.id.bottom_bar_market -> viewPager.setCurrentItem(0, true)
-            R.id.bottom_bar_tracker -> viewPager.setCurrentItem(1, true)
-            else -> viewPager.setCurrentItem(2, true)
+            else -> viewPager.setCurrentItem(1, true)
         }
     }
 

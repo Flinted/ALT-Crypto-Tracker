@@ -24,7 +24,6 @@ class SummaryFragment : BaseFragment(), SummaryContractView {
     private lateinit var changePercentage: TextView
     private lateinit var amountSpent: TextView
     private lateinit var amountSold: TextView
-    private lateinit var currentStanding: TextView
     private lateinit var summaryPresenter: SummaryContractPresenter
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -50,7 +49,6 @@ class SummaryFragment : BaseFragment(), SummaryContractView {
         this.changePercentage = view.findViewById(R.id.summary_change_percentage)
         this.amountSpent = view.findViewById(R.id.summary_amount_spent_value)
         this.amountSold = view.findViewById(R.id.summary_amount_sold_value)
-        this.currentStanding = view.findViewById(R.id.summary_current_standing_value)
     }
 
     override fun updateForSummary(summary: Summary) {
@@ -60,7 +58,6 @@ class SummaryFragment : BaseFragment(), SummaryContractView {
         changePercentage.text = summary.percentageChangeFormatted()
         amountSpent.text = summary.amountSpentFormatted()
         amountSold.text = summary.amountSoldFormatted()
-        currentStanding.text = summary.currentStandingFormatted()
         val customiser = IndicatorCustomiser()
         val status = summary.assessChange()
         val changeColor = customiser.getColor(status)

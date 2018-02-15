@@ -36,6 +36,7 @@
         android:layout_height="wrap_content"
         android:text="Current(BTC): "
         android:textColor="@color/colorWhite"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/summary_current_value_USD_title"
         />
@@ -45,6 +46,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/colorWhite"
+        android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@id/summary_current_value_BTC_title"
         app:layout_constraintTop_toBottomOf="@id/summary_current_value_USD"
         />
@@ -107,25 +109,6 @@
         />
 
     <TextView
-        android:id="@+id/summary_current_standing_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Current standing: "
-        android:textColor="@color/colorWhite"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/summary_amount_sold_title"
-        />
-
-    <TextView
-        android:id="@+id/summary_current_standing_value"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/colorWhite"
-        app:layout_constraintStart_toEndOf="@id/summary_current_standing_title"
-        app:layout_constraintTop_toBottomOf="@id/summary_amount_sold_value"
-        />
-
-    <TextView
         android:id="@+id/summary_change_percentage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -136,5 +119,4 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         />
-
 </android.support.constraint.ConstraintLayout>

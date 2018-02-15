@@ -6,7 +6,6 @@ import android.support.v4.app.FragmentStatePagerAdapter
 import android.util.SparseArray
 import android.view.ViewGroup
 import makes.flint.poh.ui.market.MarketFragment
-import makes.flint.poh.ui.settings.SettingsFragment
 import makes.flint.poh.ui.tracker.TrackerFragment
 
 /**
@@ -31,13 +30,12 @@ class MainViewPagerAdapter(fragmentManager: FragmentManager) : FragmentStatePage
     override fun getItem(position: Int): Fragment {
         return when (position) {
             0 -> MarketFragment()
-            1 -> TrackerFragment()
-            else -> SettingsFragment()
+            else -> TrackerFragment()
         }
     }
 
     override fun getCount(): Int {
-        return 3
+        return 2
     }
 
     internal fun getFragment(position: Int): Fragment? {

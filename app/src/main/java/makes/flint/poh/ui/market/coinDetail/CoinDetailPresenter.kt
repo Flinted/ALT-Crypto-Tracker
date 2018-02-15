@@ -14,7 +14,7 @@ import javax.inject.Inject
 
 // Minute Resolution
 const val CHART_1H = 0
-const val CHART_6h = 1
+const val CHART_6H = 1
 const val CHART_24H = 2
 
 // Hour Resolution
@@ -37,7 +37,7 @@ class CoinDetailPresenter @Inject constructor(private var dataController: DataCo
     private var coinDetailDialog: CoinDetailContractView? = null
     private lateinit var coinSymbol: String
     private val chartData: SparseArray<HistoricalDataResponse> = SparseArray()
-    private var currentUnit = MINUTE_DATA
+    private var currentUnit = HOUR_DATA
     private var chartType = BAR_CHART
 
     override fun initialise() {
@@ -104,7 +104,7 @@ class CoinDetailPresenter @Inject constructor(private var dataController: DataCo
 
     private fun getAPIResolutionForRequestedChartType(chartType: Int): Int {
         return when (chartType) {
-            CHART_1H, CHART_6h, CHART_24H -> MINUTE_DATA
+            CHART_1H, CHART_6H, CHART_24H -> MINUTE_DATA
             CHART_3D, CHART_7D -> HOUR_DATA
             else -> DAY_DATA
         }

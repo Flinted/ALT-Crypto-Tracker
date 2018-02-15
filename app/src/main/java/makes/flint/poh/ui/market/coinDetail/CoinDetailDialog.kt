@@ -67,7 +67,7 @@ class CoinDetailDialog : BaseDialogFragment(), CoinDetailContractView {
         bindViews(view)
         val coinSymbol = arguments.get(DIALOG_COIN_KEY) as String
         coinDetailPresenter.initialise(coinSymbol)
-        coinDetailPresenter.getHistoricalDataFor(CHART_6h)
+        coinDetailPresenter.getHistoricalDataFor(CHART_3D)
         return view
     }
 
