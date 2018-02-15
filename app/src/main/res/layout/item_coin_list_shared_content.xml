@@ -3,32 +3,35 @@
                                              xmlns:app="http://schemas.android.com/apk/res-auto"
                                              android:layout_width="match_parent"
                                              android:layout_height="match_parent"
-                                             android:layout_margin="@dimen/margin_small_4dp">
+                                             android:background="@color/colorOffWhite"
+                                             android:padding="@dimen/margin_small_4dp">
 
     <TextView
         android:id="@+id/coin_list_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_medium_6dp"
+        android:layout_marginStart="@dimen/margin_small_4dp"
         android:ellipsize="end"
-        android:maxLines="1"
+        android:maxLines="2"
         android:textColor="@color/colorOffBlack"
-        android:textSize="@dimen/text_size_small"
-        app:layout_constraintBottom_toBottomOf="@id/coin_ticker"
+        android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@id/indicator_1h"
-        app:layout_constraintStart_toEndOf="@id/coin_ticker"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
         android:id="@+id/coin_ticker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_medium_6dp"
-        android:textColor="@color/colorOffBlack"
-        android:textSize="@dimen/text_large"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/colorAccent"
+        android:textSize="@dimen/text_size_small"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        android:padding="@dimen/margin_small_4dp"
+        android:layout_marginEnd="-4dp"
+        android:layout_marginBottom="-4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 
     <TextView
@@ -37,7 +40,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_medium_6dp"
         android:textColor="@color/colorOffBlack"
-        android:textSize="@dimen/text_large"
+        android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>

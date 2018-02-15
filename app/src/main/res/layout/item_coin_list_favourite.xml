@@ -7,6 +7,10 @@
     android:layout_height="wrap_content"
     android:clickable="true"
     android:focusable="true"
+    android:layout_marginTop="@dimen/margin_small_4dp"
+    android:layout_marginBottom="@dimen/margin_small_4dp"
+    android:layout_marginEnd="@dimen/margin_xLarge_16dp"
+    android:layout_marginStart="@dimen/margin_xLarge_16dp"
     android:foreground="?android:attr/selectableItemBackground"
     app:cardBackgroundColor="@color/colorOffWhite"
     app:cardElevation="4dp"
@@ -19,7 +23,6 @@
         android:layout_width="30dp"
         android:layout_height="match_parent"
         android:layout_gravity="end"
-        android:background="@color/colorPrimary"
         android:src="@drawable/ic_favorite_24dp"
         android:tag="checked"
         />
