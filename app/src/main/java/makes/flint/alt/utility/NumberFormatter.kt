@@ -15,9 +15,10 @@ object NumberFormatter {
     private var percentageFormatter = makePercentageFormatter()
     private var numberFormatter = makeNumberFormatter()
 
-    fun formatCurrency(numberToFormat: BigDecimal, decimals: Int = 8): String {
+    fun formatCurrency(numberToFormat: BigDecimal, maximumDecimals: Int = 8, minimumDecimals: Int = 2): String {
         val number = numberToFormat.toDouble()
-        currencyFormatter.maximumFractionDigits = decimals
+        currencyFormatter.maximumFractionDigits = maximumDecimals
+        currencyFormatter.minimumFractionDigits = minimumDecimals
         return currencyFormatter.format(number)
     }
 

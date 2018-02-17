@@ -16,6 +16,7 @@ import makes.flint.alt.data.tracker.TrackerDataEntry
 import makes.flint.alt.data.trackerListItem.TrackerListItem
 import rx.Observable
 import rx.Subscriber
+import rx.subjects.PublishSubject
 import javax.inject.Inject
 
 /**
@@ -26,25 +27,19 @@ open class DataController @Inject constructor(private val apiRepository: ApiRepo
                                               private val realmManager: RealmManager,
                                               private val cache: UIObjectCache
 ) {
-    fun coinRefreshSubscriber(): Observable<List<CoinListItem>> {
-        return cache.getCoinsSubscription()
-    }
 
-    fun trackerRefreshSubscriber(): Observable<List<TrackerListItem>> {
-        return cache.getTrackerListSubscription()
-    }
+    private var hasEncounteredError: PublishSubject<Throwable> = PublishSubject.create()
+    internal fun getErrorSubscription() = hasEncounteredError.asObservable()
 
-    fun summaryRefreshSubscriber(): Observable<Summary> {
-        return cache.getSummarySubscription()
-    }
+    fun coinRefreshSubscriber(): Observable<List<CoinListItem>> = cache.getCoinsSubscription()
 
-    fun marketRefreshSubscriber(): Observable<MarketData?> {
-        return cache.getMarketSubscription()
-    }
+    fun trackerRefreshSubscriber(): Observable<List<TrackerListItem>> = cache.getTrackerListSubscription()
 
-    fun lastSyncSubscriber(): Observable<TimeStamp> {
-        return cache.getSyncTimeSubscription()
-    }
+    fun summaryRefreshSubscriber(): Observable<Summary> = cache.getSummarySubscription()
+
+    fun marketRefreshSubscriber(): Observable<MarketData?> = cache.getMarketSubscription()
+
+    fun lastSyncSubscriber(): Observable<TimeStamp> = cache.getSyncTimeSubscription()
 
     private fun updateFavouriteCoins() {
         val favouriteCoins = realmManager.getFavouriteCoins()
@@ -62,8 +57,7 @@ open class DataController @Inject constructor(private val apiRepository: ApiRepo
         apiRepository.coinsGET()?.subscribe(object : Subscriber<Array<SummaryCoinResponse>>() {
             override fun onCompleted() {}
             override fun onError(error: Throwable) {
-                println(error.message)
-                throw error
+                hasEncounteredError.onNext(error)
             }
 
             override fun onNext(apiResponse: Array<SummaryCoinResponse>?) {
@@ -125,5 +119,9 @@ open class DataController @Inject constructor(private val apiRepository: ApiRepo
 
     fun storeSettings(settings: SettingsData) {
         realmManager.copyOrUpdate(settings)
+    }
+
+    fun emitLastSyncTime() {
+        cache.emitLastSyncTime()
     }
 }

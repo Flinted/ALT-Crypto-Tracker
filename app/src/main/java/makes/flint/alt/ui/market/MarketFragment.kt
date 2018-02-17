@@ -10,10 +10,10 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import android.widget.TextView
 import makes.flint.alt.R
 import makes.flint.alt.base.BaseFragment
-import makes.flint.alt.errors.ErrorHandler
 import makes.flint.alt.ui.interfaces.FilterView
 import makes.flint.alt.ui.main.MainActivity
 import makes.flint.alt.ui.market.coinDetail.CoinDetailDialog
@@ -29,6 +29,7 @@ class MarketFragment : BaseFragment(), MarketContractView, FilterView {
     // View Bindings
 
     private lateinit var coinListRecyclerView: RecyclerView
+    private lateinit var progressSpinner: ProgressBar
     private lateinit var swipeRefresh: SwipeRefreshLayout
     private lateinit var goToTopFAB: FloatingActionButton
     private lateinit var lastSyncTime: TextView
@@ -98,17 +99,19 @@ class MarketFragment : BaseFragment(), MarketContractView, FilterView {
         coinListAdapter.onCoinSelected().subscribe { coinSymbol -> marketPresenter.onCoinSelected(coinSymbol) }
     }
 
+    override fun hideProgressSpinner() {
+        this.progressSpinner.visibility = View.GONE
+        this.swipeRefresh.visibility = View.VISIBLE
+    }
+
     override fun updateMarketSummary(oneHour: String, twentyFourHour: String, sevenDay: String, coins: Int) {
         val summaryString = getString(R.string.market_summary, twentyFourHour, sevenDay, coins)
         this.marketSummary.text = summaryString
     }
 
-    override fun updateLastSyncTime(lastSync: String?) {
-        lastSync ?: let {
-            showError(ErrorHandler.ERROR_SYNC_TIMEOUT)
-            return
-        }
-        lastSyncTime.text = lastSync
+    override fun updateLastSyncTime(lastSync: Long) {
+        val formattedLastSync = getString(R.string.market_fragment_time_stamp, lastSync)
+        lastSyncTime.text = formattedLastSync
     }
 
     override fun showDialogForCoin(coinSymbol: String) {
@@ -136,6 +139,7 @@ class MarketFragment : BaseFragment(), MarketContractView, FilterView {
     // Private Functions
     private fun bindViews(view: View?) {
         view ?: return
+        this.progressSpinner = view.findViewById(R.id.market_progress_spinner)
         this.coinListRecyclerView = view.findViewById(R.id.market_recycler_view)
         this.swipeRefresh = view.findViewById(R.id.coin_list_refresh_layout)
         this.goToTopFAB = view.findViewById(R.id.coin_list_FAB)

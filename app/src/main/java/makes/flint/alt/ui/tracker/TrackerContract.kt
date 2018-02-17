@@ -16,6 +16,7 @@ interface TrackerContractView : BaseContractView {
     fun initialiseTrackerListListeners()
     fun initialiseRefreshListener()
     fun initialiseSummaryPager()
+    fun hideProgressSpinner()
 }
 
 interface TrackerContractPresenter : BaseContractPresenter<TrackerContractView> {

@@ -4,6 +4,7 @@
     <string name="coin_list_row_title_1h">1H</string>
     <string name="coin_list_row_title_24h">1D</string>
     <string name="coin_list_row_title_7d">1W</string>
+    <string name="market_fragment_time_stamp" formatted="false">%1$d mins ago</string>
     <string name="bottombar_title_market">Market</string>
     <string name="bottombar_title_tracker">Tracker</string>
     <string name="action_search">Search</string>

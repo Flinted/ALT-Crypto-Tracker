@@ -1,5 +1,9 @@
 package makes.flint.alt.ui.main
 
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.design.widget.CoordinatorLayout
@@ -32,6 +36,7 @@ class MainActivity : BaseActivity(), MainContractView {
     // Private Properties
     private lateinit var mainPresenter: MainContractPresenter
     private lateinit var viewPagerAdapter: MainViewPagerAdapter
+    private var timeTickBroadcastReceiver: BroadcastReceiver? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,6 +62,30 @@ class MainActivity : BaseActivity(), MainContractView {
     override fun onResume() {
         super.onResume()
         mainPresenter.emitData()
+        timeTickBroadcastReceiver ?:let {
+            this.timeTickBroadcastReceiver = makeTimeTickBroadcastReceiver()
+        }
+        registerReceiver(timeTickBroadcastReceiver, IntentFilter())
+    }
+
+    private fun makeTimeTickBroadcastReceiver(): BroadcastReceiver {
+        return object : BroadcastReceiver() {
+            override fun onReceive(p0: Context?, p1: Intent?) {
+                if (intent.action == Intent.ACTION_TIME_TICK) {
+                    mainPresenter.updateSyncTime()
+                }
+            }
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        unregisterReceiver(timeTickBroadcastReceiver)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        this.mainPresenter.onDestroy()
     }
 
     private fun bindViews() {
@@ -68,7 +97,7 @@ class MainActivity : BaseActivity(), MainContractView {
     }
 
     override fun initialiseViewPager() {
-        viewPagerAdapter = MainViewPagerAdapter(supportFragmentManager)
+        this.viewPagerAdapter = MainViewPagerAdapter(supportFragmentManager)
         viewPager.adapter = viewPagerAdapter
         viewPager.offscreenPageLimit = 1
         viewPager.onPageChangeListener {

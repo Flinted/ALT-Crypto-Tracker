@@ -20,4 +20,6 @@ interface MainContractPresenter: BaseContractPresenter<MainContractView> {
     fun storeIdToSortMap(map: HashMap<Int, Int>)
     fun getSortTypeForId(id: Int): Int?
     fun getIdForSortType(currentSort: Int): Int?
+    fun onDestroy()
+    fun updateSyncTime()
 }

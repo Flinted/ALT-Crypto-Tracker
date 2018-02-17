@@ -28,10 +28,9 @@ class TrackerAdapterPresenter @Inject constructor(private var dataController: Da
             view?.didHaveEntries()
             view?.hideLoading()
         }
-        summarySubscription = dataController.summaryRefreshSubscriber().subscribe{
-            println("SUMMARY UPDATE")
-            view?.updateSummaryFragmentFor(it)
-        }
+//        summarySubscription = dataController.summaryRefreshSubscriber().subscribe{
+//            view?.updateSummaryFragmentFor(it)
+//        }
     }
 
     fun onDestroy() {

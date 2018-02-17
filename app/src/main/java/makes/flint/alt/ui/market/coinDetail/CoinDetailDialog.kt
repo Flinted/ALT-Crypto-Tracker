@@ -4,12 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
-import android.widget.ImageView
-import android.widget.ProgressBar
-import android.widget.TextView
-import com.github.mikephil.charting.charts.BarChart
-import com.github.mikephil.charting.charts.LineChart
+import android.widget.*
 import makes.flint.alt.R
 import makes.flint.alt.base.BaseDialogFragment
 import makes.flint.alt.data.coinListItem.CoinListItem
@@ -51,6 +46,7 @@ class CoinDetailDialog : BaseDialogFragment(), CoinDetailContractView {
     private lateinit var chartHolder: FrameLayout
     private lateinit var changeChartButton: ImageView
     private lateinit var chartLoading: ProgressBar
+    private lateinit var selector: RadioGroup
 
     private lateinit var coinDetailPresenter: CoinDetailContractPresenter
 
@@ -67,7 +63,7 @@ class CoinDetailDialog : BaseDialogFragment(), CoinDetailContractView {
         bindViews(view)
         val coinSymbol = arguments.get(DIALOG_COIN_KEY) as String
         coinDetailPresenter.initialise(coinSymbol)
-        coinDetailPresenter.getHistoricalDataFor(CHART_3D)
+        coinDetailPresenter.getHistoricalDataFor(CHART_24H)
         return view
     }
 
@@ -91,15 +87,26 @@ class CoinDetailDialog : BaseDialogFragment(), CoinDetailContractView {
         this.chartHolder = view.findViewById(R.id.dialog_coin_detail_chart_holder)
         this.changeChartButton = view.findViewById(R.id.dialog_coin_detail_change_chart_button)
         this.chartLoading = view.findViewById(R.id.dialog_coin_detail_loading_spinner)
+        this.selector = view.findViewById(R.id.dialog_coin_detail_chart_resolution_selector)
     }
 
-    override fun displayHistoricalDataResponse(result: Array<HistoricalDataUnitResponse>, chartType: Int) {
-        val factory = HistoricalDataChartFactory(result, "Data")
-        val chart = when (chartType) {
-            CANDLE_CHART -> factory.createCandleChart(chartHolder.context)
-            BAR_CHART -> factory.createBarChart(chartHolder.context)
-            else -> factory.createLineChart(chartHolder.context)
-        }
+    override fun displayBarChart(dataToDisplay: Array<HistoricalDataUnitResponse>) {
+        val factory = HistoricalDataChartFactory(dataToDisplay, "Data")
+        val chart = factory.createBarChart(chartHolder.context)
+        hideLoading()
+        chartHolder.addView(chart)
+    }
+
+    override fun displayLineChart(dataToDisplay: Array<HistoricalDataUnitResponse>) {
+        val factory = HistoricalDataChartFactory(dataToDisplay, "Data")
+        val chart = factory.createLineChart(chartHolder.context)
+        hideLoading()
+        chartHolder.addView(chart)
+    }
+
+    override fun displayCandleChart(dataToDisplay: Array<HistoricalDataUnitResponse>) {
+        val factory = HistoricalDataChartFactory(dataToDisplay, "Data")
+        val chart = factory.createCandleChart(chartHolder.context)
         hideLoading()
         chartHolder.addView(chart)
     }
@@ -121,14 +128,23 @@ class CoinDetailDialog : BaseDialogFragment(), CoinDetailContractView {
         }
     }
 
+    override fun initialiseDataSelectListener() {
+        selector.setOnCheckedChangeListener { _, selectedId ->
+            val dataResolution = when (selectedId) {
+                R.id.dialog_coin_detail_selector_24Hours -> CHART_24H
+                R.id.dialog_coin_detail_selector_7Days -> CHART_7D
+                R.id.dialog_coin_detail_selector_30Days-> CHART_30D
+                R.id.dialog_coin_detail_selector_90Days -> CHART_90D
+                R.id.dialog_coin_detail_selector_180Days -> CHART_180D
+                else -> CHART_1Y
+            }
+            coinDetailPresenter.getHistoricalDataFor(dataResolution)
+        }
+    }
+
     override fun initialiseChangeChartButton() {
         changeChartButton.setOnClickListener {
-            val currentData = coinDetailPresenter.getCurrentHistoricalDataResponse() ?: return@setOnClickListener
-            when (chartHolder.getChildAt(0)) {
-                is LineChart -> displayHistoricalDataResponse(currentData.data, BAR_CHART)
-                is BarChart -> displayHistoricalDataResponse(currentData.data, CANDLE_CHART)
-                else -> displayHistoricalDataResponse(currentData.data, LINE_CHART)
-            }
+            coinDetailPresenter.changeChartClicked()
             chartHolder.removeViewAt(0)
         }
     }

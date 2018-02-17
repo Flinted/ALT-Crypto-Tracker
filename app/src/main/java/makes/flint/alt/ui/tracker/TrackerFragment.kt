@@ -13,6 +13,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
 import makes.flint.alt.R
 import makes.flint.alt.base.BaseFragment
@@ -38,6 +39,7 @@ const val CHART_OFF_SCREEN = 2
 class TrackerFragment : BaseFragment(), TrackerContractView, FilterView {
 
     // View Bindings
+    private lateinit var progressSpinner: ProgressBar
     private lateinit var trackerConstraint: ConstraintLayout
     private lateinit var trackerRecycler: RecyclerView
     private lateinit var summaryViewPager: SummaryViewPager
@@ -77,6 +79,7 @@ class TrackerFragment : BaseFragment(), TrackerContractView, FilterView {
 
     private fun bindViews(view: View?) {
         view ?: return
+        this.progressSpinner = view.findViewById(R.id.tracker_progress_spinner)
         this.trackerRecycler = view.findViewById(R.id.tracker_recycler_view)
         this.addCoinButton = view.findViewById(R.id.tracker_FAB)
         this.changeChartButton = view.findViewById(R.id.tracker_show_chart_button)
@@ -165,6 +168,11 @@ class TrackerFragment : BaseFragment(), TrackerContractView, FilterView {
         cancelChartButton.setOnClickListener {
             changeChartVisibility(CHART_OFF_SCREEN)
         }
+    }
+
+    override fun hideProgressSpinner() {
+        this.progressSpinner.visibility = View.GONE
+        this.swipeRefresh.visibility = View.VISIBLE
     }
 
     private fun configureNoChartConstraint() {

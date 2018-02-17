@@ -58,9 +58,9 @@ class SummaryFragment : BaseFragment(), SummaryContractView {
         changePercentage.text = summary.percentageChangeFormatted()
         amountSpent.text = summary.amountSpentFormatted()
         amountSold.text = summary.amountSoldFormatted()
-        val customiser = IndicatorCustomiser()
+        val customizer = IndicatorCustomiser()
         val status = summary.assessChange()
-        val changeColor = customiser.getColor(status)
+        val changeColor = customizer.getColor(status)
         changePercentage.setTextColor(ContextCompat.getColor(context, changeColor))
     }
 }

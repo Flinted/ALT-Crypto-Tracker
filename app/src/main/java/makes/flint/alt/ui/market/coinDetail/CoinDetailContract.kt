@@ -3,7 +3,6 @@ package makes.flint.alt.ui.market.coinDetail
 import makes.flint.alt.base.BaseContractPresenter
 import makes.flint.alt.base.BaseContractView
 import makes.flint.alt.data.coinListItem.CoinListItem
-import makes.flint.alt.data.response.histoResponse.HistoricalDataResponse
 import makes.flint.alt.data.response.histoResponse.HistoricalDataUnitResponse
 
 /**
@@ -12,12 +11,15 @@ import makes.flint.alt.data.response.histoResponse.HistoricalDataUnitResponse
  */
 interface CoinDetailContractView : BaseContractView {
     fun displayCoinDetail(coin: CoinListItem?)
-    fun displayHistoricalDataResponse(result: Array<HistoricalDataUnitResponse>, chartType: Int)
     fun initialiseChangeChartButton()
+    fun initialiseDataSelectListener()
+    fun displayCandleChart(dataToDisplay: Array<HistoricalDataUnitResponse>)
+    fun displayBarChart(dataToDisplay: Array<HistoricalDataUnitResponse>)
+    fun displayLineChart(dataToDisplay: Array<HistoricalDataUnitResponse>)
 }
 
 interface CoinDetailContractPresenter : BaseContractPresenter<CoinDetailContractView> {
     fun initialise(coinSymbol: String)
     fun getHistoricalDataFor(chartResolution: Int)
-    fun getCurrentHistoricalDataResponse(): HistoricalDataResponse?
+    fun changeChartClicked()
 }

@@ -3,8 +3,8 @@ package makes.flint.alt.ui.market
 import makes.flint.alt.base.BasePresenter
 import makes.flint.alt.data.coinListItem.marketData.MarketData
 import makes.flint.alt.data.dataController.DataController
-import makes.flint.alt.utility.DateFormatter
 import org.threeten.bp.ZonedDateTime
+import org.threeten.bp.temporal.ChronoUnit
 import rx.Subscription
 import javax.inject.Inject
 
@@ -27,6 +27,7 @@ class MarketPresenter @Inject constructor(private var dataController: DataContro
         view?.initialiseScrollListener()
         view?.initialiseFABonClick()
         view?.initialiseAdapterListeners()
+        view?.hideProgressSpinner()
     }
 
     override fun refresh() {
@@ -48,8 +49,10 @@ class MarketPresenter @Inject constructor(private var dataController: DataContro
         }
         lastSyncSubscriber = dataController.lastSyncSubscriber().subscribe {
             val timeString = it.timeStampISO8601
-            val formattedTimeStamp = ZonedDateTime.parse(timeString).format(DateFormatter.DATE_TIME)
-            view?.updateLastSyncTime(formattedTimeStamp)
+            val timeStamp = ZonedDateTime.parse(timeString)
+            val currentTime = ZonedDateTime.now()
+            val minutesPast = ChronoUnit.MINUTES.between(timeStamp, currentTime)
+            view?.updateLastSyncTime(minutesPast)
         }
     }
 

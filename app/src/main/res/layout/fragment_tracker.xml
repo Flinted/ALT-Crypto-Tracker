@@ -5,10 +5,19 @@
                                                  android:layout_height="match_parent"
                                                  android:layout_marginBottom="@dimen/bottom_bar_height">
 
+    <ProgressBar
+        android:id="@+id/tracker_progress_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="120dp"
+        android:indeterminate="true"
+        />
+
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/tracker_refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:visibility="gone"
         android:layout_marginBottom="16dp"
         android:background="@color/colorPrimary"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">

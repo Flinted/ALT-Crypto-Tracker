@@ -1,5 +1,7 @@
 package makes.flint.alt.data.dataController.cache
 
+import android.os.Process
+import android.os.Process.setThreadPriority
 import makes.flint.alt.data.Summary
 import makes.flint.alt.data.TimeStamp
 import makes.flint.alt.data.coinListItem.CoinListItem
@@ -13,6 +15,7 @@ import makes.flint.alt.factories.CoinListItemFactory
 import makes.flint.alt.factories.SummaryFactory
 import makes.flint.alt.factories.TrackerItemFactory
 import rx.subjects.PublishSubject
+import java.util.*
 import javax.inject.Inject
 
 /**
@@ -22,6 +25,7 @@ import javax.inject.Inject
 class UIObjectCache @Inject constructor(private val coinListItemFactory: CoinListItemFactory,
                                         private val trackerItemFactory: TrackerItemFactory,
                                         private val summaryFactory: SummaryFactory) {
+    private var timer: Timer? = null
     private var lastUpdate: TimeStamp? = null
     internal var coinListItems: List<CoinListItem> = mutableListOf()
     internal var trackerListItems: List<TrackerListItem> = mutableListOf()
@@ -41,19 +45,28 @@ class UIObjectCache @Inject constructor(private val coinListItemFactory: CoinLis
 
     fun shouldReSyncData() = lastUpdate?.shouldReSync() ?: true
 
+    @Suppress("UNCHECKED_CAST")
     fun updateCacheForNewData(data: MutableList<SummaryCoinResponse>?, favouritesData: MutableList<FavouriteCoin>,
                               trackerData: List<TrackerDataEntry>) {
         data ?: return
-        val coinResponses = data as MutableList<CoinResponse>
-        val coinListItems = coinListItemFactory.makeCoinListItems(coinResponses, favouritesData)
-        val trackerListItems = trackerItemFactory.makeTrackerItems(trackerData, coinListItems)
-        val summary = summaryFactory.makeSummaryFor(trackerListItems)
-        val marketData = coinListItemFactory.getMarketData()
-        this.marketData = marketData
-        this.coinListItems = coinListItems
-        this.trackerListItems = trackerListItems
-        this.summary = summary
-        this.lastUpdate = TimeStamp()
+        val runnable = Runnable {
+            setThreadPriority(Process.THREAD_PRIORITY_BACKGROUND);
+            val coinResponses = data as MutableList<CoinResponse>
+            val coinListItems = coinListItemFactory.makeCoinListItems(coinResponses, favouritesData)
+            val trackerListItems = trackerItemFactory.makeTrackerItems(trackerData, coinListItems)
+            val summary = summaryFactory.makeSummaryFor(trackerListItems)
+            val marketData = coinListItemFactory.getMarketData()
+            this.marketData = marketData
+            this.coinListItems = coinListItems
+            this.trackerListItems = trackerListItems
+            this.summary = summary
+            this.lastUpdate = TimeStamp()
+            emitData()
+        }
+        runnable.run()
+    }
+
+    private fun emitData() {
         hasRefreshedCoins.onNext(coinListItems)
         hasRefreshedTrackerItems.onNext(trackerListItems)
         hasRefreshedSummary.onNext(summary)
@@ -76,5 +89,10 @@ class UIObjectCache @Inject constructor(private val coinListItemFactory: CoinLis
         this.summary = updatedSummary
         hasRefreshedTrackerItems.onNext(trackerListItems)
         hasRefreshedSummary.onNext(summary)
+    }
+
+    fun emitLastSyncTime() {
+        lastUpdate ?: return
+        hasUpdatedTimeStamp.onNext(lastUpdate)
     }
 }

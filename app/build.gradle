@@ -3,6 +3,14 @@ apply plugin: 'kotlin-android'
 apply plugin: 'realm-android'
 
 android {
+    signingConfigs {
+        config {
+            keyAlias 'FlintMakeKey'
+            keyPassword 'Fir3wat3r'
+            storeFile file('/Users/chris.flint/FlintMakes/FLINT_MAKES_KEYSTORE.jks')
+            storePassword '1Carus52!'
+        }
+    }
     compileSdkVersion 26
     defaultConfig {
         applicationId "makes.flint.alt"
@@ -17,13 +25,12 @@ android {
             minifyEnabled false
             debuggable false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
         }
-
         debug {
             debuggable true
         }
     }
-
     dexOptions {
         javaMaxHeapSize "2048M"
     }
@@ -99,9 +106,8 @@ dependencies {
     androidTestCompile "com.android.support.test.uiautomator:uiautomator-v18:$UI_AUTOMATOR_VERSION"
 
     // Test Dependencies
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile "junit:junit:$JUNIT_VERSION"
     testCompile "org.mockito:mockito-core:$MOCKITO_VERSION"
-
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
 }

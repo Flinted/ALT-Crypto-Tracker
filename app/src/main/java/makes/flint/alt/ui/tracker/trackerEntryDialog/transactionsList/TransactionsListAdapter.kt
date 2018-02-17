@@ -69,6 +69,7 @@ class TransactionsListAdapter(presenterComponent: PresenterComponent) : Recycler
         viewHolder.quantity.text = entry.quantity.toPlainString()
         viewHolder.pricePaid.text = entry.pricePaidFormatted()
         viewHolder.totalCost.text = entry.transactionTotalFormatted()
+        viewHolder.exchange.text = entry.exchange
         viewHolder.notes.text = entry.notes
         initialiseDeleteButton(viewHolder.deleteButton, entry, position)
     }

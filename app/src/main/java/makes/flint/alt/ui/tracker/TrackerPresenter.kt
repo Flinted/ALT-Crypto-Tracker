@@ -34,6 +34,7 @@ class TrackerPresenter @Inject constructor(private var dataController: DataContr
         view?.initialiseTrackerListListeners()
         view?.initialiseRefreshListener()
         view?.initialiseSummaryPager()
+        view?.hideProgressSpinner()
     }
 
     private fun initialiseCoinListSubscriber() {

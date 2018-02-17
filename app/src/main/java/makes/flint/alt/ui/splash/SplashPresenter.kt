@@ -4,6 +4,7 @@ import makes.flint.alt.base.BasePresenter
 import makes.flint.alt.configuration.POHSettings
 import makes.flint.alt.configuration.SettingsData
 import makes.flint.alt.data.dataController.DataController
+import makes.flint.alt.errors.ErrorHandler
 import rx.Subscription
 import javax.inject.Inject
 
@@ -15,12 +16,16 @@ class SplashPresenter @Inject constructor(private val dataController: DataContro
         SplashContractPresenter {
 
     private var coinListSubscriber: Subscription? = null
+    private var errorSubscriber: Subscription? = null
 
     override fun initialise() {
         initialiseSettings()
-        coinListSubscriber = dataController.coinRefreshSubscriber().subscribe {
+        this.coinListSubscriber = dataController.coinRefreshSubscriber().subscribe {
             view?.proceedToMainActivity()
             clearSubscription()
+        }
+        this.errorSubscriber = dataController.getErrorSubscription().subscribe {
+            view?.showError(ErrorHandler.GENERAL_ERROR)
         }
         dataController.refreshRequested()
     }
@@ -33,6 +38,8 @@ class SplashPresenter @Inject constructor(private val dataController: DataContro
 
     private fun clearSubscription() {
         this.coinListSubscriber?.unsubscribe()
+        this.errorSubscriber?.unsubscribe()
         this.coinListSubscriber = null
+        this.errorSubscriber = null
     }
 }

@@ -12,18 +12,14 @@ import javax.inject.Inject
  * Copyright © 2018 Flint Makes. All rights reserved.
  */
 
-// Minute Resolution
-const val CHART_1H = 0
-const val CHART_6H = 1
-const val CHART_24H = 2
-
 // Hour Resolution
-const val CHART_3D = 3
-const val CHART_7D = 4
+const val CHART_24H = 2
+const val CHART_7D = 3
 
 // Day Resolution
-const val CHART_30D = 5
-const val CHART_90D = 6
+const val CHART_30D = 4
+const val CHART_90D = 5
+const val CHART_180D = 6
 const val CHART_1Y = 7
 const val CHART_ALL = 8
 
@@ -32,19 +28,35 @@ const val MINUTE_DATA = 0
 const val HOUR_DATA = 1
 const val DAY_DATA = 2
 
-class CoinDetailPresenter @Inject constructor(private var dataController: DataController) : CoinDetailContractPresenter {
+class CoinDetailPresenter @Inject constructor(private var dataController: DataController) :
+        CoinDetailContractPresenter {
 
     private var coinDetailDialog: CoinDetailContractView? = null
     private lateinit var coinSymbol: String
     private val chartData: SparseArray<HistoricalDataResponse> = SparseArray()
-    private var currentUnit = HOUR_DATA
-    private var chartType = BAR_CHART
+    private var currentData: Array<HistoricalDataUnitResponse> = arrayOf()
+    private var currentChartType = LINE_CHART
+
+
+    override fun changeChartClicked() {
+        val newChartType = when(currentChartType) {
+            BAR_CHART -> LINE_CHART
+            LINE_CHART -> CANDLE_CHART
+            else -> BAR_CHART
+        }
+        currentChartType = newChartType
+        displayChartForCurrentConfiguration()
+    }
 
     override fun initialise() {
     }
 
     override fun initialise(coinSymbol: String) {
         this.coinSymbol = coinSymbol
+        val coin = dataController.getCoinForSymbol(coinSymbol)
+        coinDetailDialog?.displayCoinDetail(coin)
+        coinDetailDialog?.initialiseChangeChartButton()
+        coinDetailDialog?.initialiseDataSelectListener()
     }
 
     override fun getHistoricalDataFor(chartResolution: Int) {
@@ -54,59 +66,61 @@ class CoinDetailPresenter @Inject constructor(private var dataController: DataCo
         getDataForResolution(apiResolution, chartResolution, callback)
     }
 
-    override fun getCurrentHistoricalDataResponse(): HistoricalDataResponse? {
-        return chartData[currentUnit]
-    }
-
     private fun getDataForResolution(apiResolution: Int,
                                      chartResolution: Int,
                                      callback: RepositoryCallbackSingle<HistoricalDataResponse?>) {
         val cachedData = chartData[apiResolution] ?: let {
+            coinDetailDialog?.showLoading()
             dataController.getHistoricalDataFor(callback, coinSymbol, apiResolution, chartResolution)
             return
         }
-        val dataToDisplay = prepareDataFor(chartResolution, cachedData)
-        coinDetailDialog?.displayHistoricalDataResponse(dataToDisplay, chartType)
+        currentData = prepareDataFor(chartResolution, cachedData)
+        displayChartForCurrentConfiguration()
     }
 
     private fun makeHistoricalDataCallback(): RepositoryCallbackSingle<HistoricalDataResponse?> {
         return object : RepositoryCallbackSingle<HistoricalDataResponse?> {
-            override fun onError(error: Throwable) {}
+            override fun onError(error: Throwable) {
+                coinDetailDialog?.hideLoading()
+            }
+
             override fun onRetrieve(refreshed: Boolean, apiResolution: Int, chartResolution: Int, result:
             HistoricalDataResponse?) {
-                val coin = dataController.getCoinForSymbol(coinSymbol)
-                coinDetailDialog?.displayCoinDetail(coin)
-                coinDetailDialog?.initialiseChangeChartButton()
-                result?.let {
-                    chartData.put(apiResolution, result)
-                    val dataToDisplay = prepareDataFor(chartResolution, result)
-                    coinDetailDialog?.displayHistoricalDataResponse(dataToDisplay, chartType)
-                }
+                coinDetailDialog?.hideLoading()
+                result ?: return
+                chartData.put(apiResolution, result)
+                currentData = prepareDataFor(chartResolution, result)
+                displayChartForCurrentConfiguration()
             }
         }
     }
 
+    private fun displayChartForCurrentConfiguration() {
+        when (currentChartType) {
+            CANDLE_CHART -> coinDetailDialog?.displayCandleChart(currentData)
+            BAR_CHART -> coinDetailDialog?.displayBarChart(currentData)
+            else -> coinDetailDialog?.displayLineChart(currentData)
+        }
+    }
+
     private fun prepareDataFor(chartResolution: Int, result: HistoricalDataResponse): Array<HistoricalDataUnitResponse> {
-        val invertedData = result.data
-//        val subset = when (chartResolution) {
-//            CHART_1H -> invertedData.copyOfRange(0, 59)
-//            CHART_6h -> invertedData.copyOfRange(0, 359)
-//            CHART_24H -> invertedData
-//            CHART_3D -> invertedData.copyOfRange(0, 71)
-//            CHART_7D -> invertedData
-//            CHART_30D -> invertedData.copyOfRange(0, 29)
-//            CHART_90D -> invertedData.copyOfRange(0, 89)
-//            CHART_1Y -> invertedData.copyOfRange(0, 364)
-//            else -> invertedData
-//        }
-        return invertedData
+        val invertedData = result.data.reversedArray()
+        val subset = when (chartResolution) {
+            CHART_24H -> invertedData.copyOfRange(0, 24)
+            CHART_7D -> invertedData
+            CHART_30D -> invertedData.copyOfRange(0, 29)
+            CHART_90D -> invertedData.copyOfRange(0, 89)
+            CHART_180D -> invertedData.copyOfRange(0, 179)
+            CHART_1Y -> invertedData.copyOfRange(0, 364)
+            else -> invertedData
+        }
+        return subset.reversedArray()
     }
 
     private fun getAPIResolutionForRequestedChartType(chartType: Int): Int {
         return when (chartType) {
-            CHART_1H, CHART_6H, CHART_24H -> MINUTE_DATA
-            CHART_3D, CHART_7D -> HOUR_DATA
-            else -> DAY_DATA
+            CHART_30D, CHART_90D, CHART_180D, CHART_1Y -> DAY_DATA
+            else -> HOUR_DATA
         }
     }
 

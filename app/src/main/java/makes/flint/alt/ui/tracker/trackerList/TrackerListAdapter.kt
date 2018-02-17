@@ -39,11 +39,9 @@ class TrackerListAdapter(presenterComponent: PresenterComponent) : RecyclerView.
     private var trackerEntrySelected: PublishSubject<TrackerListItem> = PublishSubject.create()
     private var noEntriesFound: PublishSubject<Boolean> = PublishSubject.create()
     private var isRefreshing: PublishSubject<Boolean> = PublishSubject.create()
-    private var summaryPrepared: PublishSubject<Summary> = PublishSubject.create()
     override fun onRefreshStateChange() = isRefreshing.asObservable()
     override fun onTrackerEntrySelected() = trackerEntrySelected.asObservable()
     override fun onNoEntriesPresent() = noEntriesFound.asObservable()
-    override fun onSummaryPrepared() = summaryPrepared.asObservable()
 
     private var trackerAdapterPresenter = presenterComponent.provideTrackerAdapterPresenter()
     private val indicatorCustomiser = IndicatorCustomiser()
@@ -94,8 +92,6 @@ class TrackerListAdapter(presenterComponent: PresenterComponent) : RecyclerView.
             }
         }
     }
-
-    override fun updateSummaryFragmentFor(summary: Summary) = summaryPrepared.onNext(summary)
 
     override fun getItemCount() = filteredTrackerEntries.size
 
