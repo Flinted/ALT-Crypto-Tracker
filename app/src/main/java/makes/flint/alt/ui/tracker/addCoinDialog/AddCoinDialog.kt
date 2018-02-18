@@ -12,6 +12,8 @@ import android.widget.AutoCompleteTextView
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
 import makes.flint.alt.R
 import makes.flint.alt.base.BaseDialogFragment
 import makes.flint.alt.data.coinListItem.CoinListItem
@@ -37,6 +39,7 @@ class AddCoinDialog : BaseDialogFragment(), AddCoinDialogContractView {
     private lateinit var currentPriceDisplay: TextView
     private lateinit var purchasePriceDisplay: TextView
     private lateinit var feesInput: EditText
+    private lateinit var adBanner: AdView
 
     private lateinit var addEntryFAB: FloatingActionButton
     private lateinit var addCoinDialogPresenter: AddCoinDialogContractPresenter
@@ -73,6 +76,9 @@ class AddCoinDialog : BaseDialogFragment(), AddCoinDialogContractView {
         this.purchasePriceDisplay = view.findViewById(R.id.value_at_purchase)
         this.currentPriceDisplay = view.findViewById(R.id.value_current)
         this.addEntryFAB = view.findViewById(R.id.add_coin_fab)
+        this.adBanner = view.findViewById(R.id.adView)
+        val adRequest = AdRequest.Builder().build()
+        adBanner.loadAd(adRequest)
     }
 
     override fun onStart() {

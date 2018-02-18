@@ -14,7 +14,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.ProgressBar
-import android.widget.TextView
 import makes.flint.alt.R
 import makes.flint.alt.base.BaseFragment
 import makes.flint.alt.data.trackerListItem.TrackerListItem
@@ -45,7 +44,7 @@ class TrackerFragment : BaseFragment(), TrackerContractView, FilterView {
     private lateinit var summaryViewPager: SummaryViewPager
     private lateinit var addCoinButton: FloatingActionButton
     private lateinit var swipeRefresh: SwipeRefreshLayout
-    private lateinit var noEntriesPlaceHolder: TextView
+    private lateinit var noEntriesPlaceHolder: ConstraintLayout
     private lateinit var changeChartButton: ImageView
     private lateinit var cancelChartButton: ImageView
     private lateinit var hideSummaryAreaButton: ImageView

@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'realm-android'
+apply from: '../config/flavors.gradle'
 
 android {
     signingConfigs {
@@ -11,6 +12,7 @@ android {
             storePassword '1Carus52!'
         }
     }
+    flavorDimensions "default"
     compileSdkVersion 26
     defaultConfig {
         applicationId "makes.flint.alt"
@@ -62,6 +64,7 @@ dependencies {
     final MP_ANDROID_CHART_VERSION = 'v3.0.3'
 
     // Welcome
+    implementation 'com.google.firebase:firebase-ads:11.0.4'
     compile 'com.stephentuso:welcome:1.4.1'
 
     //Anko
@@ -114,3 +117,5 @@ dependencies {
     testCompile "org.mockito:mockito-core:$MOCKITO_VERSION"
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
 }
+
+apply plugin: 'com.google.gms.google-services'

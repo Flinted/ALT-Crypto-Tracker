@@ -1,22 +1,28 @@
 <resources>
+    <!--APP-->
     <string name="app_name">ALT: a light tracker</string>
-    <string name="action_settings">Settings</string>
     <string name="coin_list_row_title_1h">1H</string>
     <string name="coin_list_row_title_24h">1D</string>
     <string name="coin_list_row_title_7d">1W</string>
-    <string name="market_fragment_time_stamp" formatted="false">%1$d mins ago</string>
+
+    <string name="tracker_fragment_no_entries_placeholder">No entries yet, why not add one?</string>
+
+    <!--COIN DETAIL DIALOG-->
+    <string name="dialog_coin_detail_doge_price_title">Price(DOGE):</string>
+    <string name="dialog_coin_detail_doge_price">1 DOGE</string>
+
+    <!--ACTION BAR MENU-->
+    <string name="menu_search_title">Search</string>
+    <string name="menu_sort_sub_menu_title">Sort Options</string>
+
+    <!--BOTTOM BAR MENU-->
     <string name="bottombar_title_market">Market</string>
     <string name="bottombar_title_tracker">Tracker</string>
-    <string name="action_search">Search</string>
-    <string name="action_faq">FAQ</string>
-    <string name="market_summary" formatted="false">Market Avg: 24H: %1$s  7D: %2$s  Size: %3$d</string>
-    <string name="tracker_fragment_no_entries_placeholder">No entries yet, why not add one?</string>
-    <string name="error_api_failure">There was a problem getting data, please try again.</string>
-    <string name="error_general_error">There was a problem, please try again</string>
-    <string name="error_transaction_failure">There was a problem adding your transaction.</string>
-    <string name="error_sync_timeout">Last Sync was too recent.</string>
-    <string name="bottombar_title_settings">Settings</string>
 
+    <!--MARKET BOTTOM TICKER -->
+    <string name="market_fragment_time_stamp" formatted="false">%1$d mins ago</string>
+
+    <!--MARKET SUMMARY-->
     <string name="market_summary_title_1D">1D(%1$d):</string>
     <string name="market_summary_title_1W">1W(%1$d):</string>
 
@@ -34,6 +40,14 @@
     <string name="sort_menu_vol">24H volume</string>
     <string name="sort_menu_vol_reversed">24H volume(reversed)</string>
 
+    <!--ERRORS-->
+    <string name="error_api_failure">There was a problem getting data, please try again.</string>
+    <string name="error_general_error">There was a problem, please try again</string>
+    <string name="error_transaction_failure">There was a problem adding your transaction.</string>
+    <string name="error_sync_timeout">Last Sync was too recent.</string>
+
+
+    <!--Settings Arrays-->
     <string-array name="start_screen_options">
         <item>Market</item>
         <item>Tracker</item>

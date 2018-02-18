@@ -3,6 +3,7 @@
                                              xmlns:app="http://schemas.android.com/apk/res-auto"
                                              android:layout_width="match_parent"
                                              android:layout_height="match_parent"
+                                             xmlns:ad="http://schemas.android.com/tools"
                                              android:background="@color/colorPrimaryDark">
 
     <TextView
@@ -286,7 +287,7 @@
         android:text="MarketCap:"
         android:textColor="@color/colorOffWhite"
         android:textSize="@dimen/text_large"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/adView"
         app:layout_constraintStart_toStartOf="parent"/>
 
     <TextView
@@ -296,7 +297,16 @@
         android:layout_margin="@dimen/margin_large_8dp"
         android:textColor="@color/colorOffWhite"
         android:textSize="@dimen/text_large"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/adView"
         app:layout_constraintEnd_toEndOf="parent"/>
 
+    <com.google.android.gms.ads.AdView
+        xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        ads:adSize="BANNER"
+        ads:adUnitId="ca-app-pub-3940256099942544/6300978111"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 </android.support.constraint.ConstraintLayout>

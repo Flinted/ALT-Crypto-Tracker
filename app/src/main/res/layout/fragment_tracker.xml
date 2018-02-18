@@ -37,6 +37,17 @@
                 app:layout_constraintTop_toTopOf="parent"/>
 
             <ImageView
+                android:id="@+id/tracker_snapshot_button"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginEnd="@dimen/margin_large_8dp"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:src="@drawable/ic_snapshot_24dp"
+                app:layout_constraintBottom_toBottomOf="@id/tracker_chart_area"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <ImageView
                 android:id="@+id/tracker_show_chart_button"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
@@ -82,27 +93,21 @@
                 android:id="@+id/tracker_recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                android:clipToPadding="false"
+                android:paddingBottom="40dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tracker_chart_area"
-                android:paddingBottom="40dp"
-                android:clipToPadding="false"
                 />
 
         </android.support.constraint.ConstraintLayout>
 
     </android.support.v4.widget.SwipeRefreshLayout>
 
-    <TextView
+    <include
         android:id="@+id/tracker_no_entries_placeholder"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colorPrimary"
-        android:gravity="center"
-        android:text="@string/tracker_fragment_no_entries_placeholder"
-        android:textColor="@color/colorAccent"
-        android:textSize="@dimen/text_xLarge_20sp"
+        layout="@layout/fragment_tracker_no_entries"
         />
 
     <android.support.design.widget.FloatingActionButton
