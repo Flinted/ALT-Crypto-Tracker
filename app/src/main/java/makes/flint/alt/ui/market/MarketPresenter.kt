@@ -1,8 +1,8 @@
 package makes.flint.alt.ui.market
 
 import makes.flint.alt.base.BasePresenter
-import makes.flint.alt.data.coinListItem.marketData.MarketData
 import makes.flint.alt.data.dataController.DataController
+import makes.flint.alt.data.response.marketSummary.MarketSummaryResponse
 import org.threeten.bp.ZonedDateTime
 import org.threeten.bp.temporal.ChronoUnit
 import rx.Subscription
@@ -60,12 +60,7 @@ class MarketPresenter @Inject constructor(private var dataController: DataContro
         view?.showDialogForCoin(coinSymbol)
     }
 
-    private fun updateMarketSummary(marketData: MarketData?) {
-        marketData ?: return
-        val oneHour = marketData.oneHourAverageFormatted()
-        val twentyFourHour = marketData.twentyFourHourAverageFormatted()
-        val sevenDay = marketData.sevenDayAverageFormatted()
-        val coins = marketData.numberItems
-        view?.updateMarketSummary(oneHour, twentyFourHour, sevenDay, coins)
+    private fun updateMarketSummary(marketSummary: MarketSummaryResponse) {
+        view?.updateMarketSummary(marketSummary)
     }
 }

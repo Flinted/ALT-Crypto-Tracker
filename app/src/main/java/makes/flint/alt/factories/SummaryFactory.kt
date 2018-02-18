@@ -50,6 +50,9 @@ class SummaryFactory @Inject constructor() {
     }
 
     private fun calculatePercentageChange(initialValue: BigDecimal, currentValue: BigDecimal): BigDecimal {
+        if(initialValue == BigDecimal.ZERO) {
+            return BigDecimal.ZERO
+        }
         val difference = currentValue.minus(initialValue)
         val movement = difference.divide(initialValue, POHSettings.roundingMode)
         return movement.setScale(4, POHSettings.roundingMode)

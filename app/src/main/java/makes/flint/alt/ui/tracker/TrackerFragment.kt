@@ -108,7 +108,6 @@ class TrackerFragment : BaseFragment(), TrackerContractView, FilterView {
     }
 
     override fun initialiseTrackerList() {
-        noEntriesPlaceHolder.visibility = View.GONE
         trackerListAdapter = TrackerListAdapter(getPresenterComponent())
         trackerRecycler.layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
         trackerRecycler.adapter = trackerListAdapter as TrackerListAdapter
@@ -133,9 +132,11 @@ class TrackerFragment : BaseFragment(), TrackerContractView, FilterView {
         }
         trackerListAdapter.onNoEntriesPresent().subscribe(Action1<Boolean> {
             if (!it) {
+                println("HIDING NO ENTRIES")
                 hideNoTrackerEntriesMessage()
                 return@Action1
             }
+            println("SHOWING NO ENTRIES")
             showNoTrackerEntriesMessage()
         })
     }
@@ -207,6 +208,12 @@ class TrackerFragment : BaseFragment(), TrackerContractView, FilterView {
 
     private fun hideNoTrackerEntriesMessage() {
         noEntriesPlaceHolder.visibility = View.GONE
+        swipeRefresh.visibility = View.VISIBLE
+    }
+
+    override fun showNoTrackerEntriesMessage() {
+        swipeRefresh.visibility = View.GONE
+        noEntriesPlaceHolder.visibility = View.VISIBLE
     }
 
     private fun makeTrackerEntryDialogFor(item: TrackerListItem) {
@@ -217,10 +224,6 @@ class TrackerFragment : BaseFragment(), TrackerContractView, FilterView {
         }
         val newCoinDetail = TrackerEntryDialog.getInstanceFor(item)
         newCoinDetail.show(fragmentManager, "TrackerEntryDetail")
-    }
-
-    override fun showNoTrackerEntriesMessage() {
-        noEntriesPlaceHolder.visibility = View.VISIBLE
     }
 
     override fun filterFor(input: String) {

@@ -19,8 +19,8 @@ open class SettingsData : RealmObject() {
 
     var refreshGap = 5L
     var exchangeFilter = "CCCAGG"
-    var syncLimit = 750
-    var startingScreen = START_MARKET
+    var syncLimit = 1000
+    var startingScreen = START_TRACKER
 
     var defaultSort = SORT_RANK
 

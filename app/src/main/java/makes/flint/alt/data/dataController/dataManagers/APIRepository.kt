@@ -5,6 +5,7 @@ import makes.flint.alt.data.dataController.callbacks.RepositoryCallbackSingle
 import makes.flint.alt.data.dataController.dataSource.DataSource
 import makes.flint.alt.data.response.coinSummary.SummaryCoinResponse
 import makes.flint.alt.data.response.histoResponse.HistoricalDataResponse
+import makes.flint.alt.data.response.marketSummary.MarketSummaryResponse
 import makes.flint.alt.data.services.interfaces.CMCAPIService
 import makes.flint.alt.data.services.interfaces.CryptoCompareAPIService
 import makes.flint.alt.ui.market.coinDetail.HOUR_DATA
@@ -28,8 +29,15 @@ class ApiRepository @Inject constructor(private val cmcAPIService: CMCAPIService
     fun coinsGET(): Observable<Array<SummaryCoinResponse>>? {
         return cmcAPIService
                 .coinListGET(POHSettings.limit)
-                .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.computation())
+    }
+
+    fun marketSummaryGET(): Observable<MarketSummaryResponse>? {
+        return cmcAPIService
+                .marketSummaryGET()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
     }
 
     fun getHistoricalDataFor(callback: RepositoryCallbackSingle<HistoricalDataResponse?>, coinSymbol: String, dataResolution: Int, chartResolution: Int) {
@@ -45,8 +53,8 @@ class ApiRepository @Inject constructor(private val cmcAPIService: CMCAPIService
                                         dataResolution: Int,
                                         chartResolution: Int) {
         cryptoCompareAPIService.histoMinuteGET(coinSymbol, POHSettings.currency, "CCCAGG")
-                .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(makeSubscriber(callback, dataResolution, chartResolution))
     }
 
@@ -55,16 +63,16 @@ class ApiRepository @Inject constructor(private val cmcAPIService: CMCAPIService
                                       dataResolution: Int,
                                       chartResolution: Int) {
         cryptoCompareAPIService.histoHourGET(coinSymbol, POHSettings.currency, "CCCAGG")
-                .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(makeSubscriber(callback, dataResolution, chartResolution))
     }
 
     private fun getDayHistoricalData(callback: RepositoryCallbackSingle<HistoricalDataResponse?>, coinSymbol:
     String, dataResolution: Int, chartResolution: Int) {
         cryptoCompareAPIService.histoDayGET(coinSymbol, POHSettings.currency, "CCCAGG", 365)
-                .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(makeSubscriber(callback, dataResolution, chartResolution))
     }
 

@@ -22,15 +22,14 @@ class TrackerAdapterPresenter @Inject constructor(private var dataController: Da
     private fun subscribeToCache() {
         trackerItemSubscription = dataController.trackerRefreshSubscriber().subscribe {
             if (it.isEmpty()) {
+                println("NO TRACKER ENTRIES")
                 view?.showNoTrackerEntriesMessage()
+                return@subscribe
             }
             view?.trackerEntries = it.toMutableList()
             view?.didHaveEntries()
             view?.hideLoading()
         }
-//        summarySubscription = dataController.summaryRefreshSubscriber().subscribe{
-//            view?.updateSummaryFragmentFor(it)
-//        }
     }
 
     fun onDestroy() {

@@ -9,7 +9,6 @@ import android.widget.Filter
 import android.widget.Filterable
 import makes.flint.alt.R
 import makes.flint.alt.configuration.IndicatorCustomiser
-import makes.flint.alt.data.Summary
 import makes.flint.alt.data.interfaces.assessChange
 import makes.flint.alt.data.trackerListItem.TrackerListItem
 import makes.flint.alt.injection.components.PresenterComponent

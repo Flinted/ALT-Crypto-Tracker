@@ -10,7 +10,7 @@
     <string name="action_search">Search</string>
     <string name="action_faq">FAQ</string>
     <string name="market_summary" formatted="false">Market Avg: 24H: %1$s  7D: %2$s  Size: %3$d</string>
-    <string name="tracker_fragment_no_entries_placeholder">No entries yet :(</string>
+    <string name="tracker_fragment_no_entries_placeholder">No entries yet, why not add one?</string>
     <string name="error_api_failure">There was a problem getting data, please try again.</string>
     <string name="error_general_error">There was a problem, please try again</string>
     <string name="error_transaction_failure">There was a problem adding your transaction.</string>

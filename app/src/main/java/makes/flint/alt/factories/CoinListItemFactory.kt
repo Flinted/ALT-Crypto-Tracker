@@ -18,7 +18,6 @@ class CoinListItemFactory @Inject constructor() {
 
     // Private Properties
 
-    private var oneHourMarket = 0f
     private var twentyFourHourMarket = 0f
     private var sevenDayMarket = 0f
     private var itemsInAverage = 0
@@ -28,7 +27,6 @@ class CoinListItemFactory @Inject constructor() {
     internal fun makeCoinListItems(inputItems: MutableList<CoinResponse>,
                                    favouriteCoins: MutableList<FavouriteCoin>?
     ): MutableList<CoinListItem> {
-        oneHourMarket = 0f
         twentyFourHourMarket = 0f
         sevenDayMarket = 0f
         val coinListMap = makeFavouritesHashMap(favouriteCoins)
@@ -48,7 +46,7 @@ class CoinListItemFactory @Inject constructor() {
         return mutableCachedCoins.sortedByFavouritesThen(POHSettings.sortPreference)
     }
 
-    internal fun getMarketData() = MarketData(oneHourMarket, twentyFourHourMarket, sevenDayMarket, itemsInAverage)
+    internal fun getMarketData() = MarketData(twentyFourHourMarket, sevenDayMarket, itemsInAverage)
 
     // Private Functions
 
@@ -58,7 +56,6 @@ class CoinListItemFactory @Inject constructor() {
         val isFavourite = favouriteCoins[inputItem.symbol] != null
         val priceData = PriceData(inputItem)
         val changeData = ChangeData(inputItem)
-        oneHourMarket += changeData.percentChange1H?.toFloat() ?: 0f
         twentyFourHourMarket += changeData.percentChange24H?.toFloat() ?: 0f
         sevenDayMarket += changeData.percentChange7D?.toFloat() ?: 0f
         return CoinListItem(inputItem, priceData, changeData, isFavourite)

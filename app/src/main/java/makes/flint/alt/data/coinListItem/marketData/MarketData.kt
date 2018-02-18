@@ -1,34 +1,27 @@
 package makes.flint.alt.data.coinListItem.marketData
 
 import makes.flint.alt.data.coinListItem.MarketListItem
-import java.text.NumberFormat
+import makes.flint.alt.utility.NumberFormatter
+import java.math.BigDecimal
 
 /**
  * MarketData
  * Copyright © 2018  Flint Makes. All rights reserved.
  */
-class MarketData(oneHourChange: Float,
-                 twentyFourHourChange: Float,
+class MarketData(twentyFourHourChange: Float,
                  sevenDayChange: Float,
-                 val numberItems: Int) : MarketListItem {
+                 internal val numberItems: Int) : MarketListItem {
 
-    private val oneHourAverage = oneHourChange / numberItems
     private val twentyFourHourAverage = twentyFourHourChange / numberItems
     private val sevenDayAverage = sevenDayChange / numberItems
-    private val formatter = NumberFormat.getNumberInstance()
 
-    fun oneHourAverageFormatted(): String {
-        formatter.maximumFractionDigits = 2
-        return formatter.format(oneHourAverage)
+    internal fun twentyFourHourAverageFormatted(): String {
+        val twentyFourHour = BigDecimal.valueOf(twentyFourHourAverage.toDouble())
+        return "${NumberFormatter.format(twentyFourHour, 2)}%"
     }
 
-    fun twentyFourHourAverageFormatted(): String {
-        formatter.maximumFractionDigits = 2
-        return formatter.format(twentyFourHourAverage)
-    }
-
-    fun sevenDayAverageFormatted(): String {
-        formatter.maximumFractionDigits = 2
-        return formatter.format(sevenDayAverage)
+    internal fun sevenDayAverageFormatted(): String {
+        val sevenDay = BigDecimal.valueOf(sevenDayAverage.toDouble())
+        return "${NumberFormatter.format(sevenDay, 2)}%"
     }
 }

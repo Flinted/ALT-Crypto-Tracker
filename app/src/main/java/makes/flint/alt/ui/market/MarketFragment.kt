@@ -1,6 +1,7 @@
 package makes.flint.alt.ui.market
 
 import android.os.Bundle
+import android.support.constraint.ConstraintLayout
 import android.support.design.widget.FloatingActionButton
 import android.support.v4.content.ContextCompat
 import android.support.v4.widget.SwipeRefreshLayout
@@ -14,6 +15,7 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import makes.flint.alt.R
 import makes.flint.alt.base.BaseFragment
+import makes.flint.alt.data.response.marketSummary.MarketSummaryResponse
 import makes.flint.alt.ui.interfaces.FilterView
 import makes.flint.alt.ui.main.MainActivity
 import makes.flint.alt.ui.market.coinDetail.CoinDetailDialog
@@ -33,7 +35,11 @@ class MarketFragment : BaseFragment(), MarketContractView, FilterView {
     private lateinit var swipeRefresh: SwipeRefreshLayout
     private lateinit var goToTopFAB: FloatingActionButton
     private lateinit var lastSyncTime: TextView
-    private lateinit var marketSummary: TextView
+    private lateinit var currentSort: TextView
+    private lateinit var marketSummary: ConstraintLayout
+    private lateinit var marketSummaryTextView: TextView
+    private lateinit var marketCapTextView: TextView
+    private lateinit var vol24HTextView: TextView
 
     // Properties
 
@@ -104,9 +110,12 @@ class MarketFragment : BaseFragment(), MarketContractView, FilterView {
         this.swipeRefresh.visibility = View.VISIBLE
     }
 
-    override fun updateMarketSummary(oneHour: String, twentyFourHour: String, sevenDay: String, coins: Int) {
-        val summaryString = getString(R.string.market_summary, twentyFourHour, sevenDay, coins)
-        this.marketSummary.text = summaryString
+    override fun updateMarketSummary(marketSummary: MarketSummaryResponse) {
+        val twentyFourHour = marketSummary.marketData.twentyFourHourAverageFormatted()
+        val sevenDay = marketSummary.marketData.sevenDayAverageFormatted()
+        val coins = marketSummary.marketData.numberItems
+        val summaryString = context.getString(R.string.market_summary, twentyFourHour, sevenDay, coins)
+        this.marketSummaryTextView.text = summaryString
     }
 
     override fun updateLastSyncTime(lastSync: Long) {
@@ -143,8 +152,12 @@ class MarketFragment : BaseFragment(), MarketContractView, FilterView {
         this.coinListRecyclerView = view.findViewById(R.id.market_recycler_view)
         this.swipeRefresh = view.findViewById(R.id.coin_list_refresh_layout)
         this.goToTopFAB = view.findViewById(R.id.coin_list_FAB)
-        this.lastSyncTime = view.findViewById(R.id.market_bottom_ticker)
+        this.lastSyncTime = view.findViewById(R.id.bottom_ticker_right)
+        this.currentSort = view.findViewById(R.id.bottom_ticker_left)
         this.marketSummary = view.findViewById(R.id.market_top_ticker)
+        this.marketSummaryTextView = view.findViewById(R.id.market_summary)
+        this.marketCapTextView = view.findViewById(R.id.market_summary_market_cap)
+        this.vol24HTextView = view.findViewById(R.id.market_summary_vol_24H)
     }
 
     private fun handleScrollChange(yPosition: Int) {

@@ -2,6 +2,7 @@ package makes.flint.alt.ui.market
 
 import makes.flint.alt.base.BaseContractPresenter
 import makes.flint.alt.base.BaseContractView
+import makes.flint.alt.data.response.marketSummary.MarketSummaryResponse
 
 /**
  * MarketContract
@@ -14,7 +15,7 @@ interface MarketContractView : BaseContractView {
     fun initialiseFABonClick()
     fun initialiseAdapterListeners()
     fun showDialogForCoin(coinSymbol: String)
-    fun updateMarketSummary(oneHour: String, twentyFourHour: String, sevenDay: String, coins: Int)
+    fun updateMarketSummary(marketSummary: MarketSummaryResponse)
     fun updateLastSyncTime(lastSync: Long)
     fun hideProgressSpinner()
 }

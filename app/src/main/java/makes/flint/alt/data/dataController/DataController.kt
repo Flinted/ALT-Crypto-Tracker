@@ -4,7 +4,6 @@ import makes.flint.alt.configuration.SettingsData
 import makes.flint.alt.data.Summary
 import makes.flint.alt.data.TimeStamp
 import makes.flint.alt.data.coinListItem.CoinListItem
-import makes.flint.alt.data.coinListItem.marketData.MarketData
 import makes.flint.alt.data.dataController.cache.UIObjectCache
 import makes.flint.alt.data.dataController.callbacks.RepositoryCallbackSingle
 import makes.flint.alt.data.dataController.dataManagers.ApiRepository
@@ -12,10 +11,12 @@ import makes.flint.alt.data.dataController.dataManagers.RealmManager
 import makes.flint.alt.data.favouriteCoins.FavouriteCoin
 import makes.flint.alt.data.response.coinSummary.SummaryCoinResponse
 import makes.flint.alt.data.response.histoResponse.HistoricalDataResponse
+import makes.flint.alt.data.response.marketSummary.MarketSummaryResponse
 import makes.flint.alt.data.tracker.TrackerDataEntry
 import makes.flint.alt.data.trackerListItem.TrackerListItem
 import rx.Observable
 import rx.Subscriber
+import rx.android.schedulers.AndroidSchedulers
 import rx.subjects.PublishSubject
 import javax.inject.Inject
 
@@ -37,7 +38,7 @@ open class DataController @Inject constructor(private val apiRepository: ApiRepo
 
     fun summaryRefreshSubscriber(): Observable<Summary> = cache.getSummarySubscription()
 
-    fun marketRefreshSubscriber(): Observable<MarketData?> = cache.getMarketSubscription()
+    fun marketRefreshSubscriber(): Observable<MarketSummaryResponse> = cache.getMarketSubscription()
 
     fun lastSyncSubscriber(): Observable<TimeStamp> = cache.getSyncTimeSubscription()
 
@@ -52,17 +53,39 @@ open class DataController @Inject constructor(private val apiRepository: ApiRepo
     }
 
     private fun refreshCache() {
+        apiRepository.marketSummaryGET()?.subscribe(object : Subscriber<MarketSummaryResponse>() {
+            override fun onNext(response: MarketSummaryResponse) {
+                cache.updateMarketSummary(response)
+                getCoinsList()
+            }
+
+            override fun onCompleted() {}
+            override fun onError(error: Throwable?) {
+                println(error)
+                hasEncounteredError.onNext(error)
+            }
+        })
+
+    }
+
+    private fun getCoinsList() {
         val favouriteCoins = realmManager.getFavouriteCoins()
         val trackerEntryData = realmManager.getAllTrackerDataEntries()
-        apiRepository.coinsGET()?.subscribe(object : Subscriber<Array<SummaryCoinResponse>>() {
+        apiRepository.coinsGET()?.doOnNext { data ->
+            cache.updateForNewData(
+                    data?.toMutableList(),
+                    favouriteCoins,
+                    trackerEntryData)
+        }?.observeOn(AndroidSchedulers.mainThread())?.subscribe(object :
+                Subscriber<Array<SummaryCoinResponse>>() {
             override fun onCompleted() {}
             override fun onError(error: Throwable) {
+                println(error)
                 hasEncounteredError.onNext(error)
             }
 
             override fun onNext(apiResponse: Array<SummaryCoinResponse>?) {
-                val coinResponse = apiResponse?.toMutableList()
-                cache.updateCacheForNewData(coinResponse, favouriteCoins, trackerEntryData)
+                cache.emitData()
                 unsubscribe()
             }
         })
