@@ -6,6 +6,7 @@ import makes.flint.alt.data.tracker.TRANSACTION_SELL
 import makes.flint.alt.data.tracker.TrackerDataEntry
 import makes.flint.alt.data.tracker.TrackerDataTransaction
 import makes.flint.alt.data.trackerListItem.*
+import java.util.*
 import javax.inject.Inject
 
 /**
@@ -26,7 +27,7 @@ class TrackerItemFactory @Inject constructor() {
             item.transactions = listTransactions
             trackerListItems.add(item)
         }
-        return trackerListItems
+        return sortByValue(trackerListItems)
     }
 
     private fun findCoinFor(name: String, coinListItems: List<CoinListItem>): CoinListItem? {
@@ -48,6 +49,28 @@ class TrackerItemFactory @Inject constructor() {
             }
             listTransactions.add(transaction)
         }
+        return sortByDate(listTransactions)
+    }
+
+    private fun sortByDate(listTransactions: MutableList<TrackerTransaction>): MutableList<TrackerTransaction> {
+        Collections.sort(listTransactions, Comparator { sortable1, sortable2 ->
+            return@Comparator when {
+                sortable1.pricePaid == sortable2.pricePaid -> 0
+                sortable1.pricePaid < sortable2.pricePaid -> -1
+                else -> 1
+            }
+        })
         return listTransactions
+    }
+
+    private fun sortByValue(trackerListItems: MutableList<TrackerListItem>): MutableList<TrackerListItem> {
+        Collections.sort(trackerListItems, Comparator { sortable1, sortable2 ->
+            return@Comparator when {
+                sortable1.percentageChange == sortable2.percentageChange -> 0
+                sortable1.percentageChange < sortable2.percentageChange -> -1
+                else -> 1
+            }
+        })
+        return trackerListItems
     }
 }

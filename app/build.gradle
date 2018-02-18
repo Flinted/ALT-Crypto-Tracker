@@ -5,7 +5,7 @@ apply plugin: 'realm-android'
 android {
     signingConfigs {
         config {
-            keyAlias 'FlintMakeKey'
+            keyAlias 'FlintMakesKey'
             keyPassword 'Fir3wat3r'
             storeFile file('/Users/chris.flint/FlintMakes/FLINT_MAKES_KEYSTORE.jks')
             storePassword '1Carus52!'
@@ -16,8 +16,8 @@ android {
         applicationId "makes.flint.alt"
         minSdkVersion 19
         targetSdkVersion 26
-        versionCode 1
-        versionName "0.1.0"
+        versionCode 2
+        versionName "0.2.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
