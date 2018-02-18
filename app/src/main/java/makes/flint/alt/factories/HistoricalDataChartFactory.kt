@@ -61,7 +61,7 @@ class HistoricalDataChartFactory(private var dataSet: Array<HistoricalDataUnitRe
         val entries: MutableList<Entry> = mutableListOf()
         var count = 0f
         dataSet.forEach {
-            val close = it.close ?: return@forEach
+            val close = it?.close ?: return@forEach
             val entry = Entry(count, close)
             entries.add(entry)
             count++
@@ -73,7 +73,7 @@ class HistoricalDataChartFactory(private var dataSet: Array<HistoricalDataUnitRe
         val entries: MutableList<BarEntry> = mutableListOf()
         var count = 0f
         dataSet.forEach {
-            val close = it.close ?: return@forEach
+            val close = it?.close ?: return@forEach
             val entry = BarEntry(count, close)
             entries.add(entry)
             count++
@@ -85,7 +85,7 @@ class HistoricalDataChartFactory(private var dataSet: Array<HistoricalDataUnitRe
         val entries: MutableList<CandleEntry> = mutableListOf()
         var count = 0f
         dataSet.forEach {
-            val close = it.close ?: return@forEach
+            val close = it?.close ?: return@forEach
             val open = it.open ?: return@forEach
             val high = it.high ?: return@forEach
             val low = it.low ?: return@forEach

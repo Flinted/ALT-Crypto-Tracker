@@ -5,8 +5,8 @@
     android:layout_height="16dp"
     android:layout_gravity="bottom"
     android:background="@color/colorAccent"
-    android:paddingEnd="@dimen/margin_small_4dp"
-    android:paddingStart="@dimen/margin_small_4dp">
+    android:paddingEnd="@dimen/margin_large_8dp"
+    android:paddingStart="@dimen/margin_large_8dp">
 
     <TextView
         android:id="@+id/bottom_ticker_right"
@@ -14,7 +14,8 @@
         android:layout_height="16dp"
         android:gravity="center_vertical|end"
         android:textColor="@color/colorPrimaryDark"
-        android:textSize="@dimen/text_size_small"/>
+        android:textSize="@dimen/text_size_small"
+        android:textStyle="bold"/>
 
     <TextView
         android:id="@+id/bottom_ticker_left"
@@ -22,5 +23,6 @@
         android:layout_height="16dp"
         android:gravity="center_vertical|start"
         android:textColor="@color/colorPrimaryDark"
-        android:textSize="@dimen/text_size_small"/>
+        android:textSize="@dimen/text_size_small"
+        android:textStyle="bold"/>
 </RelativeLayout>

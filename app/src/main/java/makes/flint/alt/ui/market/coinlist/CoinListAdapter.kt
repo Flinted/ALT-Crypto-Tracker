@@ -78,7 +78,7 @@ class CoinListAdapter(presenterComponent: PresenterComponent)
         initialise1HourViews(coin, coinListViewHolder, context)
         initialise24HourViews(coin, coinListViewHolder, context)
         initialise7DayViews(coin, coinListViewHolder, context)
-        setOnClickListener(coinListViewHolder.card, coin, position)
+        setOnClickListener(coinListViewHolder.card, coin)
         setOnCheckedChangeListener(coinListViewHolder.favouriteIcon, coin, position)
         if (coin.symbol != "DOGE") {
             return
@@ -127,7 +127,7 @@ class CoinListAdapter(presenterComponent: PresenterComponent)
         holder.sevenDayChange.setTextColor(colour)
     }
 
-    private fun setOnClickListener(card: CardView, coin: CoinListItem, position: Int) {
+    private fun setOnClickListener(card: CardView, coin: CoinListItem) {
         card.setOnClickListener {
             coinSelected.onNext(coin.symbol)
         }

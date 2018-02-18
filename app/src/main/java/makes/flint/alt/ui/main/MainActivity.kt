@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.support.design.widget.BottomNavigationView
 import android.support.design.widget.CoordinatorLayout
 import android.support.v4.view.ViewPager
@@ -13,11 +14,13 @@ import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
 import android.view.ViewTreeObserver
+import com.stephentuso.welcome.WelcomeHelper
 import makes.flint.alt.R
 import makes.flint.alt.base.BaseActivity
 import makes.flint.alt.configuration.POHSettings
 import makes.flint.alt.configuration.START_TRACKER
 import makes.flint.alt.ui.interfaces.*
+import makes.flint.alt.ui.onboard.OnboardActivity
 import org.jetbrains.anko.support.v4.onPageChangeListener
 
 /**
@@ -37,6 +40,7 @@ class MainActivity : BaseActivity(), MainContractView {
     private lateinit var mainPresenter: MainContractPresenter
     private lateinit var viewPagerAdapter: MainViewPagerAdapter
     private var timeTickBroadcastReceiver: BroadcastReceiver? = null
+    private var welcomeScreen: WelcomeHelper? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,6 +50,17 @@ class MainActivity : BaseActivity(), MainContractView {
         mainPresenter.attachView(this)
         attachPresenter(mainPresenter)
         mainPresenter.initialise()
+        showWelcomeScreenIfRequired(savedInstanceState)
+    }
+
+    private fun showWelcomeScreenIfRequired(savedInstanceState: Bundle?) {
+        welcomeScreen = WelcomeHelper(this, OnboardActivity::class.java)
+        welcomeScreen?.show(savedInstanceState)
+    }
+
+    override fun onSaveInstanceState(outState: Bundle?, outPersistentState: PersistableBundle?) {
+        super.onSaveInstanceState(outState, outPersistentState)
+        welcomeScreen?.onSaveInstanceState(outState)
     }
 
     // This method waits until all child views are created and then triggers an
@@ -62,7 +77,7 @@ class MainActivity : BaseActivity(), MainContractView {
     override fun onResume() {
         super.onResume()
         mainPresenter.emitData()
-        timeTickBroadcastReceiver ?:let {
+        timeTickBroadcastReceiver ?: let {
             this.timeTickBroadcastReceiver = makeTimeTickBroadcastReceiver()
         }
         registerReceiver(timeTickBroadcastReceiver, IntentFilter())

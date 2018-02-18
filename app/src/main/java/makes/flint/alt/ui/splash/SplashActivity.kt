@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import makes.flint.alt.base.BaseActivity
 import makes.flint.alt.ui.main.MainActivity
+import makes.flint.alt.ui.onboard.OnboardActivity
 
 /**
  * SplashActivity
@@ -25,9 +26,5 @@ class SplashActivity : BaseActivity(), SplashContractView {
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
         finish()
-    }
-
-    override fun proceedToOnboardActivity() {
-
     }
 }

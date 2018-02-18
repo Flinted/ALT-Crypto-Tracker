@@ -61,6 +61,9 @@ dependencies {
     final UI_AUTOMATOR_VERSION = '2.1.2'
     final MP_ANDROID_CHART_VERSION = 'v3.0.3'
 
+    // Welcome
+    compile 'com.stephentuso:welcome:1.4.1'
+
     //Anko
     compile "org.jetbrains.anko:anko-support-v4:$ANKO_VERSION"
 
