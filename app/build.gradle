@@ -3,13 +3,21 @@ apply plugin: 'kotlin-android'
 apply plugin: 'realm-android'
 
 android {
+    signingConfigs {
+        config {
+            keyAlias 'FlintMakesKey'
+            keyPassword 'Fir3wat3r'
+            storeFile file('/Users/chris.flint/FlintMakes/FLINT_MAKES_KEYSTORE.jks')
+            storePassword '1Carus52!'
+        }
+    }
     compileSdkVersion 26
     defaultConfig {
-        applicationId "makes.flint.poh"
+        applicationId "makes.flint.alt"
         minSdkVersion 19
         targetSdkVersion 26
-        versionCode 1
-        versionName "0.1.0"
+        versionCode 2
+        versionName "0.2.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -17,13 +25,12 @@ android {
             minifyEnabled false
             debuggable false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
         }
-
         debug {
             debuggable true
         }
     }
-
     dexOptions {
         javaMaxHeapSize "2048M"
     }
@@ -53,6 +60,9 @@ dependencies {
     final SUPPORT_TEST_VERSION = '0.5'
     final UI_AUTOMATOR_VERSION = '2.1.2'
     final MP_ANDROID_CHART_VERSION = 'v3.0.3'
+
+    // Welcome
+    compile 'com.stephentuso:welcome:1.4.1'
 
     //Anko
     compile "org.jetbrains.anko:anko-support-v4:$ANKO_VERSION"
@@ -99,9 +109,8 @@ dependencies {
     androidTestCompile "com.android.support.test.uiautomator:uiautomator-v18:$UI_AUTOMATOR_VERSION"
 
     // Test Dependencies
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile "junit:junit:$JUNIT_VERSION"
     testCompile "org.mockito:mockito-core:$MOCKITO_VERSION"
-
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
 }

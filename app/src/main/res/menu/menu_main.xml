@@ -19,40 +19,40 @@
             <group android:checkableBehavior="single">
                 <item
                     android:id="@+id/sort_rank_ascending"
-                    android:title="Rank"/>
+                    android:title="@string/sort_menu_rank"/>
                 <item
                     android:id="@+id/sort_rank_descending"
-                    android:title="Rank(descending)"/>
+                    android:title="@string/sort_menu_rank_reversed"/>
                 <item
                     android:id="@+id/sort_alphabetical_ascending"
-                    android:title="A-Z"/>
+                    android:title="@string/sort_menu_alphabetical"/>
                 <item
                     android:id="@+id/sort_alphabetical_descending"
-                    android:title="Z-A"/>
+                    android:title="@string/sort_menu_alphabetical_reversed"/>
                 <item
                     android:id="@+id/sort_1H_ascending"
-                    android:title="1H change"/>
+                    android:title="@string/sort_menu_1H"/>
                 <item
                     android:id="@+id/sort_1H_descending"
-                    android:title="1H change(descending)"/>
+                    android:title="@string/sort_menu_1H_reversed"/>
                 <item
                     android:id="@+id/sort_24H_ascending"
-                    android:title="24H change"/>
+                    android:title="@string/sort_menu_24H"/>
                 <item
                     android:id="@+id/sort_24H_descending"
-                    android:title="24H change(descending)"/>
+                    android:title="@string/sort_menu_24H_reversed"/>
                 <item
                     android:id="@+id/sort_7D_ascending"
-                    android:title="7D change"/>
+                    android:title="@string/sort_menu_7D"/>
                 <item
                     android:id="@+id/sort_7D_descending"
-                    android:title="7D change(descending)"/>
+                    android:title="@string/sort_menu_7D_reversed"/>
                 <item
                     android:id="@+id/sort_volume_ascending"
-                    android:title="24H volume"/>
+                    android:title="@string/sort_menu_vol"/>
                 <item
                     android:id="@+id/sort_volume_descending"
-                    android:title="24H volume(descending)"/>
+                    android:title="@string/sort_menu_vol_reversed"/>
             </group>
         </menu>
     </item>

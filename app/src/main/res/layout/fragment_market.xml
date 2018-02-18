@@ -10,19 +10,28 @@
         android:id="@+id/market_top_ticker"
         layout="@layout/ticker_top"/>
 
+    <ProgressBar
+        android:id="@+id/market_progress_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:indeterminate="true"
+        android:padding="120dp"
+        />
+
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/coin_list_refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="16dp"
-        android:layout_marginTop="@dimen/market_information_height"
+        android:layout_marginTop="40dp"
+        android:visibility="gone"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/market_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/colorPrimarySoft"
+            android:background="@color/colorPrimary"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"

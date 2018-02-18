@@ -1,33 +1,38 @@
 <resources>
-    <string name="app_name">cryptohound</string>
+    <string name="app_name">ALT: a light tracker</string>
     <string name="action_settings">Settings</string>
     <string name="coin_list_row_title_1h">1H</string>
-    <string name="coin_list_row_title_24h">24H</string>
-    <string name="coin_list_row_title_7d">7D</string>
+    <string name="coin_list_row_title_24h">1D</string>
+    <string name="coin_list_row_title_7d">1W</string>
+    <string name="market_fragment_time_stamp" formatted="false">%1$d mins ago</string>
     <string name="bottombar_title_market">Market</string>
     <string name="bottombar_title_tracker">Tracker</string>
     <string name="action_search">Search</string>
     <string name="action_faq">FAQ</string>
     <string name="market_summary" formatted="false">Market Avg: 24H: %1$s  7D: %2$s  Size: %3$d</string>
-    <string name="tracker_fragment_no_entries_placeholder">No entries yet :(</string>
+    <string name="tracker_fragment_no_entries_placeholder">No entries yet, why not add one?</string>
     <string name="error_api_failure">There was a problem getting data, please try again.</string>
     <string name="error_general_error">There was a problem, please try again</string>
     <string name="error_transaction_failure">There was a problem adding your transaction.</string>
     <string name="error_sync_timeout">Last Sync was too recent.</string>
     <string name="bottombar_title_settings">Settings</string>
 
-    <string-array name="sort_options">
-        <item>Rank</item>
-        <item>Rank(reversed)</item>
-        <item>A..Z</item>
-        <item>Z..A</item>
-        <item>1H change</item>
-        <item>1H change(reversed)</item>
-        <item>24H change</item>
-        <item>24H change(reversed)</item>
-        <item>7D change</item>
-        <item>7D change(reversed)</item>
-    </string-array>
+    <string name="market_summary_title_1D">1D(%1$d):</string>
+    <string name="market_summary_title_1W">1W(%1$d):</string>
+
+    <!--SORT MENU-->
+    <string name="sort_menu_rank">Rank</string>
+    <string name="sort_menu_rank_reversed">Rank(reversed)</string>
+    <string name="sort_menu_alphabetical">A-Z</string>
+    <string name="sort_menu_alphabetical_reversed">Z-A</string>
+    <string name="sort_menu_1H">1H change</string>
+    <string name="sort_menu_1H_reversed">1H change(reversed)</string>
+    <string name="sort_menu_24H">1D change</string>
+    <string name="sort_menu_24H_reversed">1D change(reversed)</string>
+    <string name="sort_menu_7D">1W change</string>
+    <string name="sort_menu_7D_reversed">1W change(reversed)</string>
+    <string name="sort_menu_vol">24H volume</string>
+    <string name="sort_menu_vol_reversed">24H volume(reversed)</string>
 
     <string-array name="start_screen_options">
         <item>Market</item>

@@ -15,6 +15,7 @@
         android:maxLines="1"
         android:textColor="@color/colorAccent"
         android:textSize="@dimen/text_xLarge_20sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@id/dialog_coin_detail_price_fiat_title"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -62,6 +63,7 @@
         android:text="Price(USD):"
         android:textColor="@color/colorOffWhite"
         android:textSize="@dimen/text_large"
+        android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@id/dialog_coin_detail_price_fiat"
         app:layout_constraintTop_toTopOf="parent"
         />
@@ -73,6 +75,7 @@
         android:layout_margin="@dimen/margin_large_8dp"
         android:textColor="@color/colorOffWhite"
         android:textSize="@dimen/text_large"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         />
@@ -137,20 +140,58 @@
         android:id="@+id/dialog_coin_detail_chart_resolution_selector"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:checkedButton="@id/dialog_coin_detail_selector_24Hours"
         android:orientation="horizontal"
         app:layout_constraintTop_toBottomOf="@id/dialog_coin_detail_chart_holder">
+
         <RadioButton
+            android:id="@+id/dialog_coin_detail_selector_24Hours"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Minutes"/>
+            android:text="24H"
+            android:textColor="@color/colorOffWhite"
+            android:textSize="@dimen/text_size_small"/>
+
         <RadioButton
+            android:id="@+id/dialog_coin_detail_selector_7Days"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Hours"/>
+            android:text="1W"
+            android:textColor="@color/colorOffWhite"
+            android:textSize="@dimen/text_size_small"/>
+
         <RadioButton
+            android:id="@+id/dialog_coin_detail_selector_30Days"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Days"/>
+            android:text="30D"
+            android:textColor="@color/colorOffWhite"
+            android:textSize="@dimen/text_size_small"/>
+
+        <RadioButton
+            android:id="@+id/dialog_coin_detail_selector_90Days"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="90D"
+            android:textColor="@color/colorOffWhite"
+            android:textSize="@dimen/text_size_small"/>
+
+        <RadioButton
+            android:id="@+id/dialog_coin_detail_selector_180Days"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="180D"
+            android:textColor="@color/colorOffWhite"
+            android:textSize="@dimen/text_size_small"/>
+
+        <RadioButton
+            android:id="@+id/dialog_coin_detail_selector_1Year"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1Y"
+            android:textColor="@color/colorOffWhite"
+            android:textSize="@dimen/text_size_small"/>
+
     </RadioGroup>
 
     <ProgressBar
@@ -182,8 +223,8 @@
         android:text="Volume 24H:"
         android:textColor="@color/colorOffWhite"
         android:textSize="@dimen/text_large"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/dialog_coin_detail_chart_resolution_selector"/>
+        app:layout_constraintBottom_toTopOf="@id/dialog_coin_detail_available_supply_title"
+        app:layout_constraintStart_toStartOf="parent"/>
 
     <TextView
         android:id="@+id/dialog_coin_detail_volume_24h"
@@ -192,8 +233,8 @@
         android:layout_margin="@dimen/margin_large_8dp"
         android:textColor="@color/colorOffWhite"
         android:textSize="@dimen/text_large"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/dialog_coin_detail_chart_resolution_selector"/>
+        app:layout_constraintBottom_toTopOf="@id/dialog_coin_detail_available_supply"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <TextView
         android:id="@+id/dialog_coin_detail_available_supply_title"
@@ -203,8 +244,8 @@
         android:text="Available Supply:"
         android:textColor="@color/colorOffWhite"
         android:textSize="@dimen/text_large"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/dialog_coin_detail_volume_24h_title"/>
+        app:layout_constraintBottom_toTopOf="@id/dialog_coin_detail_total_supply_title"
+        app:layout_constraintStart_toStartOf="parent"/>
 
     <TextView
         android:id="@+id/dialog_coin_detail_available_supply"
@@ -213,8 +254,8 @@
         android:layout_margin="@dimen/margin_large_8dp"
         android:textColor="@color/colorOffWhite"
         android:textSize="@dimen/text_large"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/dialog_coin_detail_volume_24h"/>
+        app:layout_constraintBottom_toTopOf="@id/dialog_coin_detail_total_supply"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <TextView
         android:id="@+id/dialog_coin_detail_total_supply_title"
@@ -224,8 +265,8 @@
         android:text="Total Supply:"
         android:textColor="@color/colorOffWhite"
         android:textSize="@dimen/text_large"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/dialog_coin_detail_available_supply_title"/>
+        app:layout_constraintBottom_toTopOf="@id/dialog_coin_detail_market_cap_title"
+        app:layout_constraintStart_toStartOf="parent"/>
 
     <TextView
         android:id="@+id/dialog_coin_detail_total_supply"
@@ -234,8 +275,8 @@
         android:layout_margin="@dimen/margin_large_8dp"
         android:textColor="@color/colorOffWhite"
         android:textSize="@dimen/text_large"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/dialog_coin_detail_available_supply"/>
+        app:layout_constraintBottom_toTopOf="@id/dialog_coin_detail_market_cap"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <TextView
         android:id="@+id/dialog_coin_detail_market_cap_title"
@@ -245,8 +286,8 @@
         android:text="MarketCap:"
         android:textColor="@color/colorOffWhite"
         android:textSize="@dimen/text_large"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/dialog_coin_detail_total_supply_title"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
 
     <TextView
         android:id="@+id/dialog_coin_detail_market_cap"
@@ -255,7 +296,7 @@
         android:layout_margin="@dimen/margin_large_8dp"
         android:textColor="@color/colorOffWhite"
         android:textSize="@dimen/text_large"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/dialog_coin_detail_total_supply"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 </android.support.constraint.ConstraintLayout>
