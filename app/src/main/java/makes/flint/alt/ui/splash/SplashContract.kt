@@ -9,6 +9,7 @@ import makes.flint.alt.base.BaseContractView
  */
 interface SplashContractView : BaseContractView {
     fun proceedToMainActivity()
+    fun proceedToOnboardActivity()
 }
 
 interface SplashContractPresenter : BaseContractPresenter<SplashContractView> {

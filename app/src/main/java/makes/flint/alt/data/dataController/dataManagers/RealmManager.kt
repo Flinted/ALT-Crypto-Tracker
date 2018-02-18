@@ -112,4 +112,12 @@ class RealmManager @Inject constructor() : DataSource {
     fun getSettings(): SettingsData? {
         return realm.where(SettingsData::class.java).findFirst()
     }
+
+    fun updateAsFirstLoadComplete() {
+        val settings = getSettings()
+        realm.executeTransaction {
+            settings?.firstLoad = false
+            realm.copyToRealmOrUpdate(settings)
+        }
+    }
 }

@@ -17,18 +17,22 @@
     <string name="error_sync_timeout">Last Sync was too recent.</string>
     <string name="bottombar_title_settings">Settings</string>
 
-    <string-array name="sort_options">
-        <item>Rank</item>
-        <item>Rank(reversed)</item>
-        <item>A..Z</item>
-        <item>Z..A</item>
-        <item>1H change</item>
-        <item>1H change(reversed)</item>
-        <item>24H change</item>
-        <item>24H change(reversed)</item>
-        <item>7D change</item>
-        <item>7D change(reversed)</item>
-    </string-array>
+    <string name="market_summary_title_1D">1D(%1$d):</string>
+    <string name="market_summary_title_1W">1W(%1$d):</string>
+
+    <!--SORT MENU-->
+    <string name="sort_menu_rank">Rank</string>
+    <string name="sort_menu_rank_reversed">Rank(reversed)</string>
+    <string name="sort_menu_alphabetical">A-Z</string>
+    <string name="sort_menu_alphabetical_reversed">Z-A</string>
+    <string name="sort_menu_1H">1H change</string>
+    <string name="sort_menu_1H_reversed">1H change(reversed)</string>
+    <string name="sort_menu_24H">1D change</string>
+    <string name="sort_menu_24H_reversed">1D change(reversed)</string>
+    <string name="sort_menu_7D">1W change</string>
+    <string name="sort_menu_7D_reversed">1W change(reversed)</string>
+    <string name="sort_menu_vol">24H volume</string>
+    <string name="sort_menu_vol_reversed">24H volume(reversed)</string>
 
     <string-array name="start_screen_options">
         <item>Market</item>

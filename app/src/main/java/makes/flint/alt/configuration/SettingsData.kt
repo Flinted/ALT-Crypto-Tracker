@@ -17,6 +17,7 @@ open class SettingsData : RealmObject() {
     var currencyCode = "USD"
     var symbol = "$"
 
+    var firstLoad = true
     var refreshGap = 5L
     var exchangeFilter = "CCCAGG"
     var syncLimit = 1000

@@ -40,7 +40,7 @@ class CoinListItem(
 
     private fun volume24HourFormatted(): String {
         volume24Hour?.let {
-            return NumberFormatter.formatCurrency(it, 0)
+            return NumberFormatter.formatCurrency(it, 0, 0)
         }
         return "Unknown"
     }

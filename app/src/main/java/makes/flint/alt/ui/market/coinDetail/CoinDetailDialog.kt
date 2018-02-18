@@ -92,21 +92,33 @@ class CoinDetailDialog : BaseDialogFragment(), CoinDetailContractView {
 
     override fun displayBarChart(dataToDisplay: Array<HistoricalDataUnitResponse>) {
         val factory = HistoricalDataChartFactory(dataToDisplay, "Data")
-        val chart = factory.createBarChart(chartHolder.context)
+        val chart = factory.createBarChart(chartHolder.context) ?: let {
+            hideLoading()
+            showError(ErrorHandler.GENERAL_ERROR)
+            return
+        }
         hideLoading()
         chartHolder.addView(chart)
     }
 
     override fun displayLineChart(dataToDisplay: Array<HistoricalDataUnitResponse>) {
         val factory = HistoricalDataChartFactory(dataToDisplay, "Data")
-        val chart = factory.createLineChart(chartHolder.context)
+        val chart = factory.createLineChart(chartHolder.context) ?: let {
+            hideLoading()
+            showError(ErrorHandler.GENERAL_ERROR)
+            return
+        }
         hideLoading()
         chartHolder.addView(chart)
     }
 
     override fun displayCandleChart(dataToDisplay: Array<HistoricalDataUnitResponse>) {
         val factory = HistoricalDataChartFactory(dataToDisplay, "Data")
-        val chart = factory.createCandleChart(chartHolder.context)
+        val chart = factory.createCandleChart(chartHolder.context) ?: let {
+            hideLoading()
+            showError(ErrorHandler.GENERAL_ERROR)
+            return
+        }
         hideLoading()
         chartHolder.addView(chart)
     }
@@ -133,7 +145,7 @@ class CoinDetailDialog : BaseDialogFragment(), CoinDetailContractView {
             val dataResolution = when (selectedId) {
                 R.id.dialog_coin_detail_selector_24Hours -> CHART_24H
                 R.id.dialog_coin_detail_selector_7Days -> CHART_7D
-                R.id.dialog_coin_detail_selector_30Days-> CHART_30D
+                R.id.dialog_coin_detail_selector_30Days -> CHART_30D
                 R.id.dialog_coin_detail_selector_90Days -> CHART_90D
                 R.id.dialog_coin_detail_selector_180Days -> CHART_180D
                 else -> CHART_1Y

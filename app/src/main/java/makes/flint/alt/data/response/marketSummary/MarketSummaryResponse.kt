@@ -2,6 +2,8 @@ package makes.flint.alt.data.response.marketSummary
 
 import com.google.gson.annotations.SerializedName
 import makes.flint.alt.data.coinListItem.marketData.MarketData
+import makes.flint.alt.utility.NumberFormatter
+import java.math.BigDecimal
 
 /**
  * MarketSummaryResponse
@@ -18,4 +20,14 @@ class MarketSummaryResponse {
     private var bitcoinDominancePercent: Double = 0.0
 
     internal lateinit var marketData: MarketData
+
+    internal fun marketCapUSDFormatted(): String {
+        val bigDecimalMarketCap = BigDecimal(marketCapUSD)
+        return NumberFormatter.formatCurrency(bigDecimalMarketCap, 0, 0)
+    }
+
+    internal fun volume24HUSDFormatted(): String {
+        val bigDecimalVolume = BigDecimal(volume24HUSD)
+        return NumberFormatter.formatCurrency(bigDecimalVolume, 0, 0)
+    }
 }

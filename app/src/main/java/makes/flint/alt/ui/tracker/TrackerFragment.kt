@@ -111,19 +111,6 @@ class TrackerFragment : BaseFragment(), TrackerContractView, FilterView {
         trackerListAdapter = TrackerListAdapter(getPresenterComponent())
         trackerRecycler.layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
         trackerRecycler.adapter = trackerListAdapter as TrackerListAdapter
-        initialiseScrollListener()
-    }
-
-    private fun initialiseScrollListener() {
-        trackerRecycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
-                super.onScrollStateChanged(recyclerView, newState)
-                when (newState) {
-                    RecyclerView.SCROLL_STATE_DRAGGING -> hideAddCoinFAB()
-                    else -> showAddCoinFAB()
-                }
-            }
-        })
     }
 
     override fun initialiseTrackerListListeners() {
@@ -132,11 +119,9 @@ class TrackerFragment : BaseFragment(), TrackerContractView, FilterView {
         }
         trackerListAdapter.onNoEntriesPresent().subscribe(Action1<Boolean> {
             if (!it) {
-                println("HIDING NO ENTRIES")
                 hideNoTrackerEntriesMessage()
                 return@Action1
             }
-            println("SHOWING NO ENTRIES")
             showNoTrackerEntriesMessage()
         })
     }
@@ -193,17 +178,6 @@ class TrackerFragment : BaseFragment(), TrackerContractView, FilterView {
         chartViewConstraint.constrainHeight(R.id.tracker_chart_area, ViewGroup.LayoutParams.MATCH_PARENT)
         chartViewConstraint.setVisibility(R.id.tracker_show_chart_button, View.GONE)
         chartViewConstraint.setVisibility(R.id.tracker_show_portfolio_button, View.VISIBLE)
-    }
-
-    private fun hideAddCoinFAB() {
-        if (!trackerRecycler.canScrollVertically(0)) {
-            return
-        }
-        addCoinButton.hide()
-    }
-
-    private fun showAddCoinFAB() {
-        addCoinButton.show()
     }
 
     private fun hideNoTrackerEntriesMessage() {

@@ -45,7 +45,7 @@ class PriceData(coinResponse: CoinResponse) {
         val billion = BigDecimal(ONE_BILLION)
         val billionCoinPrice = marketCapUSD.divide(billion)
         val roundedBillionCoinPrice = billionCoinPrice.setScale(2, RoundingMode.HALF_EVEN)
-        return NumberFormatter.formatCurrency(roundedBillionCoinPrice, 2)
+        return NumberFormatter.formatCurrency(roundedBillionCoinPrice, 2, 2)
     }
 
     companion object {
@@ -63,7 +63,7 @@ class PriceData(coinResponse: CoinResponse) {
 
     private fun marketCapFormatted(): String {
         marketCapUSD?.let {
-            return NumberFormatter.formatCurrency(it, 0)
+            return NumberFormatter.formatCurrency(it, 0, 0)
         }
         return "Unknown"
     }

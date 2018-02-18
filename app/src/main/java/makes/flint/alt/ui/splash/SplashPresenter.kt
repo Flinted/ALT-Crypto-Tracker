@@ -21,13 +21,22 @@ class SplashPresenter @Inject constructor(private val dataController: DataContro
     override fun initialise() {
         initialiseSettings()
         this.coinListSubscriber = dataController.coinRefreshSubscriber().subscribe {
-            view?.proceedToMainActivity()
+            proceedToApp()
             clearSubscription()
         }
         this.errorSubscriber = dataController.getErrorSubscription().subscribe {
             view?.showError(ErrorHandler.GENERAL_ERROR)
         }
         dataController.refreshRequested()
+    }
+
+    private fun proceedToApp() {
+        if(!POHSettings.firstLoad) {
+            view?.proceedToMainActivity()
+            return
+        }
+        view?.proceedToOnboardActivity()
+        dataController.updateAsFirstLoadComplete()
     }
 
     private fun initialiseSettings() {

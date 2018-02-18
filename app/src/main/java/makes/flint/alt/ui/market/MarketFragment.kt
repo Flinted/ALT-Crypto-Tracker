@@ -7,7 +7,6 @@ import android.support.v4.content.ContextCompat
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,7 +15,7 @@ import android.widget.TextView
 import makes.flint.alt.R
 import makes.flint.alt.base.BaseFragment
 import makes.flint.alt.data.response.marketSummary.MarketSummaryResponse
-import makes.flint.alt.ui.interfaces.FilterView
+import makes.flint.alt.ui.interfaces.*
 import makes.flint.alt.ui.main.MainActivity
 import makes.flint.alt.ui.market.coinDetail.CoinDetailDialog
 import makes.flint.alt.ui.market.coinlist.CoinListAdapter
@@ -37,10 +36,29 @@ class MarketFragment : BaseFragment(), MarketContractView, FilterView {
     private lateinit var lastSyncTime: TextView
     private lateinit var currentSort: TextView
     private lateinit var marketSummary: ConstraintLayout
-    private lateinit var marketSummaryTextView: TextView
     private lateinit var marketCapTextView: TextView
     private lateinit var vol24HTextView: TextView
+    private lateinit var market1DTitleTextView: TextView
+    private lateinit var market1DValueTextView: TextView
+    private lateinit var market1WTitleTextView: TextView
+    private lateinit var market1WValueTextView: TextView
 
+    private fun bindViews(view: View?) {
+        view ?: return
+        this.progressSpinner = view.findViewById(R.id.market_progress_spinner)
+        this.coinListRecyclerView = view.findViewById(R.id.market_recycler_view)
+        this.swipeRefresh = view.findViewById(R.id.coin_list_refresh_layout)
+        this.goToTopFAB = view.findViewById(R.id.coin_list_FAB)
+        this.lastSyncTime = view.findViewById(R.id.bottom_ticker_right)
+        this.currentSort = view.findViewById(R.id.bottom_ticker_left)
+        this.marketSummary = view.findViewById(R.id.market_top_ticker)
+        this.marketCapTextView = view.findViewById(R.id.market_summary_market_cap)
+        this.vol24HTextView = view.findViewById(R.id.market_summary_vol_24H)
+        this.market1DTitleTextView = view.findViewById(R.id.market_summary_1D_title)
+        this.market1WTitleTextView = view.findViewById(R.id.market_summary_1W_title)
+        this.market1DValueTextView = view.findViewById(R.id.market_summary_1D)
+        this.market1WValueTextView = view.findViewById(R.id.market_summary_1W)
+    }
     // Properties
 
     private lateinit var marketPresenter: MarketContractPresenter
@@ -103,6 +121,27 @@ class MarketFragment : BaseFragment(), MarketContractView, FilterView {
 
     override fun initialiseAdapterListeners() {
         coinListAdapter.onCoinSelected().subscribe { coinSymbol -> marketPresenter.onCoinSelected(coinSymbol) }
+        coinListAdapter.onSortTypeChanged().subscribe { sortId ->
+            this.currentSort.text = getStringForSortId(sortId)
+        }
+    }
+
+    private fun getStringForSortId(sortId: Int): String {
+        val id = when (sortId) {
+            SORT_RANK -> R.string.sort_menu_rank
+            SORT_RANK_REV -> R.string.sort_menu_rank_reversed
+            SORT_NAME -> R.string.sort_menu_alphabetical
+            SORT_NAME_REV -> R.string.sort_menu_alphabetical_reversed
+            SORT_ONE_HOUR -> R.string.sort_menu_1H
+            SORT_ONE_HOUR_REV -> R.string.sort_menu_1H_reversed
+            SORT_TWENTY_FOUR_HOUR -> R.string.sort_menu_24H
+            SORT_TWENTY_FOUR_HOUR_REV -> R.string.sort_menu_24H_reversed
+            SORT_SEVEN_DAY -> R.string.sort_menu_7D
+            SORT_SEVEN_DAY_REV -> R.string.sort_menu_7D_reversed
+            SORT_VOLUME -> R.string.sort_menu_vol
+            else -> R.string.sort_menu_vol_reversed
+        }
+        return getString(id)
     }
 
     override fun hideProgressSpinner() {
@@ -114,8 +153,12 @@ class MarketFragment : BaseFragment(), MarketContractView, FilterView {
         val twentyFourHour = marketSummary.marketData.twentyFourHourAverageFormatted()
         val sevenDay = marketSummary.marketData.sevenDayAverageFormatted()
         val coins = marketSummary.marketData.numberItems
-        val summaryString = context.getString(R.string.market_summary, twentyFourHour, sevenDay, coins)
-        this.marketSummaryTextView.text = summaryString
+        this.market1DTitleTextView.text = context.getString(R.string.market_summary_title_1D, coins)
+        this.market1WTitleTextView.text = context.getString(R.string.market_summary_title_1W, coins)
+        this.market1DValueTextView.text = twentyFourHour
+        this.market1WValueTextView.text = sevenDay
+        this.marketCapTextView.text = marketSummary.marketCapUSDFormatted()
+        this.vol24HTextView.text = marketSummary.volume24HUSDFormatted()
     }
 
     override fun updateLastSyncTime(lastSync: Long) {
@@ -146,19 +189,6 @@ class MarketFragment : BaseFragment(), MarketContractView, FilterView {
     }
 
     // Private Functions
-    private fun bindViews(view: View?) {
-        view ?: return
-        this.progressSpinner = view.findViewById(R.id.market_progress_spinner)
-        this.coinListRecyclerView = view.findViewById(R.id.market_recycler_view)
-        this.swipeRefresh = view.findViewById(R.id.coin_list_refresh_layout)
-        this.goToTopFAB = view.findViewById(R.id.coin_list_FAB)
-        this.lastSyncTime = view.findViewById(R.id.bottom_ticker_right)
-        this.currentSort = view.findViewById(R.id.bottom_ticker_left)
-        this.marketSummary = view.findViewById(R.id.market_top_ticker)
-        this.marketSummaryTextView = view.findViewById(R.id.market_summary)
-        this.marketCapTextView = view.findViewById(R.id.market_summary_market_cap)
-        this.vol24HTextView = view.findViewById(R.id.market_summary_vol_24H)
-    }
 
     private fun handleScrollChange(yPosition: Int) {
         if (yPosition < 2500) {
@@ -169,12 +199,10 @@ class MarketFragment : BaseFragment(), MarketContractView, FilterView {
     }
 
     private fun showGoToTopFAB() {
-        lastSyncTime.gravity = Gravity.END
         goToTopFAB.show()
     }
 
     private fun hideGoToTopFAB() {
-        lastSyncTime.gravity = Gravity.CENTER
         goToTopFAB.hide()
     }
 }

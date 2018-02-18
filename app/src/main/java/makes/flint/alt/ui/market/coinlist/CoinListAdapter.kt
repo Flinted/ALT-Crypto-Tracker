@@ -39,11 +39,18 @@ class CoinListAdapter(presenterComponent: PresenterComponent)
     // Private Properties
     private var presenter = presenterComponent.provideCoinListAdapterPresenter()
 
-    private var indicatorCustomiser = IndicatorCustomiser()
+    private var indicatorCustomizer = IndicatorCustomiser()
 
     // RX Actions
-    private var coinSelected: PublishSubject<String> = PublishSubject.create()
+    private val coinSelected: PublishSubject<String> = PublishSubject.create()
     override fun onCoinSelected() = coinSelected.asObservable()
+
+    private val sortTypeChanged: PublishSubject<Int> = PublishSubject.create()
+    override fun onSortTypeChanged() = sortTypeChanged.asObservable()
+
+    override fun emitSortTypeChanged(sortId: Int) {
+        sortTypeChanged.onNext(sortId)
+    }
 
     // Lifecycle
     init {
@@ -96,8 +103,8 @@ class CoinListAdapter(presenterComponent: PresenterComponent)
     private fun initialise1HourViews(coin: CoinListItem, holder: CoinListViewHolder, context: Context) {
         holder.oneHourChange.text = coin.changeData.change1HFormatted()
         val status = coin.changeData.status1H
-        val icon = ContextCompat.getDrawable(context, indicatorCustomiser.getIcon(status))
-        val colour = ContextCompat.getColor(context, indicatorCustomiser.getColor(status))
+        val icon = ContextCompat.getDrawable(context, indicatorCustomizer.getIcon(status))
+        val colour = ContextCompat.getColor(context, indicatorCustomizer.getColor(status))
         holder.oneHourIndicator.setImageDrawable(icon)
         holder.oneHourChange.setTextColor(colour)
     }
@@ -105,8 +112,8 @@ class CoinListAdapter(presenterComponent: PresenterComponent)
     private fun initialise24HourViews(coin: CoinListItem, holder: CoinListViewHolder, context: Context) {
         holder.twentyFourHourChange.text = coin.changeData.change24HFormatted()
         val status = coin.changeData.status24H
-        val icon = ContextCompat.getDrawable(context, indicatorCustomiser.getIcon(status))
-        val colour = ContextCompat.getColor(context, indicatorCustomiser.getColor(status))
+        val icon = ContextCompat.getDrawable(context, indicatorCustomizer.getIcon(status))
+        val colour = ContextCompat.getColor(context, indicatorCustomizer.getColor(status))
         holder.twentyFourHourIndicator.setImageDrawable(icon)
         holder.twentyFourHourChange.setTextColor(colour)
     }
@@ -114,8 +121,8 @@ class CoinListAdapter(presenterComponent: PresenterComponent)
     private fun initialise7DayViews(coin: CoinListItem, holder: CoinListViewHolder, context: Context) {
         holder.sevenDayChange.text = coin.changeData.change7DFormatted()
         val status = coin.changeData.status7D
-        val icon = ContextCompat.getDrawable(context, indicatorCustomiser.getIcon(status))
-        val colour = ContextCompat.getColor(context, indicatorCustomiser.getColor(status))
+        val icon = ContextCompat.getDrawable(context, indicatorCustomizer.getIcon(status))
+        val colour = ContextCompat.getColor(context, indicatorCustomizer.getColor(status))
         holder.sevenDayIndicator.setImageDrawable(icon)
         holder.sevenDayChange.setTextColor(colour)
     }

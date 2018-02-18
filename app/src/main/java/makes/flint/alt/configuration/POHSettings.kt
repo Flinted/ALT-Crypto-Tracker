@@ -20,6 +20,7 @@ object POHSettings {
 
     // General
 
+    var firstLoad = true
     var refreshGap = 5L
     var exchange = "CCCAGG"
     var limit = 1000
@@ -68,4 +69,5 @@ object POHSettings {
         trackerChangeDown2 = settings.trackerDown2
         trackerChangeDown3 = settings.trackerDown3
     }
+
 }

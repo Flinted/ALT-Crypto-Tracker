@@ -13,7 +13,6 @@ import java.util.*
  */
 class MainPresenter(private var dataController: DataController) : BasePresenter<MainContractView>(), MainContractPresenter {
 
-    private var syncUpdateTimer: Timer? = null
     private var errorSubscription: Subscription? = null
     private lateinit var idToSortMap: HashMap<Int, Int>
     private lateinit var sortToIdMap: HashMap<Int, Int>

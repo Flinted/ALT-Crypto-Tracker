@@ -9,18 +9,18 @@ import java.util.*
  * SortableCoin
  * Copyright © 2018  Flint Makes. All rights reserved.
  */
-const val SORT_ONE_HOUR = 0
-const val SORT_ONE_HOUR_REV = 1
-const val SORT_TWENTY_FOUR_HOUR = 2
-const val SORT_TWENTY_FOUR_HOUR_REV = 3
-const val SORT_SEVEN_DAY = 4
-const val SORT_SEVEN_DAY_REV = 5
-const val SORT_VOLUME = 6
-const val SORT_VOLUME_REV = 7
-const val SORT_NAME = 8
-const val SORT_NAME_REV = 9
-const val SORT_RANK = 10
-const val SORT_RANK_REV = 11
+const val SORT_RANK = 0
+const val SORT_RANK_REV = 1
+const val SORT_NAME = 2
+const val SORT_NAME_REV = 3
+const val SORT_ONE_HOUR = 4
+const val SORT_ONE_HOUR_REV = 5
+const val SORT_TWENTY_FOUR_HOUR = 6
+const val SORT_TWENTY_FOUR_HOUR_REV = 7
+const val SORT_SEVEN_DAY = 8
+const val SORT_SEVEN_DAY_REV = 9
+const val SORT_VOLUME = 10
+const val SORT_VOLUME_REV = 11
 
 interface SortableCoin {
     var isFavourite: Boolean

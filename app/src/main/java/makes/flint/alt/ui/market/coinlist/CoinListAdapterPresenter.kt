@@ -1,6 +1,7 @@
 package makes.flint.alt.ui.market.coinlist
 
 import makes.flint.alt.base.BaseContractView
+import makes.flint.alt.configuration.POHSettings
 import makes.flint.alt.data.coinListItem.CoinListItem
 import makes.flint.alt.data.dataController.DataController
 import makes.flint.alt.data.favouriteCoins.FavouriteCoin
@@ -40,6 +41,7 @@ class CoinListAdapterPresenter @Inject constructor(private var dataController: D
 
     private fun onGetCoinListSuccess(coinListItems: List<CoinListItem>) {
         adapter?.coinList = coinListItems.toMutableList()
+        adapter?.emitSortTypeChanged(POHSettings.sortPreference)
     }
 
     override fun onFavouriteStateChanged(isFavourite: Boolean, coin: CoinListItem, position: Int) {

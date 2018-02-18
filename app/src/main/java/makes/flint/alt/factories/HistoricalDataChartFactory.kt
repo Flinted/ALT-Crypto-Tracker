@@ -24,7 +24,10 @@ class HistoricalDataChartFactory(private var dataSet: Array<HistoricalDataUnitRe
         this.label = label
     }
 
-    fun createLineChart(context: Context): LineChart {
+    fun createLineChart(context: Context): LineChart? {
+        if (dataSet.isEmpty()) {
+            return null
+        }
         val entries = makeEntries()
         val lineDataSet = makeLineDataSet(entries, context)
         val chart = makeLineChart(context)
@@ -32,7 +35,10 @@ class HistoricalDataChartFactory(private var dataSet: Array<HistoricalDataUnitRe
         return chart
     }
 
-    fun createBarChart(context: Context): BarChart {
+    fun createBarChart(context: Context): BarChart? {
+        if (dataSet.isEmpty()) {
+            return null
+        }
         val entries = makeBarEntries()
         val barDataSet = makeBarDataSet(entries, context)
         val chart = makeBarChart(context)
@@ -40,7 +46,10 @@ class HistoricalDataChartFactory(private var dataSet: Array<HistoricalDataUnitRe
         return chart
     }
 
-    fun createCandleChart(context: Context): CandleStickChart {
+    fun createCandleChart(context: Context): CandleStickChart? {
+        if (dataSet.isEmpty()) {
+            return null
+        }
         val entries = makeCandleEntries()
         val candleDataSet = makeCandleDataSet(entries, context)
         val chart = makeCandleChart(context)

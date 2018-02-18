@@ -15,6 +15,8 @@ interface CoinListAdapterContractView : BaseContractView {
     fun itemChangedAt(position: Int)
     fun onCoinSelected(): Observable<String>
     fun onDestroy()
+    fun onSortTypeChanged(): Observable<Int>
+    fun emitSortTypeChanged(sortId: Int)
 }
 
 interface CoinListAdapterContractPresenter : BaseContractPresenter<BaseContractView> {

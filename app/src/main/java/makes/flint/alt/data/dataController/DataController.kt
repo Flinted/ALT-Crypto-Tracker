@@ -147,4 +147,8 @@ open class DataController @Inject constructor(private val apiRepository: ApiRepo
     fun emitLastSyncTime() {
         cache.emitLastSyncTime()
     }
+
+    fun updateAsFirstLoadComplete() {
+        realmManager.updateAsFirstLoadComplete()
+    }
 }

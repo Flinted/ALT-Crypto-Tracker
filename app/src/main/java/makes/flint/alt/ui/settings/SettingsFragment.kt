@@ -72,7 +72,6 @@ class SettingsFragment : BaseFragment(), SettingsContractView {
     override fun displayCurrentSettings(settings: SettingsData) {
         val editTextBuffer = TextView.BufferType.EDITABLE
         val spinnerLayout = android.R.layout.simple_spinner_item
-        defaultSortSpinner.adapter = ArrayAdapter.createFromResource(context, R.array.sort_options, spinnerLayout)
         marketSizeSpinner.adapter = ArrayAdapter.createFromResource(context, R.array.market_size_options, spinnerLayout)
         startScreenSpinner.adapter = ArrayAdapter.createFromResource(context, R.array.start_screen_options, spinnerLayout)
         currencySpinner.adapter = ArrayAdapter.createFromResource(context, R.array.currency_options, spinnerLayout)
