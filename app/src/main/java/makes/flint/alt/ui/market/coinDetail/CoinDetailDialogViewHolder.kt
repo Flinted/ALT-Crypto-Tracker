@@ -30,7 +30,7 @@ class CoinDetailDialogViewHolder(view: View) : FragmentViewHolder {
     internal  var selector: RadioGroup = view.findViewById(R.id.dialog_coin_detail_chart_resolution_selector)
     private  var adBanner: AdView = view.findViewById(R.id.adView)
 
-    init {
+    internal fun showAdBanner() {
         val adRequest = AdRequest.Builder().build()
         adBanner.loadAd(adRequest)
     }

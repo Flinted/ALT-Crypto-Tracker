@@ -37,7 +37,7 @@
                 app:layout_constraintTop_toTopOf="parent"/>
 
             <ImageView
-                android:id="@+id/tracker_snapshot_button"
+                android:id="@+id/tracker_show_snapshot_button"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginEnd="@dimen/margin_large_8dp"

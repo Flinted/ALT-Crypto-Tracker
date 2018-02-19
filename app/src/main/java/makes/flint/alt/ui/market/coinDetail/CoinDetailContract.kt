@@ -16,6 +16,7 @@ interface CoinDetailContractView : BaseContractView {
     fun displayCandleChart(dataToDisplay: Array<HistoricalDataUnitResponse>)
     fun displayBarChart(dataToDisplay: Array<HistoricalDataUnitResponse>)
     fun displayLineChart(dataToDisplay: Array<HistoricalDataUnitResponse>)
+    fun initialiseAdBanner()
 }
 
 interface CoinDetailContractPresenter : BaseContractPresenter<CoinDetailContractView> {

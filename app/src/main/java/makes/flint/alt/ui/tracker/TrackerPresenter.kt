@@ -29,7 +29,7 @@ class TrackerPresenter @Inject constructor(private var dataController: DataContr
         initialiseCoinListSubscriber()
         view?.initialiseChartListeners()
         view?.initialiseAddCoinButtonListener()
-        view?.initialiseConstraintSets()
+        view?.initialiseShowSnapShotButtonListener()
         view?.initialiseTrackerList()
         view?.initialiseTrackerListListeners()
         view?.initialiseRefreshListener()

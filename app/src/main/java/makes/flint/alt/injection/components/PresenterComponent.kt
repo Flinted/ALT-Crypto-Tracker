@@ -8,6 +8,7 @@ import makes.flint.alt.ui.market.MarketPresenter
 import makes.flint.alt.ui.market.coinDetail.CoinDetailPresenter
 import makes.flint.alt.ui.market.coinlist.CoinListAdapterPresenter
 import makes.flint.alt.ui.settings.SettingsPresenter
+import makes.flint.alt.ui.snapshot.SnapShotPresenter
 import makes.flint.alt.ui.splash.SplashPresenter
 import makes.flint.alt.ui.tracker.TrackerPresenter
 import makes.flint.alt.ui.tracker.addCoinDialog.AddCoinDialogPresenter
@@ -47,4 +48,6 @@ interface PresenterComponent {
     fun provideSummaryPresenter(): SummaryPresenter
 
     fun provideSettingsPresenter(): SettingsPresenter
+
+    fun provideSnapShotPresenter(): SnapShotPresenter
 }

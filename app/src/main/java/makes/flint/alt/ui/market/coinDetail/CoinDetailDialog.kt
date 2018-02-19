@@ -43,7 +43,7 @@ class CoinDetailDialog : BaseDialogFragment(), CoinDetailContractView {
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater?.inflate(R.layout.dialog_coin_detail, container)
-        view?.let{
+        view?.let {
             this.views = CoinDetailDialogViewHolder(view)
         }
         val coinSymbol = arguments.get(DIALOG_COIN_KEY) as String
@@ -132,6 +132,9 @@ class CoinDetailDialog : BaseDialogFragment(), CoinDetailContractView {
         }
     }
 
+    override fun initialiseAdBanner() = views.showAdBanner()
+
+
     override fun showLoading() {
         views.chartLoading.visibility = View.VISIBLE
     }
@@ -140,7 +143,5 @@ class CoinDetailDialog : BaseDialogFragment(), CoinDetailContractView {
         views.chartLoading.visibility = View.GONE
     }
 
-    override fun showError(stringId: Int?) {
-        ErrorHandler.showError(activity, stringId)
-    }
+    override fun showError(stringId: Int?) = ErrorHandler.showError(activity, stringId)
 }

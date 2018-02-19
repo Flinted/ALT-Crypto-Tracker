@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                             xmlns:app="http://schemas.android.com/apk/res-auto"
+                                             android:background="@color/colorPrimary"
+                                             android:layout_width="match_parent"
+                                             android:layout_height="match_parent">
+
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/fragment_snapshot_chart"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"/>
+
+    <ImageView
+        android:id="@+id/fragment_snapshot_take_snapshot"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_margin="@dimen/margin_large_8dp"
+        android:src="@drawable/ic_snapshot_24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fragment_snapshot_chart"/>
+
+    <Spinner
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_large_8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/fragment_snapshot_take_snapshot"
+        app:layout_constraintTop_toTopOf="@id/fragment_snapshot_take_snapshot"
+        app:layout_constraintBottom_toBottomOf="@id/fragment_snapshot_take_snapshot"/>
+
+    <TextView
+        android:id="@+id/fragment_snapshot_value_usd"
+        android:text="Value(USD): $123,456"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_large_8dp"
+        android:textColor="@color/colorOffWhite"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fragment_snapshot_take_snapshot"
+        />
+    <TextView
+        android:id="@+id/fragment_snapshot_value_btc"
+        android:text="Value(BTC): $123,456"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_margin="@dimen/margin_large_8dp"
+        android:textColor="@color/colorOffWhite"
+        app:layout_constraintTop_toBottomOf="@id/fragment_snapshot_value_usd"
+        />
+
+    <com.github.mikephil.charting.charts.BarChart
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"/>
+</android.support.constraint.ConstraintLayout>

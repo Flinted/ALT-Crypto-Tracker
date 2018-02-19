@@ -11,12 +11,12 @@ interface TrackerContractView : BaseContractView {
     fun initialiseChartListeners()
     fun initialiseTrackerList()
     fun initialiseAddCoinButtonListener()
-    fun initialiseConstraintSets()
     fun showNoTrackerEntriesMessage()
     fun initialiseTrackerListListeners()
     fun initialiseRefreshListener()
     fun initialiseSummaryPager()
     fun hideProgressSpinner()
+    fun initialiseShowSnapShotButtonListener()
 }
 
 interface TrackerContractPresenter : BaseContractPresenter<TrackerContractView> {

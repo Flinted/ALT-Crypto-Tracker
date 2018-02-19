@@ -57,6 +57,7 @@ class CoinDetailPresenter @Inject constructor(private var dataController: DataCo
         coinDetailDialog?.displayCoinDetail(coin)
         coinDetailDialog?.initialiseChangeChartButton()
         coinDetailDialog?.initialiseDataSelectListener()
+        coinDetailDialog?.initialiseAdBanner()
     }
 
     override fun getHistoricalDataFor(chartResolution: Int) {
