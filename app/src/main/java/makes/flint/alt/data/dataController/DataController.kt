@@ -127,13 +127,14 @@ open class DataController @Inject constructor(private val apiRepository: ApiRepo
         updateTrackerEntries()
     }
 
-    fun refreshRequested() {
+    fun refreshRequested(): Boolean {
         if (!cache.shouldReSyncData()) {
             updateFavouriteCoins()
             updateTrackerEntries()
-            return
+            return false
         }
         refreshCache()
+        return true
     }
 
     fun getSettings(): SettingsData? {

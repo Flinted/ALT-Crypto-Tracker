@@ -16,7 +16,7 @@ interface MarketContractView : BaseContractView {
     fun initialiseAdapterListeners()
     fun showDialogForCoin(coinSymbol: String)
     fun updateMarketSummary(marketSummary: MarketSummaryResponse)
-    fun updateLastSyncTime(lastSync: Long)
+    fun updateLastSyncTime(lastSync: String)
     fun hideProgressSpinner()
 }
 

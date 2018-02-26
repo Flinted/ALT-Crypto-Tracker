@@ -8,6 +8,7 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.AutoCompleteTextView
 import android.widget.EditText
 import android.widget.ImageView
@@ -48,6 +49,7 @@ class AddCoinDialog : BaseDialogFragment(), AddCoinDialogContractView {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        activity.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
         this.addCoinDialogPresenter = getPresenterComponent().provideAddCoinDialogPresenter()
         addCoinDialogPresenter.attachView(this)
         attachPresenter(addCoinDialogPresenter)
@@ -192,6 +194,7 @@ class AddCoinDialog : BaseDialogFragment(), AddCoinDialogContractView {
     }
 
     override fun endDialog() {
+        activity.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
         addCoinDialogPresenter.detachView()
         transactionAdded.onNext(true)
         dismiss()

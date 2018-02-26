@@ -215,4 +215,8 @@ class MainActivity : BaseActivity(), MainContractView {
         val map = this.idToSortMap()
         mainPresenter.storeIdToSortMap(map)
     }
+
+    override fun showLoading() {
+        viewPagerAdapter.showLoading()
+    }
 }

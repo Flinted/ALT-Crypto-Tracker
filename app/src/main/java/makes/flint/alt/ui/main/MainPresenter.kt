@@ -38,7 +38,10 @@ class MainPresenter(private var dataController: DataController) : BasePresenter<
     }
 
     override fun emitData() {
-        dataController.refreshRequested()
+        val isRefreshing = dataController.refreshRequested()
+        if(isRefreshing) {
+            view?.showLoading()
+        }
     }
 
     override fun updateSyncTime() {

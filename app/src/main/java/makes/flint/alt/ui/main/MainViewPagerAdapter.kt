@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
 import android.util.SparseArray
 import android.view.ViewGroup
+import makes.flint.alt.base.BaseFragment
 import makes.flint.alt.ui.market.MarketFragment
 import makes.flint.alt.ui.tracker.TrackerFragment
 
@@ -14,10 +15,10 @@ import makes.flint.alt.ui.tracker.TrackerFragment
  */
 class MainViewPagerAdapter(fragmentManager: FragmentManager) : FragmentStatePagerAdapter(fragmentManager) {
 
-    private val fragments = SparseArray<Fragment>()
+    private val fragments = SparseArray<BaseFragment>()
 
     override fun instantiateItem(container: ViewGroup?, position: Int): Any {
-        val fragment = super.instantiateItem(container, position) as Fragment
+        val fragment = super.instantiateItem(container, position) as BaseFragment
         fragments.put(position, fragment)
         return fragment
     }
@@ -40,5 +41,13 @@ class MainViewPagerAdapter(fragmentManager: FragmentManager) : FragmentStatePage
 
     internal fun getFragment(position: Int): Fragment? {
         return fragments.get(position)
+    }
+
+    internal fun showLoading() {
+        var count = count
+        while (count >= 0) {
+            fragments[count]?.showLoading()
+            count--
+        }
     }
 }

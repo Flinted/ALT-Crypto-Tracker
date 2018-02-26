@@ -16,6 +16,8 @@ object DateFormatter {
 
     internal val DATE = makeDateTimeFormatter("dd/MM/yyyy")
 
+    internal val TIME = makeDateTimeFormatter("HH:mm")
+
     // Private Functions
 
     private fun makeDateTimeFormatter(pattern: String): DateTimeFormatter {

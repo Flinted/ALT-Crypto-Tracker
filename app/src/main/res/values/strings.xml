@@ -20,7 +20,9 @@
     <string name="bottombar_title_tracker">Tracker</string>
 
     <!--MARKET BOTTOM TICKER -->
-    <string name="market_fragment_time_stamp" formatted="false">%1$d mins ago</string>
+    <string name="market_fragment_time_stamp" formatted="false">Updated: %1$s</string>
+    <string name="market_fragment_sort_type" formatted="false">Sorted by: %1$s</string>
+
 
     <!--MARKET SUMMARY-->
     <string name="market_summary_title_1D">1D(%1$d):</string>

@@ -95,7 +95,9 @@ class MarketFragment : BaseFragment(), MarketContractView, FilterView {
 
     private fun getStringForSortId(sortId: Int): String {
         val id = this.getStringIdFor(sortId)
-        return getString(id)
+        val sortType = getString(id)
+        val title = getString(R.string.market_fragment_sort_type)
+        return String.format(title, sortType)
     }
 
     override fun hideProgressSpinner() {
@@ -115,9 +117,8 @@ class MarketFragment : BaseFragment(), MarketContractView, FilterView {
         views.vol24HTextView.text = marketSummary.volume24HUSDFormatted()
     }
 
-    override fun updateLastSyncTime(lastSync: Long) {
-        val formattedLastSync = getString(R.string.market_fragment_time_stamp, lastSync)
-        views.lastSyncTime.text = formattedLastSync
+    override fun updateLastSyncTime(lastSync: String) {
+        views.lastSyncTime.text = String.format(getString(R.string.market_fragment_time_stamp), lastSync)
     }
 
     override fun showDialogForCoin(coinSymbol: String) {
