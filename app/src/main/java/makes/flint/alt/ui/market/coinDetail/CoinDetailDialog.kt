@@ -132,9 +132,6 @@ class CoinDetailDialog : BaseDialogFragment(), CoinDetailContractView {
         }
     }
 
-    override fun initialiseAdBanner() = views.showAdBanner()
-
-
     override fun showLoading() {
         views.chartLoading.visibility = View.VISIBLE
     }

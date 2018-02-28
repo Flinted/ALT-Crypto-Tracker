@@ -1,18 +1,18 @@
 package makes.flint.alt.data.snapshot
 
-import java.math.BigDecimal
+import makes.flint.alt.data.trackerListItem.TrackerListItem
 
 /**
- * SnapshotEntry
+ * SnapShotEntry
  * Copyright © 2018 FlintMakes. All rights reserved.
  */
-class SnapshotEntry {
-    private lateinit var name: String
-    private lateinit var symbol: String
-    private lateinit var quantity: BigDecimal
-    private lateinit var valueUSD: BigDecimal
-    private lateinit var valueBTC: BigDecimal
-    private lateinit var snapShotPrice: BigDecimal
-    private lateinit var dollarCostAverage: BigDecimal
-    private lateinit var percentageChange: BigDecimal
+class SnapShotEntry(trackerEntry: TrackerListItem) {
+    internal var name = trackerEntry.name
+    internal var symbol = trackerEntry.symbol
+    internal var quantity = trackerEntry.numberOwned
+    internal var valueUSD = trackerEntry.currentValueUSD
+    internal var valueBTC = trackerEntry.currentValueBTC
+    internal var snapShotPrice = trackerEntry.getCurrentAssetPrice()
+    internal var dollarCostAverage = trackerEntry.dollarCostAverage
+    internal var percentageChange = trackerEntry.percentageChange
 }

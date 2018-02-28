@@ -48,6 +48,10 @@
     <string name="error_transaction_failure">There was a problem adding your transaction.</string>
     <string name="error_sync_timeout">Last Sync was too recent.</string>
 
+    <!--GENERAL TITLES-->
+    <string name="title_valueBTC">Value(BTC): %1$s</string>
+    <string name="title_valueUSD">Value(USD): %1$s</string>
+
 
     <!--Settings Arrays-->
     <string-array name="start_screen_options">

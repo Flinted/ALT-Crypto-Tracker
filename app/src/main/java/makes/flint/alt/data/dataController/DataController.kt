@@ -149,7 +149,7 @@ open class DataController @Inject constructor(private val apiRepository: ApiRepo
         cache.emitLastSyncTime()
     }
 
-    fun updateAsFirstLoadComplete() {
-        realmManager.updateAsFirstLoadComplete()
+    fun getAllTrackerEntries(): List<TrackerListItem> {
+        return cache.trackerListItems
     }
 }

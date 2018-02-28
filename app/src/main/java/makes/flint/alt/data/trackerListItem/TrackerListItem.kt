@@ -123,6 +123,10 @@ class TrackerListItem(internal val name: String,
         return numberOwned.multiply(price)
     }
 
+    fun getCurrentAssetPrice(): BigDecimal? {
+        return associatedCoin?.priceData?.priceUSD
+    }
+
     fun getCurrentAssetPriceFormatted(): String {
         return associatedCoin?.priceData?.priceUSDFormatted ?: ""
     }

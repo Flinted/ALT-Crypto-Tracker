@@ -2,8 +2,6 @@ package makes.flint.alt.ui.market.coinDetail
 
 import android.view.View
 import android.widget.*
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.AdView
 import makes.flint.alt.R
 import makes.flint.alt.ui.interfaces.FragmentViewHolder
 
@@ -28,10 +26,4 @@ class CoinDetailDialogViewHolder(view: View) : FragmentViewHolder {
     internal  var changeChartButton: ImageView = view.findViewById(R.id.dialog_coin_detail_change_chart_button)
     internal  var chartLoading: ProgressBar = view.findViewById(R.id.dialog_coin_detail_loading_spinner)
     internal  var selector: RadioGroup = view.findViewById(R.id.dialog_coin_detail_chart_resolution_selector)
-    private  var adBanner: AdView = view.findViewById(R.id.adView)
-
-    internal fun showAdBanner() {
-        val adRequest = AdRequest.Builder().build()
-        adBanner.loadAd(adRequest)
-    }
 }
