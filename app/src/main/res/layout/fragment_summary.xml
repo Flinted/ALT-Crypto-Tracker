@@ -10,7 +10,6 @@
         android:id="@+id/summary_current_value_USD"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/fragment_summary_current_value_usd"
         android:textColor="@color/colorAccent"
         android:textSize="@dimen/text_xLarge_20sp"
         android:textStyle="bold"

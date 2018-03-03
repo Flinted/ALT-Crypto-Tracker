@@ -96,7 +96,7 @@ class MarketFragment : BaseFragment(), MarketContractView, FilterView {
     private fun getStringForSortId(sortId: Int): String {
         val id = this.getStringIdFor(sortId)
         val sortType = getString(id)
-        val title = getString(R.string.market_fragment_sort_type)
+        val title = getString(R.string.ticker_bottom_sort_type)
         return String.format(title, sortType)
     }
 
@@ -109,8 +109,8 @@ class MarketFragment : BaseFragment(), MarketContractView, FilterView {
         val twentyFourHour = marketSummary.marketData.twentyFourHourAverageFormatted()
         val sevenDay = marketSummary.marketData.sevenDayAverageFormatted()
         val coins = marketSummary.marketData.numberItems
-        views.market1DTitleTextView.text = context.getString(R.string.market_summary_title_1D, coins)
-        views.market1WTitleTextView.text = context.getString(R.string.market_summary_title_1W, coins)
+        views.market1DTitleTextView.text = context.getString(R.string.ticker_top_title_1d, coins)
+        views.market1WTitleTextView.text = context.getString(R.string.ticker_top_title_1W, coins)
         views.market1DValueTextView.text = twentyFourHour
         views.market1WValueTextView.text = sevenDay
         views.marketCapTextView.text = marketSummary.marketCapUSDFormatted()
@@ -118,7 +118,7 @@ class MarketFragment : BaseFragment(), MarketContractView, FilterView {
     }
 
     override fun updateLastSyncTime(lastSync: String) {
-        views.lastSyncTime.text = String.format(getString(R.string.market_fragment_time_stamp), lastSync)
+        views.lastSyncTime.text = String.format(getString(R.string.ticker_bottom_time_stamp), lastSync)
     }
 
     override fun showDialogForCoin(coinSymbol: String) {

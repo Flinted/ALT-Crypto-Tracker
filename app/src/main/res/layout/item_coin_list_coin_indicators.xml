@@ -10,7 +10,7 @@
         android:id="@+id/title_1h"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/coin_list_row_title_1h"
+        android:text="@string/item_coinList_title_1h"
         app:layout_constraintEnd_toEndOf="@id/indicator_1h"
         app:layout_constraintStart_toStartOf="@id/indicator_1h"
         app:layout_constraintTop_toTopOf="parent"
@@ -18,13 +18,14 @@
 
     <ImageView
         android:id="@+id/indicator_1h"
+        android:contentDescription="@string/item_coinList_image_indicator_one_hour"
         android:layout_width="@dimen/status_icon_size"
         android:layout_height="@dimen/status_icon_size"
         android:layout_marginEnd="@dimen/margin_xxLarge_20dp"
         android:layout_marginStart="@dimen/margin_xLarge_16dp"
         android:src="@drawable/ic_movement_static_24dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/indicator_24h"
+        app:layout_constraintEnd_toStartOf="@id/indicator_1d"
         app:layout_constraintTop_toBottomOf="@id/title_1h"/>
 
     <TextView
@@ -39,63 +40,65 @@
     <!--24 Hour Indicator -->
 
     <TextView
-        android:id="@+id/title_24h"
+        android:id="@+id/title_1d"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/coin_list_row_title_24h"
-        app:layout_constraintEnd_toEndOf="@id/indicator_24h"
-        app:layout_constraintStart_toStartOf="@id/indicator_24h"
+        android:text="@string/item_coinList_title_1d"
+        app:layout_constraintEnd_toEndOf="@id/indicator_1d"
+        app:layout_constraintStart_toStartOf="@id/indicator_1d"
         app:layout_constraintTop_toTopOf="parent"
         />
 
     <ImageView
-        android:id="@+id/indicator_24h"
+        android:id="@+id/indicator_1d"
+        android:contentDescription="@string/item_coinList_image_indicator_one_day"
         android:layout_width="@dimen/status_icon_size"
         android:layout_height="@dimen/status_icon_size"
         android:layout_marginEnd="@dimen/margin_xLarge_16dp"
         android:layout_marginStart="@dimen/margin_xLarge_16dp"
         android:src="@drawable/ic_movement_static_24dp"
-        app:layout_constraintEnd_toStartOf="@id/indicator_7d"
-        app:layout_constraintTop_toBottomOf="@id/title_24h"/>
+        app:layout_constraintEnd_toStartOf="@id/indicator_1w"
+        app:layout_constraintTop_toBottomOf="@id/title_1d"/>
 
     <TextView
-        android:id="@+id/coin_24h_change"
+        android:id="@+id/coin_1d_change"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="@dimen/text_size_small"
-        app:layout_constraintEnd_toEndOf="@id/indicator_24h"
-        app:layout_constraintStart_toStartOf="@id/indicator_24h"
-        app:layout_constraintTop_toBottomOf="@id/indicator_24h"/>
+        app:layout_constraintEnd_toEndOf="@id/indicator_1d"
+        app:layout_constraintStart_toStartOf="@id/indicator_1d"
+        app:layout_constraintTop_toBottomOf="@id/indicator_1d"/>
 
     <!--Seven Day Indicator -->
 
     <TextView
-        android:id="@+id/title_7d"
+        android:id="@+id/title_1w"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/coin_list_row_title_7d"
-        app:layout_constraintEnd_toEndOf="@id/indicator_7d"
-        app:layout_constraintStart_toStartOf="@id/indicator_7d"
+        android:text="@string/item_coinList_title_1w"
+        app:layout_constraintEnd_toEndOf="@id/indicator_1w"
+        app:layout_constraintStart_toStartOf="@id/indicator_1w"
         app:layout_constraintTop_toTopOf="parent"/>
 
     <ImageView
-        android:id="@+id/indicator_7d"
+        android:id="@+id/indicator_1w"
+        android:contentDescription="@string/item_coinList_image_indicator_one_week"
         android:layout_width="@dimen/status_icon_size"
         android:layout_height="@dimen/status_icon_size"
         android:layout_marginStart="@dimen/margin_xxLarge_20dp"
         android:layout_marginEnd="@dimen/margin_xLarge_16dp"
         android:src="@drawable/ic_movement_static_24dp"
         app:layout_constraintEnd_toStartOf="@id/coin_list_item_divider"
-        app:layout_constraintTop_toBottomOf="@id/title_7d"/>
+        app:layout_constraintTop_toBottomOf="@id/title_1w"/>
 
     <TextView
-        android:id="@+id/coin_7d_change"
+        android:id="@+id/coin_1w_change"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="@dimen/text_size_small"
-        app:layout_constraintEnd_toEndOf="@id/indicator_7d"
-        app:layout_constraintStart_toStartOf="@id/indicator_7d"
-        app:layout_constraintTop_toBottomOf="@id/indicator_7d"/>
+        app:layout_constraintEnd_toEndOf="@id/indicator_1w"
+        app:layout_constraintStart_toStartOf="@id/indicator_1w"
+        app:layout_constraintTop_toBottomOf="@id/indicator_1w"/>
 
     <View
         android:id="@+id/coin_list_item_divider"

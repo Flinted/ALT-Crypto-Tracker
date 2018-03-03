@@ -9,6 +9,7 @@
     <ImageView
         android:layout_width="150dp"
         android:layout_height="150dp"
+        android:contentDescription="@string/fragment_tracker_image_no_entries"
         android:src="@drawable/ic_movement_static_24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -20,7 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:text="@string/tracker_fragment_no_entries_placeholder"
+        android:text="@string/fragment_tracker_placeholder_no_entries"
         android:textColor="@color/colorAccent"
         android:textSize="@dimen/text_xLarge_20sp"
        />

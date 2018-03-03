@@ -11,8 +11,8 @@ import makes.flint.alt.ui.market.MarketFragment
 
 fun MarketFragment.getStringIdFor(sortId: Int): Int {
     return when (sortId) {
-        SORT_RANK -> R.string.sort_menu_rank
-        SORT_RANK_REV -> R.string.sort_menu_rank_reversed
+        SORT_RANK -> R.string.sort_menu_market_cap
+        SORT_RANK_REV -> R.string.sort_menu_market_cap_reversed
         SORT_NAME -> R.string.sort_menu_alphabetical
         SORT_NAME_REV -> R.string.sort_menu_alphabetical_reversed
         SORT_ONE_HOUR -> R.string.sort_menu_1H

@@ -22,6 +22,7 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_gravity="end|top"
+        android:contentDescription="@string/item_coinList_image_favourite_checked"
         android:src="@drawable/ic_favorite_24dp"
         android:tag="checked"
         />

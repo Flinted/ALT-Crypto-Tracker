@@ -19,10 +19,10 @@
             <group android:checkableBehavior="single">
                 <item
                     android:id="@+id/sort_rank_ascending"
-                    android:title="@string/sort_menu_rank"/>
+                    android:title="@string/sort_menu_market_cap"/>
                 <item
                     android:id="@+id/sort_rank_descending"
-                    android:title="@string/sort_menu_rank_reversed"/>
+                    android:title="@string/sort_menu_market_cap_reversed"/>
                 <item
                     android:id="@+id/sort_alphabetical_ascending"
                     android:title="@string/sort_menu_alphabetical"/>

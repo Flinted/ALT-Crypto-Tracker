@@ -2,12 +2,6 @@
     <!--APP-->
     <string name="app_name">ALT: a light tracker</string>
 
-    <string name="coin_list_row_title_1h">1H</string>
-    <string name="coin_list_row_title_24h">1D</string>
-    <string name="coin_list_row_title_7d">1W</string>
-
-    <string name="tracker_fragment_no_entries_placeholder">No entries yet, why not add one?</string>
-
     <!--ACTION BAR MENU-->
     <string name="menu_search_title">Search</string>
     <string name="menu_sort_sub_menu_title">Sort Options</string>
@@ -16,17 +10,9 @@
     <string name="bottombar_title_market">Market</string>
     <string name="bottombar_title_tracker">Tracker</string>
 
-    <!--MARKET BOTTOM TICKER -->
-    <string name="market_fragment_time_stamp" formatted="false">Updated: %1$s</string>
-    <string name="market_fragment_sort_type" formatted="false">Sorted by: %1$s</string>
-
-    <!--MARKET SUMMARY-->
-    <string name="market_summary_title_1D">1D(%1$d):</string>
-    <string name="market_summary_title_1W">1W(%1$d):</string>
-
     <!--SORT MENU-->
-    <string name="sort_menu_rank">MCap</string>
-    <string name="sort_menu_rank_reversed">MCap(reversed)</string>
+    <string name="sort_menu_market_cap">MCap</string>
+    <string name="sort_menu_market_cap_reversed">MCap(reversed)</string>
     <string name="sort_menu_alphabetical">A-Z</string>
     <string name="sort_menu_alphabetical_reversed">Z-A</string>
     <string name="sort_menu_1H">1H change</string>
@@ -72,7 +58,6 @@
     <string name="dialog_addCoin_image_date_selection">Date selection button</string>
 
     <!--DIALOG COIN DETAIL-->
-    <!--COIN DETAIL DIALOG-->
     <string name="dialog_coinDetail_title_doge_price">Price(DOGE):</string>
     <string name="dialog_coinDetail_title_rank">Rank:</string>
     <string name="dialog_coinDetail_title_one_billion_coin">Price(1B coin):</string>
@@ -104,6 +89,52 @@
     <string name="fragment_summary_initial_value">Initial(USD): %1$s</string>
     <string name="fragment_summary_value_spent">Value Spent: %1$s</string>
     <string name="fragment_summary_value_sold">Value Sold: %1$s</string>
+
+    <!--TRACKER FRAGMENT-->
+    <string name="fragment_tracker_image_show_snapshots">Show snapshots button</string>
+    <string name="fragment_tracker_image_show_chart">Show pie chart button</string>
+    <string name="fragment_tracker_image_hide_chart">Hide pie chart button</string>
+    <string name="fragment_tracker_image_hide_summary">Hide summary area button</string>
+    <string name="fragment_tracker_image_show_summary">Show summary area button</string>
+    <string name="fragment_tracker_image_no_entries">No entries indicator</string>
+
+    <string name="fragment_tracker_placeholder_no_entries">No entries yet, why not add one?</string>
+
+    <!--COIN LIST ITEM-->
+    <string name="item_coinList_title_1h">1H</string>
+    <string name="item_coinList_title_1d">1D</string>
+    <string name="item_coinList_title_1w">1W</string>
+
+    <string name="item_coinList_image_favourite_unchecked">Favourite selector unchecked</string>
+    <string name="item_coinList_image_favourite_checked">Favourite selector checked</string>
+    <string name="item_coinList_image_indicator_one_hour">Indicator one hour</string>
+    <string name="item_coinList_image_indicator_one_day">Indicator one day</string>
+    <string name="item_coinList_image_indicator_one_week">Indicator one week</string>
+
+    <!--TRACKER ENTRY ITEM-->
+    <string name="item_trackerEntry_title_current">Current:</string>
+    <string name="item_trackerEntry_title_value">Value:</string>
+    <string name="item_trackerEntry_title_owned">Owned:</string>
+    <string name="item_trackerEntry_title_dollar_cost_average">DCA:</string>
+
+    <string name="item_trackerEntry_image_indicator">Indicator tracker entry</string>
+
+    <!--TRANSACTION ITEM-->
+    <string name="item_transactions_title_total">Total:</string>
+    <string name="item_transaction_title_quantity">Qty:</string>
+    <string name="item_transaction_title_price">Price:</string>
+
+    <string name="item_transaction_image_delete">Transaction delete button</string>
+
+    <!--TICKER TOP-->
+    <string name="ticker_top_title_market_cap">MCap(ALL):</string>
+    <string name="ticker_top_title_volume">Vol1D(ALL):</string>
+    <string name="ticker_top_title_1d">1D(%1$d):</string>
+    <string name="ticker_top_title_1W">1W(%1$d):</string>
+
+    <!--TICKER BOTTOM-->
+    <string name="ticker_bottom_time_stamp" formatted="false">Updated: %1$s</string>
+    <string name="ticker_bottom_sort_type" formatted="false">Sorted by: %1$s</string>
 
     <!--Settings Arrays-->
     <string-array name="start_screen_options">

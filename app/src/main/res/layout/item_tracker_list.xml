@@ -56,6 +56,7 @@
 
         <ImageView
             android:id="@+id/indicator"
+            android:contentDescription="@string/item_trackerEntry_image_indicator"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginStart="@dimen/margin_small_4dp"
@@ -70,7 +71,7 @@
             android:layout_marginEnd="@dimen/margin_small_4dp"
             android:layout_marginStart="@dimen/margin_small_4dp"
             android:gravity="center"
-            android:text="Current: "
+            android:text="@string/item_trackerEntry_title_current"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/indicator"/>
@@ -91,7 +92,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
             android:layout_marginStart="@dimen/margin_small_4dp"
-            android:text="Value: "
+            android:text="@string/item_trackerEntry_title_value"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/current_price_USD_title"/>
@@ -112,7 +113,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/margin_small_4dp"
             android:layout_marginStart="@dimen/margin_small_4dp"
-            android:text="Owned: "
+            android:text="@string/item_trackerEntry_title_owned"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/value_title"/>
 
@@ -132,7 +133,7 @@
             android:layout_marginEnd="@dimen/margin_small_4dp"
             android:layout_marginStart="@dimen/margin_small_4dp"
             android:gravity="center"
-            android:text="DCA: "
+            android:text="@string/item_trackerEntry_title_dollar_cost_average"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/number_owned_title"/>
 
