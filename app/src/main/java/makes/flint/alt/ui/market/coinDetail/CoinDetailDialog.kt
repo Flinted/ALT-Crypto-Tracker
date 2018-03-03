@@ -106,8 +106,8 @@ class CoinDetailDialog : BaseDialogFragment(), CoinDetailContractView {
 
     private fun checkDogeMuchWow(coinSymbol: String?) {
         if (coinSymbol == "DOGE") {
-            views.priceBTCTitle.text = getString(R.string.dialog_coin_detail_doge_price_title)
-            views.priceBTC.text = getString(R.string.dialog_coin_detail_doge_price)
+            views.priceBTCTitle.text = getString(R.string.dialog_coinDetail_title_doge_price)
+            views.priceBTC.text = getString(R.string.dialog_coinDetail_placeholder_doge_price)
         }
     }
 

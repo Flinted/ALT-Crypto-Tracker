@@ -11,7 +11,7 @@ import makes.flint.alt.R
 
 internal class SnapShotViewHolder(activity: SnapShotFragment) {
 
-    internal val valueBTC: TextView = activity.findViewById(R.id.fragment_snapshot_value_btc)
-    internal val valueUSD: TextView = activity.findViewById(R.id.fragment_snapshot_value_usd)
-    internal val summaryChart: LineChart = activity.findViewById(R.id.fragment_snapshot_chart)
+    internal val valueBTC: TextView = activity.findViewById(R.id.activity_snapshot_value_btc)
+    internal val valueUSD: TextView = activity.findViewById(R.id.activity_snapshot_value_usd)
+    internal val summaryChart: LineChart = activity.findViewById(R.id.activity_snapshot_chart)
 }

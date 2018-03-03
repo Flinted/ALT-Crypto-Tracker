@@ -3,7 +3,6 @@
                                              xmlns:app="http://schemas.android.com/apk/res-auto"
                                              android:layout_width="match_parent"
                                              android:layout_height="match_parent"
-                                             xmlns:ad="http://schemas.android.com/tools"
                                              android:background="@color/colorPrimaryDark">
 
     <TextView
@@ -38,7 +37,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_large_8dp"
-        android:text="Rank:"
+        android:text="@string/dialog_coinDetail_title_rank"
         android:textColor="@color/colorOffWhite"
         android:textSize="@dimen/text_large"
         app:layout_constraintStart_toStartOf="parent"
@@ -61,7 +60,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_large_8dp"
-        android:text="Price(USD):"
+        android:text="@string/title_priceUSD"
         android:textColor="@color/colorOffWhite"
         android:textSize="@dimen/text_large"
         android:textStyle="bold"
@@ -86,7 +85,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_large_8dp"
-        android:text="Price(BTC):"
+        android:text="@string/title_priceBTC"
         android:textColor="@color/colorOffWhite"
         android:textSize="@dimen/text_large"
         app:layout_constraintEnd_toStartOf="@id/dialog_coin_detail_price_btc"
@@ -109,7 +108,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_large_8dp"
-        android:text="Price(1B coin):"
+        android:text="@string/dialog_coinDetail_title_one_billion_coin"
         android:textColor="@color/colorOffWhite"
         android:textSize="@dimen/text_large"
         app:layout_constraintEnd_toStartOf="@id/dialog_coin_detail_billion_coin"
@@ -149,7 +148,7 @@
             android:id="@+id/dialog_coin_detail_selector_24Hours"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="24H"
+            android:text="@string/dialog_coinDetail_radio_24h"
             android:textColor="@color/colorOffWhite"
             android:textSize="@dimen/text_size_small"/>
 
@@ -157,7 +156,7 @@
             android:id="@+id/dialog_coin_detail_selector_7Days"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="1W"
+            android:text="@string/dialog_coinDetail_radio_1w"
             android:textColor="@color/colorOffWhite"
             android:textSize="@dimen/text_size_small"/>
 
@@ -165,7 +164,7 @@
             android:id="@+id/dialog_coin_detail_selector_30Days"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="30D"
+            android:text="@string/dialog_coinDetail_radio_30d"
             android:textColor="@color/colorOffWhite"
             android:textSize="@dimen/text_size_small"/>
 
@@ -173,7 +172,7 @@
             android:id="@+id/dialog_coin_detail_selector_90Days"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="90D"
+            android:text="@string/dialog_coinDetail_radio_90d"
             android:textColor="@color/colorOffWhite"
             android:textSize="@dimen/text_size_small"/>
 
@@ -181,7 +180,7 @@
             android:id="@+id/dialog_coin_detail_selector_180Days"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="180D"
+            android:text="@string/dialog_coinDetail_radio_180d"
             android:textColor="@color/colorOffWhite"
             android:textSize="@dimen/text_size_small"/>
 
@@ -189,7 +188,7 @@
             android:id="@+id/dialog_coin_detail_selector_1Year"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="1Y"
+            android:text="@string/dialog_coinDetail_radio_1y"
             android:textColor="@color/colorOffWhite"
             android:textSize="@dimen/text_size_small"/>
 
@@ -212,6 +211,7 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginEnd="@dimen/margin_large_8dp"
+        android:contentDescription="@string/dialog_coinDetail_image_chart_type_button"
         android:src="@drawable/ic_chart_change_24dp"
         app:layout_constraintBottom_toBottomOf="@id/dialog_coin_detail_chart_holder"
         app:layout_constraintEnd_toEndOf="parent"/>
@@ -221,7 +221,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_large_8dp"
-        android:text="Volume 24H:"
+        android:text="@string/dialog_coinDetail_title_volume24h"
         android:textColor="@color/colorOffWhite"
         android:textSize="@dimen/text_large"
         app:layout_constraintBottom_toTopOf="@id/dialog_coin_detail_available_supply_title"
@@ -242,7 +242,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_large_8dp"
-        android:text="Available Supply:"
+        android:text="@string/dialog_coinDetail_title_available_supply"
         android:textColor="@color/colorOffWhite"
         android:textSize="@dimen/text_large"
         app:layout_constraintBottom_toTopOf="@id/dialog_coin_detail_total_supply_title"
@@ -263,7 +263,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_large_8dp"
-        android:text="Total Supply:"
+        android:text="@string/dialog_coinDetail_title_total_supply"
         android:textColor="@color/colorOffWhite"
         android:textSize="@dimen/text_large"
         app:layout_constraintBottom_toTopOf="@id/dialog_coin_detail_market_cap_title"
@@ -284,7 +284,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_large_8dp"
-        android:text="MarketCap:"
+        android:text="@string/dialog_coinDetail_title_marketcap"
         android:textColor="@color/colorOffWhite"
         android:textSize="@dimen/text_large"
         app:layout_constraintBottom_toBottomOf="parent"

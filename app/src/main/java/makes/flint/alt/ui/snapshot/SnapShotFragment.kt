@@ -16,7 +16,7 @@ class SnapShotFragment : BaseActivity(), SnapShotContractView {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.fragment_snapshot)
+        setContentView(R.layout.activity_snapshot)
         this.snapShotPresenter = getPresenterComponent().provideSnapShotPresenter()
         this.snapShotPresenter.attachView(this)
         this.attachPresenter(snapShotPresenter)

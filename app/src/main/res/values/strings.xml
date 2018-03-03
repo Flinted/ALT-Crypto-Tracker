@@ -1,15 +1,12 @@
 <resources>
     <!--APP-->
     <string name="app_name">ALT: a light tracker</string>
+
     <string name="coin_list_row_title_1h">1H</string>
     <string name="coin_list_row_title_24h">1D</string>
     <string name="coin_list_row_title_7d">1W</string>
 
     <string name="tracker_fragment_no_entries_placeholder">No entries yet, why not add one?</string>
-
-    <!--COIN DETAIL DIALOG-->
-    <string name="dialog_coin_detail_doge_price_title">Price(DOGE):</string>
-    <string name="dialog_coin_detail_doge_price">1 DOGE</string>
 
     <!--ACTION BAR MENU-->
     <string name="menu_search_title">Search</string>
@@ -23,14 +20,13 @@
     <string name="market_fragment_time_stamp" formatted="false">Updated: %1$s</string>
     <string name="market_fragment_sort_type" formatted="false">Sorted by: %1$s</string>
 
-
     <!--MARKET SUMMARY-->
     <string name="market_summary_title_1D">1D(%1$d):</string>
     <string name="market_summary_title_1W">1W(%1$d):</string>
 
     <!--SORT MENU-->
-    <string name="sort_menu_rank">Rank</string>
-    <string name="sort_menu_rank_reversed">Rank(reversed)</string>
+    <string name="sort_menu_rank">MCap</string>
+    <string name="sort_menu_rank_reversed">MCap(reversed)</string>
     <string name="sort_menu_alphabetical">A-Z</string>
     <string name="sort_menu_alphabetical_reversed">Z-A</string>
     <string name="sort_menu_1H">1H change</string>
@@ -51,7 +47,63 @@
     <!--GENERAL TITLES-->
     <string name="title_valueBTC">Value(BTC): %1$s</string>
     <string name="title_valueUSD">Value(USD): %1$s</string>
+    <string name="title_priceUSD">Price(USD): %1$s</string>
+    <string name="title_priceBTC">Price(BTC): %1$s</string>
 
+    <!--DIALOG ADDCOIN-->
+    <string name="dialog_addCoin_hint_asset_search">Asset Search</string>
+    <string name="dialog_addCoin_hint_select_a_coin">Select a Coin</string>
+    <string name="dialog_addCoin_hint_exchange_optional">Exchange(optional)</string>
+    <string name="dialog_addCoin_hint_quantity">Quantity</string>
+    <string name="dialog_addCoin_hint_price_usd">Price(USD)</string>
+    <string name="dialog_addCoin_hint_fees_optional">Fees(optional):</string>
+    <string name="dialog_addCoin_hint_notes">Notes</string>
+
+    <string name="dialog_addCoin_radio_buy">Buy</string>
+    <string name="dialog_addCoin_radio_sell">Sell</string>
+    <string name="dialog_addCoin_radio_mined">Mined</string>
+
+    <string name="dialog_addCoin_title_purchase_value">Purchase Value:</string>
+    <string name="dialog_addCoin_title_current_value">Current Value:</string>
+
+    <string name="dialog_addCoin_placeholder_purchase_value">$...</string>
+    <string name="dialog_addCoin_placeholder_current_value">$...</string>
+
+    <string name="dialog_addCoin_image_date_selection">Date selection button</string>
+
+    <!--DIALOG COIN DETAIL-->
+    <!--COIN DETAIL DIALOG-->
+    <string name="dialog_coinDetail_title_doge_price">Price(DOGE):</string>
+    <string name="dialog_coinDetail_title_rank">Rank:</string>
+    <string name="dialog_coinDetail_title_one_billion_coin">Price(1B coin):</string>
+    <string name="dialog_coinDetail_title_volume24h">Volume 24H:</string>
+    <string name="dialog_coinDetail_title_available_supply">Available Supply:</string>
+    <string name="dialog_coinDetail_title_total_supply">Total Supply:</string>
+    <string name="dialog_coinDetail_title_marketcap">MarketCap:</string>
+
+    <string name="dialog_coinDetail_radio_24h">24H</string>
+    <string name="dialog_coinDetail_radio_1w">1W</string>
+    <string name="dialog_coinDetail_radio_30d">30D</string>
+    <string name="dialog_coinDetail_radio_90d">90D</string>
+    <string name="dialog_coinDetail_radio_180d">180D</string>
+    <string name="dialog_coinDetail_radio_1y">1Y</string>
+
+    <string name="dialog_coinDetail_placeholder_doge_price">1 DOGE</string>
+
+    <string name="dialog_coinDetail_image_chart_type_button">Chart type change button</string>
+
+    <!--DIALOG TRACKER ENTRY-->
+    <string name="dialog_trackerEntry_image_delete_button">Delete tracker entry button</string>
+
+    <!--SNAPSHOT ACTIVITY-->
+    <string name="activity_snapshot_image_snapshot_button">Take snapshot button</string>
+
+    <!--SUMMARY FRAGMENT-->
+    <string name="fragment_summary_current_value_usd">Current(USD): %1$s</string>
+    <string name="fragment_summary_current_value_btc">Current(BTC): %1$s</string>
+    <string name="fragment_summary_initial_value">Initial(USD): %1$s</string>
+    <string name="fragment_summary_value_spent">Value Spent: %1$s</string>
+    <string name="fragment_summary_value_sold">Value Sold: %1$s</string>
 
     <!--Settings Arrays-->
     <string-array name="start_screen_options">
