@@ -49,7 +49,7 @@ class MarketFragment : BaseFragment(), MarketContractView, FilterView {
         coinListAdapter.onDestroy()
     }
 
-    // Overridden Functions
+    // Overrides
 
     override fun initialiseListAdapter() {
         val presenterComponent = getPresenterComponent()

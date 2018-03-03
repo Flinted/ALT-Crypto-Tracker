@@ -25,7 +25,7 @@ import org.jetbrains.anko.support.v4.onPageChangeListener
  */
 class MainActivity : BaseActivity(), MainContractView {
 
-    // Private Properties
+    // Properties
     private lateinit var views: MainActivityViewHolder
     private lateinit var mainPresenter: MainContractPresenter
     private lateinit var viewPagerAdapter: MainViewPagerAdapter
@@ -67,7 +67,7 @@ class MainActivity : BaseActivity(), MainContractView {
         this.mainPresenter.onDestroy()
     }
 
-    // Initialisation
+    // Overrides
 
     // This method waits until all child views are created and then triggers an
     // emission of the cached data to all subscribers.
@@ -79,20 +79,6 @@ class MainActivity : BaseActivity(), MainContractView {
                 mainPresenter.emitData()
             }
         })
-    }
-
-    private fun showWelcomeScreenIfRequired(savedInstanceState: Bundle?) {
-        views.welcomeScreen.show(savedInstanceState)
-    }
-
-    private fun makeTimeTickBroadcastReceiver(): BroadcastReceiver {
-        return object : BroadcastReceiver() {
-            override fun onReceive(p0: Context?, p1: Intent?) {
-                if (intent.action == Intent.ACTION_TIME_TICK) {
-                    mainPresenter.updateSyncTime()
-                }
-            }
-        }
     }
 
     override fun initialiseViewPager() {
@@ -110,15 +96,6 @@ class MainActivity : BaseActivity(), MainContractView {
         }
     }
 
-    private fun initialiseSortingMenu(menu: Menu) {
-        val currentSort = POHSettings.sortPreference
-        val id = mainPresenter.getIdForSortType(currentSort) ?: let {
-            return
-        }
-        val currentSortMenuItem = menu.findItem(id)
-        currentSortMenuItem.isChecked = true
-    }
-
     override fun initialiseBottomBar(startingTab: String) {
         views.bottomBar.inflateMenu(R.menu.bottom_bar_menu)
         views.bottomBar.setOnNavigationItemSelectedListener({ item ->
@@ -134,6 +111,37 @@ class MainActivity : BaseActivity(), MainContractView {
         createSortToIdMap()
     }
 
+    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
+        menu ?: return super.onPrepareOptionsMenu(menu)
+        initialiseSearchMenu(menu)
+        initialiseSortingMenu(menu)
+        return super.onPrepareOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        val id = item?.itemId ?: return false
+        item.isChecked = true
+        updateSortForSelection(id)
+        return super.onOptionsItemSelected(item)
+    }
+
+    override fun showLoading() {
+        viewPagerAdapter.showLoading()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_main, menu)
+        return true
+    }
+
+    // Internal Functions
+
+    internal fun clearSearchTerms() {
+        views.searchView.isIconified = true
+    }
+
+    // Private Functions
+
     private fun initialiseSearchMenu(menu: Menu) {
         val searchItem = menu.findItem(R.id.action_search)
         views.searchView = searchItem?.actionView as SearchView
@@ -147,9 +155,13 @@ class MainActivity : BaseActivity(), MainContractView {
         })
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_main, menu)
-        return true
+    private fun initialiseSortingMenu(menu: Menu) {
+        val currentSort = POHSettings.sortPreference
+        val id = mainPresenter.getIdForSortType(currentSort) ?: let {
+            return
+        }
+        val currentSortMenuItem = menu.findItem(id)
+        currentSortMenuItem.isChecked = true
     }
 
     private fun getStartingTabId(startingTab: String): Int {
@@ -176,13 +188,6 @@ class MainActivity : BaseActivity(), MainContractView {
         return null
     }
 
-    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
-        menu ?: return super.onPrepareOptionsMenu(menu)
-        initialiseSearchMenu(menu)
-        initialiseSortingMenu(menu)
-        return super.onPrepareOptionsMenu(menu)
-    }
-
     private fun updateSortForSelection(id: Int) {
         getSortForId(id)
     }
@@ -195,17 +200,6 @@ class MainActivity : BaseActivity(), MainContractView {
         mainPresenter.emitData()
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        val id = item?.itemId ?: return false
-        item.isChecked = true
-        updateSortForSelection(id)
-        return super.onOptionsItemSelected(item)
-    }
-
-    internal fun clearSearchTerms() {
-        views.searchView.isIconified = true
-    }
-
     private fun createSortToIdMap() {
         val map = this.sortToIdMap()
         mainPresenter.storeSortToIdMap(map)
@@ -216,7 +210,17 @@ class MainActivity : BaseActivity(), MainContractView {
         mainPresenter.storeIdToSortMap(map)
     }
 
-    override fun showLoading() {
-        viewPagerAdapter.showLoading()
+    private fun showWelcomeScreenIfRequired(savedInstanceState: Bundle?) {
+        views.welcomeScreen.show(savedInstanceState)
+    }
+
+    private fun makeTimeTickBroadcastReceiver(): BroadcastReceiver {
+        return object : BroadcastReceiver() {
+            override fun onReceive(p0: Context?, p1: Intent?) {
+                if (intent.action == Intent.ACTION_TIME_TICK) {
+                    mainPresenter.updateSyncTime()
+                }
+            }
+        }
     }
 }

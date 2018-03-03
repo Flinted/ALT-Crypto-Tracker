@@ -8,22 +8,24 @@ import com.google.gson.annotations.SerializedName
  */
 class HistoricalDataResponse {
 
+    // Properties
+
     @SerializedName("Response")
-    var response: String? = null
+    internal var response: String? = null
 
     @SerializedName("Message")
-    var message: String? = null
+    internal var message: String? = null
 
     @SerializedName("Aggregated")
-    var aggregated: Boolean? = null
+    internal var aggregated: Boolean? = null
 
     @SerializedName("TimeTo")
-    var timeTo: String? = null
+    internal var timeTo: String? = null
 
     @SerializedName("TimeFrom")
-    var timeFrom: String? = null
+    internal var timeFrom: String? = null
 
     @SerializedName("Data")
-    var data: Array<HistoricalDataUnitResponse> = emptyArray()
+    internal var data: Array<HistoricalDataUnitResponse> = emptyArray()
 }
 

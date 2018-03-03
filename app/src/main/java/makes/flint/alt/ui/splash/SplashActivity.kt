@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import makes.flint.alt.base.BaseActivity
 import makes.flint.alt.ui.main.MainActivity
-import makes.flint.alt.ui.onboard.OnboardActivity
 
 /**
  * SplashActivity
@@ -12,7 +11,11 @@ import makes.flint.alt.ui.onboard.OnboardActivity
  */
 class SplashActivity : BaseActivity(), SplashContractView {
 
+    // Properties
+
     private lateinit var splashPresenter: SplashContractPresenter
+
+    // Lifecycle
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,6 +24,8 @@ class SplashActivity : BaseActivity(), SplashContractView {
         this.attachPresenter(splashPresenter)
         splashPresenter.initialise()
     }
+
+    // Overrides
 
     override fun proceedToMainActivity() {
         val intent = Intent(this, MainActivity::class.java)

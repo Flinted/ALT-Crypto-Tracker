@@ -21,6 +21,8 @@ import rx.subjects.PublishSubject
 class TrackerListAdapter(presenterComponent: PresenterComponent) : RecyclerView.Adapter<RecyclerView.ViewHolder>(),
         TrackerAdapterContractView, Filterable {
 
+    // Properties
+
     override var trackerEntries: MutableList<TrackerListItem> = mutableListOf()
         set(value) {
             field = value
@@ -44,6 +46,8 @@ class TrackerListAdapter(presenterComponent: PresenterComponent) : RecyclerView.
 
     private var trackerAdapterPresenter = presenterComponent.provideTrackerAdapterPresenter()
     private val indicatorCustomiser = IndicatorCustomiser()
+
+    // Lifecycle
 
     init {
         trackerAdapterPresenter.attachView(this)
@@ -73,11 +77,11 @@ class TrackerListAdapter(presenterComponent: PresenterComponent) : RecyclerView.
         setOnClickListener(viewHolder.itemContent, entry)
     }
 
-    private fun setOnClickListener(itemContent: CardView, entry: TrackerListItem) {
-        itemContent.setOnClickListener {
-            trackerEntrySelected.onNext(entry)
-        }
+    override fun onDestroy() {
+        trackerAdapterPresenter.onDestroy()
     }
+
+    // Overrides
 
     override fun getFilter(): Filter {
         val callback = makeTrackerFilterCallback()
@@ -108,7 +112,11 @@ class TrackerListAdapter(presenterComponent: PresenterComponent) : RecyclerView.
 
     override fun filterFor(input: String) = filter.filter(input)
 
-    override fun onDestroy() {
-        trackerAdapterPresenter.onDestroy()
+    // Private Functions
+
+    private fun setOnClickListener(itemContent: CardView, entry: TrackerListItem) {
+        itemContent.setOnClickListener {
+            trackerEntrySelected.onNext(entry)
+        }
     }
 }

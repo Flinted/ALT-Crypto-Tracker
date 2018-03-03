@@ -14,7 +14,11 @@ import makes.flint.alt.ui.tracker.summary.summaryFragments.SummaryFragment
  */
 class SummaryViewPagerAdapter(fragmentManager: FragmentManager) : FragmentStatePagerAdapter(fragmentManager) {
 
+    // Properties
+
     private val fragments: MutableList<SummaryContractView> = mutableListOf()
+
+    // Overrides
 
     override fun instantiateItem(container: ViewGroup?, position: Int): Any {
         val fragment = super.instantiateItem(container, position) as Fragment

@@ -6,13 +6,17 @@ import makes.flint.alt.base.BaseActivity
 import makes.flint.alt.data.snapshot.SnapShot
 
 /**
- * SnapShotFragment
+ * SnapShotActivity
  * Copyright © 2018 FlintMakes. All rights reserved.
  */
-class SnapShotFragment : BaseActivity(), SnapShotContractView {
+class SnapShotActivity : BaseActivity(), SnapShotContractView {
+
+    // Properties
 
     private lateinit var views: SnapShotViewHolder
     private lateinit var snapShotPresenter: SnapShotContractPresenter
+
+    // Lifecycle
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,6 +27,8 @@ class SnapShotFragment : BaseActivity(), SnapShotContractView {
         this.views = SnapShotViewHolder(this)
         this.snapShotPresenter.initialise()
     }
+
+    // Overrides
 
     override fun displaySnapShots(snapShots: List<SnapShot>) {
         val currentSnapShot = snapShots.first()

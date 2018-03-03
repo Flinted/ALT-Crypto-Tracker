@@ -9,6 +9,9 @@ import java.math.BigDecimal
  * Copyright © 2018 Flint Makes. All rights reserved.
  */
 interface TrackerAssessable {
+
+    // Properties
+
     var percentageChange : BigDecimal
 }
 

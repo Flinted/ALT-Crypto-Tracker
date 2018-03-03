@@ -13,7 +13,7 @@ import makes.flint.alt.base.BaseFragment
 import makes.flint.alt.data.trackerListItem.TrackerListItem
 import makes.flint.alt.ui.interfaces.FilterView
 import makes.flint.alt.ui.main.MainActivity
-import makes.flint.alt.ui.snapshot.SnapShotFragment
+import makes.flint.alt.ui.snapshot.SnapShotActivity
 import makes.flint.alt.ui.tracker.addCoinDialog.AddCoinDialog
 import makes.flint.alt.ui.tracker.summary.SummaryViewPagerAdapter
 import makes.flint.alt.ui.tracker.trackerEntryDialog.TrackerEntryDialog
@@ -32,12 +32,14 @@ const val CHART_OFF_SCREEN = 2
 class TrackerFragment : BaseFragment(), TrackerContractView, FilterView {
 
     // Properties
+
     private lateinit var views: TrackerFragmentViewholder
     private lateinit var trackerPresenter: TrackerContractPresenter
     private lateinit var trackerListAdapter: TrackerAdapterContractView
     private lateinit var summaryPagerAdapter: SummaryViewPagerAdapter
 
     // Lifecycle
+
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater?.inflate(R.layout.fragment_tracker, container, false)
         view ?: return null
@@ -55,7 +57,7 @@ class TrackerFragment : BaseFragment(), TrackerContractView, FilterView {
         trackerPresenter.onDestroy()
     }
 
-    // Initialisation
+    // Other Overrides
 
     override fun initialiseSummaryPager() {
         summaryPagerAdapter = SummaryViewPagerAdapter(activity.supportFragmentManager)
@@ -113,7 +115,7 @@ class TrackerFragment : BaseFragment(), TrackerContractView, FilterView {
 
     override fun initialiseShowSnapShotButtonListener() {
         views.snapShotButton.setOnClickListener {
-            val intent = Intent(context, SnapShotFragment::class.java)
+            val intent = Intent(context, SnapShotActivity::class.java)
             startActivity(intent)
         }
     }
@@ -123,15 +125,24 @@ class TrackerFragment : BaseFragment(), TrackerContractView, FilterView {
         views.swipeRefresh.visibility = View.VISIBLE
     }
 
-    private fun hideNoTrackerEntriesMessage() {
-        views.noEntriesPlaceHolder.visibility = View.GONE
-        views.swipeRefresh.visibility = View.VISIBLE
-    }
-
     override fun showNoTrackerEntriesMessage() {
         views.swipeRefresh.visibility = View.GONE
         views.noEntriesPlaceHolder.visibility = View.VISIBLE
     }
+
+    override fun filterFor(input: String) {
+        trackerListAdapter.filterFor(input)
+    }
+
+    override fun showLoading() {
+        views.swipeRefresh.isRefreshing = true
+    }
+
+    override fun hideLoading() {
+        views.swipeRefresh.isRefreshing = false
+    }
+
+    // Private Functions
 
     private fun makeTrackerEntryDialogFor(item: TrackerListItem) {
         val fragmentManager = activity.fragmentManager
@@ -143,8 +154,9 @@ class TrackerFragment : BaseFragment(), TrackerContractView, FilterView {
         newCoinDetail.show(fragmentManager, "TrackerEntryDetail")
     }
 
-    override fun filterFor(input: String) {
-        trackerListAdapter.filterFor(input)
+    private fun hideNoTrackerEntriesMessage() {
+        views.noEntriesPlaceHolder.visibility = View.GONE
+        views.swipeRefresh.visibility = View.VISIBLE
     }
 
     private fun changeChartVisibility(stateId: Int) {
@@ -161,15 +173,6 @@ class TrackerFragment : BaseFragment(), TrackerContractView, FilterView {
         constraintSet.applyTo(views.trackerConstraint)
     }
 
-    override fun showLoading() {
-        views.swipeRefresh.isRefreshing = true
-    }
-
-    override fun hideLoading() {
-        views.swipeRefresh.isRefreshing = false
-    }
-
-    // Add Coin Dialog
     private fun showAddCoinDialog() {
         val fragmentManager = activity.fragmentManager
         val shownAddCoin = fragmentManager.findFragmentByTag("AddCoin")

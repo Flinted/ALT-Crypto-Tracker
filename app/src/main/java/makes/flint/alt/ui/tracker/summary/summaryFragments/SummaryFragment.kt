@@ -17,7 +17,7 @@ import makes.flint.alt.data.interfaces.assessChange
  */
 class SummaryFragment : BaseFragment(), SummaryContractView {
 
-    // Private Properties
+    // Properties
 
     private lateinit var views: SummaryFragmentViewHolder
     private lateinit var summaryPresenter: SummaryContractPresenter
@@ -40,7 +40,7 @@ class SummaryFragment : BaseFragment(), SummaryContractView {
         summaryPresenter.onDestroy()
     }
 
-    // Public Functions
+    // Overrides
 
     override fun updateForSummary(summary: Summary) {
         views.initialValue.text =

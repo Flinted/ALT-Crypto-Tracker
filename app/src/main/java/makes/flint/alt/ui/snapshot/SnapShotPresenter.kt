@@ -12,6 +12,8 @@ import javax.inject.Inject
 class SnapShotPresenter @Inject constructor(private val dataController: DataController, private val snapShotFactory: SnapShotFactory)
     : BasePresenter<SnapShotContractView>(), SnapShotContractPresenter {
 
+    // Lifecycle
+
     override fun initialise() {
         val trackerEntries = dataController.getAllTrackerEntries()
         val currentSnapShot = snapShotFactory.makeSnapShot(trackerEntries)

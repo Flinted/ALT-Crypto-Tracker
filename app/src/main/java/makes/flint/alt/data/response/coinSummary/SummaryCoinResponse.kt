@@ -23,26 +23,25 @@ class SummaryCoinResponse : CoinResponse {
     override lateinit var symbol: String
 
     @SerializedName("rank")
-    lateinit var rank: String
+    private lateinit var rank: String
 
-    //Optional Properties
     @SerializedName("price_usd")
-    var priceUSD: String? = null
+    private var priceUSD: String? = null
 
     @SerializedName("price_btc")
-    var priceBTC: String? = null
+    private var priceBTC: String? = null
 
     @SerializedName("24h_volume_usd")
-    var volume24hUSD: String? = null
+    private var volume24hUSD: String? = null
 
     @SerializedName("market_cap_usd")
-    var marketCapUSD: String? = null
+    private var marketCapUSD: String? = null
 
     @SerializedName("available_supply")
-    var availableSupply: String? = null
+    private var availableSupply: String? = null
 
     @SerializedName("total_supply")
-    var totalSupply: String? = null
+    private var totalSupply: String? = null
 
     @SerializedName("percent_change_1h")
     override var percentChange1H: String? = null
@@ -53,7 +52,7 @@ class SummaryCoinResponse : CoinResponse {
     @SerializedName("percent_change_7d")
     override var percentChange7D: String? = null
 
-    // Functions
+    // Overrides
 
     override fun provideRank() = rank.toInt()
 
@@ -61,10 +60,12 @@ class SummaryCoinResponse : CoinResponse {
         priceUSD ?: return null
         return BigDecimal(priceUSD)
     }
+
     override fun providePriceBTC(): BigDecimal? {
         priceBTC ?: return null
         return BigDecimal(priceBTC)
     }
+
     override fun provideVolume24Hour(): BigDecimal? {
         volume24hUSD ?: return null
         return BigDecimal(volume24hUSD)

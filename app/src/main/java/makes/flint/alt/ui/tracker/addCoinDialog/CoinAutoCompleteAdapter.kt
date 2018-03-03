@@ -11,13 +11,19 @@ import makes.flint.alt.data.coinListItem.CoinListItem
 class CoinAutoCompleteAdapter private constructor(context: Context, layoutId: Int, items: Array<String>)
     : ArrayAdapter<String>(context, layoutId, items) {
 
+    // Properties
+
     private lateinit var coinListItems: List<CoinListItem>
 
-    fun getCoinListItemForId(stringId: String): CoinListItem? {
+    // Internal Functions
+
+    internal fun getCoinListItemForId(stringId: String): CoinListItem? {
         return coinListItems.find {
             it.searchKey == stringId
         }
     }
+
+    // Companion
 
     companion object {
         fun makeInstanceFor(context: Context, layoutId: Int, items: List<CoinListItem>): CoinAutoCompleteAdapter {

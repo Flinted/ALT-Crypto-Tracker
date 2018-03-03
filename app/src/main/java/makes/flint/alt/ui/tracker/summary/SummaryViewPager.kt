@@ -10,6 +10,8 @@ import android.util.AttributeSet
  */
 class SummaryViewPager(context: Context, attributeSet: AttributeSet) : ViewPager(context, attributeSet) {
 
+    // Overrides
+
     override fun canScrollHorizontally(direction: Int): Boolean {
         return false
     }

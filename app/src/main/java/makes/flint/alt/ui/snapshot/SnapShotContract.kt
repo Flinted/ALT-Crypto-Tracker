@@ -6,7 +6,7 @@ import makes.flint.alt.data.snapshot.SnapShot
 
 /**
  * SnapShotContract
- * Copyright © 2018 Intelligent Loyalty Limited. All rights reserved.
+ * Copyright © 2018 Flint Makes. All rights reserved.
  */
 interface SnapShotContractView: BaseContractView {
     fun displaySnapShots(snapShots: List<SnapShot>)

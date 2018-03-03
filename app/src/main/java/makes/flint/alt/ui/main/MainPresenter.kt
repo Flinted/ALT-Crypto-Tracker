@@ -13,9 +13,13 @@ import java.util.*
  */
 class MainPresenter(private var dataController: DataController) : BasePresenter<MainContractView>(), MainContractPresenter {
 
+    // Properties
+
     private var errorSubscription: Subscription? = null
     private lateinit var idToSortMap: HashMap<Int, Int>
     private lateinit var sortToIdMap: HashMap<Int, Int>
+
+    // Lifecycle
 
     override fun initialise() {
         val startingTab = POHSettings.startingScreen
@@ -31,15 +35,11 @@ class MainPresenter(private var dataController: DataController) : BasePresenter<
         this.errorSubscription = null
     }
 
-    private fun initialiseErrorSubscription() {
-        this.errorSubscription = dataController.getErrorSubscription().subscribe {
-            this.view?.showError(ErrorHandler.GENERAL_ERROR)
-        }
-    }
+    // Overrides
 
     override fun emitData() {
         val isRefreshing = dataController.refreshRequested()
-        if(isRefreshing) {
+        if (isRefreshing) {
             view?.showLoading()
         }
     }
@@ -62,5 +62,13 @@ class MainPresenter(private var dataController: DataController) : BasePresenter<
 
     override fun getIdForSortType(currentSort: Int): Int? {
         return sortToIdMap[currentSort]
+    }
+
+    // Private Functions
+
+    private fun initialiseErrorSubscription() {
+        this.errorSubscription = dataController.getErrorSubscription().subscribe {
+            this.view?.showError(ErrorHandler.GENERAL_ERROR)
+        }
     }
 }

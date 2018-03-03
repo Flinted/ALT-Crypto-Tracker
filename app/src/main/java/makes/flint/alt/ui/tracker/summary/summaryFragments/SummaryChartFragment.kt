@@ -20,13 +20,13 @@ import makes.flint.alt.data.Summary
  */
 class SummaryChartFragment : BaseFragment(), SummaryContractView {
 
-    // Private Properties
+    // Properties
 
     private lateinit var pieChart: PieChart
     private lateinit var summaryPresenter: SummaryContractPresenter
 
     // Lifecycle
-    
+
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater?.inflate(R.layout.fragment_chart, container, false)
         view ?: return super.onCreateView(inflater, container, savedInstanceState)
@@ -36,10 +36,6 @@ class SummaryChartFragment : BaseFragment(), SummaryContractView {
         bindViews(view)
         summaryPresenter.initialise()
         return view
-    }
-
-    private fun bindViews(view: View) {
-        this.pieChart = view.findViewById(R.id.fragment_chart_pie)
     }
 
     override fun onResume() {
@@ -52,7 +48,7 @@ class SummaryChartFragment : BaseFragment(), SummaryContractView {
         summaryPresenter.onDestroy()
     }
 
-    // Public Functions
+    // Overrides
 
     override fun updateForSummary(summary: Summary) {
         val data = summary.getTrackerEntries()
@@ -88,5 +84,11 @@ class SummaryChartFragment : BaseFragment(), SummaryContractView {
         pieChart.description.isEnabled = false
         pieChart.animateXY(1200, 1200)
         pieChart.data = pieData
+    }
+
+    // Private Functions
+
+    private fun bindViews(view: View) {
+        this.pieChart = view.findViewById(R.id.fragment_chart_pie)
     }
 }

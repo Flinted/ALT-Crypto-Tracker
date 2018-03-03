@@ -16,7 +16,7 @@ import javax.inject.Inject
  */
 class CoinListItemFactory @Inject constructor() {
 
-    // Private Properties
+    // Properties
 
     private var twentyFourHourMarket = 0f
     private var sevenDayMarket = 0f

@@ -19,12 +19,14 @@ import makes.flint.alt.data.response.histoResponse.HistoricalDataUnitResponse
  */
 class HistoricalDataChartFactory(private var dataSet: Array<HistoricalDataUnitResponse>, private var label: String) {
 
-    fun updateDataSet(newData: Array<HistoricalDataUnitResponse>, label: String) {
+    // Internal Functions
+
+    internal fun updateDataSet(newData: Array<HistoricalDataUnitResponse>, label: String) {
         this.dataSet = newData
         this.label = label
     }
 
-    fun createLineChart(context: Context): LineChart? {
+    internal fun createLineChart(context: Context): LineChart? {
         if (dataSet.isEmpty()) {
             return null
         }
@@ -35,7 +37,7 @@ class HistoricalDataChartFactory(private var dataSet: Array<HistoricalDataUnitRe
         return chart
     }
 
-    fun createBarChart(context: Context): BarChart? {
+    internal fun createBarChart(context: Context): BarChart? {
         if (dataSet.isEmpty()) {
             return null
         }
@@ -46,7 +48,7 @@ class HistoricalDataChartFactory(private var dataSet: Array<HistoricalDataUnitRe
         return chart
     }
 
-    fun createCandleChart(context: Context): CandleStickChart? {
+    internal fun createCandleChart(context: Context): CandleStickChart? {
         if (dataSet.isEmpty()) {
             return null
         }
@@ -56,6 +58,8 @@ class HistoricalDataChartFactory(private var dataSet: Array<HistoricalDataUnitRe
         chart.data = CandleData(candleDataSet)
         return chart
     }
+
+    // Private Functions
 
     private fun makeEntries(): MutableList<Entry> {
         val entries: MutableList<Entry> = mutableListOf()
@@ -125,7 +129,6 @@ class HistoricalDataChartFactory(private var dataSet: Array<HistoricalDataUnitRe
             neutralColor = Color.DKGRAY
         }
     }
-
 
     private fun makeLineChart(context: Context): LineChart {
         return LineChart(context).apply {

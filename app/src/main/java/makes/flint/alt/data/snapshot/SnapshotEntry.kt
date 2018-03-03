@@ -7,6 +7,9 @@ import makes.flint.alt.data.trackerListItem.TrackerListItem
  * Copyright © 2018 FlintMakes. All rights reserved.
  */
 class SnapShotEntry(trackerEntry: TrackerListItem) {
+
+    // Properties
+
     internal var name = trackerEntry.name
     internal var symbol = trackerEntry.symbol
     internal var quantity = trackerEntry.numberOwned

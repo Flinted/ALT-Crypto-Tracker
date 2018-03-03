@@ -15,8 +15,11 @@ import makes.flint.alt.ui.tracker.TrackerFragment
  */
 class MainViewPagerAdapter(fragmentManager: FragmentManager) : FragmentStatePagerAdapter(fragmentManager) {
 
+    // Properties
+
     private val fragments = SparseArray<BaseFragment>()
 
+    // Overrides
     override fun instantiateItem(container: ViewGroup?, position: Int): Any {
         val fragment = super.instantiateItem(container, position) as BaseFragment
         fragments.put(position, fragment)
@@ -38,6 +41,8 @@ class MainViewPagerAdapter(fragmentManager: FragmentManager) : FragmentStatePage
     override fun getCount(): Int {
         return 2
     }
+
+    // Internal Functions
 
     internal fun getFragment(position: Int): Fragment? {
         return fragments.get(position)

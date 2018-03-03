@@ -13,17 +13,11 @@ class TrackerPresenter @Inject constructor(private var dataController: DataContr
         BasePresenter<TrackerContractView>(),
         TrackerContractPresenter {
 
+    // Properties
+
     private var coinListSubscriber: Subscription? = null
 
-    override fun refreshCache() {
-        dataController.refreshRequested()
-    }
-
-    override fun onDestroy() {
-        detachView()
-        coinListSubscriber?.unsubscribe()
-        coinListSubscriber = null
-    }
+    // Lifecycle
 
     override fun initialise() {
         initialiseCoinListSubscriber()
@@ -37,12 +31,26 @@ class TrackerPresenter @Inject constructor(private var dataController: DataContr
         view?.hideProgressSpinner()
     }
 
+    override fun onDestroy() {
+        detachView()
+        coinListSubscriber?.unsubscribe()
+        coinListSubscriber = null
+    }
+
+    // Overrides
+
+    override fun refreshCache() {
+        dataController.refreshRequested()
+    }
+
+    override fun refreshTrackerEntries() {
+    }
+
+    // Private Functions
+
     private fun initialiseCoinListSubscriber() {
         coinListSubscriber = dataController.coinRefreshSubscriber().subscribe {
             view?.hideLoading()
         }
-    }
-
-    override fun refreshTrackerEntries() {
     }
 }

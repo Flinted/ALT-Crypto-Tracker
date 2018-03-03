@@ -15,6 +15,9 @@ class TrackerListItem(internal val name: String,
                       internal val id: String,
                       internal val associatedCoin: CoinListItem?,
                       internal var transactions: MutableList<TrackerTransaction>) : TrackerAssessable {
+
+    // Properties
+
     internal val numberOwned = getNumberOwned()
     internal val numberOwnedFormatted = makeNumberOwnedFormatted()
     internal val symbolFormatted = makeSymbolFormatted()
@@ -30,6 +33,8 @@ class TrackerListItem(internal val name: String,
     internal val dollarCostAverageFormatted = makeDollarCostAverageFormatted()
     override var percentageChange = makePercentageChange()
     internal val percentageChangeFormatted = makePercentageChangeFormatted()
+
+    // Private Functions
 
     private fun makeAmountSpent(): BigDecimal {
         return transactions.fold(BigDecimal.ZERO) { sum, entry ->
@@ -69,10 +74,9 @@ class TrackerListItem(internal val name: String,
     }
 
     private fun getNumberOwned(): BigDecimal {
-        val total = transactions.fold(BigDecimal.ZERO) { sum, entry ->
+        return transactions.fold(BigDecimal.ZERO) { sum, entry ->
             sum.add(entry.quantity)
         }
-        return total
     }
 
     private fun makePercentageChangeFormatted(): String {

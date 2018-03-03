@@ -29,18 +29,20 @@ open class DataController @Inject constructor(private val apiRepository: ApiRepo
                                               private val cache: UIObjectCache
 ) {
 
+    // RX Actions
+
     private var hasEncounteredError: PublishSubject<Throwable> = PublishSubject.create()
     internal fun getErrorSubscription() = hasEncounteredError.asObservable()
 
-    fun coinRefreshSubscriber(): Observable<List<CoinListItem>> = cache.getCoinsSubscription()
+    internal fun coinRefreshSubscriber(): Observable<List<CoinListItem>> = cache.getCoinsSubscription()
 
-    fun trackerRefreshSubscriber(): Observable<List<TrackerListItem>> = cache.getTrackerListSubscription()
+    internal fun trackerRefreshSubscriber(): Observable<List<TrackerListItem>> = cache.getTrackerListSubscription()
 
-    fun summaryRefreshSubscriber(): Observable<Summary> = cache.getSummarySubscription()
+    internal fun summaryRefreshSubscriber(): Observable<Summary> = cache.getSummarySubscription()
 
-    fun marketRefreshSubscriber(): Observable<MarketSummaryResponse> = cache.getMarketSubscription()
+    internal fun marketRefreshSubscriber(): Observable<MarketSummaryResponse> = cache.getMarketSubscription()
 
-    fun lastSyncSubscriber(): Observable<TimeStamp> = cache.getSyncTimeSubscription()
+    internal fun lastSyncSubscriber(): Observable<TimeStamp> = cache.getSyncTimeSubscription()
 
     private fun updateFavouriteCoins() {
         val favouriteCoins = realmManager.getFavouriteCoins()

@@ -6,10 +6,10 @@ import makes.flint.alt.R
 
 /**
  * SnapShotViewHolder
- * Copyright © 2018 Intelligent Loyalty Limited. All rights reserved.
+ * Copyright © 2018 Flint Makes. All rights reserved.
  */
 
-internal class SnapShotViewHolder(activity: SnapShotFragment) {
+internal class SnapShotViewHolder(activity: SnapShotActivity) {
 
     internal val valueBTC: TextView = activity.findViewById(R.id.activity_snapshot_value_btc)
     internal val valueUSD: TextView = activity.findViewById(R.id.activity_snapshot_value_usd)

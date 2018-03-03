@@ -31,22 +31,15 @@ const val DAY_DATA = 2
 class CoinDetailPresenter @Inject constructor(private var dataController: DataController) :
         CoinDetailContractPresenter {
 
+    // Properties
+
     private var coinDetailDialog: CoinDetailContractView? = null
     private lateinit var coinSymbol: String
     private val chartData: SparseArray<HistoricalDataResponse> = SparseArray()
     private var currentData: Array<HistoricalDataUnitResponse> = arrayOf()
     private var currentChartType = LINE_CHART
 
-
-    override fun changeChartClicked() {
-        val newChartType = when(currentChartType) {
-            BAR_CHART -> LINE_CHART
-            LINE_CHART -> CANDLE_CHART
-            else -> BAR_CHART
-        }
-        currentChartType = newChartType
-        displayChartForCurrentConfiguration()
-    }
+    // Lifecycle
 
     override fun initialise() {
     }
@@ -59,12 +52,34 @@ class CoinDetailPresenter @Inject constructor(private var dataController: DataCo
         coinDetailDialog?.initialiseDataSelectListener()
     }
 
+    override fun detachView() {
+        this.coinDetailDialog = null
+    }
+
+    override fun attachView(view: CoinDetailContractView) {
+        this.coinDetailDialog = view
+    }
+
+    // Overrides
+
+    override fun changeChartClicked() {
+        val newChartType = when (currentChartType) {
+            BAR_CHART -> LINE_CHART
+            LINE_CHART -> CANDLE_CHART
+            else -> BAR_CHART
+        }
+        currentChartType = newChartType
+        displayChartForCurrentConfiguration()
+    }
+
     override fun getHistoricalDataFor(chartResolution: Int) {
         val callback = makeHistoricalDataCallback()
         coinDetailDialog?.showLoading()
         val apiResolution = getAPIResolutionForRequestedChartType(chartResolution)
         getDataForResolution(apiResolution, chartResolution, callback)
     }
+
+    // Private Functions
 
     private fun getDataForResolution(apiResolution: Int,
                                      chartResolution: Int,
@@ -122,13 +137,5 @@ class CoinDetailPresenter @Inject constructor(private var dataController: DataCo
             CHART_30D, CHART_90D, CHART_180D, CHART_1Y -> DAY_DATA
             else -> HOUR_DATA
         }
-    }
-
-    override fun detachView() {
-        this.coinDetailDialog = null
-    }
-
-    override fun attachView(view: CoinDetailContractView) {
-        this.coinDetailDialog = view
     }
 }

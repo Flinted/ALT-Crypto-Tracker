@@ -15,8 +15,12 @@ import javax.inject.Inject
 class SplashPresenter @Inject constructor(private val dataController: DataController) : BasePresenter<SplashContractView>(),
         SplashContractPresenter {
 
+    // Properties
+
     private var coinListSubscriber: Subscription? = null
     private var errorSubscriber: Subscription? = null
+
+    // Lifecycle
 
     override fun initialise() {
         initialiseSettings()
@@ -29,6 +33,8 @@ class SplashPresenter @Inject constructor(private val dataController: DataContro
         }
         dataController.refreshRequested()
     }
+
+    // Private Functions
 
     private fun initialiseSettings() {
         val settings = dataController.getSettings() ?: SettingsData()

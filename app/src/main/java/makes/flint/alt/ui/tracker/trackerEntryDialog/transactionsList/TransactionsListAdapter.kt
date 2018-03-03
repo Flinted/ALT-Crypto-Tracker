@@ -22,12 +22,7 @@ import rx.subjects.PublishSubject
 class TransactionsListAdapter(presenterComponent: PresenterComponent) : RecyclerView.Adapter<RecyclerView.ViewHolder>(),
         TransactionAdapterContractView {
 
-    // RX Actions
-    private var summaryRefreshRequired: PublishSubject<Boolean> = PublishSubject.create()
-
-    override fun onSummaryRefreshRequired() = summaryRefreshRequired.asObservable()
-
-    // Internal properties
+    // Properties
 
     internal var transactionEntries: MutableList<TrackerTransaction> = mutableListOf()
         set(value) {
@@ -35,11 +30,16 @@ class TransactionsListAdapter(presenterComponent: PresenterComponent) : Recycler
             notifyDataSetChanged()
         }
 
-    // Private properties
-
     private var transactionsAdapterPresenter = presenterComponent.provideTransactionsAdapterPresenter()
 
+    // RX Actions
+
+    private var summaryRefreshRequired: PublishSubject<Boolean> = PublishSubject.create()
+
+    override fun onSummaryRefreshRequired() = summaryRefreshRequired.asObservable()
+
     // Lifecycle
+
     init {
         transactionsAdapterPresenter.attachView(this)
         transactionsAdapterPresenter.initialise()
@@ -55,6 +55,8 @@ class TransactionsListAdapter(presenterComponent: PresenterComponent) : Recycler
         val itemView = layoutInflater.inflate(layout, parent, false)
         return TransactionsListViewHolder(itemView)
     }
+
+    // Overrides
 
     override fun getItemCount(): Int {
         return transactionEntries.size
@@ -72,30 +74,6 @@ class TransactionsListAdapter(presenterComponent: PresenterComponent) : Recycler
         viewHolder.exchange.text = entry.exchange
         viewHolder.notes.text = entry.notes
         initialiseDeleteButton(viewHolder.deleteButton, entry, position)
-    }
-
-    private fun initialiseDeleteButton(deleteButton: ImageView, entry: TrackerTransaction, position: Int) {
-        val listener = makeDeleteDialogListener(entry, position)
-        deleteButton.setOnClickListener {
-            val dialog = AlertDialog.Builder(deleteButton.context)
-            dialog.apply {
-                setMessage("This will delete this transaction irreversibly. Are you sure?")
-                setPositiveButton("Yes", listener)
-                setNegativeButton("No", listener)
-                setCancelable(false)
-            }.create()
-            dialog.show()
-        }
-    }
-
-    private fun makeDeleteDialogListener(entry: TrackerTransaction, position: Int): DialogInterface
-    .OnClickListener {
-        return DialogInterface.OnClickListener { _, choice ->
-            when (choice) {
-                DialogInterface.BUTTON_POSITIVE -> transactionsAdapterPresenter.deleteCurrentEntry(entry, position)
-                else -> return@OnClickListener
-            }
-        }
     }
 
     override fun successfullyDeletedTransaction(entry: TrackerTransaction) {
@@ -123,6 +101,32 @@ class TransactionsListAdapter(presenterComponent: PresenterComponent) : Recycler
             is TrackerTransactionBuy -> 1
             is TrackerTransactionSale -> 2
             else -> super.getItemViewType(position)
+        }
+    }
+
+    // Private Functions
+
+    private fun initialiseDeleteButton(deleteButton: ImageView, entry: TrackerTransaction, position: Int) {
+        val listener = makeDeleteDialogListener(entry, position)
+        deleteButton.setOnClickListener {
+            val dialog = AlertDialog.Builder(deleteButton.context)
+            dialog.apply {
+                setMessage("This will delete this transaction irreversibly. Are you sure?")
+                setPositiveButton("Yes", listener)
+                setNegativeButton("No", listener)
+                setCancelable(false)
+            }.create()
+            dialog.show()
+        }
+    }
+
+    private fun makeDeleteDialogListener(entry: TrackerTransaction, position: Int): DialogInterface
+    .OnClickListener {
+        return DialogInterface.OnClickListener { _, choice ->
+            when (choice) {
+                DialogInterface.BUTTON_POSITIVE -> transactionsAdapterPresenter.deleteCurrentEntry(entry, position)
+                else -> return@OnClickListener
+            }
         }
     }
 }

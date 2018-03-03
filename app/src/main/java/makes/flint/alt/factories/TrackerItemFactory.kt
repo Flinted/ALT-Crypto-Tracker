@@ -15,7 +15,10 @@ import javax.inject.Inject
  */
 class TrackerItemFactory @Inject constructor() {
 
-    fun makeTrackerItems(data: List<TrackerDataEntry>, coinListItems: List<CoinListItem>): MutableList<TrackerListItem> {
+    // Internal Functions
+
+    internal fun makeTrackerItems(data: List<TrackerDataEntry>,
+                                  coinListItems: List<CoinListItem>): MutableList<TrackerListItem> {
         val trackerListItems: MutableList<TrackerListItem> = mutableListOf()
         if (data.isEmpty()) {
             return trackerListItems
@@ -29,6 +32,8 @@ class TrackerItemFactory @Inject constructor() {
         }
         return sortByValue(trackerListItems)
     }
+
+    // Private Functions
 
     private fun findCoinFor(name: String, coinListItems: List<CoinListItem>): CoinListItem? {
         return coinListItems.find {

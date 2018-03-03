@@ -14,15 +14,17 @@ import javax.inject.Inject
  */
 class TrackerEntryDataFactory @Inject constructor() {
 
-    fun makeTrackerEntryDataFor(trackerEntryData: TrackerDataEntry?,
-                                coin: CoinListItem?,
-                                exchange: String?,
-                                quantity: String?,
-                                price: String?,
-                                fees: String?,
-                                date: String,
-                                notes: String?,
-                                type: String
+    // Internal Functions
+
+    internal fun makeTrackerEntryDataFor(trackerEntryData: TrackerDataEntry?,
+                                         coin: CoinListItem?,
+                                         exchange: String?,
+                                         quantity: String?,
+                                         price: String?,
+                                         fees: String?,
+                                         date: String,
+                                         notes: String?,
+                                         type: String
     ): TrackerDataEntry? {
         coin ?: return null
         val quantityInput = !quantity.isNullOrBlank()
@@ -43,6 +45,8 @@ class TrackerEntryDataFactory @Inject constructor() {
         trackerEntry.transactions.add(transaction)
         return trackerEntry
     }
+
+    // Private Functions
 
     private fun getQuantityForType(type: String, quantity: String?): String {
         quantity ?: return "0"

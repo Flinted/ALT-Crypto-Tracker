@@ -12,7 +12,9 @@ import javax.inject.Inject
  */
 class SummaryFactory @Inject constructor() {
 
-    fun makeSummaryFor(data: List<TrackerListItem>): Summary {
+    // Internal Functions
+
+    internal fun makeSummaryFor(data: List<TrackerListItem>): Summary {
         if (data.isEmpty()) {
             return makeEmptySummary()
         }
@@ -32,6 +34,13 @@ class SummaryFactory @Inject constructor() {
                 data)
     }
 
+    internal fun makeEmptySummary(): Summary {
+        val zero = BigDecimal.ZERO
+        return Summary(zero, zero, zero, zero, zero, zero, mutableListOf())
+    }
+
+    // Private Functions
+
     private fun getAmountSoldFiat(data: List<TrackerListItem>): BigDecimal {
         return data.fold(BigDecimal.ZERO) { acc, entry ->
             acc.add(entry.amountSold)
@@ -44,13 +53,8 @@ class SummaryFactory @Inject constructor() {
         }
     }
 
-    internal fun makeEmptySummary(): Summary {
-        val zero = BigDecimal.ZERO
-        return Summary(zero, zero, zero, zero, zero, zero, mutableListOf())
-    }
-
     private fun calculatePercentageChange(initialValue: BigDecimal, currentValue: BigDecimal): BigDecimal {
-        if(initialValue == BigDecimal.ZERO) {
+        if (initialValue == BigDecimal.ZERO) {
             return BigDecimal.ZERO
         }
         val difference = currentValue.minus(initialValue)

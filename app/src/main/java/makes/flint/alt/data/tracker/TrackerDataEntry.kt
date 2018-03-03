@@ -12,16 +12,22 @@ import java.util.*
  */
 open class TrackerDataEntry constructor() : RealmObject(), RealmDeletable {
 
+    // Properties
+
     @PrimaryKey
     internal var id = UUID.randomUUID().toString()
     internal lateinit var symbol: String
     internal lateinit var name: String
     internal var transactions: RealmList<TrackerDataTransaction> = RealmList()
 
+    // Lifecycle
+
     constructor(symbol: String, name: String) : this() {
         this.symbol = symbol
         this.name = name
     }
+
+    // Overrides
 
     override fun nestedDeleteFromRealm() {
         var count = transactions.size - 1

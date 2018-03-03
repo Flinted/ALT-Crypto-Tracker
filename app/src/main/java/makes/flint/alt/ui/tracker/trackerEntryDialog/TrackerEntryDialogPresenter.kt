@@ -14,7 +14,11 @@ class TrackerEntryDialogPresenter @Inject constructor(private var dataController
                                                       private var trackerItemFactory: TrackerItemFactory)
     : BasePresenter<TrackerEntryDialogContractView>(), TrackerEntryDialogContractPresenter {
 
+    // Properties
+
     private lateinit var trackerEntry: TrackerListItem
+
+    // Lifecycle
 
     override fun initialise(entry: TrackerListItem) {
         this.trackerEntry = entry
@@ -25,6 +29,8 @@ class TrackerEntryDialogPresenter @Inject constructor(private var dataController
     }
 
     override fun initialise() {}
+
+    // Overrides
 
     override fun deleteCurrentEntry() {
         val id = trackerEntry.id

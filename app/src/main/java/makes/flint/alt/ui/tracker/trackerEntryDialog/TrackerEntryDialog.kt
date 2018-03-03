@@ -4,12 +4,9 @@ import android.app.AlertDialog
 import android.content.DialogInterface
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import makes.flint.alt.R
 import makes.flint.alt.base.BaseDialogFragment
 import makes.flint.alt.data.trackerListItem.TrackerListItem
@@ -33,20 +30,12 @@ class TrackerEntryDialog : BaseDialogFragment(), TrackerEntryDialogContractView 
         }
     }
 
-    // View Bindings
-    private lateinit var deleteButton: ImageView
-    private lateinit var coinName: TextView
-    private lateinit var coinSymbol: TextView
-    private lateinit var currentAmount: TextView
-    private lateinit var currentValueUSD: TextView
-    private lateinit var currentValueBTC: TextView
-    private lateinit var percentageChange: TextView
-    private lateinit var transactionsList: RecyclerView
-    private lateinit var trackerEntryDialogPresenter: TrackerEntryDialogContractPresenter
-
-    // Private properties
+    // Properties
+    private lateinit var views: TrackerEntryDialogViewHolder
     private lateinit var entry: TrackerListItem
     private lateinit var transactionsListAdapter: TransactionsListAdapter
+    private lateinit var trackerEntryDialogPresenter: TrackerEntryDialogContractPresenter
+
 
     // RX Actions
     private var entryDeleted: PublishSubject<Boolean> = PublishSubject.create()
@@ -65,7 +54,7 @@ class TrackerEntryDialog : BaseDialogFragment(), TrackerEntryDialogContractView 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val view = inflater?.inflate(R.layout.dialog_tracker_entry, container)
         view ?: return super.onCreateView(inflater, container, savedInstanceState)
-        bindViews(view)
+        this.views = TrackerEntryDialogViewHolder(view)
         trackerEntryDialogPresenter.initialise(entry)
         return view
     }
@@ -75,33 +64,22 @@ class TrackerEntryDialog : BaseDialogFragment(), TrackerEntryDialogContractView 
         dialog.window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
     }
 
-    private fun bindViews(view: View) {
-        this.deleteButton = view.findViewById(R.id.dialog_tracker_delete)
-        this.coinName = view.findViewById(R.id.dialog_tracker_coin_name)
-        this.coinSymbol = view.findViewById(R.id.dialog_tracker_coin_symbol)
-        this.currentAmount = view.findViewById(R.id.dialog_tracker_number_owned)
-        this.currentValueUSD = view.findViewById(R.id.dialog_tracker_current_value_USD)
-        this.currentValueBTC = view.findViewById(R.id.dialog_tracker_current_value_BTC)
-        this.transactionsList = view.findViewById(R.id.dialog_tracker_transactions_recycler)
-        this.percentageChange = view.findViewById(R.id.dialog_tracker_percentage_change)
-    }
-
-    // Public functions
+    // Overrides
 
     override fun displayTrackerEntry(trackerEntry: TrackerListItem) {
-        coinName.text = trackerEntry.name
-        coinSymbol.text = trackerEntry.symbolFormatted
-        currentAmount.text = trackerEntry.numberOwnedFormatted
-        currentValueUSD.text = trackerEntry.currentPriceUSDFormatted
-        currentValueBTC.text = trackerEntry.currentPriceBTCFormatted
-        percentageChange.text = trackerEntry.percentageChangeFormatted
+        views.coinName.text = trackerEntry.name
+        views.coinSymbol.text = trackerEntry.symbolFormatted
+        views.currentAmount.text = trackerEntry.numberOwnedFormatted
+        views.currentValueUSD.text = trackerEntry.currentPriceUSDFormatted
+        views.currentValueBTC.text = trackerEntry.currentPriceBTCFormatted
+        views.percentageChange.text = trackerEntry.percentageChangeFormatted
     }
 
     override fun initialiseTransactionsList(transactions: MutableList<TrackerTransaction>) {
         transactionsListAdapter = TransactionsListAdapter(getPresenterComponent())
         val layoutManager = LinearLayoutManager(activity)
-        transactionsList.layoutManager = layoutManager
-        transactionsList.adapter = transactionsListAdapter
+        views.transactionsList.layoutManager = layoutManager
+        views.transactionsList.adapter = transactionsListAdapter
         transactionsListAdapter.transactionEntries = transactions
     }
 
@@ -116,7 +94,7 @@ class TrackerEntryDialog : BaseDialogFragment(), TrackerEntryDialogContractView 
 
     override fun initialiseDeleteButton() {
         val listener = makeDeleteDialogListener()
-        deleteButton.setOnClickListener {
+        views.deleteButton.setOnClickListener {
             val dialog = AlertDialog.Builder(activity)
             dialog.apply {
                 setMessage("This will delete ALL transactions for this asset irreversibly. Are you sure?")
@@ -125,15 +103,6 @@ class TrackerEntryDialog : BaseDialogFragment(), TrackerEntryDialogContractView 
                 setCancelable(false)
             }.create()
             dialog.show()
-        }
-    }
-
-    private fun makeDeleteDialogListener(): DialogInterface.OnClickListener {
-        return DialogInterface.OnClickListener { _, choice ->
-            when (choice) {
-                DialogInterface.BUTTON_POSITIVE -> trackerEntryDialogPresenter.deleteCurrentEntry()
-                else -> return@OnClickListener
-            }
         }
     }
 
@@ -150,5 +119,16 @@ class TrackerEntryDialog : BaseDialogFragment(), TrackerEntryDialogContractView 
 
     override fun showError(stringId: Int?) {
         ErrorHandler.showError(activity, stringId)
+    }
+
+    // Private Functions
+
+    private fun makeDeleteDialogListener(): DialogInterface.OnClickListener {
+        return DialogInterface.OnClickListener { _, choice ->
+            when (choice) {
+                DialogInterface.BUTTON_POSITIVE -> trackerEntryDialogPresenter.deleteCurrentEntry()
+                else -> return@OnClickListener
+            }
+        }
     }
 }

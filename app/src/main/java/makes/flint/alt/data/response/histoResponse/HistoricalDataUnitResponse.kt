@@ -8,24 +8,26 @@ import com.google.gson.annotations.SerializedName
  */
 class HistoricalDataUnitResponse {
 
+    // Properties
+
     @SerializedName("time")
-    var time: Float? = null
+    internal var time: Float? = null
 
     @SerializedName("open")
-    var open: Float? = null
+    internal var open: Float? = null
 
     @SerializedName("close")
-    var close: Float? = null
+    internal var close: Float? = null
 
     @SerializedName("high")
-    var high: Float? = null
+    internal var high: Float? = null
 
     @SerializedName("low")
-    var low: Float? = null
+    internal var low: Float? = null
 
     @SerializedName("volumeFrom")
-    private var volumeFrom: Float? = null
+    internal var volumeFrom: Float? = null
 
     @SerializedName("volumeTo")
-    private var volumeTo: Float? = null
+    internal var volumeTo: Float? = null
 }

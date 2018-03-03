@@ -22,43 +22,35 @@ import rx.subjects.PublishSubject
 class CoinListAdapter(presenterComponent: PresenterComponent)
     : RecyclerView.Adapter<RecyclerView.ViewHolder>(), CoinListAdapterContractView, Filterable {
 
-    // Public Properties
+    // Properties
     override var coinList: MutableList<CoinListItem> = mutableListOf()
         set(value) {
             field = value
             filteredCoins = coinList
         }
 
-    // Internal Properties
     internal var filteredCoins = coinList
         set(value) {
             field = value
             notifyDataSetChanged()
         }
 
-    // Private Properties
     private var presenter = presenterComponent.provideCoinListAdapterPresenter()
-
     private var indicatorCustomizer = IndicatorCustomiser()
 
     // RX Actions
     private val coinSelected: PublishSubject<String> = PublishSubject.create()
+
     override fun onCoinSelected() = coinSelected.asObservable()
 
     private val sortTypeChanged: PublishSubject<Int> = PublishSubject.create()
     override fun onSortTypeChanged() = sortTypeChanged.asObservable()
-
-    override fun emitSortTypeChanged(sortId: Int) {
-        sortTypeChanged.onNext(sortId)
-    }
 
     // Lifecycle
     init {
         presenter.attachView(this)
         presenter.initialise()
     }
-
-    override fun getItemCount() = filteredCoins.size
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder {
         val layoutInflater = LayoutInflater.from(parent?.context)
@@ -85,6 +77,48 @@ class CoinListAdapter(presenterComponent: PresenterComponent)
         }
         setDogeIcons(coinListViewHolder)
     }
+
+    override fun onDestroy() = presenter.onDestroy()
+
+    // Overrides
+
+    override fun emitSortTypeChanged(sortId: Int) {
+        sortTypeChanged.onNext(sortId)
+    }
+
+    override fun getItemCount() = filteredCoins.size
+
+    override fun showLoading() {}
+
+    override fun hideLoading() {}
+
+    override fun showError(stringId: Int?) {}
+
+    override fun filterFor(input: String) = filter.filter(input)
+
+    override fun getFilter(): Filter {
+        val callback = makeCoinFilterCallback()
+        return CoinFilter(coinList, callback)
+    }
+
+    private fun makeCoinFilterCallback(): CoinFilterCallback {
+        return object : CoinFilterCallback {
+            override fun publishResults(filteredList: MutableList<CoinListItem>) {
+                filteredCoins = filteredList
+            }
+        }
+    }
+
+    override fun itemChangedAt(position: Int) = notifyItemChanged(position)
+
+    override fun getItemViewType(position: Int): Int {
+        return when {
+            filteredCoins[position].isFavourite -> 2
+            else -> super.getItemViewType(position)
+        }
+    }
+
+    // Private Functions
 
     private fun setDogeIcons(holder: CoinListViewHolder) {
         val context = holder.card.context
@@ -137,38 +171,6 @@ class CoinListAdapter(presenterComponent: PresenterComponent)
         favourite.setOnClickListener {
             val isFavourite = it.tag == "checked"
             presenter.onFavouriteStateChanged(isFavourite, coin, position)
-        }
-    }
-
-    override fun showLoading() {}
-
-    override fun hideLoading() {}
-
-    override fun showError(stringId: Int?) {}
-
-    override fun filterFor(input: String) = filter.filter(input)
-
-    override fun getFilter(): Filter {
-        val callback = makeCoinFilterCallback()
-        return CoinFilter(coinList, callback)
-    }
-
-    private fun makeCoinFilterCallback(): CoinFilterCallback {
-        return object : CoinFilterCallback {
-            override fun publishResults(filteredList: MutableList<CoinListItem>) {
-                filteredCoins = filteredList
-            }
-        }
-    }
-
-    override fun itemChangedAt(position: Int) = notifyItemChanged(position)
-
-    override fun onDestroy() = presenter.onDestroy()
-
-    override fun getItemViewType(position: Int): Int {
-        return when {
-            filteredCoins[position].isFavourite -> 2
-            else -> super.getItemViewType(position)
         }
     }
 }

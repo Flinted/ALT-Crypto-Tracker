@@ -7,10 +7,12 @@ import com.stephentuso.welcome.WelcomeConfiguration
 import makes.flint.alt.R
 
 /**
- * OnboardActivity
- * Copyright © 2018 Intelligent Loyalty Limited. All rights reserved.
+ * OnBoardActivity
+ * Copyright © 2018 Flint Makes. All rights reserved.
  */
-class OnboardActivity : WelcomeActivity() {
+class OnBoardActivity : WelcomeActivity() {
+
+    // Lifecycle
     override fun configuration(): WelcomeConfiguration {
         return WelcomeConfiguration.Builder(this)
                 .defaultBackgroundColor(R.color.colorPrimary)

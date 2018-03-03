@@ -18,10 +18,13 @@ import java.util.*
 
 open class TimeStamp() : RealmObject(), RealmDeletable {
 
+    // Properties
+
     @PrimaryKey
     internal var id = UUID.randomUUID().toString()
-
     internal var timeStampISO8601: String
+
+    // Lifecycle
 
     constructor(date: String) : this() {
         val localDate = LocalDate.parse(date, DateFormatter.DATE)
@@ -34,13 +37,17 @@ open class TimeStamp() : RealmObject(), RealmDeletable {
         this.timeStampISO8601 = timeNow.format(DateTimeFormatter.ISO_OFFSET_DATE_TIME)
     }
 
+    // Overrides
+
+    override fun nestedDeleteFromRealm() {
+        this.deleteFromRealm()
+    }
+
+    // Internal Functions
+
     internal fun shouldReSync(): Boolean {
         val timeNow = ZonedDateTime.now()
         val syncThreshold = ZonedDateTime.parse(timeStampISO8601).plusMinutes(POHSettings.refreshGap)
         return timeNow.isAfter(syncThreshold)
-    }
-
-    override fun nestedDeleteFromRealm() {
-        this.deleteFromRealm()
     }
 }

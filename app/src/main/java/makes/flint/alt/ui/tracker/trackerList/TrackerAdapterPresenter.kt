@@ -12,12 +12,23 @@ import javax.inject.Inject
 class TrackerAdapterPresenter @Inject constructor(private var dataController: DataController
 ) : BasePresenter<TrackerAdapterContractView>(), TrackerAdapterContractPresenter {
 
+    // Properties
+
     private var trackerItemSubscription: Subscription? = null
     private var summarySubscription: Subscription? = null
 
+    // Lifecycle
     override fun initialise() {
         subscribeToCache()
     }
+
+    fun onDestroy() {
+        trackerItemSubscription = null
+        summarySubscription = null
+        detachView()
+    }
+
+    // Private Functions
 
     private fun subscribeToCache() {
         trackerItemSubscription = dataController.trackerRefreshSubscriber().subscribe {
@@ -30,11 +41,5 @@ class TrackerAdapterPresenter @Inject constructor(private var dataController: Da
             view?.didHaveEntries()
             view?.hideLoading()
         }
-    }
-
-    fun onDestroy() {
-        trackerItemSubscription = null
-        summarySubscription = null
-        detachView()
     }
 }

@@ -9,6 +9,8 @@ import java.math.BigDecimal
  * Copyright © 2018 Flint Makes. All rights reserved.
  */
 interface TrackerTransaction {
+
+    // Properties
     var dataId: String
     var purchaseDate: TimeStamp
     var loggedDate: TimeStamp
@@ -20,6 +22,7 @@ interface TrackerTransaction {
     var exchange: String?
     var notes: String?
 
+    // Functions
     fun transactionTotal(): BigDecimal {
         return quantity.multiply(pricePaid).add(fees)
     }

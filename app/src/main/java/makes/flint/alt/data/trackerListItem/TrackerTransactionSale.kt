@@ -5,9 +5,11 @@ import java.math.BigDecimal
 
 /**
  * TrackerTransactionSale
- * Copyright © 2018 Intelligent Loyalty Limited. All rights reserved.
+ * Copyright © 2018 Flint Makes. All rights reserved.
  */
-class TrackerTransactionSale(data: TrackerDataTransaction): TrackerTransaction {
+class TrackerTransactionSale(data: TrackerDataTransaction) : TrackerTransaction {
+
+    // Properties
 
     override var dataId = data.id
     override var purchaseDate = data.purchaseDate

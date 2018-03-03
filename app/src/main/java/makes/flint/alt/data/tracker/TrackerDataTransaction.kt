@@ -16,6 +16,8 @@ const val TRANSACTION_MINED = "TransactionMined"
 
 open class TrackerDataTransaction : RealmObject(), RealmDeletable {
 
+    // Properties
+
     @PrimaryKey
     internal var id = UUID.randomUUID().toString()
     internal lateinit var transactionType: String
@@ -27,6 +29,8 @@ open class TrackerDataTransaction : RealmObject(), RealmDeletable {
     internal var lastEditedDate: TimeStamp? = null
     internal var exchange: String? = null
     internal var notes: String? = null
+
+    // Overrides
 
     override fun nestedDeleteFromRealm() {
         purchaseDate.nestedDeleteFromRealm()

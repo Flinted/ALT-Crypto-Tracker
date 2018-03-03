@@ -12,11 +12,16 @@ import javax.inject.Inject
 class TransactionsAdapterPresenter @Inject constructor(private var dataController: DataController) :
         BasePresenter<TransactionAdapterContractView>(), TransactionAdapterContractPresenter {
 
+    // Lifecycle
+
+    override fun initialise() {
+    }
+
+    // Overrides
+
     override fun deleteCurrentEntry(entry: TrackerTransaction, position: Int) {
         val idToDelete = entry.dataId
         dataController.deleteTransactionFor(idToDelete)
         view?.successfullyDeletedTransaction(entry)
-    }
-    override fun initialise() {
     }
 }

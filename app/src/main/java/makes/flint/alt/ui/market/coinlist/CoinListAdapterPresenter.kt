@@ -14,8 +14,17 @@ import javax.inject.Inject
  */
 class CoinListAdapterPresenter @Inject constructor(private var dataController: DataController) :
         CoinListAdapterContractPresenter {
+
+    // Properties
+
     private var cacheSubscription: Subscription? = null
     private var adapter: CoinListAdapterContractView? = null
+
+    // Lifecycle
+
+    override fun initialise() {
+        subscribeToCache()
+    }
 
     override fun attachView(view: BaseContractView) {
         this.adapter = view as CoinListAdapterContractView
@@ -30,19 +39,7 @@ class CoinListAdapterPresenter @Inject constructor(private var dataController: D
         detachView()
     }
 
-    private fun subscribeToCache() {
-        cacheSubscription = dataController.coinRefreshSubscriber().subscribe {
-            onGetCoinListSuccess(it)        }
-    }
-
-    override fun initialise() {
-        subscribeToCache()
-    }
-
-    private fun onGetCoinListSuccess(coinListItems: List<CoinListItem>) {
-        adapter?.coinList = coinListItems.toMutableList()
-        adapter?.emitSortTypeChanged(POHSettings.sortPreference)
-    }
+    // Overrides
 
     override fun onFavouriteStateChanged(isFavourite: Boolean, coin: CoinListItem, position: Int) {
         val symbol = coin.symbol
@@ -56,6 +53,8 @@ class CoinListAdapterPresenter @Inject constructor(private var dataController: D
         adapter?.itemChangedAt(position)
     }
 
+    // Private Functions
+
     private fun addCoinAsFavourite(symbol: String) {
         val favouriteCoin = FavouriteCoin(symbol)
         dataController.storeFavouriteCoin(favouriteCoin)
@@ -66,5 +65,16 @@ class CoinListAdapterPresenter @Inject constructor(private var dataController: D
         favouriteCoin?.let {
             dataController.deleteFavouriteCoin(it)
         }
+    }
+
+    private fun subscribeToCache() {
+        cacheSubscription = dataController.coinRefreshSubscriber().subscribe {
+            onGetCoinListSuccess(it)
+        }
+    }
+
+    private fun onGetCoinListSuccess(coinListItems: List<CoinListItem>) {
+        adapter?.coinList = coinListItems.toMutableList()
+        adapter?.emitSortTypeChanged(POHSettings.sortPreference)
     }
 }

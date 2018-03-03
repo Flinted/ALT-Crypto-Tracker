@@ -17,18 +17,13 @@ class AddCoinDialogPresenter @Inject constructor(private val dataController: Dat
                                                  private val trackerEntryDataFactory: TrackerEntryDataFactory
 ) : AddCoinDialogContractPresenter {
 
+    // Properties
+
     private var dialog: AddCoinDialogContractView? = null
     private var selectedCoin: CoinListItem? = null
-
     private var coinListSubscriber: Subscription? = null
 
-    override fun attachView(view: AddCoinDialogContractView) {
-        this.dialog = view
-    }
-
-    override fun detachView() {
-        this.dialog = null
-    }
+    // Lifecycle
 
     override fun initialise() {
         initialiseCoinListSubscriber()
@@ -38,11 +33,15 @@ class AddCoinDialogPresenter @Inject constructor(private val dataController: Dat
         dataController.refreshRequested()
     }
 
-    private fun initialiseCoinListSubscriber() {
-        this.coinListSubscriber = dataController.coinRefreshSubscriber().subscribe {
-            dialog?.initialiseCoinAutoSuggest(it)
-        }
+    override fun attachView(view: AddCoinDialogContractView) {
+        this.dialog = view
     }
+
+    override fun detachView() {
+        this.dialog = null
+    }
+
+    // Overrides
 
     override fun updateSelectedCoin(coin: CoinListItem?) {
         this.selectedCoin = coin
@@ -90,6 +89,14 @@ class AddCoinDialogPresenter @Inject constructor(private val dataController: Dat
         val bigDecimalFees = if (fees.isBlank()) BigDecimal.ZERO else BigDecimal(fees)
         updatePurchasePrice(bigDecimalQuantity, price, bigDecimalFees)
         updateCurrentPrice(bigDecimalQuantity)
+    }
+
+    // Private Functions
+
+    private fun initialiseCoinListSubscriber() {
+        this.coinListSubscriber = dataController.coinRefreshSubscriber().subscribe {
+            dialog?.initialiseCoinAutoSuggest(it)
+        }
     }
 
     private fun updateCurrentPrice(bigDecimalQuantity: BigDecimal) {

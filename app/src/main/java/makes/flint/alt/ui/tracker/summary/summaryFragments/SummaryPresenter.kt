@@ -11,20 +11,27 @@ import javax.inject.Inject
  */
 class SummaryPresenter @Inject constructor(private val dataController: DataController) : BasePresenter<SummaryContractView>(),
         SummaryContractPresenter {
+
+    // Properties
+
     private var summarySubscription: Subscription? = null
+
+    // Lifecycle
 
     override fun initialise() {
         initialiseSummarySubscriber()
     }
 
+    override fun onDestroy() {
+        this.summarySubscription?.unsubscribe()
+        this.summarySubscription = null
+    }
+
+    // Private Functions
+
     private fun initialiseSummarySubscriber() {
         this.summarySubscription = dataController.summaryRefreshSubscriber().subscribe {
             view?.updateForSummary(it)
         }
-    }
-
-    override fun onDestroy() {
-        this.summarySubscription?.unsubscribe()
-        this.summarySubscription = null
     }
 }

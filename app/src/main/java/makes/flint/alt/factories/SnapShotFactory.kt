@@ -8,17 +8,21 @@ import javax.inject.Inject
 
 /**
  * SnapShotFactory
- * Copyright © 2018 Intelligent Loyalty Limited. All rights reserved.
+ * Copyright © 2018 Flint Makes. All rights reserved.
  */
 class SnapShotFactory @Inject constructor() {
 
-    fun makeSnapShot(trackerEntries: List<TrackerListItem>): SnapShot {
+    // Internal Functions
+
+    internal fun makeSnapShot(trackerEntries: List<TrackerListItem>): SnapShot {
         val snapShotEntries = makeSnapShotEntries(trackerEntries)
         val totalUSD = makeTotalUSD(snapShotEntries)
         val totalBTC = makeTotalBTC(snapShotEntries)
         val snapShot = SnapShot(totalUSD, totalBTC, snapShotEntries)
         return snapShot
     }
+
+    // Private Functions
 
     private fun makeTotalUSD(snapShotEntries: List<SnapShotEntry>): BigDecimal {
         return snapShotEntries.fold(BigDecimal.ZERO, { acc, snapShot ->

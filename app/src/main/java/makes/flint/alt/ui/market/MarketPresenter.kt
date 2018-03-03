@@ -15,11 +15,13 @@ import javax.inject.Inject
 class MarketPresenter @Inject constructor(private var dataController: DataController)
     : BasePresenter<MarketContractView>(), MarketContractPresenter {
 
-    // Private Properties
+    // Properties
+
     private var marketDataSubscriber: Subscription? = null
     private var lastSyncSubscriber: Subscription? = null
 
     // Lifecycle
+
     override fun initialise() {
         subscribeForCacheRefresh()
         view?.initialiseListAdapter()
@@ -30,16 +32,28 @@ class MarketPresenter @Inject constructor(private var dataController: DataContro
         view?.hideProgressSpinner()
     }
 
-    override fun refresh() {
-        dataController.refreshRequested()
-    }
-
     override fun onDestroy() {
         lastSyncSubscriber?.unsubscribe()
         marketDataSubscriber?.unsubscribe()
         lastSyncSubscriber = null
         marketDataSubscriber = null
         detachView()
+    }
+
+    // Overrides
+
+    override fun refresh() {
+        dataController.refreshRequested()
+    }
+
+    override fun onCoinSelected(coinSymbol: String) {
+        view?.showDialogForCoin(coinSymbol)
+    }
+
+    // Private Functions
+
+    private fun updateMarketSummary(marketSummary: MarketSummaryResponse) {
+        view?.updateMarketSummary(marketSummary)
     }
 
     private fun subscribeForCacheRefresh() {
@@ -50,16 +64,8 @@ class MarketPresenter @Inject constructor(private var dataController: DataContro
         lastSyncSubscriber = dataController.lastSyncSubscriber().subscribe {
             val timeString = it.timeStampISO8601
             val timeStamp = ZonedDateTime.parse(timeString)
-            val formattedtime = timeStamp.format( DateFormatter.TIME)
+            val formattedtime = timeStamp.format(DateFormatter.TIME)
             view?.updateLastSyncTime(formattedtime)
         }
-    }
-
-    override fun onCoinSelected(coinSymbol: String) {
-        view?.showDialogForCoin(coinSymbol)
-    }
-
-    private fun updateMarketSummary(marketSummary: MarketSummaryResponse) {
-        view?.updateMarketSummary(marketSummary)
     }
 }

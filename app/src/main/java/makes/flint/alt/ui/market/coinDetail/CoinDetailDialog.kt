@@ -21,6 +21,9 @@ const val BAR_CHART = 1
 const val CANDLE_CHART = 2
 
 class CoinDetailDialog : BaseDialogFragment(), CoinDetailContractView {
+
+    // Static Initialiser
+
     companion object {
         fun getInstanceFor(coinSymbol: String): CoinDetailDialog {
             val coinDetail = CoinDetailDialog()
@@ -31,8 +34,12 @@ class CoinDetailDialog : BaseDialogFragment(), CoinDetailContractView {
         }
     }
 
+    // Properties
+
     private lateinit var coinDetailPresenter: CoinDetailContractPresenter
     private lateinit var views: CoinDetailDialogViewHolder
+
+    // Lifecycle
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,6 +63,8 @@ class CoinDetailDialog : BaseDialogFragment(), CoinDetailContractView {
         super.onStart()
         dialog.window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
     }
+
+    // Overrides
 
     override fun displayBarChart(dataToDisplay: Array<HistoricalDataUnitResponse>) {
         val factory = HistoricalDataChartFactory(dataToDisplay, "Data")
@@ -104,12 +113,6 @@ class CoinDetailDialog : BaseDialogFragment(), CoinDetailContractView {
         checkDogeMuchWow(coin?.symbol)
     }
 
-    private fun checkDogeMuchWow(coinSymbol: String?) {
-        if (coinSymbol == "DOGE") {
-            views.priceBTCTitle.text = getString(R.string.dialog_coinDetail_title_doge_price)
-            views.priceBTC.text = getString(R.string.dialog_coinDetail_placeholder_doge_price)
-        }
-    }
 
     override fun initialiseDataSelectListener() {
         views.selector.setOnCheckedChangeListener { _, selectedId ->
@@ -141,4 +144,13 @@ class CoinDetailDialog : BaseDialogFragment(), CoinDetailContractView {
     }
 
     override fun showError(stringId: Int?) = ErrorHandler.showError(activity, stringId)
+
+    // Private Functions
+
+    private fun checkDogeMuchWow(coinSymbol: String?) {
+        if (coinSymbol == "DOGE") {
+            views.priceBTCTitle.text = getString(R.string.dialog_coinDetail_title_doge_price)
+            views.priceBTC.text = getString(R.string.dialog_coinDetail_placeholder_doge_price)
+        }
+    }
 }
