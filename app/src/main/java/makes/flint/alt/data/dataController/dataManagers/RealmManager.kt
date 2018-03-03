@@ -15,40 +15,44 @@ import javax.inject.Inject
  */
 class RealmManager @Inject constructor() : DataSource {
 
+    // Properties
+
     private var realm = Realm.getDefaultInstance()
 
-    fun open() {
+    // Internal Functions
+
+    internal fun open() {
         if (realm.isClosed) {
             realm = Realm.getDefaultInstance()
         }
     }
 
-    fun close() {
+    internal fun close() {
         if (!realm.isClosed) {
             realm.close()
         }
     }
 
-    fun beginTransaction() {
+    internal fun beginTransaction() {
         realm.beginTransaction()
     }
 
-    fun commitTransaction() {
+    internal fun commitTransaction() {
         realm.commitTransaction()
     }
 
-    fun cancelTransaction() {
+    internal fun cancelTransaction() {
         realm.cancelTransaction()
     }
 
-    fun <T : RealmObject> copyOrUpdate(itemToCopy: T) {
+    internal fun <T : RealmObject> copyOrUpdate(itemToCopy: T) {
         open()
         realm.executeTransaction {
             realm.copyToRealmOrUpdate(itemToCopy)
         }
     }
 
-    fun getFavouriteCoins(): MutableList<FavouriteCoin> {
+    internal fun getFavouriteCoins(): MutableList<FavouriteCoin> {
         open()
         val results = realm.where(FavouriteCoin::class.java).findAll()
         results?.let {
@@ -57,21 +61,21 @@ class RealmManager @Inject constructor() : DataSource {
         return mutableListOf()
     }
 
-    fun getFavouriteCoin(symbol: String): FavouriteCoin? {
+    internal fun getFavouriteCoin(symbol: String): FavouriteCoin? {
         open()
         return realm.where(FavouriteCoin::class.java)
                 .equalTo("symbol", symbol)
                 .findFirst()
     }
 
-    fun <T : RealmObject> remove(itemToRemove: T) {
+    internal fun <T : RealmObject> remove(itemToRemove: T) {
         open()
         realm.executeTransaction {
             itemToRemove.deleteFromRealm()
         }
     }
 
-    fun getCopyOfTrackerEntry(coinName: String, symbol: String): TrackerDataEntry? {
+    internal fun getCopyOfTrackerEntry(coinName: String, symbol: String): TrackerDataEntry? {
         open()
         val result = realm.where(TrackerDataEntry::class.java)
                 .equalTo("name", coinName)
@@ -81,7 +85,7 @@ class RealmManager @Inject constructor() : DataSource {
         return realm.copyFromRealm(result)
     }
 
-    fun getAllTrackerDataEntries(): List<TrackerDataEntry> {
+    internal fun getAllTrackerDataEntries(): List<TrackerDataEntry> {
         open()
         val results = realm.where(TrackerDataEntry::class.java)
                 .findAll()
@@ -89,7 +93,7 @@ class RealmManager @Inject constructor() : DataSource {
         return realm.copyFromRealm(results)
     }
 
-    fun deleteTrackerEntryDataFor(id: String) {
+    internal fun deleteTrackerEntryDataFor(id: String) {
         open()
         realm.executeTransaction {
             val entry = realm.where(TrackerDataEntry::class.java)
@@ -99,7 +103,7 @@ class RealmManager @Inject constructor() : DataSource {
         }
     }
 
-    fun deleteTransactionFor(id: String) {
+    internal fun deleteTransactionFor(id: String) {
         open()
         realm.executeTransaction {
             val entry = realm.where(TrackerDataTransaction::class.java)
@@ -109,11 +113,11 @@ class RealmManager @Inject constructor() : DataSource {
         }
     }
 
-    fun getSettings(): SettingsData? {
+    internal fun getSettings(): SettingsData? {
         return realm.where(SettingsData::class.java).findFirst()
     }
 
-    fun updateAsFirstLoadComplete() {
+    internal fun updateAsFirstLoadComplete() {
         val settings = getSettings()
         realm.executeTransaction {
             settings?.firstLoad = false

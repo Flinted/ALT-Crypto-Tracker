@@ -27,6 +27,8 @@ class PriceData(coinResponse: CoinResponse) {
     internal val priceBTCFormatted = priceBTCFormatted()
     internal val marketCapFormatted = marketCapFormatted()
 
+    // Private Functions
+
     private fun priceUSDFormatted(): String {
         priceUSD ?: return "No Price"
         val roundingMode = POHSettings.roundingMode
@@ -39,19 +41,12 @@ class PriceData(coinResponse: CoinResponse) {
         return NumberFormatter.formatCurrency(roundedNumber)
     }
 
-    // Private Functions
     private fun createStabilisedPrice(): String {
         marketCapUSD ?: return NO_INFORMATION
         val billion = BigDecimal(ONE_BILLION)
         val billionCoinPrice = marketCapUSD.divide(billion)
         val roundedBillionCoinPrice = billionCoinPrice.setScale(2, RoundingMode.HALF_EVEN)
         return NumberFormatter.formatCurrency(roundedBillionCoinPrice, 2, 2)
-    }
-
-    companion object {
-        val decimal3Threshold = BigDecimal(THRESHOLD_3_DECIMAL)
-        val decimal4Threshold = BigDecimal(THRESHOLD_4_DECIMAL)
-        val decimal5Threshold = BigDecimal(THRESHOLD_5_DECIMAL)
     }
 
     private fun priceBTCFormatted(): String {
@@ -66,5 +61,13 @@ class PriceData(coinResponse: CoinResponse) {
             return NumberFormatter.formatCurrency(it, 0, 0)
         }
         return "Unknown"
+    }
+
+    // Companion
+
+    companion object {
+        val decimal3Threshold = BigDecimal(THRESHOLD_3_DECIMAL)
+        val decimal4Threshold = BigDecimal(THRESHOLD_4_DECIMAL)
+        val decimal5Threshold = BigDecimal(THRESHOLD_5_DECIMAL)
     }
 }

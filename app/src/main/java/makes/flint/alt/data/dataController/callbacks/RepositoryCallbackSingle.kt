@@ -5,6 +5,9 @@ package makes.flint.alt.data.dataController.callbacks
  * Copyright © 2018 Flint Makes. All rights reserved.
  */
 interface RepositoryCallbackSingle<in T> {
+
+    // Functions
+
     fun onError(error: Throwable)
     fun onRetrieve(refreshed: Boolean, apiResolution: Int, chartResolution: Int, result: T)
 }

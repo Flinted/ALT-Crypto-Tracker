@@ -11,31 +11,33 @@ import java.util.*
  */
 open class SettingsData : RealmObject() {
 
+    //Properties
+
     @PrimaryKey
     private var id = UUID.randomUUID().toString()
 
-    var currencyCode = "USD"
-    var symbol = "$"
+    internal var currencyCode = "USD"
+    internal var symbol = "$"
 
-    var firstLoad = true
-    var refreshGap = 5L
-    var exchangeFilter = "CCCAGG"
-    var syncLimit = 1000
-    var startingScreen = START_TRACKER
+    internal var firstLoad = true
+    internal var refreshGap = 5L
+    internal var exchangeFilter = "CCCAGG"
+    internal var syncLimit = 1000
+    internal var startingScreen = START_TRACKER
 
-    var defaultSort = SORT_RANK
+    internal var defaultSort = SORT_RANK
 
-    var marketUp3 = 50f
-    var marketUp2 = 15f
-    var marketUp1 = 5f
-    var marketDown1 = -5f
-    var marketDown2 = -15f
-    var marketDown3 = -50f
+    internal var marketUp3 = 50f
+    internal var marketUp2 = 15f
+    internal var marketUp1 = 5f
+    internal var marketDown1 = -5f
+    internal var marketDown2 = -15f
+    internal var marketDown3 = -50f
 
-    var trackerUp3 = 1.5f
-    var trackerUp2 = 0.5f
-    var trackerUp1 = 0.2f
-    var trackerDown1 = -0.2f
-    var trackerDown2 = -0.4f
-    var trackerDown3 = -0.6f
+    internal var trackerUp3 = 1.5f
+    internal var trackerUp2 = 0.5f
+    internal var trackerUp1 = 0.2f
+    internal var trackerDown1 = -0.2f
+    internal var trackerDown2 = -0.4f
+    internal var trackerDown3 = -0.6f
 }

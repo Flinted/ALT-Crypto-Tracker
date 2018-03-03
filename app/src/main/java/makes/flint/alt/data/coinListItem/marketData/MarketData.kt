@@ -12,8 +12,12 @@ class MarketData(twentyFourHourChange: Float,
                  sevenDayChange: Float,
                  internal val numberItems: Int) : MarketListItem {
 
+    // Properties
+
     private val twentyFourHourAverage = twentyFourHourChange / numberItems
     private val sevenDayAverage = sevenDayChange / numberItems
+
+    // Internal Functions
 
     internal fun twentyFourHourAverageFormatted(): String {
         val twentyFourHour = BigDecimal.valueOf(twentyFourHourAverage.toDouble())

@@ -34,6 +34,8 @@ open class DataController @Inject constructor(private val apiRepository: ApiRepo
     private var hasEncounteredError: PublishSubject<Throwable> = PublishSubject.create()
     internal fun getErrorSubscription() = hasEncounteredError.asObservable()
 
+    // Internal Functions
+
     internal fun coinRefreshSubscriber(): Observable<List<CoinListItem>> = cache.getCoinsSubscription()
 
     internal fun trackerRefreshSubscriber(): Observable<List<TrackerListItem>> = cache.getTrackerListSubscription()
@@ -43,6 +45,62 @@ open class DataController @Inject constructor(private val apiRepository: ApiRepo
     internal fun marketRefreshSubscriber(): Observable<MarketSummaryResponse> = cache.getMarketSubscription()
 
     internal fun lastSyncSubscriber(): Observable<TimeStamp> = cache.getSyncTimeSubscription()
+
+    internal fun storeFavouriteCoin(favouriteCoins: FavouriteCoin) = realmManager.copyOrUpdate(favouriteCoins)
+
+    internal fun getFavouriteCoin(symbol: String): FavouriteCoin? = realmManager.getFavouriteCoin(symbol)
+
+    internal fun deleteFavouriteCoin(favouriteCoin: FavouriteCoin) = realmManager.remove(favouriteCoin)
+
+    internal fun getCoinForSymbol(coinSymbol: String) = cache.coinListItems.find { it.symbol == coinSymbol }
+
+    internal fun getSettings() = realmManager.getSettings()
+
+    internal fun storeSettings(settings: SettingsData) = realmManager.copyOrUpdate(settings)
+
+    internal fun emitLastSyncTime() = cache.emitLastSyncTime()
+
+    internal fun getAllTrackerEntries() = cache.trackerListItems
+
+    internal fun getHistoricalDataFor(callback: RepositoryCallbackSingle<HistoricalDataResponse?>,
+                                      coinSymbol: String,
+                                      dataResolution: Int,
+                                      chartResolution: Int) {
+        apiRepository.getHistoricalDataFor(callback, coinSymbol, dataResolution, chartResolution)
+    }
+
+    internal fun getCopyOfTrackerEntry(coinName: String?, symbol: String?): TrackerDataEntry? {
+        coinName ?: return null
+        symbol ?: return null
+        return realmManager.getCopyOfTrackerEntry(coinName, symbol)
+    }
+
+    internal fun storeTrackerEntry(preparedEntry: TrackerDataEntry) {
+        realmManager.copyOrUpdate(preparedEntry)
+        updateTrackerEntries()
+    }
+
+    internal fun deleteTrackerEntryFor(id: String) {
+        realmManager.deleteTrackerEntryDataFor(id)
+        updateTrackerEntries()
+    }
+
+    internal fun deleteTransactionFor(idToDelete: String) {
+        realmManager.deleteTransactionFor(idToDelete)
+        updateTrackerEntries()
+    }
+
+    internal fun refreshRequested(): Boolean {
+        if (!cache.shouldReSyncData()) {
+            updateFavouriteCoins()
+            updateTrackerEntries()
+            return false
+        }
+        refreshCache()
+        return true
+    }
+
+    // Private Functions
 
     private fun updateFavouriteCoins() {
         val favouriteCoins = realmManager.getFavouriteCoins()
@@ -67,7 +125,6 @@ open class DataController @Inject constructor(private val apiRepository: ApiRepo
                 hasEncounteredError.onNext(error)
             }
         })
-
     }
 
     private fun getCoinsList() {
@@ -78,80 +135,18 @@ open class DataController @Inject constructor(private val apiRepository: ApiRepo
                     data?.toMutableList(),
                     favouriteCoins,
                     trackerEntryData)
-        }?.observeOn(AndroidSchedulers.mainThread())?.subscribe(object :
-                Subscriber<Array<SummaryCoinResponse>>() {
-            override fun onCompleted() {}
-            override fun onError(error: Throwable) {
-                println(error)
-                hasEncounteredError.onNext(error)
-            }
+        }?.observeOn(AndroidSchedulers.mainThread())
+                ?.subscribe(object : Subscriber<Array<SummaryCoinResponse>>() {
+                    override fun onCompleted() {}
+                    override fun onError(error: Throwable) {
+                        println(error)
+                        hasEncounteredError.onNext(error)
+                    }
 
-            override fun onNext(apiResponse: Array<SummaryCoinResponse>?) {
-                cache.emitData()
-                unsubscribe()
-            }
-        })
-    }
-
-    fun storeFavouriteCoin(favouriteCoins: FavouriteCoin) = realmManager.copyOrUpdate(favouriteCoins)
-
-    fun getFavouriteCoin(symbol: String): FavouriteCoin? = realmManager.getFavouriteCoin(symbol)
-
-    fun deleteFavouriteCoin(favouriteCoin: FavouriteCoin) = realmManager.remove(favouriteCoin)
-
-    fun getCoinForSymbol(coinSymbol: String) = cache.coinListItems.find { it.symbol == coinSymbol }
-
-    fun getHistoricalDataFor(callback: RepositoryCallbackSingle<HistoricalDataResponse?>,
-                             coinSymbol: String,
-                             dataResolution: Int,
-                             chartResolution: Int) {
-        apiRepository.getHistoricalDataFor(callback, coinSymbol, dataResolution, chartResolution)
-    }
-
-    fun getCopyOfTrackerEntry(coinName: String?, symbol: String?): TrackerDataEntry? {
-        coinName ?: return null
-        symbol ?: return null
-        return realmManager.getCopyOfTrackerEntry(coinName, symbol)
-    }
-
-    fun storeTrackerEntry(preparedEntry: TrackerDataEntry) {
-        realmManager.copyOrUpdate(preparedEntry)
-        updateTrackerEntries()
-    }
-
-    fun deleteTrackerEntryFor(id: String) {
-        realmManager.deleteTrackerEntryDataFor(id)
-        updateTrackerEntries()
-    }
-
-    fun deleteTransactionFor(idToDelete: String) {
-        realmManager.deleteTransactionFor(idToDelete)
-        updateTrackerEntries()
-    }
-
-    fun refreshRequested(): Boolean {
-        if (!cache.shouldReSyncData()) {
-            updateFavouriteCoins()
-            updateTrackerEntries()
-            return false
-        }
-        refreshCache()
-        return true
-    }
-
-    fun getSettings(): SettingsData? {
-        return realmManager.getSettings()
-    }
-
-    fun storeSettings(settings: SettingsData) {
-        realmManager.copyOrUpdate(settings)
-    }
-
-    fun emitLastSyncTime() {
-        cache.emitLastSyncTime()
-    }
-
-    fun getAllTrackerEntries(): List<TrackerListItem> {
-        return cache.trackerListItems
+                    override fun onNext(apiResponse: Array<SummaryCoinResponse>?) {
+                        cache.emitData()
+                        unsubscribe()
+                    }
+                })
     }
 }

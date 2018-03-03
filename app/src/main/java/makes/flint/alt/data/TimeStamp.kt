@@ -21,7 +21,7 @@ open class TimeStamp() : RealmObject(), RealmDeletable {
     // Properties
 
     @PrimaryKey
-    internal var id = UUID.randomUUID().toString()
+    var id = UUID.randomUUID().toString()
     internal var timeStampISO8601: String
 
     // Lifecycle
@@ -43,9 +43,9 @@ open class TimeStamp() : RealmObject(), RealmDeletable {
         this.deleteFromRealm()
     }
 
-    // Internal Functions
+    // Public Functions
 
-    internal fun shouldReSync(): Boolean {
+    fun shouldReSync(): Boolean {
         val timeNow = ZonedDateTime.now()
         val syncThreshold = ZonedDateTime.parse(timeStampISO8601).plusMinutes(POHSettings.refreshGap)
         return timeNow.isAfter(syncThreshold)

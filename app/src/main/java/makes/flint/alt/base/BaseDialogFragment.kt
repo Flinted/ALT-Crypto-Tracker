@@ -11,18 +11,14 @@ import makes.flint.alt.injection.components.PresenterComponent
  */
 open class BaseDialogFragment : DialogFragment() {
 
-    override fun getTheme(): Int {
-        return R.style.AppTheme_NoActionBar_FullScreenDialog;
-    }
+    // Properties
 
     internal var presenter: BaseContractPresenter<*>? = null
 
-    protected fun getBaseApplication(): BaseApplication = activity.application as BaseApplication
+    // Overrides
 
-    protected fun getPresenterComponent(): PresenterComponent = getBaseApplication().getPresenterComponent()
-
-    protected fun attachPresenter(presenter: BaseContractPresenter<*>) {
-        this.presenter = presenter
+    override fun getTheme(): Int {
+        return R.style.AppTheme_NoActionBar_FullScreenDialog;
     }
 
     override fun onDestroy() {
@@ -30,7 +26,17 @@ open class BaseDialogFragment : DialogFragment() {
         super.onDestroy()
     }
 
-    fun onError(stringId: Int?) {
-        ErrorHandler.showError(activity, stringId)
+    // Internal Functions
+
+    internal fun onError(stringId: Int?) = ErrorHandler.showError(activity, stringId)
+
+    // Protected Functions
+
+    protected fun getBaseApplication(): BaseApplication = activity.application as BaseApplication
+
+    protected fun getPresenterComponent(): PresenterComponent = getBaseApplication().getPresenterComponent()
+
+    protected fun attachPresenter(presenter: BaseContractPresenter<*>) {
+        this.presenter = presenter
     }
 }

@@ -17,6 +17,8 @@ class ChangeData(coinResponse: CoinResponse) {
     internal val status24H = assessChange(percentChange24H)
     internal val status7D = assessChange(percentChange7D)
 
+    // Internal Functions
+
     internal fun change1HFormatted() = "${percentChange1H.toString()}%"
 
     internal fun change24HFormatted() = "${percentChange24H.toString()}%"

@@ -31,6 +31,7 @@ object NumberFormatter {
     fun formatPercentage(numberToFormat: BigDecimal, decimals: Int = 2): String {
         val number = numberToFormat.toDouble()
         percentageFormatter.maximumFractionDigits = decimals
+        percentageFormatter.minimumFractionDigits = decimals
         return percentageFormatter.format(number)
     }
 

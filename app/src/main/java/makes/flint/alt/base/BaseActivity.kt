@@ -13,7 +13,18 @@ import org.jetbrains.anko.AnkoLogger
  */
 abstract class BaseActivity : AppCompatActivity(), AnkoLogger {
 
+    // Properties
+
     private var presenter: BaseContractPresenter<*>? = null
+
+    // Overrides
+
+    override fun onDestroy() {
+        presenter?.detachView()
+        super.onDestroy()
+    }
+
+    // Protected Functions
 
     protected fun getBaseApplication(): BaseApplication = application as BaseApplication
 
@@ -23,12 +34,9 @@ abstract class BaseActivity : AppCompatActivity(), AnkoLogger {
         this.presenter = presenter
     }
 
-    override fun onDestroy() {
-        presenter?.detachView()
-        super.onDestroy()
-    }
+    // Internal Functions
 
-    fun showToast(stringId: Int, toastLength: Int) {
+    internal fun showToast(stringId: Int, toastLength: Int) {
         Toast.makeText(this, getString(stringId), toastLength).show()
     }
 
@@ -40,7 +48,7 @@ abstract class BaseActivity : AppCompatActivity(), AnkoLogger {
 
     }
 
-    fun showError(stringId: Int?) {
+    open fun showError(stringId: Int?) {
         ErrorHandler.showError(this, stringId)
     }
 }

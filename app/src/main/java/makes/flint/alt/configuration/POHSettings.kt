@@ -14,41 +14,43 @@ object POHSettings {
 
     // Formatting
 
-    var currency = "USD"
-    var symbol = "$"
-    var roundingMode = RoundingMode.HALF_EVEN
+    internal var currency = "USD"
+    internal var symbol = "$"
+    internal var roundingMode = RoundingMode.HALF_EVEN
 
     // General
 
-    var firstLoad = true
-    var refreshGap = 5L
-    var exchange = "CCCAGG"
-    var limit = 1000
-    var startingScreen = START_TRACKER
+    internal var firstLoad = true
+    internal var refreshGap = 5L
+    internal var exchange = "CCCAGG"
+    internal var limit = 1000
+    internal var startingScreen = START_TRACKER
 
     //Sorting
 
-    var sortPreference = SORT_RANK
+    internal var sortPreference = SORT_RANK
 
     // Market Thresholds
 
-    var changeUp3 = 50f
-    var changeUp2 = 15f
-    var changeUp1 = 5f
-    var changeDown1 = -5f
-    var changeDown2 = -15f
-    var changeDown3 = -50f
+    internal var changeUp3 = 50f
+    internal var changeUp2 = 15f
+    internal var changeUp1 = 5f
+    internal var changeDown1 = -5f
+    internal var changeDown2 = -15f
+    internal var changeDown3 = -50f
 
     // Portfolio Thresholds
 
-    var trackerChangeUp3 = 1.5f
-    var trackerChangeUp2 = 0.1f
-    var trackerChangeUp1 = 0.2f
-    var trackerChangeDown1 = -0.2f
-    var trackerChangeDown2 = -0.4f
-    var trackerChangeDown3 = -0.6f
+    internal var trackerChangeUp3 = 1.5f
+    internal var trackerChangeUp2 = 0.1f
+    internal var trackerChangeUp1 = 0.2f
+    internal var trackerChangeDown1 = -0.2f
+    internal var trackerChangeDown2 = -0.4f
+    internal var trackerChangeDown3 = -0.6f
 
-    fun updateSettings(settings: SettingsData) {
+    // Internal Functions
+
+    internal fun updateSettings(settings: SettingsData) {
         currency = settings.currencyCode
         symbol = settings.symbol
         sortPreference = settings.defaultSort

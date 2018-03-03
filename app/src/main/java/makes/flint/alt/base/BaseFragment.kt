@@ -11,7 +11,18 @@ import makes.flint.alt.injection.components.PresenterComponent
  */
 open class BaseFragment : Fragment() {
 
+    // Properties
+
     internal var presenter: BaseContractPresenter<*>? = null
+
+    // Overrides
+
+    override fun onDestroy() {
+        presenter?.detachView()
+        super.onDestroy()
+    }
+
+    // Protected Functions
 
     protected fun getBaseApplication(): BaseApplication = activity.application as BaseApplication
 
@@ -21,12 +32,9 @@ open class BaseFragment : Fragment() {
         this.presenter = presenter
     }
 
-    override fun onDestroy() {
-        presenter?.detachView()
-        super.onDestroy()
-    }
+    // Internal Functions
 
-    fun showToast(stringId: Int, toastLength: Int) {
+    internal fun showToast(stringId: Int, toastLength: Int) {
         Toast.makeText(context, getString(stringId), toastLength).show()
     }
 
@@ -38,7 +46,7 @@ open class BaseFragment : Fragment() {
 
     }
 
-    fun showError(stringId: Int?) {
+    open fun showError(stringId: Int?) {
         ErrorHandler.showError(activity, stringId)
     }
 }

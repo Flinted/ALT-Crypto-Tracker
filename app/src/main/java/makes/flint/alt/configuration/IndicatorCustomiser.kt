@@ -10,6 +10,8 @@ import javax.inject.Inject
  */
 class IndicatorCustomiser @Inject constructor() {
 
+    // Internal Functions
+
     internal fun getIcon(status: Int): Int {
         return when (status) {
             CHANGE_UP_EXTREME -> R.drawable.ic_up_extreme_24dp

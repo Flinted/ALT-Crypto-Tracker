@@ -26,21 +26,23 @@ class ApiRepository @Inject constructor(private val cmcAPIService: CMCAPIService
                                         private val cryptoCompareAPIService: CryptoCompareAPIService
 ) : DataSource {
 
-    fun coinsGET(): Observable<Array<SummaryCoinResponse>>? {
+    // Internal Functions
+
+    internal fun coinsGET(): Observable<Array<SummaryCoinResponse>>? {
         return cmcAPIService
                 .coinListGET(POHSettings.limit)
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.computation())
     }
 
-    fun marketSummaryGET(): Observable<MarketSummaryResponse>? {
+    internal fun marketSummaryGET(): Observable<MarketSummaryResponse>? {
         return cmcAPIService
                 .marketSummaryGET()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
     }
 
-    fun getHistoricalDataFor(callback: RepositoryCallbackSingle<HistoricalDataResponse?>, coinSymbol: String, dataResolution: Int, chartResolution: Int) {
+    internal fun getHistoricalDataFor(callback: RepositoryCallbackSingle<HistoricalDataResponse?>, coinSymbol: String, dataResolution: Int, chartResolution: Int) {
         when (dataResolution) {
             MINUTE_DATA -> getMinuteHistoricalData(callback, coinSymbol, dataResolution, chartResolution)
             HOUR_DATA -> getHourHistoricalData(callback, coinSymbol, dataResolution, chartResolution)
@@ -48,11 +50,13 @@ class ApiRepository @Inject constructor(private val cmcAPIService: CMCAPIService
         }
     }
 
+    // Private Functions
+
     private fun getMinuteHistoricalData(callback: RepositoryCallbackSingle<HistoricalDataResponse?>,
                                         coinSymbol: String,
                                         dataResolution: Int,
                                         chartResolution: Int) {
-        cryptoCompareAPIService.histoMinuteGET(coinSymbol, POHSettings.currency, "CCCAGG")
+        cryptoCompareAPIService.histoMinuteGET(coinSymbol, POHSettings.currency, POHSettings.exchange)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(makeSubscriber(callback, dataResolution, chartResolution))
@@ -62,7 +66,7 @@ class ApiRepository @Inject constructor(private val cmcAPIService: CMCAPIService
                                       coinSymbol: String,
                                       dataResolution: Int,
                                       chartResolution: Int) {
-        cryptoCompareAPIService.histoHourGET(coinSymbol, POHSettings.currency, "CCCAGG")
+        cryptoCompareAPIService.histoHourGET(coinSymbol, POHSettings.currency, POHSettings.exchange)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(makeSubscriber(callback, dataResolution, chartResolution))
@@ -70,7 +74,7 @@ class ApiRepository @Inject constructor(private val cmcAPIService: CMCAPIService
 
     private fun getDayHistoricalData(callback: RepositoryCallbackSingle<HistoricalDataResponse?>, coinSymbol:
     String, dataResolution: Int, chartResolution: Int) {
-        cryptoCompareAPIService.histoDayGET(coinSymbol, POHSettings.currency, "CCCAGG", 365)
+        cryptoCompareAPIService.histoDayGET(coinSymbol, POHSettings.currency, POHSettings.exchange, 365)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(makeSubscriber(callback, dataResolution, chartResolution))

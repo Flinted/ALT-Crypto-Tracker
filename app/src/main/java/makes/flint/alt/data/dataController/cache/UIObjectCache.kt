@@ -25,11 +25,15 @@ class UIObjectCache @Inject constructor(private val coinListItemFactory: CoinLis
                                         private val trackerItemFactory: TrackerItemFactory,
                                         private val summaryFactory: SummaryFactory) {
 
+    // Properties
+
     private var lastUpdate: TimeStamp? = null
     internal var coinListItems: List<CoinListItem> = mutableListOf()
     internal var trackerListItems: List<TrackerListItem> = mutableListOf()
     internal var summary: Summary = summaryFactory.makeEmptySummary()
     private var marketSummary: MarketSummaryResponse? = null
+
+    // RX Subscriptions
 
     private var hasRefreshedCoins: PublishSubject<List<CoinListItem>> = PublishSubject.create()
     private var hasRefreshedTrackerItems: PublishSubject<List<TrackerListItem>> = PublishSubject.create()
@@ -42,16 +46,18 @@ class UIObjectCache @Inject constructor(private val coinListItemFactory: CoinLis
     internal fun getMarketSubscription() = hasRefreshedMarketData.asObservable()
     internal fun getSyncTimeSubscription() = hasUpdatedTimeStamp.asObservable()
 
-    fun shouldReSyncData() = lastUpdate?.shouldReSync() ?: true
+    // Internal Functions
 
-    fun updateMarketSummary(marketSummary: MarketSummaryResponse) {
+    internal fun shouldReSyncData() = lastUpdate?.shouldReSync() ?: true
+
+    internal fun updateMarketSummary(marketSummary: MarketSummaryResponse) {
         this.marketSummary = marketSummary
     }
 
     @Suppress("UNCHECKED_CAST")
-    fun updateForNewData(data: MutableList<SummaryCoinResponse>?,
-                         favouritesData: MutableList<FavouriteCoin>,
-                         trackerData: List<TrackerDataEntry>) {
+    internal fun updateForNewData(data: MutableList<SummaryCoinResponse>?,
+                                  favouritesData: MutableList<FavouriteCoin>,
+                                  trackerData: List<TrackerDataEntry>) {
         data ?: return
         setThreadPriority(Process.THREAD_PRIORITY_BACKGROUND);
         val coinResponses = data as MutableList<CoinResponse>
@@ -74,7 +80,7 @@ class UIObjectCache @Inject constructor(private val coinListItemFactory: CoinLis
         hasUpdatedTimeStamp.onNext(lastUpdate)
     }
 
-    fun updateFavouriteCoins(favouriteCoins: MutableList<FavouriteCoin>) {
+    internal fun updateFavouriteCoins(favouriteCoins: MutableList<FavouriteCoin>) {
         val updatedCoins = coinListItemFactory.updateFavouriteCoins(coinListItems, favouriteCoins)
         this.coinListItems = updatedCoins as List<CoinListItem>
         hasRefreshedCoins.onNext(updatedCoins)
@@ -82,7 +88,7 @@ class UIObjectCache @Inject constructor(private val coinListItemFactory: CoinLis
         hasUpdatedTimeStamp.onNext(lastUpdate)
     }
 
-    fun updateTrackerEntries(trackerEntries: List<TrackerDataEntry>) {
+    internal fun updateTrackerEntries(trackerEntries: List<TrackerDataEntry>) {
         val updatedTrackerEntries = trackerItemFactory.makeTrackerItems(trackerEntries, coinListItems)
         val updatedSummary = summaryFactory.makeSummaryFor(updatedTrackerEntries)
         this.trackerListItems = updatedTrackerEntries
@@ -91,7 +97,7 @@ class UIObjectCache @Inject constructor(private val coinListItemFactory: CoinLis
         hasRefreshedSummary.onNext(summary)
     }
 
-    fun emitLastSyncTime() {
+    internal fun emitLastSyncTime() {
         lastUpdate ?: return
         hasUpdatedTimeStamp.onNext(lastUpdate)
     }

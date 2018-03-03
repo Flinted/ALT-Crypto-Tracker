@@ -18,8 +18,12 @@ import makes.flint.alt.injection.modules.PresenterModule
  */
 class BaseApplication : Application() {
 
+    // Properties
+
     private var dataComponent: DataComponent? = null
     private var presenterComponent: PresenterComponent? = null
+
+    // Overrides
 
     override fun onCreate() {
         super.onCreate()
@@ -28,17 +32,13 @@ class BaseApplication : Application() {
         initialiseRealm()
     }
 
-    private fun initialiseRealm() {
-        Realm.init(this)
-        val realmConfiguration = RealmConfiguration.Builder()
-                .deleteRealmIfMigrationNeeded()
-                .build()
-        Realm.setDefaultConfiguration(realmConfiguration)
-    }
+    // Internal Functions
 
-    fun getAppComponent(): DataComponent = dataComponent ?: initialiseDataComponent()
+    internal fun getAppComponent(): DataComponent = dataComponent ?: initialiseDataComponent()
 
-    fun getPresenterComponent(): PresenterComponent = presenterComponent ?: initialisePresenterComponent()
+    internal fun getPresenterComponent(): PresenterComponent = presenterComponent ?: initialisePresenterComponent()
+
+    // Private Functions
 
     private fun initialisePresenterComponent(): PresenterComponent {
         presenterComponent = DaggerPresenterComponent.builder().presenterModule(PresenterModule()).build()
@@ -48,5 +48,13 @@ class BaseApplication : Application() {
     private fun initialiseDataComponent(): DataComponent {
         dataComponent = DaggerDataComponent.builder().dataModule(DataModule()).build()
         return dataComponent as DataComponent
+    }
+
+    private fun initialiseRealm() {
+        Realm.init(this)
+        val realmConfiguration = RealmConfiguration.Builder()
+                .deleteRealmIfMigrationNeeded()
+                .build()
+        Realm.setDefaultConfiguration(realmConfiguration)
     }
 }

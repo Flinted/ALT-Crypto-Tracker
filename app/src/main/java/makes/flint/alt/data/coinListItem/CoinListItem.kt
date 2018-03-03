@@ -25,6 +25,9 @@ class CoinListItem(
         override val changeData: ChangeData,
         override var isFavourite: Boolean
 ) : SortableCoin, MarketListItem {
+
+    // Properties
+
     override val name = coinResponse.name
     internal val id = coinResponse.id
     internal val symbol = coinResponse.symbol
@@ -38,15 +41,19 @@ class CoinListItem(
     internal val totalSupplyFormatted = totalSupplyFormatted()
     internal val volume24HourFormatted = volume24HourFormatted()
 
+    // Internal Functions
+
+    internal fun marketCapFormatted(): String {
+        return priceData.marketCapFormatted
+    }
+
+    // Private Functions
+
     private fun volume24HourFormatted(): String {
         volume24Hour?.let {
             return NumberFormatter.formatCurrency(it, 0, 0)
         }
         return "Unknown"
-    }
-
-    internal fun marketCapFormatted(): String {
-        return priceData.marketCapFormatted
     }
 
     private fun availableSupplyFormatted(): String {
