@@ -65,7 +65,6 @@ dependencies {
     final MP_ANDROID_CHART_VERSION = 'v3.0.3'
 
     // Welcome
-    implementation 'com.google.firebase:firebase-ads:11.0.4'
     compile 'com.stephentuso:welcome:1.4.1'
 
     //Anko
