@@ -10,29 +10,39 @@ import java.math.BigDecimal
  * TrackerListItem
  * Copyright © 2018 Flint Makes. All rights reserved.
  */
-class TrackerListItem(internal val name: String,
-                      internal val symbol: String,
-                      internal val id: String,
-                      internal val associatedCoin: CoinListItem?,
-                      internal var transactions: MutableList<TrackerTransaction>) : TrackerAssessable {
+class TrackerListItem(val name: String,
+                      val symbol: String,
+                      val id: String,
+                      private val associatedCoin: CoinListItem?,
+                      var transactions: MutableList<TrackerTransaction>) : TrackerAssessable {
 
     // Properties
 
-    internal val numberOwned = getNumberOwned()
-    internal val numberOwnedFormatted = makeNumberOwnedFormatted()
-    internal val symbolFormatted = makeSymbolFormatted()
-    internal val purchasePriceTotal = makePurchasePriceTotalAccurate()
-    internal val amountSpent = makeAmountSpent()
-    internal val amountSold = makeAmountSold()
-    internal val currentStanding = makeCurrentStanding()
-    internal val currentValueUSD = makeCurrentValueUSDAccurate()
-    internal val currentPriceUSDFormatted = makeCurrentValueUSDFormatted()
-    internal val currentValueBTC = makeCurrentValueBTCAccurate()
-    internal val currentPriceBTCFormatted = makeCurrentValueBTCFormatted()
-    internal val dollarCostAverage = makeDollarCostAverage()
-    internal val dollarCostAverageFormatted = makeDollarCostAverageFormatted()
+    val numberOwned = makeNumberOwned()
+    val numberOwnedFormatted = makeNumberOwnedFormatted()
+    val symbolFormatted = makeSymbolFormatted()
+    val purchasePriceTotal = makePurchasePriceTotalAccurate()
+    val amountSpent = makeAmountSpent()
+    val amountSold = makeAmountSold()
+    val currentStanding = makeCurrentStanding()
+    val currentValueUSD = makeCurrentValueUSDAccurate()
+    val currentPriceUSDFormatted = makeCurrentValueUSDFormatted()
+    val currentValueBTC = makeCurrentValueBTCAccurate()
+    val currentPriceBTCFormatted = makeCurrentValueBTCFormatted()
+    val dollarCostAverage = makeDollarCostAverage()
+    val dollarCostAverageFormatted = makeDollarCostAverageFormatted()
     override var percentageChange = makePercentageChange()
-    internal val percentageChangeFormatted = makePercentageChangeFormatted()
+    val percentageChangeFormatted = makePercentageChangeFormatted()
+
+    // Internal Functions
+
+    internal fun getCurrentAssetPrice(): BigDecimal? {
+        return associatedCoin?.priceData?.priceUSD
+    }
+
+    internal fun getCurrentAssetPriceFormatted(): String {
+        return associatedCoin?.priceData?.priceUSDFormatted ?: ""
+    }
 
     // Private Functions
 
@@ -64,7 +74,6 @@ class TrackerListItem(internal val name: String,
         return amountSpent.minus(amountSold)
     }
 
-
     private fun makeSymbolFormatted(): String {
         return "($symbol)"
     }
@@ -73,7 +82,7 @@ class TrackerListItem(internal val name: String,
         return NumberFormatter.format(numberOwned, 8)
     }
 
-    private fun getNumberOwned(): BigDecimal {
+    private fun makeNumberOwned(): BigDecimal {
         return transactions.fold(BigDecimal.ZERO) { sum, entry ->
             sum.add(entry.quantity)
         }
@@ -125,14 +134,6 @@ class TrackerListItem(internal val name: String,
     private fun getDecimalTotal(price: BigDecimal?): BigDecimal {
         associatedCoin ?: return BigDecimal.ZERO
         return numberOwned.multiply(price)
-    }
-
-    fun getCurrentAssetPrice(): BigDecimal? {
-        return associatedCoin?.priceData?.priceUSD
-    }
-
-    fun getCurrentAssetPriceFormatted(): String {
-        return associatedCoin?.priceData?.priceUSDFormatted ?: ""
     }
 
     private fun makeDollarCostAverageFormatted(): String {

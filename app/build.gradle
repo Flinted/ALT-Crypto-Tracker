@@ -48,6 +48,7 @@ dependencies {
     final CONSTRAINT_LAYOUT_VERSION = '1.0.2'
     final DAGGER_VERSION = '2.5'
     final GSON_VERSION = '2.8.0'
+    final THREE_TEN_BP_VERSION = '1.3.1'
     final THREE_TEN_VERSION = '1.0.5'
     final SUPPORT_LIBRARY_VERSION = '26.1.0'
     final JUNIT_VERSION = '4.12'
@@ -101,6 +102,8 @@ dependencies {
 
     // ThreeTenABP
     compile "com.jakewharton.threetenabp:threetenabp:$THREE_TEN_VERSION"
+    testImplementation "org.threeten:threetenbp:$THREE_TEN_BP_VERSION"
+    testCompile "org.threeten:threetenbp:$THREE_TEN_BP_VERSION"
 
     // Test
     androidTestCompile "org.mockito:mockito-core:$MOCKITO_VERSION"

@@ -19,16 +19,16 @@ open class TrackerDataTransaction : RealmObject(), RealmDeletable {
     // Properties
 
     @PrimaryKey
-    internal var id = UUID.randomUUID().toString()
-    internal lateinit var transactionType: String
-    internal lateinit var purchaseDate: TimeStamp
-    internal lateinit var loggedDate: TimeStamp
-    internal lateinit var quantity: String
-    internal var pricePaid: String? = null
-    internal var fees: String? = null
-    internal var lastEditedDate: TimeStamp? = null
-    internal var exchange: String? = null
-    internal var notes: String? = null
+    var id = UUID.randomUUID().toString()
+    lateinit var transactionType: String
+    lateinit var purchaseDate: TimeStamp
+    lateinit var loggedDate: TimeStamp
+    lateinit var quantity: String
+    var pricePaid: String? = null
+    var fees: String? = null
+    var lastEditedDate: TimeStamp? = null
+    var exchange: String? = null
+    var notes: String? = null
 
     // Overrides
 

@@ -15,7 +15,7 @@ class CoinDetailDialogViewHolder(view: View) : FragmentViewHolder {
     internal  var coinSymbol: TextView = view.findViewById(R.id.dialog_coin_detail_symbol)
     internal  var priceFiat: TextView = view.findViewById(R.id.dialog_coin_detail_price_fiat)
     internal  var priceBTC: TextView = view.findViewById(R.id.dialog_coin_detail_price_btc)
-    internal  var priceBTCTitle: TextView = view.findViewById(R.id.dialog_coin_detail_price_btc_title)
+    internal  var priceBTCTitle: TextView = view.findViewById(R.id.dialog_coin_detail_price_btc)
     internal  var priceBillionCoin: TextView = view.findViewById(R.id.dialog_coin_detail_billion_coin)
     internal  var rank: TextView = view.findViewById(R.id.dialog_coin_detail_rank)
     internal  var volume24H: TextView  = view.findViewById(R.id.dialog_coin_detail_volume_24h)

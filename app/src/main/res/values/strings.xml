@@ -60,11 +60,12 @@
     <!--DIALOG COIN DETAIL-->
     <string name="dialog_coinDetail_title_doge_price">Price(DOGE):</string>
     <string name="dialog_coinDetail_title_rank">Rank:</string>
-    <string name="dialog_coinDetail_title_one_billion_coin">Price(1B coin):</string>
     <string name="dialog_coinDetail_title_volume24h">Volume 24H:</string>
     <string name="dialog_coinDetail_title_available_supply">Available Supply:</string>
     <string name="dialog_coinDetail_title_total_supply">Total Supply:</string>
     <string name="dialog_coinDetail_title_marketcap">MarketCap:</string>
+
+    <string name="dialog_coinDetail_one_billion_coin">Price(1B coin): %1$s</string>
 
     <string name="dialog_coinDetail_radio_24h">24H</string>
     <string name="dialog_coinDetail_radio_1w">1W</string>

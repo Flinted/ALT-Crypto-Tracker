@@ -22,7 +22,7 @@ const val CANDLE_CHART = 2
 
 class CoinDetailDialog : BaseDialogFragment(), CoinDetailContractView {
 
-    // Static Initialiser
+    // Static Initializer
 
     companion object {
         fun getInstanceFor(coinSymbol: String): CoinDetailDialog {
@@ -103,9 +103,12 @@ class CoinDetailDialog : BaseDialogFragment(), CoinDetailContractView {
         views.coinName.text = coin?.name
         views.coinSymbol.text = coin?.symbolFormatted
         views.rank.text = coin?.rank.toString()
-        views.priceFiat.text = coin?.priceData?.priceUSDFormatted
-        views.priceBTC.text = coin?.priceData?.priceBTCFormatted
-        views.priceBillionCoin.text = coin?.priceData?.stabilisedPrice
+        views.priceFiat.text =
+                getString(R.string.title_priceUSD, coin?.priceData?.priceUSDFormatted)
+        views.priceBTC.text =
+                getString(R.string.title_priceBTC, coin?.priceData?.priceBTCFormatted)
+        views.priceBillionCoin.text =
+                getString(R.string.dialog_coinDetail_one_billion_coin, coin?.priceData?.stabilisedPrice)
         views.volume24H.text = coin?.volume24HourFormatted
         views.supplyAvailable.text = coin?.availableSupplyFormatted
         views.supplyTotal.text = coin?.totalSupplyFormatted

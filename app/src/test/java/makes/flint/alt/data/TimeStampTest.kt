@@ -17,15 +17,14 @@ class TimeStampTest {
         timeStamp = TimeStamp()
     }
 
-
     @Test
-    private fun testInstantiation() {
+    fun testInstantiation() {
         assertNotNull(timeStamp.id)
         assertEquals(false, timeStamp.shouldReSync())
     }
 
     @Test
-    private fun testInstantiationByDate() {
+    fun testInstantiationByDate() {
         timeStamp = TimeStamp("12/01/2018")
         assertNotNull(timeStamp.id)
         assertEquals(true, timeStamp.shouldReSync())

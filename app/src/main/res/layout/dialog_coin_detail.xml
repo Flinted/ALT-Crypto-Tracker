@@ -16,7 +16,7 @@
         android:textColor="@color/colorAccent"
         android:textSize="@dimen/text_xLarge_20sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@id/dialog_coin_detail_price_fiat_title"
+        app:layout_constraintEnd_toStartOf="@id/dialog_coin_detail_price_fiat"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         />
@@ -56,7 +56,7 @@
         />
 
     <TextView
-        android:id="@+id/dialog_coin_detail_price_fiat_title"
+        android:id="@+id/dialog_coin_detail_price_fiat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_large_8dp"
@@ -64,32 +64,8 @@
         android:textColor="@color/colorOffWhite"
         android:textSize="@dimen/text_large"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@id/dialog_coin_detail_price_fiat"
-        app:layout_constraintTop_toTopOf="parent"
-        />
-
-    <TextView
-        android:id="@+id/dialog_coin_detail_price_fiat"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_large_8dp"
-        android:textColor="@color/colorOffWhite"
-        android:textSize="@dimen/text_large"
-        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        />
-
-    <TextView
-        android:id="@+id/dialog_coin_detail_price_btc_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_large_8dp"
-        android:text="@string/title_priceBTC"
-        android:textColor="@color/colorOffWhite"
-        android:textSize="@dimen/text_large"
-        app:layout_constraintEnd_toStartOf="@id/dialog_coin_detail_price_btc"
-        app:layout_constraintTop_toBottomOf="@id/dialog_coin_detail_price_fiat_title"
         />
 
     <TextView
@@ -97,6 +73,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_large_8dp"
+        android:text="@string/title_priceBTC"
         android:textColor="@color/colorOffWhite"
         android:textSize="@dimen/text_large"
         app:layout_constraintEnd_toEndOf="parent"
@@ -104,27 +81,17 @@
         />
 
     <TextView
-        android:id="@+id/dialog_coin_detail_billion_coin_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_large_8dp"
-        android:text="@string/dialog_coinDetail_title_one_billion_coin"
-        android:textColor="@color/colorOffWhite"
-        android:textSize="@dimen/text_large"
-        app:layout_constraintEnd_toStartOf="@id/dialog_coin_detail_billion_coin"
-        app:layout_constraintTop_toBottomOf="@id/dialog_coin_detail_price_btc_title"
-        />
-
-    <TextView
         android:id="@+id/dialog_coin_detail_billion_coin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_large_8dp"
+        android:text="@string/dialog_coinDetail_one_billion_coin"
         android:textColor="@color/colorOffWhite"
         android:textSize="@dimen/text_large"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/dialog_coin_detail_price_btc"
         />
+
 
     <FrameLayout
         android:id="@+id/dialog_coin_detail_chart_holder"
