@@ -11,6 +11,8 @@ import makes.flint.alt.R
 import makes.flint.alt.base.BaseFragment
 import makes.flint.alt.ui.constraintui.coinDetail.coinDetailChart.CoinDetailChart
 import makes.flint.alt.ui.constraintui.coinDetail.coinDetailSummary.CoinDetailSummary
+import makes.flint.alt.ui.constraintui.layoutCoordinator.LayoutCoordinatable
+import makes.flint.alt.ui.constraintui.layoutCoordinator.coin
 import makes.flint.alt.ui.market.coinlist.CoinListAdapter
 import makes.flint.alt.ui.market.coinlist.CoinListAdapterContractView
 
@@ -79,6 +81,7 @@ class CoinListFragment : BaseFragment(), CoinListContractView {
                 .replace(R.id.pop_frame_b, newCoinDetail)
                 .replace(R.id.frame_b, coinChart)
                 .commit()
+        (activity as LayoutCoordinatable).updateLayout(coin)
     }
 
     override fun initialiseFABonClick() {
@@ -101,5 +104,10 @@ class CoinListFragment : BaseFragment(), CoinListContractView {
 
     private fun hideGoToTopFAB() {
         views.goToTopFAB.hide()
+    }
+
+    override fun hideLoading() {
+        super.hideLoading()
+        views.swipeRefresh.isRefreshing = false
     }
 }

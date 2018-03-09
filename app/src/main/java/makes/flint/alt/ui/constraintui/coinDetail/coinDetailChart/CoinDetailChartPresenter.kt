@@ -26,9 +26,8 @@ const val CHART_1Y = 7
 const val CHART_ALL = 8
 
 // API Resolutions
-const val MINUTE_DATA = 0
-const val HOUR_DATA = 1
-const val DAY_DATA = 2
+const val HOUR_DATA = 0
+const val DAY_DATA = 1
 
 class CoinDetailChartPresenter @Inject constructor(private val dataController: DataController) :
         BasePresenter<CoinDetailChartContractView>(), CoinDetailChartContractPresenter {
@@ -45,7 +44,7 @@ class CoinDetailChartPresenter @Inject constructor(private val dataController: D
         getHistoricalDataFor(CHART_90D)
     }
 
-    fun getHistoricalDataFor(chartResolution: Int) {
+    private fun getHistoricalDataFor(chartResolution: Int) {
         val callback = makeHistoricalDataCallback()
         view?.showLoading()
         val apiResolution = getAPIResolutionForRequestedChartType(chartResolution)

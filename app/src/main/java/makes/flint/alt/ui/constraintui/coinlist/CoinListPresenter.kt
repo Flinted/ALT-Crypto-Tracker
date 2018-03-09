@@ -2,6 +2,7 @@ package makes.flint.alt.ui.constraintui.coinlist
 
 import makes.flint.alt.base.BasePresenter
 import makes.flint.alt.data.dataController.DataController
+import rx.Subscription
 import javax.inject.Inject
 
 /**
@@ -9,11 +10,21 @@ import javax.inject.Inject
  * Copyright © 2018 Intelligent Loyalty Limited. All rights reserved.
  */
 class CoinListPresenter @Inject constructor(private val dataController: DataController) : BasePresenter<CoinListContractView>(), CoinListContractPresenter {
+
+    private lateinit var timeStampSubscription: Subscription
+
     override fun initialise() {
+        subscribeForRefreshUpdates()
         view?.initialiseListAdapter()
         view?.initialiseSwipeRefreshListener()
         view?.initialiseScrollListener()
         view?.initialiseFABonClick()
+    }
+
+    private fun subscribeForRefreshUpdates() {
+        timeStampSubscription = dataController.lastSyncSubscriber().subscribe {
+            view?.hideLoading()
+        }
     }
 
     override fun refresh() {

@@ -12,7 +12,7 @@ import makes.flint.alt.ui.tracker.summary.summaryFragments.SummaryFragment
  * LayoutActivity
  * Copyright © 2018 Intelligent Loyalty Limited. All rights reserved.
  */
-class LayoutActivity : BaseActivity(), LayoutActivityContractView {
+class LayoutActivity : BaseActivity(), LayoutActivityContractView, LayoutCoordinatable {
 
     private lateinit var views: LayoutViewHolder
     private lateinit var presenter: LayoutActivityContractPresenter
@@ -49,6 +49,11 @@ class LayoutActivity : BaseActivity(), LayoutActivityContractView {
         })
     }
 
+    override fun updateLayout(key: String) {
+        currentViewState = key
+        coordinator.changeConstraints(key, views.masterLayout)
+    }
+
     private fun setOnClick() {
         views.fab.setOnClickListener {
             val viewKey = when (currentViewState) {
@@ -56,8 +61,19 @@ class LayoutActivity : BaseActivity(), LayoutActivityContractView {
                 home -> coin
                 else -> home
             }
-            currentViewState = viewKey
-            coordinator.changeConstraints(viewKey, views.masterLayout)
+            updateLayout(viewKey)
         }
+    }
+
+    override fun onBackPressed() {
+        val viewKey = when (currentViewState) {
+            coin -> home
+            else -> null
+        }
+        viewKey?.let {
+            updateLayout(viewKey)
+            return
+        }
+        super.onBackPressed()
     }
 }

@@ -56,7 +56,7 @@ class SummaryChartFragment : BaseFragment(), SummaryContractView {
             PieEntry(it.currentValueUSD.toFloat(), it.symbol)
         }
         val colorPrimary = ContextCompat.getColor(context, R.color.colorPrimary)
-        val colorPrimaryDark = ContextCompat.getColor(context, R.color.colorPrimaryDark)
+        val colorPrimarySoft = ContextCompat.getColor(context, R.color.colorPrimarySoft)
         val colorAccent = ContextCompat.getColor(context, R.color.colorAccent)
         val chartColor2 = ContextCompat.getColor(context, R.color.chartSecondary)
         val chartColor3 = ContextCompat.getColor(context, R.color.chartTertiary)
@@ -73,16 +73,16 @@ class SummaryChartFragment : BaseFragment(), SummaryContractView {
         pieChart.isDrawHoleEnabled = true
         pieChart.setTransparentCircleColor(colorPrimary)
         pieChart.holeRadius = 50f
-        pieChart.setHoleColor(colorPrimaryDark)
+        pieChart.setHoleColor(colorPrimarySoft)
         pieChart.transparentCircleRadius = 60f
         pieChart.legend.isEnabled = false
         pieChart.setDrawCenterText(true)
         pieChart.centerText = "Holdings %"
-        pieChart.setCenterTextSize(16f)
+        pieChart.setCenterTextSize(12f)
         pieChart.setCenterTextColor(Color.WHITE)
         pieChart.isHighlightPerTapEnabled = true
         pieChart.description.isEnabled = false
-        pieChart.animateXY(1200, 1200)
+        pieChart.animateXY(0, 1200)
         pieChart.data = pieData
     }
 
