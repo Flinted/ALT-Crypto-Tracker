@@ -10,8 +10,7 @@
         android:id="@+id/frame_a"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@color/colorRed"
-        app:layout_constraintBottom_toTopOf="@id/frame_c"
+        android:background="@color/colorPrimarySoft"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -21,17 +20,20 @@
         android:id="@+id/frame_b"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@color/colorAccent"
+        android:background="@color/colorPrimarySoft"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/frame_a"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/pop_frame_b"
         />
 
     <FrameLayout
         android:id="@+id/frame_c"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@color/colorOffBlack"
+        android:layout_height="320dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
+        android:background="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -51,7 +53,6 @@
         android:id="@+id/pop_frame_b"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_margin="25dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -65,5 +66,6 @@
         android:layout_margin="@dimen/margin_large_8dp"
         app:fabSize="normal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/frame_c"/>
+        app:layout_constraintTop_toTopOf="@id/pop_frame_a"/>
+
 </android.support.constraint.ConstraintLayout>

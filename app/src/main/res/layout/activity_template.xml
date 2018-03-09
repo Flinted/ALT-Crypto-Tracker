@@ -10,7 +10,7 @@
         android:id="@+id/frame_a"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@color/colorRed"
+        android:background="@color/colorPrimarySoft"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -20,7 +20,7 @@
         android:id="@+id/frame_b"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@color/colorAccent"
+        android:background="@color/colorPrimarySoft"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -30,7 +30,7 @@
         android:id="@+id/frame_c"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@color/colorOffBlack"
+        android:background="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -60,7 +60,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
-    
+
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/layout_fab"
         android:layout_width="40dp"

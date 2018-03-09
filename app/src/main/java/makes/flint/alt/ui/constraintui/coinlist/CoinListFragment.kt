@@ -73,7 +73,7 @@ class CoinListFragment : BaseFragment(), CoinListContractView {
     override fun showDialogForCoin(coinSymbol: String) {
         val fragmentManager = activity.supportFragmentManager
         val newCoinDetail = CoinDetailSummary.getInstanceFor(coinSymbol)
-        val coinChart = CoinDetailChart()
+        val coinChart = CoinDetailChart.getInstanceFor(coinSymbol)
         fragmentManager
                 .beginTransaction()
                 .replace(R.id.pop_frame_b, newCoinDetail)

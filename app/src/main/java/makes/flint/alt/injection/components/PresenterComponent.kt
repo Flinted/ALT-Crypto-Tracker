@@ -3,11 +3,12 @@ package makes.flint.alt.injection.components
 import dagger.Component
 import makes.flint.alt.injection.modules.DataModule
 import makes.flint.alt.injection.modules.PresenterModule
+import makes.flint.alt.ui.constraintui.coinDetail.coinDetailChart.CoinDetailChartPresenter
+import makes.flint.alt.ui.constraintui.coinDetail.coinDetailSummary.CoinDetailPresenter
 import makes.flint.alt.ui.constraintui.coinlist.CoinListPresenter
 import makes.flint.alt.ui.constraintui.layoutCoordinator.LayoutPresenter
 import makes.flint.alt.ui.main.MainPresenter
 import makes.flint.alt.ui.market.MarketPresenter
-import makes.flint.alt.ui.constraintui.coinDetail.coinDetailSummary.CoinDetailPresenter
 import makes.flint.alt.ui.market.coinlist.CoinListAdapterPresenter
 import makes.flint.alt.ui.settings.SettingsPresenter
 import makes.flint.alt.ui.snapshot.SnapShotPresenter
@@ -32,13 +33,16 @@ interface PresenterComponent {
 
     fun provideCoinListPresenter(): CoinListPresenter
 
+    fun provideCoinChartPresenter(): CoinDetailChartPresenter
+
+    fun provideCoinDetailPresenter(): CoinDetailPresenter
+
+
     fun provideMainPresenter(): MainPresenter
 
     fun provideCoinListAdapterPresenter(): CoinListAdapterPresenter
 
     fun provideMarketPresenter(): MarketPresenter
-
-    fun provideCoinDetailPresenter(): CoinDetailPresenter
 
     fun provideTrackerPresenter(): TrackerPresenter
 

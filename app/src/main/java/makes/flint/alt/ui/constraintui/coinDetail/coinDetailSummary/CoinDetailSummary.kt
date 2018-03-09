@@ -13,7 +13,7 @@ import makes.flint.alt.errors.ErrorHandler
  * CoinDetailSummary
  * Copyright © 2018 Flint Makes. All rights reserved.
  */
-const val DIALOG_COIN_KEY = "DialogCoinKey"
+const val COIN_SYMBOL_KEY = "CoinSymbolKey"
 
 class CoinDetailSummary : BaseFragment(), CoinDetailContractView {
 
@@ -23,7 +23,7 @@ class CoinDetailSummary : BaseFragment(), CoinDetailContractView {
         fun getInstanceFor(coinSymbol: String): CoinDetailSummary {
             val coinDetail = CoinDetailSummary()
             val bundle = Bundle()
-            bundle.putString(DIALOG_COIN_KEY, coinSymbol)
+            bundle.putString(COIN_SYMBOL_KEY, coinSymbol)
             coinDetail.arguments = bundle
             return coinDetail
         }
@@ -48,7 +48,7 @@ class CoinDetailSummary : BaseFragment(), CoinDetailContractView {
         view?.let {
             this.views = CoinDetailSummaryViewHolder(view)
         }
-        val coinSymbol = arguments.get(DIALOG_COIN_KEY) as String
+        val coinSymbol = arguments.get(COIN_SYMBOL_KEY) as String
         coinDetailPresenter.initialise(coinSymbol)
         return view
     }
