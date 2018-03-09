@@ -7,6 +7,7 @@ import makes.flint.alt.ui.constraintui.coinDetail.coinDetailChart.CoinDetailChar
 import makes.flint.alt.ui.constraintui.coinDetail.coinDetailSummary.CoinDetailPresenter
 import makes.flint.alt.ui.constraintui.coinlist.CoinListPresenter
 import makes.flint.alt.ui.constraintui.layoutCoordinator.LayoutPresenter
+import makes.flint.alt.ui.constraintui.trackerChart.TrackerChartPresenter
 import makes.flint.alt.ui.main.MainPresenter
 import makes.flint.alt.ui.market.MarketPresenter
 import makes.flint.alt.ui.market.coinlist.CoinListAdapterPresenter
@@ -36,6 +37,8 @@ interface PresenterComponent {
     fun provideCoinChartPresenter(): CoinDetailChartPresenter
 
     fun provideCoinDetailPresenter(): CoinDetailPresenter
+
+    fun provideTrackerChartPresenter(): TrackerChartPresenter
 
 
     fun provideMainPresenter(): MainPresenter

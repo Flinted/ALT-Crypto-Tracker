@@ -5,7 +5,7 @@ import android.view.ViewTreeObserver
 import makes.flint.alt.R
 import makes.flint.alt.base.BaseActivity
 import makes.flint.alt.ui.constraintui.coinlist.CoinListFragment
-import makes.flint.alt.ui.tracker.summary.summaryFragments.SummaryChartFragment
+import makes.flint.alt.ui.constraintui.trackerChart.TrackerChartFragment
 import makes.flint.alt.ui.tracker.summary.summaryFragments.SummaryFragment
 
 /**
@@ -32,7 +32,7 @@ class LayoutActivity : BaseActivity(), LayoutActivityContractView, LayoutCoordin
 
     private fun loadMarketFragment() {
         val coinListFragment = CoinListFragment()
-        val chartFragment = SummaryChartFragment()
+        val chartFragment = TrackerChartFragment()
         val summaryFragment = SummaryFragment()
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.frame_c, coinListFragment)
