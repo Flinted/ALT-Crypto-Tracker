@@ -8,8 +8,8 @@ import makes.flint.alt.data.response.histoResponse.HistoricalDataResponse
 import makes.flint.alt.data.response.marketSummary.MarketSummaryResponse
 import makes.flint.alt.data.services.interfaces.CMCAPIService
 import makes.flint.alt.data.services.interfaces.CryptoCompareAPIService
-import makes.flint.alt.ui.market.coinDetail.HOUR_DATA
-import makes.flint.alt.ui.market.coinDetail.MINUTE_DATA
+import makes.flint.alt.ui.constraintui.coinDetail.coinDetailSummary.HOUR_DATA
+import makes.flint.alt.ui.constraintui.coinDetail.coinDetailSummary.MINUTE_DATA
 import rx.Observable
 import rx.Subscriber
 import rx.android.schedulers.AndroidSchedulers

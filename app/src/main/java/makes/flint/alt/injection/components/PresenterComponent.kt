@@ -3,9 +3,11 @@ package makes.flint.alt.injection.components
 import dagger.Component
 import makes.flint.alt.injection.modules.DataModule
 import makes.flint.alt.injection.modules.PresenterModule
+import makes.flint.alt.ui.constraintui.coinlist.CoinListPresenter
+import makes.flint.alt.ui.constraintui.layoutCoordinator.LayoutPresenter
 import makes.flint.alt.ui.main.MainPresenter
 import makes.flint.alt.ui.market.MarketPresenter
-import makes.flint.alt.ui.market.coinDetail.CoinDetailPresenter
+import makes.flint.alt.ui.constraintui.coinDetail.coinDetailSummary.CoinDetailPresenter
 import makes.flint.alt.ui.market.coinlist.CoinListAdapterPresenter
 import makes.flint.alt.ui.settings.SettingsPresenter
 import makes.flint.alt.ui.snapshot.SnapShotPresenter
@@ -25,6 +27,11 @@ import javax.inject.Singleton
 @Singleton
 @Component(modules = arrayOf(PresenterModule::class, DataModule::class))
 interface PresenterComponent {
+
+    fun provideLayoutPresenter(): LayoutPresenter
+
+    fun provideCoinListPresenter(): CoinListPresenter
+
     fun provideMainPresenter(): MainPresenter
 
     fun provideCoinListAdapterPresenter(): CoinListAdapterPresenter

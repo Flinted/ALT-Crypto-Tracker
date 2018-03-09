@@ -1,9 +1,10 @@
-package makes.flint.alt.ui.layoutCoordinator
+package makes.flint.alt.ui.constraintui.layoutCoordinator
 
 import android.support.constraint.ConstraintLayout
 import android.support.constraint.ConstraintSet
 import android.transition.TransitionManager
 import makes.flint.alt.R
+import javax.inject.Inject
 
 /**
  * LayoutCoordinator
@@ -15,7 +16,7 @@ const val coin = "COIN"
 const val add = "ADD"
 const val portfolio = "PORTFOLIO"
 
-class LayoutCoordinator {
+class LayoutCoordinator @Inject constructor() {
 
     var layouts: MutableMap<String, ConstraintSet> = makeConstraintSetsMap()
 

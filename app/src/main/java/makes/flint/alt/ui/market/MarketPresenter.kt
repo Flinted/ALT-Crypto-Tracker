@@ -30,7 +30,6 @@ class MarketPresenter @Inject constructor(private var dataController: DataContro
         view?.initialiseFABonClick()
         view?.initialiseAdapterListeners()
         view?.hideProgressSpinner()
-        dataController.refreshRequested()
     }
 
     override fun onDestroy() {

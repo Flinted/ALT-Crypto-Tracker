@@ -10,9 +10,9 @@ import android.view.ViewGroup
 import makes.flint.alt.R
 import makes.flint.alt.base.BaseFragment
 import makes.flint.alt.data.response.marketSummary.MarketSummaryResponse
+import makes.flint.alt.ui.constraintui.coinDetail.coinDetailSummary.CoinDetailSummary
 import makes.flint.alt.ui.interfaces.FilterView
 import makes.flint.alt.ui.main.MainActivity
-import makes.flint.alt.ui.market.coinDetail.CoinDetailDialog
 import makes.flint.alt.ui.market.coinlist.CoinListAdapter
 import makes.flint.alt.ui.market.coinlist.CoinListAdapterContractView
 import makes.flint.alt.ui.market.extensions.getStringIdFor
@@ -122,13 +122,10 @@ class MarketFragment : BaseFragment(), MarketContractView, FilterView {
     }
 
     override fun showDialogForCoin(coinSymbol: String) {
-        val fragmentManager = activity.fragmentManager
-        val shownCoinDetail = fragmentManager.findFragmentByTag("CoinDetailDialog")
-        shownCoinDetail?.let {
-            fragmentManager.beginTransaction().remove(it).commit()
-        }
-        val newCoinDetail = CoinDetailDialog.getInstanceFor(coinSymbol)
-        newCoinDetail.show(fragmentManager, "CoinDetailDialog")
+        val fragmentManager = activity.supportFragmentManager
+        val newCoinDetail = CoinDetailSummary.getInstanceFor(coinSymbol)
+        fragmentManager.beginTransaction().replace(R.id.frame_c, newCoinDetail).commit()
+
     }
 
     override fun showLoading() {

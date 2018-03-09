@@ -1,4 +1,4 @@
-package makes.flint.alt.ui.layoutCoordinator
+package makes.flint.alt.ui.constraintui.layoutCoordinator
 
 import android.view.View
 
