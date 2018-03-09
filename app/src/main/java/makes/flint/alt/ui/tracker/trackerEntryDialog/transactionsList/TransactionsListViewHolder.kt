@@ -8,7 +8,7 @@ import makes.flint.alt.R
 
 /**
  * TransactionsListViewHolder
- * Copyright © 2018 Flint Makes. All rights reserved.
+ * Copyright © 2018 ChrisDidThis. All rights reserved.
  */
 class TransactionsListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     var date: TextView = itemView.findViewById(R.id.transaction_item_date)

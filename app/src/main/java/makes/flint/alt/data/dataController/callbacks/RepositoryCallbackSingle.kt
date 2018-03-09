@@ -2,7 +2,7 @@ package makes.flint.alt.data.dataController.callbacks
 
 /**
  * RepositoryCallbackSingle
- * Copyright © 2018 Flint Makes. All rights reserved.
+ * Copyright © 2018 ChrisDidThis. All rights reserved.
  */
 interface RepositoryCallbackSingle<in T> {
 

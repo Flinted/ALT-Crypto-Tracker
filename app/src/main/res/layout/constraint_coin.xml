@@ -7,7 +7,7 @@
                                              android:background="@color/colorPrimary">
 
     <FrameLayout
-        android:id="@+id/frame_a"
+        android:id="@+id/frame_top"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@color/colorPrimarySoft"
@@ -17,18 +17,18 @@
         />
 
     <FrameLayout
-        android:id="@+id/frame_b"
+        android:id="@+id/frame_centre"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@color/colorPrimarySoft"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/pop_frame_b"
+        app:layout_constraintBottom_toTopOf="@id/pop_frame_bottom"
         />
 
     <FrameLayout
-        android:id="@+id/frame_c"
+        android:id="@+id/frame_bottom"
         android:layout_width="0dp"
         android:layout_height="320dp"
         android:background="@color/colorPrimary"
@@ -38,7 +38,7 @@
         />
 
     <FrameLayout
-        android:id="@+id/pop_frame_a"
+        android:id="@+id/pop_frame_top"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:visibility="gone"
@@ -48,13 +48,13 @@
         />
 
     <FrameLayout
-        android:id="@+id/pop_frame_b"
+        android:id="@+id/pop_frame_bottom"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/frame_c"
+        app:layout_constraintTop_toTopOf="@id/frame_bottom"
         />
 
     <android.support.design.widget.FloatingActionButton
@@ -64,6 +64,6 @@
         android:layout_margin="@dimen/margin_large_8dp"
         app:fabSize="normal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/pop_frame_a"/>
+        app:layout_constraintTop_toTopOf="@id/pop_frame_top"/>
 
 </android.support.constraint.ConstraintLayout>

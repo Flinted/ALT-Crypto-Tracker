@@ -6,7 +6,7 @@ import android.util.AttributeSet
 
 /**
  * SummaryViewPager
- * Copyright © 2018 Flint Makes. All rights reserved.
+ * Copyright © 2018 ChrisDidThis. All rights reserved.
  */
 class SummaryViewPager(context: Context, attributeSet: AttributeSet) : ViewPager(context, attributeSet) {
 

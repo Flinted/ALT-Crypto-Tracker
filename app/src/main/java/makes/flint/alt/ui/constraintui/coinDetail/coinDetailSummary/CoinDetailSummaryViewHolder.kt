@@ -7,7 +7,7 @@ import makes.flint.alt.ui.interfaces.FragmentViewHolder
 
 /**
  * CoinDetailSummaryViewHolder
- * Copyright © 2018 Flint Makes. All rights reserved.
+ * Copyright © 2018 ChrisDidThis. All rights reserved.
  */
 class CoinDetailSummaryViewHolder(view: View) : FragmentViewHolder {
 

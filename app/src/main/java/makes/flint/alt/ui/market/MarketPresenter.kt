@@ -10,7 +10,7 @@ import javax.inject.Inject
 
 /**
  * MarketPresenter
- * Copyright © 2018 Flint Makes. All rights reserved.
+ * Copyright © 2018 ChrisDidThis. All rights reserved.
  */
 class MarketPresenter @Inject constructor(private var dataController: DataController)
     : BasePresenter<MarketContractView>(), MarketContractPresenter {

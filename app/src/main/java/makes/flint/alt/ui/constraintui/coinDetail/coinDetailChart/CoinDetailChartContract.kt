@@ -6,7 +6,7 @@ import makes.flint.alt.data.response.histoResponse.HistoricalDataUnitResponse
 
 /**
  * CoinDetailChartContract
- * Copyright © 2018 Intelligent Loyalty Limited. All rights reserved.
+ * Copyright © 2018 ChrisDidThis. All rights reserved.
  */
 
 interface CoinDetailChartContractView : BaseContractView {

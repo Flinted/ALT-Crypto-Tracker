@@ -1,6 +1,5 @@
 package makes.flint.alt.ui.tracker
 
-import android.content.Intent
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.GridLayoutManager
@@ -13,7 +12,6 @@ import makes.flint.alt.base.BaseFragment
 import makes.flint.alt.data.trackerListItem.TrackerListItem
 import makes.flint.alt.ui.interfaces.FilterView
 import makes.flint.alt.ui.main.MainActivity
-import makes.flint.alt.ui.snapshot.SnapShotActivity
 import makes.flint.alt.ui.tracker.addCoinDialog.AddCoinDialog
 import makes.flint.alt.ui.tracker.summary.SummaryViewPagerAdapter
 import makes.flint.alt.ui.tracker.trackerEntryDialog.TrackerEntryDialog
@@ -23,7 +21,7 @@ import rx.functions.Action1
 
 /**
  * TrackerFragment
- * Copyright © 2018 Flint Makes. All rights reserved.
+ * Copyright © 2018 ChrisDidThis. All rights reserved.
  */
 const val CHART_HIDDEN = 0
 const val CHART_FULL_SCREEN = 1
@@ -115,8 +113,6 @@ class TrackerFragment : BaseFragment(), TrackerContractView, FilterView {
 
     override fun initialiseShowSnapShotButtonListener() {
         views.snapShotButton.setOnClickListener {
-            val intent = Intent(context, SnapShotActivity::class.java)
-            startActivity(intent)
         }
     }
 

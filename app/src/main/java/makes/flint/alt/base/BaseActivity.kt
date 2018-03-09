@@ -9,7 +9,7 @@ import org.jetbrains.anko.AnkoLogger
 
 /**
  * BaseActivity
- * Copyright © 2018 Flint Makes.. All rights reserved.
+ * Copyright © 2018 ChrisDidThis. All rights reserved.
  */
 abstract class BaseActivity : AppCompatActivity(), AnkoLogger {
 

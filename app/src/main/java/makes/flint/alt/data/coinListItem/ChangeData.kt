@@ -5,7 +5,7 @@ import makes.flint.alt.data.response.CoinResponse
 
 /**
  * ChangeData
- * Copyright © 2018 Flint Makes. All rights reserved.
+ * Copyright © 2018 ChrisDidThis. All rights reserved.
  */
 class ChangeData(coinResponse: CoinResponse) {
 

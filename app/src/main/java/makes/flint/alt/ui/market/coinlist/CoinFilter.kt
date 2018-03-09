@@ -5,7 +5,7 @@ import makes.flint.alt.data.coinListItem.CoinListItem
 
 /**
  * CoinFilter
- * Copyright © 2018 Flint Makes. All rights reserved.
+ * Copyright © 2018 ChrisDidThis. All rights reserved.
  */
 class CoinFilter(private var originalList: MutableList<CoinListItem>, private var callback: CoinFilterCallback) : Filter() {
 

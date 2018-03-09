@@ -7,7 +7,7 @@
                                              android:background="@color/colorPrimary">
 
     <FrameLayout
-        android:id="@+id/frame_a"
+        android:id="@+id/frame_top"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@color/colorPrimarySoft"
@@ -17,7 +17,7 @@
         />
 
     <FrameLayout
-        android:id="@+id/frame_b"
+        android:id="@+id/frame_centre"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@color/colorPrimarySoft"
@@ -27,7 +27,7 @@
         />
 
     <FrameLayout
-        android:id="@+id/frame_c"
+        android:id="@+id/frame_bottom"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@color/colorPrimary"
@@ -37,7 +37,7 @@
         />
 
     <FrameLayout
-        android:id="@+id/pop_frame_a"
+        android:id="@+id/pop_frame_top"
         android:layout_width="80dp"
         android:layout_height="80dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -52,7 +52,7 @@
     </FrameLayout>
 
     <FrameLayout
-        android:id="@+id/pop_frame_b"
+        android:id="@+id/pop_frame_bottom"
         android:layout_width="80dp"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"

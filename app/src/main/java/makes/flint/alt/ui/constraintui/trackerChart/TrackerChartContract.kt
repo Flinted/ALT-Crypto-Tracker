@@ -6,7 +6,7 @@ import makes.flint.alt.data.trackerListItem.TrackerListItem
 
 /**
  * TrackerChartContract
- * Copyright © 2018 Intelligent Loyalty Limited. All rights reserved.
+ * Copyright © 2018 ChrisDidThis. All rights reserved.
  */
 interface TrackerChartContractView: BaseContractView {
     fun displayTrackerEntriesChart(trackerListItems: List<TrackerListItem>)

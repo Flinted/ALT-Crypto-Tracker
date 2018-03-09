@@ -19,7 +19,7 @@ import javax.inject.Singleton
 
 /**
  * APIRepository
- * Copyright © 2018 Flint Makes. All rights reserved.
+ * Copyright © 2018 ChrisDidThis. All rights reserved.
  */
 @Singleton
 class ApiRepository @Inject constructor(private val cmcAPIService: CMCAPIService,

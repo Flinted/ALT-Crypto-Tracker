@@ -6,7 +6,7 @@ import makes.flint.alt.data.Summary
 
 /**
  * SummaryContract
- * Copyright © 2018 Flint Makes. All rights reserved.
+ * Copyright © 2018 ChrisDidThis. All rights reserved.
  */
 interface SummaryContractView : BaseContractView {
     fun updateForSummary(summary: Summary)

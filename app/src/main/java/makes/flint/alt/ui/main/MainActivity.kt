@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.support.v7.widget.SearchView
 import android.view.Menu
 import android.view.MenuItem
@@ -21,7 +20,7 @@ import org.jetbrains.anko.support.v4.onPageChangeListener
 
 /**
  * MainActivity
- * Copyright © 2018 Flint Makes. All rights reserved.
+ * Copyright © 2018 ChrisDidThis. All rights reserved.
  */
 class MainActivity : BaseActivity(), MainContractView {
 
@@ -40,12 +39,6 @@ class MainActivity : BaseActivity(), MainContractView {
         mainPresenter.attachView(this)
         attachPresenter(mainPresenter)
         mainPresenter.initialise()
-        showWelcomeScreenIfRequired(savedInstanceState)
-    }
-
-    override fun onSaveInstanceState(outState: Bundle?, outPersistentState: PersistableBundle?) {
-        super.onSaveInstanceState(outState, outPersistentState)
-        views.welcomeScreen.onSaveInstanceState(outState)
     }
 
     override fun onResume() {
@@ -208,10 +201,6 @@ class MainActivity : BaseActivity(), MainContractView {
     private fun createIdToSortMap() {
         val map = this.idToSortMap()
         mainPresenter.storeIdToSortMap(map)
-    }
-
-    private fun showWelcomeScreenIfRequired(savedInstanceState: Bundle?) {
-        views.welcomeScreen.show(savedInstanceState)
     }
 
     private fun makeTimeTickBroadcastReceiver(): BroadcastReceiver {

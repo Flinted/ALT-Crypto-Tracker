@@ -7,7 +7,7 @@ import rx.Observable
 
 /**
  * CoinListAdapterContract
- * Copyright © 2018 Flint Makes. All rights reserved.
+ * Copyright © 2018 ChrisDidThis. All rights reserved.
  */
 interface CoinListAdapterContractView : BaseContractView {
     var coinList: MutableList<CoinListItem>

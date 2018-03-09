@@ -18,7 +18,7 @@ import makes.flint.alt.ui.market.coinlist.CoinListAdapterContractView
 
 /**
  * CoinListFragment
- * Copyright © 2018 Intelligent Loyalty Limited. All rights reserved.
+ * Copyright © 2018 ChrisDidThis. All rights reserved.
  */
 class CoinListFragment : BaseFragment(), CoinListContractView {
 
@@ -78,8 +78,8 @@ class CoinListFragment : BaseFragment(), CoinListContractView {
         val coinChart = CoinDetailChart.getInstanceFor(coinSymbol)
         fragmentManager
                 .beginTransaction()
-                .replace(R.id.pop_frame_b, newCoinDetail)
-                .replace(R.id.frame_b, coinChart)
+                .replace(R.id.pop_frame_bottom, newCoinDetail)
+                .replace(R.id.frame_centre, coinChart)
                 .commit()
         (activity as LayoutCoordinatable).updateLayout(coin)
     }

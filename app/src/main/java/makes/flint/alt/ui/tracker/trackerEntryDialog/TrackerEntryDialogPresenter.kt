@@ -8,7 +8,7 @@ import javax.inject.Inject
 
 /**
  * TrackerEntryDialogPresenter
- * Copyright © 2018 Flint Makes. All rights reserved.
+ * Copyright © 2018 ChrisDidThis. All rights reserved.
  */
 class TrackerEntryDialogPresenter @Inject constructor(private var dataController: DataController,
                                                       private var trackerItemFactory: TrackerItemFactory)

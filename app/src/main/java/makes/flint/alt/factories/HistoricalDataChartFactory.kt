@@ -13,7 +13,7 @@ import makes.flint.alt.data.response.histoResponse.HistoricalDataUnitResponse
 
 /**
  * HistoricalDataChartFactory
- * Copyright © 2018 Flint Makes. All rights reserved.
+ * Copyright © 2018 ChrisDidThis. All rights reserved.
  */
 class HistoricalDataChartFactory(private var dataSet: Array<HistoricalDataUnitResponse>, private var label: String) {
 

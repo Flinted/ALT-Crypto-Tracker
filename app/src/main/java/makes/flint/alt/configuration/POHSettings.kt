@@ -5,7 +5,7 @@ import java.math.RoundingMode
 
 /**
  * POHSettings
- * Copyright © 2018  Flint Makes. All rights reserved.
+ * Copyright © 2018  ChrisDidThis. All rights reserved.
  */
 const val START_MARKET = "StartMarket"
 const val START_TRACKER = "StartTracker"

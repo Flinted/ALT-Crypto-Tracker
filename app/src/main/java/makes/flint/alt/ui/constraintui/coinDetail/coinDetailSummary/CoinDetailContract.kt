@@ -6,7 +6,7 @@ import makes.flint.alt.data.coinListItem.CoinListItem
 
 /**
  * CoinDetailContract
- * Copyright © 2018  Flint Makes. All rights reserved.
+ * Copyright © 2018  ChrisDidThis. All rights reserved.
  */
 interface CoinDetailContractView : BaseContractView {
     fun displayCoinDetail(coin: CoinListItem?)

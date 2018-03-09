@@ -6,7 +6,7 @@ import makes.flint.alt.R
 
 /**
  * TrackerChartViewHolder
- * Copyright © 2018 Intelligent Loyalty Limited. All rights reserved.
+ * Copyright © 2018 ChrisDidThis. All rights reserved.
  */
 class TrackerChartViewHolder(view: View) {
 

@@ -5,7 +5,7 @@ import makes.flint.alt.base.BaseContractView
 
 /**
  * TrackerContract
- * Copyright © 2018 Flint Makes. All rights reserved.
+ * Copyright © 2018 ChrisDidThis. All rights reserved.
  */
 interface TrackerContractView : BaseContractView {
     fun initialiseChartListeners()

@@ -7,7 +7,7 @@ import java.math.BigDecimal
 
 /**
  * CoinListItem
- * Copyright © 2018 Flint Makes. All rights reserved.
+ * Copyright © 2018 ChrisDidThis. All rights reserved.
  */
 const val CHANGE_UP_EXTREME = 0
 const val CHANGE_UP_SIGNIFICANT = 1

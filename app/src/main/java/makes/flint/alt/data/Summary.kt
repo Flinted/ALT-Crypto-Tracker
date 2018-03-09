@@ -9,7 +9,7 @@ import java.math.RoundingMode
 
 /**
  * Summary
- * Copyright © 2018 Flint Makes. All rights reserved.
+ * Copyright © 2018 ChrisDidThis. All rights reserved.
  */
 class Summary(private val initialValue: BigDecimal,
               private val amountSpent: BigDecimal,

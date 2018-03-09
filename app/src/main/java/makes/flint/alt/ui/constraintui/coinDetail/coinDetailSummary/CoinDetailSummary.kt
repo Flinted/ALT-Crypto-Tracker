@@ -11,7 +11,7 @@ import makes.flint.alt.errors.ErrorHandler
 
 /**
  * CoinDetailSummary
- * Copyright © 2018 Flint Makes. All rights reserved.
+ * Copyright © 2018 ChrisDidThis. All rights reserved.
  */
 const val COIN_SYMBOL_KEY = "CoinSymbolKey"
 

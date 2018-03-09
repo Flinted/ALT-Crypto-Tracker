@@ -13,7 +13,7 @@ import makes.flint.alt.data.interfaces.assessChange
 
 /**
  * SummaryFragment
- * Copyright © 2018 Flint Makes. All rights reserved.
+ * Copyright © 2018 ChrisDidThis. All rights reserved.
  */
 class SummaryFragment : BaseFragment(), SummaryContractView {
 

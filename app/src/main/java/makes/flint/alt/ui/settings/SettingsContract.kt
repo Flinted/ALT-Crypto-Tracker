@@ -6,7 +6,7 @@ import makes.flint.alt.configuration.SettingsData
 
 /**
  * SettingsContract
- * Copyright © 2018 Flint Makes. All rights reserved.
+ * Copyright © 2018 ChrisDidThis. All rights reserved.
  */
 interface SettingsContractView: BaseContractView {
     fun displayCurrentSettings(settings: SettingsData)

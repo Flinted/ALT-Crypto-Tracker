@@ -7,7 +7,7 @@ import javax.inject.Inject
 
 /**
  * TrackerAdapterPresenter
- * Copyright © 2018 Flint Makes. All rights reserved.
+ * Copyright © 2018 ChrisDidThis. All rights reserved.
  */
 class TrackerAdapterPresenter @Inject constructor(private var dataController: DataController
 ) : BasePresenter<TrackerAdapterContractView>(), TrackerAdapterContractPresenter {

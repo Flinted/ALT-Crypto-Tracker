@@ -6,7 +6,7 @@ import makes.flint.alt.R
 
 /**
  * CoinDetailChartViewHolder
- * Copyright © 2018 Intelligent Loyalty Limited. All rights reserved.
+ * Copyright © 2018 ChrisDidThis. All rights reserved.
  */
 class CoinDetailChartViewHolder(view: View) {
 

@@ -8,7 +8,7 @@ import java.util.*
 
 /**
  * TrackerTransaction
- * Copyright © 2018 Flint Makes. All rights reserved.
+ * Copyright © 2018 ChrisDidThis. All rights reserved.
  */
 const val TRANSACTION_BUY = "TransactionBuy"
 const val TRANSACTION_SELL = "TransactionSell"

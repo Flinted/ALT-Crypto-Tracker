@@ -11,20 +11,18 @@ import makes.flint.alt.ui.tracker.summary.summaryFragments.SummaryFragment
 
 /**
  * LayoutActivity
- * Copyright © 2018 Intelligent Loyalty Limited. All rights reserved.
+ * Copyright © 2018 ChrisDidThis. All rights reserved.
  */
 class LayoutActivity : BaseActivity(), LayoutActivityContractView, LayoutCoordinatable {
 
     private lateinit var views: LayoutViewHolder
     private lateinit var presenter: LayoutActivityContractPresenter
     private lateinit var coordinator: LayoutCoordinator
-    private var currentViewState = loading
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_template)
         this.views = LayoutViewHolder(this)
-        setOnClick()
         presenter = getPresenterComponent().provideLayoutPresenter()
         presenter.attachView(this)
         attachPresenter(presenter)
@@ -38,35 +36,23 @@ class LayoutActivity : BaseActivity(), LayoutActivityContractView, LayoutCoordin
         val chartFragment = TrackerChartFragment()
         val summaryFragment = SummaryFragment()
         val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.frame_c, coinListFragment)
-        transaction.replace(R.id.frame_a, summaryFragment)
-        transaction.replace(R.id.frame_b, chartFragment)
+        transaction.replace(R.id.frame_bottom, coinListFragment)
+        transaction.replace(R.id.frame_top, summaryFragment)
+        transaction.replace(R.id.frame_centre, chartFragment)
         transaction.commit()
         views.masterLayout.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver
         .OnGlobalLayoutListener {
             override fun onGlobalLayout() {
                 views.masterLayout.viewTreeObserver.removeOnGlobalLayoutListener(this)
                 presenter.emitData()
-                views.fab.callOnClick()
+                updateLayout(home)
             }
         })
     }
 
     override fun updateLayout(key: String) {
-        currentViewState = key
         coordinator.changeConstraints(key, views.masterLayout)
         coordinator.updateFragments(key, views)
-    }
-
-    private fun setOnClick() {
-        views.fab.setOnClickListener {
-            val viewKey = when (currentViewState) {
-                loading -> home
-                home -> coin
-                else -> home
-            }
-            updateLayout(viewKey)
-        }
     }
 
     override fun displayError(it: Throwable) {
@@ -74,7 +60,7 @@ class LayoutActivity : BaseActivity(), LayoutActivityContractView, LayoutCoordin
     }
 
     override fun onBackPressed() {
-        val viewKey = when (currentViewState) {
+        val viewKey = when (coordinator.currentViewState) {
             coin -> home
             else -> null
         }

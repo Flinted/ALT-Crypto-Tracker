@@ -6,7 +6,7 @@ import makes.flint.alt.ui.main.MainActivity
 
 /**
  * `MainActivity+SortMaps`
- * Copyright © 2018 Flint Makes. All rights reserved.
+ * Copyright © 2018 ChrisDidThis. All rights reserved.
  */
 
 fun MainActivity.idToSortMap(): HashMap<Int, Int> {

@@ -7,7 +7,7 @@ import rx.Observable
 
 /**
  * TrackerContract
- * Copyright © 2018 Flint Makes. All rights reserved.
+ * Copyright © 2018 ChrisDidThis. All rights reserved.
  */
 interface TrackerAdapterContractView : BaseContractView {
     var trackerEntries: MutableList<TrackerListItem>

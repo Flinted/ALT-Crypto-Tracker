@@ -6,7 +6,7 @@ import makes.flint.alt.data.coinListItem.CoinListItem
 
 /**
  * CoinAutoCompleteAdapter
- * Copyright © 2018 Flint Makes. All rights reserved.
+ * Copyright © 2018 ChrisDidThis. All rights reserved.
  */
 class CoinAutoCompleteAdapter private constructor(context: Context, layoutId: Int, items: Array<String>)
     : ArrayAdapter<String>(context, layoutId, items) {

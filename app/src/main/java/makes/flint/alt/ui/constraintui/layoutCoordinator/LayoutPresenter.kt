@@ -7,7 +7,7 @@ import javax.inject.Inject
 
 /**
  * LayoutPresenter
- * Copyright © 2018 Intelligent Loyalty Limited. All rights reserved.
+ * Copyright © 2018 ChrisDidThis. All rights reserved.
  */
 class LayoutPresenter @Inject constructor(private val dataController: DataController) : BasePresenter<LayoutActivityContractView>(),
         LayoutActivityContractPresenter {

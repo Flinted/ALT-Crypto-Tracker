@@ -10,7 +10,7 @@ import makes.flint.alt.ui.tracker.summary.summaryFragments.SummaryFragment
 
 /**
  * SummaryViewPagerAdapter
- * Copyright © 2018 Flint Makes. All rights reserved.
+ * Copyright © 2018 ChrisDidThis. All rights reserved.
  */
 class SummaryViewPagerAdapter(fragmentManager: FragmentManager) : FragmentStatePagerAdapter(fragmentManager) {
 

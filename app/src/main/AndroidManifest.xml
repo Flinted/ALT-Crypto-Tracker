@@ -23,25 +23,12 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-
-        <activity
-            android:name=".ui.splash.SplashActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/SplashTheme">
-        </activity>
-        <activity
-            android:name=".ui.onboard.OnBoardActivity"
-            android:theme="@style/WelcomeScreenTheme"/>
         <activity
             android:name=".ui.main.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme">
         </activity>
-        <activity
-            android:name=".ui.snapshot.SnapShotActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"
-            />
+
     </application>
 
 </manifest>

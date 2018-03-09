@@ -10,7 +10,7 @@ import makes.flint.alt.R
 
 /**
  * AddCoinDialogViewHolder
- * Copyright © 2018 Flint Makes. All rights reserved.
+ * Copyright © 2018 ChrisDidThis. All rights reserved.
  */
 class AddCoinDialogViewHolder(view: View) {
 

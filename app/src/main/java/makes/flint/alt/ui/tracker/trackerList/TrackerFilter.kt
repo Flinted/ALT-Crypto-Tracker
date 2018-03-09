@@ -5,7 +5,7 @@ import makes.flint.alt.data.trackerListItem.TrackerListItem
 
 /**
  * TrackerFilter
- * Copyright © 2018  Flint Makes. All rights reserved.
+ * Copyright © 2018  ChrisDidThis. All rights reserved.
  */
 class TrackerFilter(private var originalList: MutableList<TrackerListItem>, private var callback: TrackerFilterCallback) : Filter
 () {

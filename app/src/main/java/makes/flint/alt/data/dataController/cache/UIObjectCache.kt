@@ -19,7 +19,7 @@ import javax.inject.Inject
 
 /**
  * UIObjectCache
- * Copyright © 2018 Flint Makes. All rights reserved.
+ * Copyright © 2018 ChrisDidThis. All rights reserved.
  */
 class UIObjectCache @Inject constructor(private val coinListItemFactory: CoinListItemFactory,
                                         private val trackerItemFactory: TrackerItemFactory,

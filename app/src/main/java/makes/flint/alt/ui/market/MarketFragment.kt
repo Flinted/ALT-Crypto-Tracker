@@ -19,7 +19,7 @@ import makes.flint.alt.ui.market.extensions.getStringIdFor
 
 /**
  * MarketFragment
- * Copyright © 2018 Flint Makes. All rights reserved.
+ * Copyright © 2018 ChrisDidThis. All rights reserved.
  */
 class MarketFragment : BaseFragment(), MarketContractView, FilterView {
 
@@ -124,7 +124,7 @@ class MarketFragment : BaseFragment(), MarketContractView, FilterView {
     override fun showDialogForCoin(coinSymbol: String) {
         val fragmentManager = activity.supportFragmentManager
         val newCoinDetail = CoinDetailSummary.getInstanceFor(coinSymbol)
-        fragmentManager.beginTransaction().replace(R.id.frame_c, newCoinDetail).commit()
+        fragmentManager.beginTransaction().replace(R.id.frame_bottom, newCoinDetail).commit()
 
     }
 

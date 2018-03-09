@@ -6,7 +6,7 @@ import makes.flint.alt.ui.market.MarketFragment
 
 /**
  * `MarketFragment+StringForSortId`
- * Copyright © 2018 Flint Makes. All rights reserved.
+ * Copyright © 2018 ChrisDidThis. All rights reserved.
  */
 
 fun MarketFragment.getStringIdFor(sortId: Int): Int {

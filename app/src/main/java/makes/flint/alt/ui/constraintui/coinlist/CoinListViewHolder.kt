@@ -9,7 +9,7 @@ import makes.flint.alt.R
 
 /**
  * CoinListViewHolder
- * Copyright © 2018 Intelligent Loyalty Limited. All rights reserved.
+ * Copyright © 2018 ChrisDidThis. All rights reserved.
  */
 class CoinListViewHolder(view: View) {
     internal var coinList: RecyclerView = view.findViewById(R.id.coin_list_recycler_view)

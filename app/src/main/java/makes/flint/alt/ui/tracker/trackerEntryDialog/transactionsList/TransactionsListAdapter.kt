@@ -17,7 +17,7 @@ import rx.subjects.PublishSubject
 
 /**
  * TransactionsListAdapter
- * Copyright © 2018 Flint Makes. All rights reserved.
+ * Copyright © 2018 ChrisDidThis. All rights reserved.
  */
 class TransactionsListAdapter(presenterComponent: PresenterComponent) : RecyclerView.Adapter<RecyclerView.ViewHolder>(),
         TransactionAdapterContractView {

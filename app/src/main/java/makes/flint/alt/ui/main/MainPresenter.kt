@@ -9,7 +9,7 @@ import java.util.*
 
 /**
  * MainPresenter
- * Copyright © 2018 Flint Makes. All rights reserved.
+ * Copyright © 2018 ChrisDidThis. All rights reserved.
  */
 class MainPresenter(private var dataController: DataController) : BasePresenter<MainContractView>(), MainContractPresenter {
 

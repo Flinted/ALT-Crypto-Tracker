@@ -11,7 +11,7 @@ import javax.inject.Inject
 
 /**
  * AddCoinDialogPresenter
- * Copyright © 2018 Flint Makes. All rights reserved.
+ * Copyright © 2018 ChrisDidThis. All rights reserved.
  */
 class AddCoinDialogPresenter @Inject constructor(private val dataController: DataController,
                                                  private val trackerEntryDataFactory: TrackerEntryDataFactory

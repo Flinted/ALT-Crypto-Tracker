@@ -14,7 +14,7 @@ import makes.flint.alt.configuration.SettingsData
 
 /**
  * SettingsFragment
- * Copyright © 2018 Flint Makes. All rights reserved.
+ * Copyright © 2018 ChrisDidThis. All rights reserved.
  */
 
 // Settings to be completely removed/reworked into navigation drawer.  This is kept for reference only.

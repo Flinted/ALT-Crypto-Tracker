@@ -11,7 +11,7 @@ import makes.flint.alt.ui.tracker.TrackerFragment
 
 /**
  * MainViewPagerAdapter
- * Copyright © 2018  Flint Makes. All rights reserved.
+ * Copyright © 2018  ChrisDidThis. All rights reserved.
  */
 class MainViewPagerAdapter(fragmentManager: FragmentManager) : FragmentStatePagerAdapter(fragmentManager) {
 

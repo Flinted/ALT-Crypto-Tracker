@@ -10,7 +10,7 @@ import javax.inject.Inject
 
 /**
  * CoinListAdapterPresenter
- * Copyright © 2018 Flint Makes. All rights reserved.
+ * Copyright © 2018 ChrisDidThis. All rights reserved.
  */
 class CoinListAdapterPresenter @Inject constructor(private var dataController: DataController) :
         CoinListAdapterContractPresenter {

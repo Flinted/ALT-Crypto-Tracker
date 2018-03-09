@@ -6,7 +6,7 @@ import javax.inject.Singleton
 
 /**
  * DataComponent
- * Copyright © 2018 Flint Makes.. All rights reserved.
+ * Copyright © 2018 ChrisDidThis.. All rights reserved.
  */
 @Singleton
 @Component(modules = arrayOf(DataModule::class))

@@ -7,7 +7,7 @@ import makes.flint.alt.ui.main.MainPresenter
 
 /**
  * DataModule
- * Copyright © 2018 Flint Makes.. All rights reserved.
+ * Copyright © 2018 ChrisDidThis.. All rights reserved.
  */
 @Module open class PresenterModule {
 

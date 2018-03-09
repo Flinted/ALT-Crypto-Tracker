@@ -12,7 +12,7 @@ import makes.flint.alt.factories.HistoricalDataChartFactory
 
 /**
  * CoinDetailChart
- * Copyright © 2018 Intelligent Loyalty Limited. All rights reserved.
+ * Copyright © 2018 ChrisDidThis. All rights reserved.
  */
 
 const val COIN_SYMBOL_CHART_KEY = "CoinSymbolChartKey"

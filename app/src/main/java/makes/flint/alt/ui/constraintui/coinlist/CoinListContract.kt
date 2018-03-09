@@ -5,7 +5,7 @@ import makes.flint.alt.base.BaseContractView
 
 /**
  * CoinListContract
- * Copyright © 2018 Intelligent Loyalty Limited. All rights reserved.
+ * Copyright © 2018 ChrisDidThis. All rights reserved.
  */
 interface CoinListContractView : BaseContractView {
     fun initialiseListAdapter()

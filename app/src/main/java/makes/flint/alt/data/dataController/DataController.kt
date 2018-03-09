@@ -22,7 +22,7 @@ import javax.inject.Inject
 
 /**
  * DataController
- * Copyright © 2018 Flint Makes. All rights reserved.
+ * Copyright © 2018 ChrisDidThis. All rights reserved.
  */
 open class DataController @Inject constructor(private val apiRepository: ApiRepository,
                                               private val realmManager: RealmManager,

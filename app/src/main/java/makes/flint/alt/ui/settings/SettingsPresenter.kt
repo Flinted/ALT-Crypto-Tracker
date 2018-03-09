@@ -6,7 +6,7 @@ import javax.inject.Inject
 
 /**
  * SettingsPresenter
- * Copyright © 2018 Flint Makes. All rights reserved.
+ * Copyright © 2018 ChrisDidThis. All rights reserved.
  */
 class SettingsPresenter @Inject constructor(private val dataController: DataController) : BasePresenter<SettingsContractView>(),
         SettingsContractPresenter {

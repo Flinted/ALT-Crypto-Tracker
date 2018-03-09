@@ -17,7 +17,7 @@ import rx.subjects.PublishSubject
 
 /**
  * CoinListAdapter
- * Copyright © 2018 Flint Makes. All rights reserved.
+ * Copyright © 2018 ChrisDidThis. All rights reserved.
  */
 class CoinListAdapter(presenterComponent: PresenterComponent)
     : RecyclerView.Adapter<RecyclerView.ViewHolder>(), CoinListAdapterContractView, Filterable {

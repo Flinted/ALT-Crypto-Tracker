@@ -6,7 +6,7 @@ import javax.inject.Inject
 
 /**
  * CoinDetailPresenter
- * Copyright © 2018 Flint Makes. All rights reserved.
+ * Copyright © 2018 ChrisDidThis. All rights reserved.
  */
 
 // Hour Resolution

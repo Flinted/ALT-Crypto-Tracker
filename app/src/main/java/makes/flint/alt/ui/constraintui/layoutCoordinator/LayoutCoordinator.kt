@@ -8,7 +8,7 @@ import javax.inject.Inject
 
 /**
  * LayoutCoordinator
- * Copyright © 2018 Intelligent Loyalty Limited. All rights reserved.
+ * Copyright © 2018 ChrisDidThis. All rights reserved.
  */
 const val loading = "LOADING"
 const val home = "HOME"
@@ -20,6 +20,8 @@ const val error = "ERROR"
 class LayoutCoordinator @Inject constructor() {
 
     private var layouts: MutableMap<String, ConstraintSet> = makeConstraintSetsMap()
+    internal var currentViewState = loading
+        private set
 
     private fun makeConstraintSetsMap() = mutableMapOf(
             loading to ConstraintSet(),
@@ -38,12 +40,13 @@ class LayoutCoordinator @Inject constructor() {
     }
 
     fun changeConstraints(viewKey: String, masterLayout: ConstraintLayout) {
+        currentViewState = viewKey
         val constraint = layouts[viewKey] ?: return
         TransitionManager.beginDelayedTransition(masterLayout)
         constraint.applyTo(masterLayout)
     }
 
-    fun updateFragments(key: String, views: LayoutViewHolder) {
+    fun updateFragments(viewKey: String, views: LayoutViewHolder) {
 
     }
 }

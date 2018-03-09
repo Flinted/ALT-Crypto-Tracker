@@ -12,8 +12,6 @@ import makes.flint.alt.ui.main.MainPresenter
 import makes.flint.alt.ui.market.MarketPresenter
 import makes.flint.alt.ui.market.coinlist.CoinListAdapterPresenter
 import makes.flint.alt.ui.settings.SettingsPresenter
-import makes.flint.alt.ui.snapshot.SnapShotPresenter
-import makes.flint.alt.ui.splash.SplashPresenter
 import makes.flint.alt.ui.tracker.TrackerPresenter
 import makes.flint.alt.ui.tracker.addCoinDialog.AddCoinDialogPresenter
 import makes.flint.alt.ui.tracker.summary.summaryFragments.SummaryPresenter
@@ -24,7 +22,7 @@ import javax.inject.Singleton
 
 /**
  * PresenterComponent
- * Copyright © 2018 Flint Makes.. All rights reserved.
+ * Copyright © 2018 ChrisDidThis.. All rights reserved.
  */
 @Singleton
 @Component(modules = arrayOf(PresenterModule::class, DataModule::class))
@@ -57,11 +55,7 @@ interface PresenterComponent {
 
     fun provideTransactionsAdapterPresenter(): TransactionsAdapterPresenter
 
-    fun provideSplashPresenter(): SplashPresenter
-
     fun provideSummaryPresenter(): SummaryPresenter
 
     fun provideSettingsPresenter(): SettingsPresenter
-
-    fun provideSnapShotPresenter(): SnapShotPresenter
 }

@@ -9,7 +9,7 @@ import makes.flint.alt.R
 
 /**
  * CoinListViewHolder
- * Copyright © 2018 Flint Makes. All rights reserved.
+ * Copyright © 2018 ChrisDidThis. All rights reserved.
  */
 class CoinListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 

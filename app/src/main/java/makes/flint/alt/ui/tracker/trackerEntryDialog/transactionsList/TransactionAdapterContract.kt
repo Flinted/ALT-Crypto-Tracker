@@ -7,7 +7,7 @@ import rx.Observable
 
 /**
  * TransactionAdapterContract
- * Copyright © 2018 Flint Makes. All rights reserved.
+ * Copyright © 2018 ChrisDidThis. All rights reserved.
  */
 interface TransactionAdapterContractView : BaseContractView {
     fun successfullyDeletedTransaction(entry: TrackerTransaction)
