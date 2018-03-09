@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.ViewTreeObserver
 import makes.flint.alt.R
 import makes.flint.alt.base.BaseActivity
+import makes.flint.alt.errors.ErrorHandler
 import makes.flint.alt.ui.constraintui.coinlist.CoinListFragment
 import makes.flint.alt.ui.constraintui.trackerChart.TrackerChartFragment
 import makes.flint.alt.ui.tracker.summary.summaryFragments.SummaryFragment
@@ -25,12 +26,14 @@ class LayoutActivity : BaseActivity(), LayoutActivityContractView, LayoutCoordin
         this.views = LayoutViewHolder(this)
         setOnClick()
         presenter = getPresenterComponent().provideLayoutPresenter()
+        presenter.attachView(this)
+        attachPresenter(presenter)
         coordinator = LayoutCoordinator()
         coordinator.initialiseConstraintsFor(views.masterLayout)
-        loadMarketFragment()
+        presenter.initialise()
     }
 
-    private fun loadMarketFragment() {
+    override fun loadInitialScreens() {
         val coinListFragment = CoinListFragment()
         val chartFragment = TrackerChartFragment()
         val summaryFragment = SummaryFragment()
@@ -52,6 +55,7 @@ class LayoutActivity : BaseActivity(), LayoutActivityContractView, LayoutCoordin
     override fun updateLayout(key: String) {
         currentViewState = key
         coordinator.changeConstraints(key, views.masterLayout)
+        coordinator.updateFragments(key, views)
     }
 
     private fun setOnClick() {
@@ -65,6 +69,10 @@ class LayoutActivity : BaseActivity(), LayoutActivityContractView, LayoutCoordin
         }
     }
 
+    override fun displayError(it: Throwable) {
+        ErrorHandler.showError(this, ErrorHandler.ERROR_SYNC_TIMEOUT)
+    }
+
     override fun onBackPressed() {
         val viewKey = when (currentViewState) {
             coin -> home
@@ -75,5 +83,10 @@ class LayoutActivity : BaseActivity(), LayoutActivityContractView, LayoutCoordin
             return
         }
         super.onBackPressed()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        presenter.onDestroy()
     }
 }

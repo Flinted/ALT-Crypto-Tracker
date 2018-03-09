@@ -15,17 +15,19 @@ const val home = "HOME"
 const val coin = "COIN"
 const val add = "ADD"
 const val portfolio = "PORTFOLIO"
+const val error = "ERROR"
 
 class LayoutCoordinator @Inject constructor() {
 
-    var layouts: MutableMap<String, ConstraintSet> = makeConstraintSetsMap()
+    private var layouts: MutableMap<String, ConstraintSet> = makeConstraintSetsMap()
 
     private fun makeConstraintSetsMap() = mutableMapOf(
             loading to ConstraintSet(),
             home to ConstraintSet(),
             coin to ConstraintSet(),
             add to ConstraintSet(),
-            portfolio to ConstraintSet()
+            portfolio to ConstraintSet(),
+            error to ConstraintSet()
     )
 
     internal fun initialiseConstraintsFor(layout: ConstraintLayout) {
@@ -41,5 +43,7 @@ class LayoutCoordinator @Inject constructor() {
         constraint.applyTo(masterLayout)
     }
 
+    fun updateFragments(key: String, views: LayoutViewHolder) {
 
+    }
 }

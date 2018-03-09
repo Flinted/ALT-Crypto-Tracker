@@ -8,8 +8,11 @@ import makes.flint.alt.base.BaseContractView
  * Copyright © 2018 Intelligent Loyalty Limited. All rights reserved.
  */
 interface LayoutActivityContractView : BaseContractView {
+    fun loadInitialScreens()
+    fun displayError(it: Throwable)
 }
 
 interface LayoutActivityContractPresenter : BaseContractPresenter<LayoutActivityContractView> {
     fun emitData()
+    fun onDestroy()
 }
