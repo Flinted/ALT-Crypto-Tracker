@@ -8,6 +8,7 @@ import makes.flint.alt.errors.ErrorHandler
 import makes.flint.alt.ui.constraintui.coinlist.CoinListFragment
 import makes.flint.alt.ui.constraintui.trackerChart.TrackerChartFragment
 import makes.flint.alt.ui.tracker.summary.summaryFragments.SummaryFragment
+import java.util.*
 
 /**
  * LayoutActivity
@@ -45,9 +46,17 @@ class LayoutActivity : BaseActivity(), LayoutActivityContractView, LayoutCoordin
             override fun onGlobalLayout() {
                 views.masterLayout.viewTreeObserver.removeOnGlobalLayoutListener(this)
                 presenter.emitData()
+                views.loadingMessage.text = ""
                 updateLayout(home)
             }
         })
+    }
+
+    override fun displayRandomLoadingMessage() {
+        val stringArray = resources.getStringArray(R.array.market_size_options)
+        val randomPosition = Random().nextInt(stringArray.count())
+        val string = stringArray[randomPosition]
+        views.loadingMessage.text = string
     }
 
     override fun updateLayout(key: String) {

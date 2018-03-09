@@ -10,6 +10,7 @@ import makes.flint.alt.base.BaseContractView
 interface LayoutActivityContractView : BaseContractView {
     fun loadInitialScreens()
     fun displayError(it: Throwable)
+    fun displayRandomLoadingMessage()
 }
 
 interface LayoutActivityContractPresenter : BaseContractPresenter<LayoutActivityContractView> {

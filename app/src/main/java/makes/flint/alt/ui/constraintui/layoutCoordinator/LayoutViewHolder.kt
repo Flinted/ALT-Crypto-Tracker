@@ -3,6 +3,7 @@ package makes.flint.alt.ui.constraintui.layoutCoordinator
 import android.support.constraint.ConstraintLayout
 import android.support.design.widget.FloatingActionButton
 import android.widget.FrameLayout
+import android.widget.TextView
 import makes.flint.alt.R
 
 /**
@@ -17,4 +18,5 @@ class LayoutViewHolder(activity: LayoutActivity) {
     internal var popFrameTop: FrameLayout = activity.findViewById(R.id.pop_frame_top)
     internal var popFrameBottom: FrameLayout = activity.findViewById(R.id.pop_frame_bottom)
     internal var fab: FloatingActionButton = activity.findViewById(R.id.layout_fab)
+    internal var loadingMessage: TextView = activity.findViewById(R.id.pop_frame_loading_textview)
 }
