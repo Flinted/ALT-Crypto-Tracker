@@ -1,5 +1,6 @@
 package makes.flint.alt.ui.constraintui.layoutCoordinator
 
+import android.app.FragmentTransaction
 import android.os.Bundle
 import android.view.ViewTreeObserver
 import makes.flint.alt.R
@@ -33,13 +34,10 @@ class LayoutActivity : BaseActivity(), LayoutActivityContractView, LayoutCoordin
     }
 
     override fun loadInitialScreens() {
-        val coinListFragment = CoinListFragment()
-        val chartFragment = TrackerChartFragment()
-        val summaryFragment = SummaryFragment()
         val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.frame_bottom, coinListFragment)
-        transaction.replace(R.id.frame_top, summaryFragment)
-        transaction.replace(R.id.frame_centre, chartFragment)
+        transaction.replace(R.id.frame_bottom, CoinListFragment())
+        transaction.replace(R.id.frame_top, SummaryFragment())
+        transaction.replace(R.id.frame_centre, TrackerChartFragment())
         transaction.commit()
         views.masterLayout.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver
         .OnGlobalLayoutListener {
@@ -60,8 +58,17 @@ class LayoutActivity : BaseActivity(), LayoutActivityContractView, LayoutCoordin
     }
 
     override fun updateLayout(key: String) {
-        coordinator.changeConstraints(key, views.masterLayout)
-        coordinator.updateFragments(key, views)
+        val callback = object : TransitionCallBack {
+            override fun transitionCompleted() {
+                if (key == home && coordinator.currentViewState != home) {
+                    val transaction = supportFragmentManager.beginTransaction()
+                    transaction.replace(R.id.frame_centre, TrackerChartFragment())
+                    transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                    transaction.commit()
+                }
+            }
+        }
+        coordinator.changeConstraints(key, views.masterLayout, callback)
     }
 
     override fun displayError(it: Throwable) {

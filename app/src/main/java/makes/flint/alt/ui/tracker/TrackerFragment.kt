@@ -10,9 +10,9 @@ import android.view.ViewGroup
 import makes.flint.alt.R
 import makes.flint.alt.base.BaseFragment
 import makes.flint.alt.data.trackerListItem.TrackerListItem
+import makes.flint.alt.ui.constraintui.addCoin.AddCoinFragment
 import makes.flint.alt.ui.interfaces.FilterView
 import makes.flint.alt.ui.main.MainActivity
-import makes.flint.alt.ui.constraintui.addCoin.AddCoinFragment
 import makes.flint.alt.ui.tracker.summary.SummaryViewPagerAdapter
 import makes.flint.alt.ui.tracker.trackerEntryDialog.TrackerEntryDialog
 import makes.flint.alt.ui.tracker.trackerList.TrackerAdapterContractView
@@ -176,7 +176,6 @@ class TrackerFragment : BaseFragment(), TrackerContractView, FilterView {
             fragmentManager.beginTransaction().remove(it).commit()
         }
         val addCoinDialog = AddCoinFragment()
-        addCoinDialog.show(fragmentManager, "AddCoin")
         setListenerForAddCoinDialog(addCoinDialog)
     }
 

@@ -2,6 +2,10 @@ package makes.flint.alt.ui.constraintui.layoutCoordinator
 
 import android.support.constraint.ConstraintLayout
 import android.support.constraint.ConstraintSet
+import android.transition.AutoTransition
+import android.transition.Scene
+import android.transition.Transition
+import android.transition.Transition.TransitionListener
 import android.transition.TransitionManager
 import makes.flint.alt.R
 import javax.inject.Inject
@@ -39,14 +43,24 @@ class LayoutCoordinator @Inject constructor() {
         layouts[coin]?.clone(context, R.layout.constraint_coin)
     }
 
-    fun changeConstraints(viewKey: String, masterLayout: ConstraintLayout) {
+    internal fun changeConstraints(viewKey: String, masterLayout: ConstraintLayout, callback: TransitionCallBack) {
         currentViewState = viewKey
         val constraint = layouts[viewKey] ?: return
-        TransitionManager.beginDelayedTransition(masterLayout)
+        val transition = AutoTransition()
+        transition.addListener(object : TransitionListener {
+            override fun onTransitionResume(p0: Transition?) {}
+            override fun onTransitionPause(p0: Transition?) {}
+            override fun onTransitionCancel(p0: Transition?) {}
+            override fun onTransitionStart(p0: Transition?) {}
+            override fun onTransitionEnd(p0: Transition?) {
+                callback.transitionCompleted()
+            }
+        })
+        TransitionManager.go(Scene(masterLayout), transition)
         constraint.applyTo(masterLayout)
     }
+}
 
-    fun updateFragments(viewKey: String, views: LayoutViewHolder) {
-
-    }
+internal interface TransitionCallBack {
+    fun transitionCompleted()
 }
