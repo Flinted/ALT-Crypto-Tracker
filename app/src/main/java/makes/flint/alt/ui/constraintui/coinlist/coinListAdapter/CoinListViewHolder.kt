@@ -1,4 +1,4 @@
-package makes.flint.alt.ui.market.coinlist
+package makes.flint.alt.ui.constraintui.coinlist.coinListAdapter
 
 import android.support.v7.widget.CardView
 import android.support.v7.widget.RecyclerView

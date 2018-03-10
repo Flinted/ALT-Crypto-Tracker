@@ -1,4 +1,4 @@
-package makes.flint.alt.ui.tracker.summary.summaryFragments
+package makes.flint.alt.ui.constraintui.trackerSummary
 
 import android.view.View
 import android.widget.TextView

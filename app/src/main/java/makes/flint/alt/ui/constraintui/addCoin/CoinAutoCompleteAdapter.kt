@@ -1,4 +1,4 @@
-package makes.flint.alt.ui.tracker.addCoinDialog
+package makes.flint.alt.ui.constraintui.addCoin
 
 import android.content.Context
 import android.widget.ArrayAdapter

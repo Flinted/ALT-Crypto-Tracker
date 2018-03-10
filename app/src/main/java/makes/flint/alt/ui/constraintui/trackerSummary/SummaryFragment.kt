@@ -1,4 +1,4 @@
-package makes.flint.alt.ui.tracker.summary.summaryFragments
+package makes.flint.alt.ui.constraintui.trackerSummary
 
 import android.os.Bundle
 import android.support.v4.content.ContextCompat

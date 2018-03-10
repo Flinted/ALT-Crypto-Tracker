@@ -13,8 +13,8 @@ import makes.flint.alt.ui.constraintui.coinDetail.coinDetailChart.CoinDetailChar
 import makes.flint.alt.ui.constraintui.coinDetail.coinDetailSummary.CoinDetailSummary
 import makes.flint.alt.ui.constraintui.layoutCoordinator.LayoutCoordinatable
 import makes.flint.alt.ui.constraintui.layoutCoordinator.coin
-import makes.flint.alt.ui.market.coinlist.CoinListAdapter
-import makes.flint.alt.ui.market.coinlist.CoinListAdapterContractView
+import makes.flint.alt.ui.constraintui.coinlist.coinListAdapter.CoinListAdapter
+import makes.flint.alt.ui.constraintui.coinlist.coinListAdapter.CoinListAdapterContractView
 
 /**
  * CoinListFragment

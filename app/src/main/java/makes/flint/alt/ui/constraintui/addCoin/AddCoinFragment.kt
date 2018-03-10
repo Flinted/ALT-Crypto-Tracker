@@ -1,4 +1,4 @@
-package makes.flint.alt.ui.tracker.addCoinDialog
+package makes.flint.alt.ui.constraintui.addCoin
 
 import android.app.DatePickerDialog
 import android.os.Bundle
@@ -9,7 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import makes.flint.alt.R
-import makes.flint.alt.base.BaseDialogFragment
+import makes.flint.alt.base.BaseFragment
 import makes.flint.alt.data.coinListItem.CoinListItem
 import makes.flint.alt.data.tracker.TRANSACTION_BUY
 import makes.flint.alt.errors.ErrorHandler
@@ -17,15 +17,15 @@ import rx.subjects.PublishSubject
 import java.util.*
 
 /**
- * AddCoinDialog
+ * AddCoinFragment
  * Copyright © 2018  ChrisDidThis. All rights reserved.
  */
-class AddCoinDialog : BaseDialogFragment(), AddCoinDialogContractView {
+class AddCoinFragment : BaseFragment(), AddCoinContractView {
 
     // Properties
 
-    private lateinit var views: AddCoinDialogViewHolder
-    private lateinit var addCoinDialogPresenter: AddCoinDialogContractPresenter
+    private lateinit var views: AddCoinViewHolder
+    private lateinit var addCoinDialogPresenter: AddCoinContractPresenter
 
     // RX Actions
 
@@ -42,24 +42,12 @@ class AddCoinDialog : BaseDialogFragment(), AddCoinDialogContractView {
         attachPresenter(addCoinDialogPresenter)
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater?.inflate(R.layout.dialog_buy_asset, container)
         view ?: return super.onCreateView(inflater, container, savedInstanceState)
-        this.views = AddCoinDialogViewHolder(view)
+        this.views = AddCoinViewHolder(view)
         addCoinDialogPresenter.initialise()
         return view
-    }
-
-    override fun onStart() {
-        super.onStart()
-        dialog.window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
-    }
-
-    override fun endDialog() {
-        activity.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
-        addCoinDialogPresenter.detachView()
-        transactionAdded.onNext(true)
-        dismiss()
     }
 
     // Overrides
@@ -148,15 +136,6 @@ class AddCoinDialog : BaseDialogFragment(), AddCoinDialogContractView {
         val price = views.priceInput.text.toString()
         val fees = views.feesInput.text.toString()
         addCoinDialogPresenter.updatePriceCalculation(quantity, price, fees)
-    }
-
-    private fun updateViewsForTransactionType(isEnabled: Boolean, color: Int) {
-        views.feesInput.isEnabled = isEnabled
-        views.exchangeInput.isEnabled = isEnabled
-        views.priceInput.isEnabled = isEnabled
-        views.feesInput.setBackgroundColor(color)
-        views.exchangeInput.setBackgroundColor(color)
-        views.priceInput.setBackgroundColor(color)
     }
 
     private fun makeTrackerEntryData() {

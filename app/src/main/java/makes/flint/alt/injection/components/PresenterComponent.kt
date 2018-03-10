@@ -10,11 +10,11 @@ import makes.flint.alt.ui.constraintui.layoutCoordinator.LayoutPresenter
 import makes.flint.alt.ui.constraintui.trackerChart.TrackerChartPresenter
 import makes.flint.alt.ui.main.MainPresenter
 import makes.flint.alt.ui.market.MarketPresenter
-import makes.flint.alt.ui.market.coinlist.CoinListAdapterPresenter
+import makes.flint.alt.ui.constraintui.coinlist.coinListAdapter.CoinListAdapterPresenter
 import makes.flint.alt.ui.settings.SettingsPresenter
 import makes.flint.alt.ui.tracker.TrackerPresenter
-import makes.flint.alt.ui.tracker.addCoinDialog.AddCoinDialogPresenter
-import makes.flint.alt.ui.tracker.summary.summaryFragments.SummaryPresenter
+import makes.flint.alt.ui.constraintui.addCoin.AddCoinPresenter
+import makes.flint.alt.ui.constraintui.trackerSummary.SummaryPresenter
 import makes.flint.alt.ui.tracker.trackerEntryDialog.TrackerEntryDialogPresenter
 import makes.flint.alt.ui.tracker.trackerEntryDialog.transactionsList.TransactionsAdapterPresenter
 import makes.flint.alt.ui.tracker.trackerList.TrackerAdapterPresenter
@@ -49,7 +49,7 @@ interface PresenterComponent {
 
     fun provideTrackerAdapterPresenter(): TrackerAdapterPresenter
 
-    fun provideAddCoinDialogPresenter(): AddCoinDialogPresenter
+    fun provideAddCoinDialogPresenter(): AddCoinPresenter
 
     fun provideTrackerEntryDialogPresenter(): TrackerEntryDialogPresenter
 

@@ -1,4 +1,4 @@
-package makes.flint.alt.ui.market.coinlist
+package makes.flint.alt.ui.constraintui.coinlist.coinListAdapter
 
 import makes.flint.alt.base.BaseContractPresenter
 import makes.flint.alt.base.BaseContractView

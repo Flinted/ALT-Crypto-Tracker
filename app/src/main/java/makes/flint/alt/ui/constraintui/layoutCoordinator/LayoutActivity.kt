@@ -7,7 +7,7 @@ import makes.flint.alt.base.BaseActivity
 import makes.flint.alt.errors.ErrorHandler
 import makes.flint.alt.ui.constraintui.coinlist.CoinListFragment
 import makes.flint.alt.ui.constraintui.trackerChart.TrackerChartFragment
-import makes.flint.alt.ui.tracker.summary.summaryFragments.SummaryFragment
+import makes.flint.alt.ui.constraintui.trackerSummary.SummaryFragment
 import java.util.*
 
 /**

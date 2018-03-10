@@ -12,7 +12,7 @@ import makes.flint.alt.base.BaseFragment
 import makes.flint.alt.data.trackerListItem.TrackerListItem
 import makes.flint.alt.ui.interfaces.FilterView
 import makes.flint.alt.ui.main.MainActivity
-import makes.flint.alt.ui.tracker.addCoinDialog.AddCoinDialog
+import makes.flint.alt.ui.constraintui.addCoin.AddCoinFragment
 import makes.flint.alt.ui.tracker.summary.SummaryViewPagerAdapter
 import makes.flint.alt.ui.tracker.trackerEntryDialog.TrackerEntryDialog
 import makes.flint.alt.ui.tracker.trackerList.TrackerAdapterContractView
@@ -175,12 +175,12 @@ class TrackerFragment : BaseFragment(), TrackerContractView, FilterView {
         shownAddCoin?.let {
             fragmentManager.beginTransaction().remove(it).commit()
         }
-        val addCoinDialog = AddCoinDialog()
+        val addCoinDialog = AddCoinFragment()
         addCoinDialog.show(fragmentManager, "AddCoin")
         setListenerForAddCoinDialog(addCoinDialog)
     }
 
-    private fun setListenerForAddCoinDialog(addCoinDialog: AddCoinDialog) {
+    private fun setListenerForAddCoinDialog(addCoinDialog: AddCoinFragment) {
         addCoinDialog.onTransactionAdded().subscribe {
             if (!it) {
                 return@subscribe

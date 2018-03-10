@@ -1,4 +1,4 @@
-package makes.flint.alt.ui.tracker.addCoinDialog
+package makes.flint.alt.ui.constraintui.addCoin
 
 import makes.flint.alt.base.BaseContractPresenter
 import makes.flint.alt.base.BaseContractView
@@ -9,11 +9,10 @@ import rx.Observable
  * AddCoinDialogContract
  * Copyright © 2018  ChrisDidThis. All rights reserved.
  */
-interface AddCoinDialogContractView : BaseContractView {
+interface AddCoinContractView : BaseContractView {
     fun initialiseFABListener()
     fun initialiseInputListeners()
     fun displayUpdatedPurchasePrice(purchasePrice: String)
-    fun endDialog()
     fun onTransactionAdded(): Observable<Boolean>?
     fun initialiseCoinAutoSuggest(autoCompleteSuggestions: List<CoinListItem>)
     fun displayUpdatedCurrentPrice(currentPrice: String)
@@ -21,7 +20,7 @@ interface AddCoinDialogContractView : BaseContractView {
     fun setDateSelected(dateString: String)
 }
 
-interface AddCoinDialogContractPresenter : BaseContractPresenter<AddCoinDialogContractView> {
+interface AddCoinContractPresenter : BaseContractPresenter<AddCoinContractView> {
     fun onAddEntryRequested(coinName: String?,
                             exchange: String?,
                             quantity: String?,
@@ -30,7 +29,6 @@ interface AddCoinDialogContractPresenter : BaseContractPresenter<AddCoinDialogCo
                             date: String,
                             notes: String,
                             typeId: String)
-
     fun updatePriceCalculation(quantity: String, price: String, fees: String)
     fun updateSelectedCoin(coin: CoinListItem?)
     fun prepareDateSelected(day: Int, month: Int, year: Int)

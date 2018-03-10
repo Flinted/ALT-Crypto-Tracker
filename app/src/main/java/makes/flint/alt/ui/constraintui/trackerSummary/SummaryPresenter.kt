@@ -1,4 +1,4 @@
-package makes.flint.alt.ui.tracker.summary.summaryFragments
+package makes.flint.alt.ui.constraintui.trackerSummary
 
 import makes.flint.alt.base.BasePresenter
 import makes.flint.alt.data.dataController.DataController

@@ -5,8 +5,8 @@ import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
 import android.view.ViewGroup
 import makes.flint.alt.ui.tracker.summary.summaryFragments.SummaryChartFragment
-import makes.flint.alt.ui.tracker.summary.summaryFragments.SummaryContractView
-import makes.flint.alt.ui.tracker.summary.summaryFragments.SummaryFragment
+import makes.flint.alt.ui.constraintui.trackerSummary.SummaryContractView
+import makes.flint.alt.ui.constraintui.trackerSummary.SummaryFragment
 
 /**
  * SummaryViewPagerAdapter

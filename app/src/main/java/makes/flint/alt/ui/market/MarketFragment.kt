@@ -13,8 +13,8 @@ import makes.flint.alt.data.response.marketSummary.MarketSummaryResponse
 import makes.flint.alt.ui.constraintui.coinDetail.coinDetailSummary.CoinDetailSummary
 import makes.flint.alt.ui.interfaces.FilterView
 import makes.flint.alt.ui.main.MainActivity
-import makes.flint.alt.ui.market.coinlist.CoinListAdapter
-import makes.flint.alt.ui.market.coinlist.CoinListAdapterContractView
+import makes.flint.alt.ui.constraintui.coinlist.coinListAdapter.CoinListAdapter
+import makes.flint.alt.ui.constraintui.coinlist.coinListAdapter.CoinListAdapterContractView
 import makes.flint.alt.ui.market.extensions.getStringIdFor
 
 /**

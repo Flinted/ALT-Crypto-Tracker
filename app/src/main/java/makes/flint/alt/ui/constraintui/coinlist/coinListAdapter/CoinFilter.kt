@@ -1,4 +1,4 @@
-package makes.flint.alt.ui.market.coinlist
+package makes.flint.alt.ui.constraintui.coinlist.coinListAdapter
 
 import android.widget.Filter
 import makes.flint.alt.data.coinListItem.CoinListItem

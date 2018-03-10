@@ -13,6 +13,8 @@ import com.github.mikephil.charting.data.PieEntry
 import makes.flint.alt.R
 import makes.flint.alt.base.BaseFragment
 import makes.flint.alt.data.Summary
+import makes.flint.alt.ui.constraintui.trackerSummary.SummaryContractPresenter
+import makes.flint.alt.ui.constraintui.trackerSummary.SummaryContractView
 
 /**
  * SummaryChartFragment

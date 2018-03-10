@@ -1,4 +1,4 @@
-package makes.flint.alt.ui.tracker.addCoinDialog
+package makes.flint.alt.ui.constraintui.addCoin
 
 import makes.flint.alt.data.coinListItem.CoinListItem
 import makes.flint.alt.data.dataController.DataController
@@ -10,16 +10,16 @@ import java.math.RoundingMode
 import javax.inject.Inject
 
 /**
- * AddCoinDialogPresenter
+ * AddCoinPresenter
  * Copyright © 2018 ChrisDidThis. All rights reserved.
  */
-class AddCoinDialogPresenter @Inject constructor(private val dataController: DataController,
-                                                 private val trackerEntryDataFactory: TrackerEntryDataFactory
-) : AddCoinDialogContractPresenter {
+class AddCoinPresenter @Inject constructor(private val dataController: DataController,
+                                           private val trackerEntryDataFactory: TrackerEntryDataFactory
+) : AddCoinContractPresenter {
 
     // Properties
 
-    private var dialog: AddCoinDialogContractView? = null
+    private var dialog: AddCoinContractView? = null
     private var selectedCoin: CoinListItem? = null
     private var coinListSubscriber: Subscription? = null
 
@@ -33,7 +33,7 @@ class AddCoinDialogPresenter @Inject constructor(private val dataController: Dat
         dataController.refreshRequested()
     }
 
-    override fun attachView(view: AddCoinDialogContractView) {
+    override fun attachView(view: AddCoinContractView) {
         this.dialog = view
     }
 
@@ -68,7 +68,6 @@ class AddCoinDialogPresenter @Inject constructor(private val dataController: Dat
             return
         }
         dataController.storeTrackerEntry(preparedEntry)
-        dialog?.endDialog()
     }
 
     override fun prepareDateSelected(day: Int, month: Int, year: Int) {

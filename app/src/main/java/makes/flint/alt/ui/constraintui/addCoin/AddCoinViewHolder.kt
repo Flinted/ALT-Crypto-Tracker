@@ -1,4 +1,4 @@
-package makes.flint.alt.ui.tracker.addCoinDialog
+package makes.flint.alt.ui.constraintui.addCoin
 
 import android.support.design.widget.FloatingActionButton
 import android.view.View
@@ -9,10 +9,10 @@ import android.widget.TextView
 import makes.flint.alt.R
 
 /**
- * AddCoinDialogViewHolder
+ * AddCoinViewHolder
  * Copyright © 2018 ChrisDidThis. All rights reserved.
  */
-class AddCoinDialogViewHolder(view: View) {
+class AddCoinViewHolder(view: View) {
 
     internal var assetSearch: AutoCompleteTextView = view.findViewById(R.id.asset_search)
     internal var selectedAsset: TextView = view.findViewById(R.id.selected_coin)
