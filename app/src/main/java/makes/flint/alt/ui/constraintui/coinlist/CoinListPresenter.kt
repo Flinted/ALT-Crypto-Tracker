@@ -22,7 +22,8 @@ class CoinListPresenter @Inject constructor(private val dataController: DataCont
     }
 
     private fun subscribeForRefreshUpdates() {
-        timeStampSubscription = dataController.lastSyncSubscriber().subscribe {
+        val subscription = dataController.lastSyncSubscriber()
+        timeStampSubscription = subscription.first.subscribe {
             view?.hideLoading()
         }
     }

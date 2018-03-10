@@ -68,9 +68,11 @@ class CoinListAdapterPresenter @Inject constructor(private var dataController: D
     }
 
     private fun subscribeToCache() {
-        cacheSubscription = dataController.coinRefreshSubscriber().subscribe {
+        val subscription = dataController.coinRefreshSubscriber()
+        cacheSubscription = subscription.first.subscribe {
             onGetCoinListSuccess(it)
         }
+        onGetCoinListSuccess(subscription.second)
     }
 
     private fun onGetCoinListSuccess(coinListItems: List<CoinListItem>) {

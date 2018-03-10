@@ -2,6 +2,7 @@ package makes.flint.alt.ui.constraintui.trackerChart
 
 import makes.flint.alt.base.BasePresenter
 import makes.flint.alt.data.dataController.DataController
+import makes.flint.alt.data.trackerListItem.TrackerListItem
 import rx.Subscription
 import javax.inject.Inject
 
@@ -29,12 +30,18 @@ class TrackerChartPresenter @Inject constructor(private val dataController: Data
     // Private Functions
 
     private fun subscribeToCache() {
-        trackerItemSubscription = dataController.trackerRefreshSubscriber().subscribe {trackerListItems ->
-            if (trackerListItems.isEmpty()) {
-                view?.showNoTrackerEntriesMessage()
-                return@subscribe
-            }
-            view?.displayTrackerEntriesChart(trackerListItems)
+        val subscription = dataController.trackerRefreshSubscriber()
+        trackerItemSubscription = subscription.first.subscribe { trackerListItems ->
+            onTrackerListItemsRetrieved(trackerListItems)
         }
+        onTrackerListItemsRetrieved(subscription.second)
+    }
+
+    private fun onTrackerListItemsRetrieved(trackerListItems: List<TrackerListItem>) {
+        if (trackerListItems.isEmpty()) {
+            view?.showNoTrackerEntriesMessage()
+            return
+        }
+        view?.displayTrackerEntriesChart(trackerListItems)
     }
 }

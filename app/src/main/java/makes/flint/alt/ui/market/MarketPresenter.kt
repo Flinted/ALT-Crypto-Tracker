@@ -57,11 +57,11 @@ class MarketPresenter @Inject constructor(private var dataController: DataContro
     }
 
     private fun subscribeForCacheRefresh() {
-        marketDataSubscriber = dataController.marketRefreshSubscriber().subscribe {
+        marketDataSubscriber = dataController.marketRefreshSubscriber().first.subscribe {
             updateMarketSummary(it)
             view?.hideLoading()
         }
-        lastSyncSubscriber = dataController.lastSyncSubscriber().subscribe {
+        lastSyncSubscriber = dataController.lastSyncSubscriber().first.subscribe {
             val timeString = it.timeStampISO8601
             val timeStamp = ZonedDateTime.parse(timeString)
             val formattedtime = timeStamp.format(DateFormatter.TIME)

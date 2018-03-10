@@ -49,7 +49,7 @@ class TrackerPresenter @Inject constructor(private var dataController: DataContr
     // Private Functions
 
     private fun initialiseCoinListSubscriber() {
-        coinListSubscriber = dataController.coinRefreshSubscriber().subscribe {
+        coinListSubscriber = dataController.coinRefreshSubscriber().first.subscribe {
             view?.hideLoading()
         }
     }

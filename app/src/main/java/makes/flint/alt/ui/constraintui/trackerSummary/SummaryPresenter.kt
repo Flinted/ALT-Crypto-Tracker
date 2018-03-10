@@ -30,8 +30,10 @@ class SummaryPresenter @Inject constructor(private val dataController: DataContr
     // Private Functions
 
     private fun initialiseSummarySubscriber() {
-        this.summarySubscription = dataController.summaryRefreshSubscriber().subscribe {
+        val subscription = dataController.summaryRefreshSubscriber()
+        this.summarySubscription = subscription.first.subscribe {
             view?.updateForSummary(it)
         }
+        view?.updateForSummary(subscription.second)
     }
 }

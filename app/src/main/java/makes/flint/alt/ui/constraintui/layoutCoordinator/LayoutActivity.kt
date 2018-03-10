@@ -58,9 +58,10 @@ class LayoutActivity : BaseActivity(), LayoutActivityContractView, LayoutCoordin
     }
 
     override fun updateLayout(key: String) {
+        val lastState = coordinator.currentViewState
         val callback = object : TransitionCallBack {
             override fun transitionCompleted() {
-                if (key == home && coordinator.currentViewState != home) {
+                if (key == home && lastState != home) {
                     val transaction = supportFragmentManager.beginTransaction()
                     transaction.replace(R.id.frame_centre, TrackerChartFragment())
                     transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)

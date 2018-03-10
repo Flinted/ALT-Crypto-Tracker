@@ -1,9 +1,6 @@
 package makes.flint.alt.data.dataController
 
 import makes.flint.alt.configuration.SettingsData
-import makes.flint.alt.data.Summary
-import makes.flint.alt.data.TimeStamp
-import makes.flint.alt.data.coinListItem.CoinListItem
 import makes.flint.alt.data.dataController.cache.UIObjectCache
 import makes.flint.alt.data.dataController.callbacks.RepositoryCallbackSingle
 import makes.flint.alt.data.dataController.dataManagers.ApiRepository
@@ -13,8 +10,6 @@ import makes.flint.alt.data.response.coinSummary.SummaryCoinResponse
 import makes.flint.alt.data.response.histoResponse.HistoricalDataResponse
 import makes.flint.alt.data.response.marketSummary.MarketSummaryResponse
 import makes.flint.alt.data.tracker.TrackerDataEntry
-import makes.flint.alt.data.trackerListItem.TrackerListItem
-import rx.Observable
 import rx.Subscriber
 import rx.android.schedulers.AndroidSchedulers
 import rx.subjects.PublishSubject
@@ -36,15 +31,15 @@ open class DataController @Inject constructor(private val apiRepository: ApiRepo
 
     // Internal Functions
 
-    internal fun coinRefreshSubscriber(): Observable<List<CoinListItem>> = cache.getCoinsSubscription()
+    internal fun coinRefreshSubscriber() = cache.getCoinsSubscription()
 
-    internal fun trackerRefreshSubscriber(): Observable<List<TrackerListItem>> = cache.getTrackerListSubscription()
+    internal fun trackerRefreshSubscriber() = cache.getTrackerListSubscription()
 
-    internal fun summaryRefreshSubscriber(): Observable<Summary> = cache.getSummarySubscription()
+    internal fun summaryRefreshSubscriber()= cache.getSummarySubscription()
 
-    internal fun marketRefreshSubscriber(): Observable<MarketSummaryResponse> = cache.getMarketSubscription()
+    internal fun marketRefreshSubscriber() = cache.getMarketSubscription()
 
-    internal fun lastSyncSubscriber(): Observable<TimeStamp> = cache.getSyncTimeSubscription()
+    internal fun lastSyncSubscriber() = cache.getSyncTimeSubscription()
 
     internal fun storeFavouriteCoin(favouriteCoins: FavouriteCoin) = realmManager.copyOrUpdate(favouriteCoins)
 

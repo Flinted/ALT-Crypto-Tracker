@@ -40,11 +40,11 @@ class UIObjectCache @Inject constructor(private val coinListItemFactory: CoinLis
     private var hasRefreshedSummary: PublishSubject<Summary> = PublishSubject.create()
     private var hasRefreshedMarketData: PublishSubject<MarketSummaryResponse> = PublishSubject.create()
     private var hasUpdatedTimeStamp: PublishSubject<TimeStamp> = PublishSubject.create()
-    internal fun getCoinsSubscription() = hasRefreshedCoins.asObservable()
-    internal fun getTrackerListSubscription() = hasRefreshedTrackerItems.asObservable()
-    internal fun getSummarySubscription() = hasRefreshedSummary.asObservable()
-    internal fun getMarketSubscription() = hasRefreshedMarketData.asObservable()
-    internal fun getSyncTimeSubscription() = hasUpdatedTimeStamp.asObservable()
+    internal fun getCoinsSubscription() = Pair(hasRefreshedCoins.asObservable(), coinListItems)
+    internal fun getTrackerListSubscription() = Pair(hasRefreshedTrackerItems.asObservable(), trackerListItems)
+    internal fun getSummarySubscription() = Pair(hasRefreshedSummary.asObservable(), summary)
+    internal fun getMarketSubscription() = Pair(hasRefreshedMarketData.asObservable(), marketSummary)
+    internal fun getSyncTimeSubscription() = Pair(hasUpdatedTimeStamp.asObservable(), lastUpdate)
 
     // Internal Functions
 

@@ -30,7 +30,6 @@ class AddCoinPresenter @Inject constructor(private val dataController: DataContr
         dialog?.initialiseFABListener()
         dialog?.initialiseInputListeners()
         dialog?.initialiseDateSelectListener()
-        dataController.refreshRequested()
     }
 
     override fun attachView(view: AddCoinContractView) {
@@ -93,9 +92,11 @@ class AddCoinPresenter @Inject constructor(private val dataController: DataContr
     // Private Functions
 
     private fun initialiseCoinListSubscriber() {
-        this.coinListSubscriber = dataController.coinRefreshSubscriber().subscribe {
+        val subscription = dataController.coinRefreshSubscriber()
+        this.coinListSubscriber = subscription.first.subscribe {
             dialog?.initialiseCoinAutoSuggest(it)
         }
+        dialog?.initialiseCoinAutoSuggest(subscription.second)
     }
 
     private fun updateCurrentPrice(bigDecimalQuantity: BigDecimal) {

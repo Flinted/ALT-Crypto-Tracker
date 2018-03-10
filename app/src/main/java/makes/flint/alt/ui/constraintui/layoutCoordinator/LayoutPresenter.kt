@@ -33,7 +33,7 @@ class LayoutPresenter @Inject constructor(private val dataController: DataContro
     }
 
     private fun setSubscription() {
-        timeStampSubscription = dataController.lastSyncSubscriber().subscribe {
+        timeStampSubscription = dataController.lastSyncSubscriber().first.subscribe {
             view?.loadInitialScreens()
             timeStampSubscription?.unsubscribe()
             timeStampSubscription = null
