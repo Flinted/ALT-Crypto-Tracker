@@ -8,10 +8,10 @@ import makes.flint.alt.base.BaseActivity
 import makes.flint.alt.errors.ErrorHandler
 import makes.flint.alt.ui.constraintui.addCoin.AddCoinFragment
 import makes.flint.alt.ui.constraintui.coinlist.CoinListFragment
+import makes.flint.alt.ui.constraintui.summaryChart.SummaryChartFragment
 import makes.flint.alt.ui.constraintui.trackerChart.TrackerChartFragment
+import makes.flint.alt.ui.constraintui.trackerList.TrackerListFragment
 import makes.flint.alt.ui.constraintui.trackerSummary.SummaryFragment
-import makes.flint.alt.ui.tracker.TrackerListFragment
-import makes.flint.alt.ui.tracker.summary.summaryFragments.SummaryChartFragment
 import java.util.*
 
 /**
@@ -34,6 +34,12 @@ class LayoutActivity : BaseActivity(), LayoutActivityContractView, LayoutCoordin
         coordinator = LayoutCoordinator()
         coordinator.initialiseConstraintsFor(views.masterLayout)
         presenter.initialise()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        showLoading()
+        presenter.emitData()
     }
 
     override fun loadInitialScreens() {

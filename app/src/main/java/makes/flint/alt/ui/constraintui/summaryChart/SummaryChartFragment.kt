@@ -1,4 +1,4 @@
-package makes.flint.alt.ui.tracker.summary.summaryFragments
+package makes.flint.alt.ui.constraintui.summaryChart
 
 import android.graphics.Color
 import android.os.Bundle

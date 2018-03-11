@@ -1,4 +1,4 @@
-package makes.flint.alt.ui.tracker.trackerEntryDialog
+package makes.flint.alt.ui.constraintui.trackerEntryDetail
 
 import android.app.AlertDialog
 import android.content.DialogInterface

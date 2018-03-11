@@ -1,4 +1,4 @@
-package makes.flint.alt.ui.tracker.trackerList
+package makes.flint.alt.ui.constraintui.trackerList.trackerListAdapter
 
 import android.support.v7.widget.CardView
 import android.support.v7.widget.RecyclerView

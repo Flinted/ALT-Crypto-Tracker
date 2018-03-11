@@ -3,21 +3,18 @@ package makes.flint.alt.injection.components
 import dagger.Component
 import makes.flint.alt.injection.modules.DataModule
 import makes.flint.alt.injection.modules.PresenterModule
+import makes.flint.alt.ui.constraintui.addCoin.AddCoinPresenter
 import makes.flint.alt.ui.constraintui.coinDetail.coinDetailChart.CoinDetailChartPresenter
 import makes.flint.alt.ui.constraintui.coinDetail.coinDetailSummary.CoinDetailPresenter
 import makes.flint.alt.ui.constraintui.coinlist.CoinListPresenter
+import makes.flint.alt.ui.constraintui.coinlist.coinListAdapter.CoinListAdapterPresenter
 import makes.flint.alt.ui.constraintui.layoutCoordinator.LayoutPresenter
 import makes.flint.alt.ui.constraintui.trackerChart.TrackerChartPresenter
-import makes.flint.alt.ui.main.MainPresenter
-import makes.flint.alt.ui.market.MarketPresenter
-import makes.flint.alt.ui.constraintui.coinlist.coinListAdapter.CoinListAdapterPresenter
-import makes.flint.alt.ui.settings.SettingsPresenter
-import makes.flint.alt.ui.tracker.TrackerPresenter
-import makes.flint.alt.ui.constraintui.addCoin.AddCoinPresenter
+import makes.flint.alt.ui.constraintui.trackerEntryDetail.TrackerEntryDialogPresenter
+import makes.flint.alt.ui.constraintui.trackerList.TrackerPresenter
+import makes.flint.alt.ui.constraintui.trackerList.trackerListAdapter.TrackerAdapterPresenter
 import makes.flint.alt.ui.constraintui.trackerSummary.SummaryPresenter
-import makes.flint.alt.ui.tracker.trackerEntryDialog.TrackerEntryDialogPresenter
 import makes.flint.alt.ui.tracker.trackerEntryDialog.transactionsList.TransactionsAdapterPresenter
-import makes.flint.alt.ui.tracker.trackerList.TrackerAdapterPresenter
 import javax.inject.Singleton
 
 /**
@@ -38,12 +35,7 @@ interface PresenterComponent {
 
     fun provideTrackerChartPresenter(): TrackerChartPresenter
 
-
-    fun provideMainPresenter(): MainPresenter
-
     fun provideCoinListAdapterPresenter(): CoinListAdapterPresenter
-
-    fun provideMarketPresenter(): MarketPresenter
 
     fun provideTrackerPresenter(): TrackerPresenter
 
@@ -57,5 +49,4 @@ interface PresenterComponent {
 
     fun provideSummaryPresenter(): SummaryPresenter
 
-    fun provideSettingsPresenter(): SettingsPresenter
 }

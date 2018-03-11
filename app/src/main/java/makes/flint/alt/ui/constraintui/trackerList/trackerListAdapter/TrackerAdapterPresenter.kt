@@ -1,4 +1,4 @@
-package makes.flint.alt.ui.tracker.trackerList
+package makes.flint.alt.ui.constraintui.trackerList.trackerListAdapter
 
 import makes.flint.alt.base.BasePresenter
 import makes.flint.alt.data.dataController.DataController

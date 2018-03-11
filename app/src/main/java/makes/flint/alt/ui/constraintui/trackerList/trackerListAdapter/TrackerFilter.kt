@@ -1,4 +1,4 @@
-package makes.flint.alt.ui.tracker.trackerList
+package makes.flint.alt.ui.constraintui.trackerList.trackerListAdapter
 
 import android.widget.Filter
 import makes.flint.alt.data.trackerListItem.TrackerListItem

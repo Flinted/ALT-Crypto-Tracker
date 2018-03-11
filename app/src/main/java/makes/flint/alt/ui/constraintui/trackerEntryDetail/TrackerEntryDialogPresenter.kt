@@ -1,4 +1,4 @@
-package makes.flint.alt.ui.tracker.trackerEntryDialog
+package makes.flint.alt.ui.constraintui.trackerEntryDetail
 
 import makes.flint.alt.base.BasePresenter
 import makes.flint.alt.data.dataController.DataController

@@ -8,6 +8,7 @@ import android.transition.Transition
 import android.transition.Transition.TransitionListener
 import android.transition.TransitionManager
 import makes.flint.alt.R
+import makes.flint.alt.injection.scopes.UserScope
 import javax.inject.Inject
 
 /**
@@ -22,6 +23,7 @@ const val tracker = "TRACKER"
 const val error = "ERROR"
 const val search = "SEARCH"
 
+@UserScope
 class LayoutCoordinator @Inject constructor() {
 
     private var layouts: MutableMap<String, ConstraintSet> = makeConstraintSetsMap()

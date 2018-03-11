@@ -1,4 +1,4 @@
-package makes.flint.alt.ui.tracker
+package makes.flint.alt.ui.constraintui.trackerList
 
 import makes.flint.alt.base.BaseContractPresenter
 import makes.flint.alt.base.BaseContractView

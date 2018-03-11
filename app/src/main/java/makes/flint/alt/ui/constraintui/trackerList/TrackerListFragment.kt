@@ -1,4 +1,4 @@
-package makes.flint.alt.ui.tracker
+package makes.flint.alt.ui.constraintui.trackerList
 
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
@@ -11,10 +11,10 @@ import makes.flint.alt.base.BaseFragment
 import makes.flint.alt.data.trackerListItem.TrackerListItem
 import makes.flint.alt.ui.constraintui.layoutCoordinator.LayoutCoordinatable
 import makes.flint.alt.ui.constraintui.layoutCoordinator.addCoin
+import makes.flint.alt.ui.constraintui.trackerEntryDetail.TrackerEntryDialog
+import makes.flint.alt.ui.constraintui.trackerList.trackerListAdapter.TrackerAdapterContractView
+import makes.flint.alt.ui.constraintui.trackerList.trackerListAdapter.TrackerListAdapter
 import makes.flint.alt.ui.interfaces.FilterView
-import makes.flint.alt.ui.tracker.trackerEntryDialog.TrackerEntryDialog
-import makes.flint.alt.ui.tracker.trackerList.TrackerAdapterContractView
-import makes.flint.alt.ui.tracker.trackerList.TrackerListAdapter
 import rx.functions.Action1
 
 /**

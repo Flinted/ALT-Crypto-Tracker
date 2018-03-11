@@ -1,4 +1,4 @@
-package makes.flint.alt.ui.tracker.trackerEntryDialog
+package makes.flint.alt.ui.constraintui.trackerEntryDetail
 
 import android.support.v7.widget.RecyclerView
 import android.view.View
