@@ -51,7 +51,7 @@ class LayoutActivity : BaseActivity(), LayoutActivityContractView, LayoutCoordin
     }
 
     override fun displayRandomLoadingMessage() {
-        val stringArray = resources.getStringArray(R.array.market_size_options)
+        val stringArray = resources.getStringArray(R.array.loading_messages)
         val randomPosition = Random().nextInt(stringArray.count())
         val string = stringArray[randomPosition]
         views.loadingMessage.text = string

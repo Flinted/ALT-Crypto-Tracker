@@ -156,4 +156,14 @@
     <string-array name="currency_options">
         <item>US Dollars</item>
     </string-array>
+
+    <string-array name="loading_messages">
+        <item>FUD: Fear, Uncertainty and Doubt :(</item>
+        <item>FOMO: Fear Of Missing Out</item>
+        <item>HODL: Typo meme of HOLD</item>
+        <item>MOON: When a crypto asset increases significantly and quickly</item>
+        <item>DYOR: Do Your Own Research</item>
+        <item>ELI5: Explain Like I'm 5</item>
+        <item>1 Doge = 1 Doge</item>
+    </string-array>
 </resources>
