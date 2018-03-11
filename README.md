@@ -10,7 +10,6 @@
 [![][retrofit img]][retrofit]
 [![][rxjava img]][rxjava]
 [![][threeten img]][threeten]
-[![][welcome img]][welcome]
 
 [release]:https://github.com/intelligentpos/loyalty-android/releases
 [release img]:https://img.shields.io/badge/release-0.2.0-yellow.svg
@@ -29,8 +28,7 @@
 [rxjava img]:https://img.shields.io/badge/framework-RxJava-blue.svg
 [threeten]:https://github.com/JakeWharton/ThreeTenABP
 [threeten img]:https://img.shields.io/badge/framework-ThreeTenABP-blue.svg
-[welcome]:https://github.com/stephentuso/welcome-android
-[welcome img]:https://img.shields.io/badge/framework-ThreeTenABP-blue.svg
+
 
 ## Overview
 ALT is a crypto currency asset tracker with a focus on at a glance information on both the market, and your own 

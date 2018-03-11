@@ -5,7 +5,7 @@ import android.support.v4.app.Fragment
 
 /**
  * LayoutConfiguration
- * Copyright © 2018 Intelligent Loyalty Limited. All rights reserved.
+ * Copyright © 2018 ChrisDidThis. All rights reserved.
  */
 const val LAYOUT_CHANGE = 0
 const val LAYOUT_CLEAR = 1

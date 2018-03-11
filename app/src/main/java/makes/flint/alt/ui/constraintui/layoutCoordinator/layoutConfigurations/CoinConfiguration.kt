@@ -11,7 +11,7 @@ import makes.flint.alt.ui.constraintui.trackerSummary.SummaryFragment
 
 /**
  * CoinConfiguration
- * Copyright © 2018 Intelligent Loyalty Limited. All rights reserved.
+ * Copyright © 2018 ChrisDidThis. All rights reserved.
  */
 class CoinConfiguration(context: Context) : LayoutConfiguration {
 

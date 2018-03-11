@@ -10,7 +10,7 @@ import makes.flint.alt.ui.constraintui.trackerSummary.SummaryFragment
 
 /**
  * HomeConfiguration
- * Copyright © 2018 Intelligent Loyalty Limited. All rights reserved.
+ * Copyright © 2018 ChrisDidThis. All rights reserved.
  */
 class HomeConfiguration(context: Context) : LayoutConfiguration {
 

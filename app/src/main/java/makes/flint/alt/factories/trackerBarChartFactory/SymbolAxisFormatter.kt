@@ -5,7 +5,7 @@ import com.github.mikephil.charting.formatter.IAxisValueFormatter
 
 /**
  * SymbolAxisFormatter
- * Copyright © 2018 Intelligent Loyalty Limited. All rights reserved.
+ * Copyright © 2018 ChrisDidThis. All rights reserved.
  */
 class SymbolAxisFormatter(private val labels: List<String>) : IAxisValueFormatter {
 
