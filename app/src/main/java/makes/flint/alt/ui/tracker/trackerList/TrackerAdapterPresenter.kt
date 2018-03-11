@@ -33,7 +33,6 @@ class TrackerAdapterPresenter @Inject constructor(private var dataController: Da
     private fun subscribeToCache() {
         trackerItemSubscription = dataController.trackerRefreshSubscriber().first.subscribe {
             if (it.isEmpty()) {
-                println("NO TRACKER ENTRIES")
                 view?.showNoTrackerEntriesMessage()
                 return@subscribe
             }

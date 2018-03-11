@@ -58,10 +58,10 @@ class LayoutActivity : BaseActivity(), LayoutActivityContractView, LayoutCoordin
     }
 
     override fun updateLayout(key: String) {
-        val lastState = coordinator.currentViewState
+        val beforeState = coordinator.currentViewState
         val callback = object : TransitionCallBack {
             override fun transitionCompleted() {
-                if (key == home && lastState != home) {
+                if (key == home && beforeState != home) {
                     val transaction = supportFragmentManager.beginTransaction()
                     transaction.replace(R.id.frame_centre, TrackerChartFragment())
                     transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
@@ -79,6 +79,7 @@ class LayoutActivity : BaseActivity(), LayoutActivityContractView, LayoutCoordin
     override fun onBackPressed() {
         val viewKey = when (coordinator.currentViewState) {
             coin -> home
+            search -> home
             else -> null
         }
         viewKey?.let {

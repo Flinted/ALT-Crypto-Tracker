@@ -10,6 +10,7 @@ import makes.flint.alt.data.Summary
  */
 interface SummaryContractView : BaseContractView {
     fun updateForSummary(summary: Summary)
+    fun setFABOnClickListener()
 }
 
 interface SummaryContractPresenter : BaseContractPresenter<SummaryContractView> {

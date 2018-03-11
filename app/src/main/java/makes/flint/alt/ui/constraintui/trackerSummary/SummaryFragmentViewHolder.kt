@@ -1,5 +1,6 @@
 package makes.flint.alt.ui.constraintui.trackerSummary
 
+import android.support.design.widget.FloatingActionButton
 import android.view.View
 import android.widget.TextView
 import makes.flint.alt.R
@@ -16,4 +17,5 @@ class SummaryFragmentViewHolder(view: View) {
     internal var changePercentage: TextView = view.findViewById(R.id.summary_change_percentage)
     internal var amountSpent: TextView = view.findViewById(R.id.summary_amount_spent)
     internal var amountSold: TextView = view.findViewById(R.id.summary_amount_sold)
+    internal var summaryFAB: FloatingActionButton = view.findViewById(R.id.summary_fab)
 }

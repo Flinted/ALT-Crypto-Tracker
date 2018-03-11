@@ -20,6 +20,7 @@ class SummaryPresenter @Inject constructor(private val dataController: DataContr
 
     override fun initialise() {
         initialiseSummarySubscriber()
+        view?.setFABOnClickListener()
     }
 
     override fun onDestroy() {

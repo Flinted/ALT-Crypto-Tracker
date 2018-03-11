@@ -13,6 +13,7 @@ interface CoinListContractView : BaseContractView {
     fun initialiseScrollListener()
     fun initialiseFABonClick()
     fun showDialogForCoin(coinSymbol: String)
+    fun initialiseSearchOnClick()
 }
 
 interface CoinListContractPresenter : BaseContractPresenter<CoinListContractView> {

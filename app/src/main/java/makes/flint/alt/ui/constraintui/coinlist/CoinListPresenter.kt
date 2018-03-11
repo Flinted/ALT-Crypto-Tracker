@@ -16,6 +16,7 @@ class CoinListPresenter @Inject constructor(private val dataController: DataCont
     override fun initialise() {
         subscribeForRefreshUpdates()
         view?.initialiseListAdapter()
+        view?.initialiseSearchOnClick()
         view?.initialiseSwipeRefreshListener()
         view?.initialiseScrollListener()
         view?.initialiseFABonClick()

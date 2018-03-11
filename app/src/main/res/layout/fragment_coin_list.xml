@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
                                              xmlns:app="http://schemas.android.com/apk/res-auto"
+                                             android:focusableInTouchMode="true"
                                              android:layout_width="match_parent"
                                              android:layout_height="match_parent">
 
@@ -9,11 +10,12 @@
         android:layout_width="0dp"
         android:layout_height="30dp"
         android:background="@color/colorPrimary"
-        android:focusable="false"
         android:gravity="center"
         android:hint="Tap to Search"
         android:textColorHint="@color/colorAccent"
+        android:textColor="@color/colorOffWhite"
         android:textSize="@dimen/text_size_small"
+        android:inputType="textNoSuggestions"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>

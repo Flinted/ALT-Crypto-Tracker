@@ -52,6 +52,9 @@ class SummaryChartFragment : BaseFragment(), SummaryContractView {
 
     // Overrides
 
+    override fun setFABOnClickListener() {
+    }
+
     override fun updateForSummary(summary: Summary) {
         val data = summary.getTrackerEntries()
         val pieEntries = data.map {

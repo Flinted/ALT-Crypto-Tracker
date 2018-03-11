@@ -20,6 +20,7 @@ const val coin = "COIN"
 const val add = "ADD"
 const val portfolio = "PORTFOLIO"
 const val error = "ERROR"
+const val search = "SEARCH"
 
 class LayoutCoordinator @Inject constructor() {
 

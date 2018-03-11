@@ -42,6 +42,12 @@ class SummaryFragment : BaseFragment(), SummaryContractView {
 
     // Overrides
 
+    override fun setFABOnClickListener() {
+        views.summaryFAB.setOnClickListener {
+
+        }
+    }
+
     override fun updateForSummary(summary: Summary) {
         views.initialValue.text =
                 getString(R.string.fragment_summary_initial_value, summary.initialValueFormatted())
