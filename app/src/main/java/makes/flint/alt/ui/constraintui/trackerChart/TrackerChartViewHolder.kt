@@ -2,6 +2,7 @@ package makes.flint.alt.ui.constraintui.trackerChart
 
 import android.view.View
 import android.widget.FrameLayout
+import android.widget.ImageView
 import makes.flint.alt.R
 
 /**
@@ -10,5 +11,6 @@ import makes.flint.alt.R
  */
 class TrackerChartViewHolder(view: View) {
 
-    internal var chartHolder: FrameLayout = view.findViewById(R.id.coin_detail_chart_holder)
+    internal var chartHolder: FrameLayout = view.findViewById(R.id.tracker_chart_holder)
+    internal var moreIndicator: ImageView = view.findViewById(R.id.tracker_chart_more_indicator)
 }

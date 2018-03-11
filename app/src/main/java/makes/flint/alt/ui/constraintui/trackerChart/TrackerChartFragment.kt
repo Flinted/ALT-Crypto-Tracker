@@ -7,7 +7,8 @@ import android.view.ViewGroup
 import makes.flint.alt.R
 import makes.flint.alt.base.BaseFragment
 import makes.flint.alt.data.trackerListItem.TrackerListItem
-import makes.flint.alt.factories.TrackerBarChartFactory
+import makes.flint.alt.factories.trackerBarChartFactory.TRACKER_ITEM_LIMIT
+import makes.flint.alt.factories.trackerBarChartFactory.TrackerBarChartFactory
 
 /**
  * TrackerChartFragment
@@ -19,7 +20,7 @@ class TrackerChartFragment : BaseFragment(), TrackerChartContractView {
     private lateinit var trackerChartPresenter: TrackerChartContractPresenter
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater?.inflate(R.layout.fragment_coin_detail_chart, container, false)
+        val view = inflater?.inflate(R.layout.tracker_fragment_chart, container, false)
         view?.let {
             views = TrackerChartViewHolder(view)
         }
@@ -33,8 +34,16 @@ class TrackerChartFragment : BaseFragment(), TrackerChartContractView {
     override fun displayTrackerEntriesChart(trackerListItems: List<TrackerListItem>) {
         val factory = TrackerBarChartFactory()
         val chart = factory.makeChart(context, trackerListItems)
+        displayMoreItemsIconIfRequired(trackerListItems.count())
         views.chartHolder.removeAllViews()
         views.chartHolder.addView(chart)
+    }
+
+    private fun displayMoreItemsIconIfRequired(count: Int) {
+        if (count <= TRACKER_ITEM_LIMIT) {
+            return
+        }
+        views.moreIndicator.visibility = View.VISIBLE
     }
 
     override fun showNoTrackerEntriesMessage() {

@@ -1,4 +1,4 @@
-package makes.flint.alt.factories
+package makes.flint.alt.factories.trackerBarChartFactory
 
 import android.content.Context
 import android.support.v4.content.ContextCompat
@@ -16,6 +16,8 @@ import makes.flint.alt.data.trackerListItem.TrackerListItem
  * TrackerBarChartFactory
  * Copyright © 2018 ChrisDidThis. All rights reserved.
  */
+const val TRACKER_ITEM_LIMIT = 7f
+
 class TrackerBarChartFactory {
 
     internal fun makeChart(context: Context, dataSet: List<TrackerListItem>): BarChart? {
@@ -24,14 +26,14 @@ class TrackerBarChartFactory {
         }
         val barEntries = makeEntries(dataSet)
         val barDataSet = makeBarDataSet(barEntries.first, context)
-        val labelFormatter = makeLabelFormatter(barEntries.second)
+        val labelFormatter = SymbolAxisFormatter(barEntries.second)
         val chart = makeBarChart(context, labelFormatter)
         val barData = BarData(barDataSet)
         chart.data = barData
+        chart.invalidate()
+        chart.setVisibleXRangeMaximum(TRACKER_ITEM_LIMIT)
         return chart
     }
-
-    private fun makeLabelFormatter(labels: MutableList<String>) = IAxisValueFormatter { value, _ -> labels[value.toInt()] }
 
     private fun makeBarChart(context: Context, labelFormatter: IAxisValueFormatter): BarChart {
         return BarChart(context).apply {
@@ -39,6 +41,7 @@ class TrackerBarChartFactory {
             setDrawValueAboveBar(true)
             legend.isEnabled = false
             xAxis.position = XAxis.XAxisPosition.BOTTOM_INSIDE
+            xAxis.setDrawGridLines(false)
             xAxis.textColor = ContextCompat.getColor(context, R.color.colorAccent)
             xAxis.valueFormatter = labelFormatter
             xAxis.granularity = 1f
@@ -47,7 +50,7 @@ class TrackerBarChartFactory {
             axisRight.isEnabled = false
             axisLeft.isEnabled = false
             setPinchZoom(false)
-            animateXY(0, 1000)
+            animateXY(0, 500)
         }
     }
 

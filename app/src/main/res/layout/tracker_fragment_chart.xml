@@ -5,7 +5,7 @@
                                              android:layout_height="match_parent">
 
     <FrameLayout
-        android:id="@+id/coin_detail_chart_holder"
+        android:id="@+id/tracker_chart_holder"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -13,12 +13,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
-    <TextView
-        android:id="@+id/coin_detail_chart_highlight"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/margin_large_8dp"
-        android:layout_marginStart="@dimen/margin_large_8dp"
+    <ImageView
+        android:id="@+id/tracker_chart_more_indicator"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/ic_more_right_black_24dp"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>

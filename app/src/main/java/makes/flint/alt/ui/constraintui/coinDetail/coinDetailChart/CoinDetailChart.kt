@@ -4,11 +4,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.github.mikephil.charting.charts.LineChart
+import com.github.mikephil.charting.data.Entry
+import com.github.mikephil.charting.highlight.Highlight
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 import makes.flint.alt.R
 import makes.flint.alt.base.BaseFragment
 import makes.flint.alt.data.response.histoResponse.HistoricalDataUnitResponse
 import makes.flint.alt.errors.ErrorHandler
 import makes.flint.alt.factories.HistoricalDataChartFactory
+import makes.flint.alt.utility.NumberFormatter
+import java.math.BigDecimal
 
 /**
  * CoinDetailChart
@@ -55,5 +61,32 @@ class CoinDetailChart : BaseFragment(), CoinDetailChartContractView {
             return
         }
         hideLoading()
-        views.chartHolder.addView(chart)    }
+        views.chartHolder.addView(chart)
+        addHighlightListener(chart, currentData)
+    }
+
+    private fun addHighlightListener(chart: LineChart, currentData: Array<HistoricalDataUnitResponse>) {
+        chart.setOnChartValueSelectedListener(object:OnChartValueSelectedListener{
+            override fun onNothingSelected() {
+                hideHighLightedData()
+            }
+
+            override fun onValueSelected(entry: Entry?, highlight: Highlight?) {
+                val index = entry?.x ?: return
+                val dataPoint = currentData[index.toInt()]
+                presentHighlightedData(dataPoint)
+            }
+        })
+    }
+
+    private fun hideHighLightedData() {
+        views.chartHighlight.visibility = View.INVISIBLE
+    }
+
+    private fun presentHighlightedData(dataPoint: HistoricalDataUnitResponse) {
+        val closeFloat = dataPoint.close ?: return
+        val close = BigDecimal(closeFloat.toDouble())
+        views.chartHighlight.text = NumberFormatter.formatCurrency(close)
+        views.chartHighlight.visibility = View.VISIBLE
+    }
 }
