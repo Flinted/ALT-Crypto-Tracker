@@ -9,8 +9,8 @@
     <color name="textColorSecondary">#222222</color>
     <color name="chartSecondary">#99FFC107</color>
     <color name="chartTertiary">#66FFC107</color>
-    <color name="colorRed">#990000</color>
-    <color name="colorGreen">#009900</color>
+    <color name="colorRed">#D41414</color>
+    <color name="colorGreen">#14D445</color>
     <color name="colorCandleGreen">#00FF00</color>
     <color name="colorCandleRed">#FF0000</color>
     <color name="colorOffBlack">#222222</color>
