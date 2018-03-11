@@ -6,10 +6,6 @@
     android:layout_height="match_parent"
     android:layout_marginBottom="50dp">
 
-    <include
-        android:id="@+id/market_top_ticker"
-        layout="@layout/ticker_top"/>
-
     <ProgressBar
         android:id="@+id/market_progress_spinner"
         android:layout_width="match_parent"
@@ -53,8 +49,5 @@
         app:fabSize="mini"
         />
 
-    <include
-        android:id="@+id/market_bottom_ticker"
-        layout="@layout/ticker_bottom"/>
 
 </android.support.design.widget.CoordinatorLayout>

@@ -11,11 +11,10 @@ import makes.flint.alt.R
 import makes.flint.alt.base.BaseFragment
 import makes.flint.alt.data.response.marketSummary.MarketSummaryResponse
 import makes.flint.alt.ui.constraintui.coinDetail.coinDetailSummary.CoinDetailSummary
-import makes.flint.alt.ui.interfaces.FilterView
-import makes.flint.alt.ui.main.MainActivity
 import makes.flint.alt.ui.constraintui.coinlist.coinListAdapter.CoinListAdapter
 import makes.flint.alt.ui.constraintui.coinlist.coinListAdapter.CoinListAdapterContractView
-import makes.flint.alt.ui.market.extensions.getStringIdFor
+import makes.flint.alt.ui.interfaces.FilterView
+import makes.flint.alt.ui.main.MainActivity
 
 /**
  * MarketFragment
@@ -74,7 +73,6 @@ class MarketFragment : BaseFragment(), MarketContractView, FilterView {
             var yPosition = 0
             override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
                 yPosition += dy
-                handleScrollChange(yPosition)
                 super.onScrolled(recyclerView, dx, dy)
             }
         })
@@ -88,16 +86,6 @@ class MarketFragment : BaseFragment(), MarketContractView, FilterView {
 
     override fun initialiseAdapterListeners() {
         coinListAdapter.onCoinSelected().subscribe { coinSymbol -> marketPresenter.onCoinSelected(coinSymbol) }
-        coinListAdapter.onSortTypeChanged().subscribe { sortId ->
-            views.currentSort.text = getStringForSortId(sortId)
-        }
-    }
-
-    private fun getStringForSortId(sortId: Int): String {
-        val id = this.getStringIdFor(sortId)
-        val sortType = getString(id)
-        val title = getString(R.string.ticker_bottom_sort_type)
-        return String.format(title, sortType)
     }
 
     override fun hideProgressSpinner() {
@@ -106,19 +94,9 @@ class MarketFragment : BaseFragment(), MarketContractView, FilterView {
     }
 
     override fun updateMarketSummary(marketSummary: MarketSummaryResponse) {
-        val twentyFourHour = marketSummary.marketData.twentyFourHourAverageFormatted()
-        val sevenDay = marketSummary.marketData.sevenDayAverageFormatted()
-        val coins = marketSummary.marketData.numberItems
-        views.market1DTitleTextView.text = context.getString(R.string.ticker_top_title_1d, coins)
-        views.market1WTitleTextView.text = context.getString(R.string.ticker_top_title_1W, coins)
-        views.market1DValueTextView.text = twentyFourHour
-        views.market1WValueTextView.text = sevenDay
-        views.marketCapTextView.text = marketSummary.marketCapUSDFormatted()
-        views.vol24HTextView.text = marketSummary.volume24HUSDFormatted()
     }
 
     override fun updateLastSyncTime(lastSync: String) {
-        views.lastSyncTime.text = String.format(getString(R.string.ticker_bottom_time_stamp), lastSync)
     }
 
     override fun showDialogForCoin(coinSymbol: String) {
@@ -138,23 +116,5 @@ class MarketFragment : BaseFragment(), MarketContractView, FilterView {
 
     override fun filterFor(input: String) {
         coinListAdapter.filterFor(input)
-    }
-
-    // Private Functions
-
-    private fun handleScrollChange(yPosition: Int) {
-        if (yPosition < 2500) {
-            hideGoToTopFAB()
-            return
-        }
-        showGoToTopFAB()
-    }
-
-    private fun showGoToTopFAB() {
-        views.goToTopFAB.show()
-    }
-
-    private fun hideGoToTopFAB() {
-        views.goToTopFAB.hide()
     }
 }
