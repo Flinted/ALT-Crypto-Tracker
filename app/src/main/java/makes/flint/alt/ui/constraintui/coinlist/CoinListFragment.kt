@@ -17,7 +17,6 @@ import makes.flint.alt.ui.constraintui.coinlist.coinListAdapter.CoinListAdapter
 import makes.flint.alt.ui.constraintui.coinlist.coinListAdapter.CoinListAdapterContractView
 import makes.flint.alt.ui.constraintui.layoutCoordinator.LayoutCoordinatable
 import makes.flint.alt.ui.constraintui.layoutCoordinator.coin
-import makes.flint.alt.ui.constraintui.layoutCoordinator.home
 import makes.flint.alt.ui.constraintui.layoutCoordinator.search
 
 /**
@@ -50,9 +49,9 @@ class CoinListFragment : BaseFragment(), CoinListContractView {
     override fun initialiseSearchOnClick() {
         views.coinSearch.addTextChangedListener(object:TextWatcher{
             override fun afterTextChanged(p0: Editable?) {
-                (activity as LayoutCoordinatable).updateLayout(home)
             }
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                println("BEFORE TEXT CHANGED")
                 (activity as LayoutCoordinatable).updateLayout(search)
             }
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {

@@ -32,9 +32,7 @@ class LayoutCoordinator @Inject constructor() {
             loading to ConstraintSet(),
             home to ConstraintSet(),
             coin to ConstraintSet(),
-            add to ConstraintSet(),
-            portfolio to ConstraintSet(),
-            error to ConstraintSet()
+            search to ConstraintSet()
     )
 
     internal fun initialiseConstraintsFor(layout: ConstraintLayout) {
@@ -42,6 +40,7 @@ class LayoutCoordinator @Inject constructor() {
         layouts[loading]?.clone(layout)
         layouts[home]?.clone(context, R.layout.constraint_home)
         layouts[coin]?.clone(context, R.layout.constraint_coin)
+        layouts[search]?.clone(context, R.layout.constraint_search_coins)
     }
 
     internal fun changeConstraints(viewKey: String, masterLayout: ConstraintLayout, callback: TransitionCallBack) {
