@@ -7,7 +7,7 @@ import java.util.*
 
 /**
  * SortableCoin
- * Copyright © 2018  Flint Makes. All rights reserved.
+ * Copyright © 2018  ChrisDidThis. All rights reserved.
  */
 const val SORT_RANK = 0
 const val SORT_RANK_REV = 1

@@ -8,7 +8,7 @@ import java.math.BigDecimal
 
 /**
  * TrackerListItem
- * Copyright © 2018 Flint Makes. All rights reserved.
+ * Copyright © 2018 ChrisDidThis. All rights reserved.
  */
 class TrackerListItem(val name: String,
                       val symbol: String,

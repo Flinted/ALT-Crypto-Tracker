@@ -9,7 +9,7 @@
     android:clickable="true"
     android:focusable="true"
     android:foreground="?android:attr/selectableItemBackground"
-    app:cardBackgroundColor="@color/colorOffWhite"
+    app:cardBackgroundColor="@color/colorPrimary"
     app:cardElevation="8dp"
     >
 
@@ -21,7 +21,6 @@
             android:id="@+id/dialog_coin_detail_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
             android:ellipsize="end"
             android:gravity="center"
             android:maxLines="1"
@@ -35,7 +34,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/margin_small_4dp"
-            android:background="@color/colorPrimary"
             android:gravity="center"
             android:textColor="@color/colorAccent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -49,6 +47,7 @@
             android:layout_marginEnd="@dimen/margin_small_4dp"
             android:gravity="center"
             android:textSize="@dimen/text_large"
+            android:textColor="@color/colorOffWhite"
             app:layout_constraintBottom_toBottomOf="@id/indicator"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/indicator"
@@ -70,6 +69,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/margin_small_4dp"
             android:layout_marginStart="@dimen/margin_small_4dp"
+            android:textColor="@color/colorOffWhite"
             android:gravity="center"
             android:text="@string/item_trackerEntry_title_current"
             android:textStyle="bold"
@@ -81,6 +81,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/margin_small_4dp"
+            android:textColor="@color/colorOffWhite"
             android:gravity="center"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -91,6 +92,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
+            android:textColor="@color/colorOffWhite"
             android:layout_marginStart="@dimen/margin_small_4dp"
             android:text="@string/item_trackerEntry_title_value"
             android:textStyle="bold"
@@ -103,6 +105,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
             android:layout_marginEnd="@dimen/margin_small_4dp"
+            android:textColor="@color/colorOffWhite"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/current_price_USD"/>
@@ -113,6 +116,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/margin_small_4dp"
             android:layout_marginStart="@dimen/margin_small_4dp"
+            android:textColor="@color/colorOffWhite"
             android:text="@string/item_trackerEntry_title_owned"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/value_title"/>
@@ -123,6 +127,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/margin_small_4dp"
             android:layout_marginEnd="@dimen/margin_small_4dp"
+            android:textColor="@color/colorOffWhite"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/value"/>
 
@@ -133,6 +138,7 @@
             android:layout_marginEnd="@dimen/margin_small_4dp"
             android:layout_marginStart="@dimen/margin_small_4dp"
             android:gravity="center"
+            android:textColor="@color/colorOffWhite"
             android:text="@string/item_trackerEntry_title_dollar_cost_average"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/number_owned_title"/>
@@ -142,6 +148,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/margin_small_4dp"
+            android:textColor="@color/colorOffWhite"
             android:gravity="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/number_owned"/>

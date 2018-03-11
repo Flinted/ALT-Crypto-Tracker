@@ -4,7 +4,7 @@ import org.jetbrains.anko.AnkoLogger
 
 /**
  * BasePresenter
- * Copyright © 2018 Flint Makes.. All rights reserved.
+ * Copyright © 2018 ChrisDidThis.. All rights reserved.
  */
 abstract class BasePresenter<T : BaseContractView> : BaseContractPresenter<T>, AnkoLogger {
 

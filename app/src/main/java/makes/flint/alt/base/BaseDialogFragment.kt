@@ -7,7 +7,7 @@ import makes.flint.alt.injection.components.PresenterComponent
 
 /**
  * BaseDialogFragment
- * Copyright © 2018 Flint Makes. All rights reserved.
+ * Copyright © 2018 ChrisDidThis. All rights reserved.
  */
 open class BaseDialogFragment : DialogFragment() {
 

@@ -7,7 +7,7 @@ import org.junit.Test
 
 /**
  * TimeStampTest
- * Copyright © 2018 Intelligent Loyalty Limited. All rights reserved.
+ * Copyright © 2018 ChrisDidThis. All rights reserved.
  */
 class TimeStampTest {
     private lateinit var timeStamp: TimeStamp

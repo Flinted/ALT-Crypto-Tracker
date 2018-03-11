@@ -6,7 +6,7 @@ import java.math.BigDecimal
 
 /**
  * SnapShot
- * Copyright © 2018 Flint Makes. All rights reserved.
+ * Copyright © 2018 ChrisDidThis. All rights reserved.
  */
 class SnapShot(totalUSD: BigDecimal, totalBTC: BigDecimal, snapShotEntries: List<SnapShotEntry>) {
 

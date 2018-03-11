@@ -8,7 +8,7 @@ import java.math.RoundingMode
 
 /**
  * PriceData
- * Copyright © 2018 Flint Makes. All rights reserved.
+ * Copyright © 2018 ChrisDidThis. All rights reserved.
  */
 private const val ONE_BILLION = "1000000000"
 private const val NO_INFORMATION = ""

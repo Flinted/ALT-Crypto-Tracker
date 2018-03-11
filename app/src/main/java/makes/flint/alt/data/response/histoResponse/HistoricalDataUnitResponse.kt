@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 /**
  * HistoricalDataUnitResponse
- * Copyright © 2018  Flint Makes. All rights reserved.
+ * Copyright © 2018  ChrisDidThis. All rights reserved.
  */
 class HistoricalDataUnitResponse {
 

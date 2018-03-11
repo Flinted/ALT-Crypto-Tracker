@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                             xmlns:app="http://schemas.android.com/apk/res-auto"
+                                             android:id="@+id/dialog_coin_detail_main_content"
+                                             android:layout_width="match_parent"
+                                             android:layout_height="match_parent"
+                                             android:background="@color/colorPrimaryDark"
+                                             android:clickable="true"
+                                             android:padding="@dimen/margin_xxLarge_20dp">
+
+    <TextView
+        android:id="@+id/dialog_coin_detail_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_large_8dp"
+        android:ellipsize="end"
+        android:gravity="start"
+        android:maxLines="1"
+        android:textColor="@color/colorAccent"
+        android:textSize="@dimen/text_xLarge_20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@id/dialog_coin_detail_price_fiat"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/dialog_coin_detail_symbol"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_large_8dp"
+        android:textColor="@color/colorAccent"
+        android:textSize="@dimen/text_xLarge_20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/dialog_coin_detail_name"
+        />
+
+    <TextView
+        android:id="@+id/dialog_coin_detail_rank_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_large_8dp"
+        android:text="@string/dialog_coinDetail_title_rank"
+        android:textColor="@color/colorOffWhite"
+        android:textSize="@dimen/text_large"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/dialog_coin_detail_symbol"
+        />
+
+    <TextView
+        android:id="@+id/dialog_coin_detail_rank"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_large_8dp"
+        android:textColor="@color/colorOffWhite"
+        android:textSize="@dimen/text_large"
+        app:layout_constraintStart_toEndOf="@id/dialog_coin_detail_rank_title"
+        app:layout_constraintTop_toBottomOf="@id/dialog_coin_detail_symbol"
+        />
+
+    <TextView
+        android:id="@+id/dialog_coin_detail_price_fiat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_large_8dp"
+        android:text="@string/title_priceUSD"
+        android:textColor="@color/colorOffWhite"
+        android:textSize="@dimen/text_large"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/dialog_coin_detail_price_btc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_large_8dp"
+        android:text="@string/title_priceBTC"
+        android:textColor="@color/colorOffWhite"
+        android:textSize="@dimen/text_large"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/dialog_coin_detail_price_fiat"
+        />
+
+    <TextView
+        android:id="@+id/dialog_coin_detail_billion_coin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_large_8dp"
+        android:text="@string/dialog_coinDetail_one_billion_coin"
+        android:textColor="@color/colorOffWhite"
+        android:textSize="@dimen/text_large"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/dialog_coin_detail_price_btc"
+        />
+
+    <TextView
+        android:id="@+id/dialog_coin_detail_volume_24h_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_large_8dp"
+        android:text="@string/dialog_coinDetail_title_volume24h"
+        android:textColor="@color/colorOffWhite"
+        android:textSize="@dimen/text_large"
+        app:layout_constraintBottom_toTopOf="@id/dialog_coin_detail_available_supply_title"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/dialog_coin_detail_volume_24h"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_large_8dp"
+        android:textColor="@color/colorOffWhite"
+        android:textSize="@dimen/text_large"
+        app:layout_constraintBottom_toTopOf="@id/dialog_coin_detail_available_supply"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/dialog_coin_detail_available_supply_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_large_8dp"
+        android:text="@string/dialog_coinDetail_title_available_supply"
+        android:textColor="@color/colorOffWhite"
+        android:textSize="@dimen/text_large"
+        app:layout_constraintBottom_toTopOf="@id/dialog_coin_detail_total_supply_title"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/dialog_coin_detail_available_supply"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_large_8dp"
+        android:textColor="@color/colorOffWhite"
+        android:textSize="@dimen/text_large"
+        app:layout_constraintBottom_toTopOf="@id/dialog_coin_detail_total_supply"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/dialog_coin_detail_total_supply_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_large_8dp"
+        android:text="@string/dialog_coinDetail_title_total_supply"
+        android:textColor="@color/colorOffWhite"
+        android:textSize="@dimen/text_large"
+        app:layout_constraintBottom_toTopOf="@id/dialog_coin_detail_market_cap_title"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/dialog_coin_detail_total_supply"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_large_8dp"
+        android:textColor="@color/colorOffWhite"
+        android:textSize="@dimen/text_large"
+        app:layout_constraintBottom_toTopOf="@id/dialog_coin_detail_market_cap"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/dialog_coin_detail_market_cap_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_large_8dp"
+        android:text="@string/dialog_coinDetail_title_marketcap"
+        android:textColor="@color/colorOffWhite"
+        android:textSize="@dimen/text_large"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/dialog_coin_detail_market_cap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_large_8dp"
+        android:textColor="@color/colorOffWhite"
+        android:textSize="@dimen/text_large"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+</android.support.constraint.ConstraintLayout>

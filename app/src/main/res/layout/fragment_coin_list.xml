@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                             xmlns:app="http://schemas.android.com/apk/res-auto"
+                                             android:focusableInTouchMode="true"
+                                             android:layout_width="match_parent"
+                                             android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/coin_list_search_input"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:background="@color/colorPrimary"
+        android:gravity="center"
+        android:hint="Tap to Search"
+        android:textColorHint="@color/colorAccent"
+        android:textColor="@color/colorOffWhite"
+        android:textSize="@dimen/text_size_small"
+        android:inputType="textNoSuggestions"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/coin_list_refresh_layout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/coin_list_search_input"
+        >
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/coin_list_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorPrimary"/>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/coin_list_FAB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_large_8dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/ic_arrow_upward_black_24dp"
+        android:visibility="invisible"
+        app:elevation="16dp"
+        app:fabSize="mini"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+</android.support.constraint.ConstraintLayout>

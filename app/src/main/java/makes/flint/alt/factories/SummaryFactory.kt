@@ -8,7 +8,7 @@ import javax.inject.Inject
 
 /**
  * SummaryFactory
- * Copyright © 2018 Flint Makes. All rights reserved.
+ * Copyright © 2018 ChrisDidThis. All rights reserved.
  */
 class SummaryFactory @Inject constructor() {
 

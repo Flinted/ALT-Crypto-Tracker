@@ -13,7 +13,7 @@ import java.util.*
 
 /**
  * TimeStamp
- * Copyright © 2018  Flint Makes. All rights reserved.
+ * Copyright © 2018  ChrisDidThis. All rights reserved.
  */
 
 open class TimeStamp() : RealmObject(), RealmDeletable {

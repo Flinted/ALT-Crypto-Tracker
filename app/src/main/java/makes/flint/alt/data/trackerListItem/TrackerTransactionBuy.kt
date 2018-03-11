@@ -5,7 +5,7 @@ import java.math.BigDecimal
 
 /**
  * TrackerTransactionBuy
- * Copyright © 2018 Flint Makes. All rights reserved.
+ * Copyright © 2018 ChrisDidThis. All rights reserved.
  */
 class TrackerTransactionBuy(data: TrackerDataTransaction) : TrackerTransaction {
 
