@@ -15,7 +15,7 @@ import makes.flint.alt.errors.ErrorHandler
  */
 const val COIN_SYMBOL_KEY = "CoinSymbolKey"
 
-class CoinDetailSummary : BaseFragment(), CoinDetailContractView {
+class CoinDetailSummary : BaseFragment(), CoinDetailContractView{
 
     // Static Initializer
 

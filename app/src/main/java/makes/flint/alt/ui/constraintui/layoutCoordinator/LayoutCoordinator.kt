@@ -17,8 +17,8 @@ import javax.inject.Inject
 const val loading = "LOADING"
 const val home = "HOME"
 const val coin = "COIN"
-const val add = "ADD"
-const val portfolio = "PORTFOLIO"
+const val addCoin = "ADDCOIN"
+const val tracker = "TRACKER"
 const val error = "ERROR"
 const val search = "SEARCH"
 
@@ -32,7 +32,9 @@ class LayoutCoordinator @Inject constructor() {
             loading to ConstraintSet(),
             home to ConstraintSet(),
             coin to ConstraintSet(),
-            search to ConstraintSet()
+            search to ConstraintSet(),
+            addCoin to ConstraintSet(),
+            tracker to ConstraintSet()
     )
 
     internal fun initialiseConstraintsFor(layout: ConstraintLayout) {
@@ -41,9 +43,11 @@ class LayoutCoordinator @Inject constructor() {
         layouts[home]?.clone(context, R.layout.constraint_home)
         layouts[coin]?.clone(context, R.layout.constraint_coin)
         layouts[search]?.clone(context, R.layout.constraint_search_coins)
+        layouts[tracker]?.clone(context, R.layout.constraint_tracker)
+        layouts[addCoin]?.clone(context, R.layout.constraint_add_coin)
     }
 
-    internal fun changeConstraints(viewKey: String, masterLayout: ConstraintLayout, callback: TransitionCallBack) {
+    internal fun changeConstraints(viewKey: String, masterLayout: ConstraintLayout, callback: TransitionCallBack?) {
         currentViewState = viewKey
         val constraint = layouts[viewKey] ?: return
         val transition = AutoTransition()
@@ -53,7 +57,7 @@ class LayoutCoordinator @Inject constructor() {
             override fun onTransitionCancel(p0: Transition?) {}
             override fun onTransitionStart(p0: Transition?) {}
             override fun onTransitionEnd(p0: Transition?) {
-                callback.transitionCompleted()
+                callback?.transitionCompleted()
             }
         })
         TransitionManager.go(Scene(masterLayout), transition)

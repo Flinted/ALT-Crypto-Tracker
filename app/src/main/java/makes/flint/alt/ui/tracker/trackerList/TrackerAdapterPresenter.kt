@@ -2,6 +2,7 @@ package makes.flint.alt.ui.tracker.trackerList
 
 import makes.flint.alt.base.BasePresenter
 import makes.flint.alt.data.dataController.DataController
+import makes.flint.alt.data.trackerListItem.TrackerListItem
 import rx.Subscription
 import javax.inject.Inject
 
@@ -23,6 +24,8 @@ class TrackerAdapterPresenter @Inject constructor(private var dataController: Da
     }
 
     fun onDestroy() {
+        trackerItemSubscription?.unsubscribe()
+        summarySubscription?.unsubscribe()
         trackerItemSubscription = null
         summarySubscription = null
         detachView()
@@ -31,14 +34,20 @@ class TrackerAdapterPresenter @Inject constructor(private var dataController: Da
     // Private Functions
 
     private fun subscribeToCache() {
-        trackerItemSubscription = dataController.trackerRefreshSubscriber().first.subscribe {
-            if (it.isEmpty()) {
-                view?.showNoTrackerEntriesMessage()
-                return@subscribe
-            }
-            view?.trackerEntries = it.toMutableList()
-            view?.didHaveEntries()
-            view?.hideLoading()
+        val subscription = dataController.trackerRefreshSubscriber()
+        trackerItemSubscription = subscription.first.subscribe {
+            onGetTrackerListSuccess(it)
         }
+        onGetTrackerListSuccess(subscription.second)
+    }
+
+    private fun onGetTrackerListSuccess(trackerListItems: List<TrackerListItem>) {
+        if (trackerListItems.isEmpty()) {
+            view?.showNoTrackerEntriesMessage()
+            return
+        }
+        view?.trackerEntries = trackerListItems.toMutableList()
+        view?.didHaveEntries()
+        view?.hideLoading()
     }
 }

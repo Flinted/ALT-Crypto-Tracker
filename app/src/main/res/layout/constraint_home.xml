@@ -53,13 +53,4 @@
         app:layout_constraintStart_toStartOf="parent"
         />
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/layout_fab"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_margin="@dimen/margin_large_8dp"
-        android:visibility="gone"
-        app:fabSize="normal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
 </android.support.constraint.ConstraintLayout>

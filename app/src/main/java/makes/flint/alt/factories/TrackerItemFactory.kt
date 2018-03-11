@@ -1,5 +1,6 @@
 package makes.flint.alt.factories
 
+import io.realm.RealmList
 import makes.flint.alt.data.coinListItem.CoinListItem
 import makes.flint.alt.data.tracker.TRANSACTION_BUY
 import makes.flint.alt.data.tracker.TRANSACTION_SELL
@@ -41,7 +42,7 @@ class TrackerItemFactory @Inject constructor() {
         }
     }
 
-    private fun makeListTransactions(transactions: List<TrackerDataTransaction>): MutableList<TrackerTransaction> {
+    private fun makeListTransactions(transactions: RealmList<TrackerDataTransaction>): MutableList<TrackerTransaction> {
         if (transactions.isEmpty()) {
             return mutableListOf()
         }
@@ -71,8 +72,8 @@ class TrackerItemFactory @Inject constructor() {
     private fun sortByValue(trackerListItems: MutableList<TrackerListItem>): MutableList<TrackerListItem> {
         Collections.sort(trackerListItems, Comparator { sortable1, sortable2 ->
             return@Comparator when {
-                sortable1.percentageChange == sortable2.percentageChange -> 0
-                sortable1.percentageChange < sortable2.percentageChange -> -1
+                sortable1.currentValueUSD == sortable2.currentValueUSD -> 0
+                sortable1.currentValueUSD > sortable2.currentValueUSD -> -1
                 else -> 1
             }
         })

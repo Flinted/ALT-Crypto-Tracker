@@ -10,6 +10,8 @@ import makes.flint.alt.base.BaseFragment
 import makes.flint.alt.configuration.IndicatorCustomiser
 import makes.flint.alt.data.Summary
 import makes.flint.alt.data.interfaces.assessChange
+import makes.flint.alt.ui.constraintui.layoutCoordinator.LayoutCoordinatable
+import makes.flint.alt.ui.constraintui.layoutCoordinator.tracker
 
 /**
  * SummaryFragment
@@ -44,7 +46,7 @@ class SummaryFragment : BaseFragment(), SummaryContractView {
 
     override fun setFABOnClickListener() {
         views.summaryFAB.setOnClickListener {
-
+            (activity as LayoutCoordinatable).updateLayout(tracker)
         }
     }
 

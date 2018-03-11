@@ -7,7 +7,7 @@ import android.util.SparseArray
 import android.view.ViewGroup
 import makes.flint.alt.base.BaseFragment
 import makes.flint.alt.ui.market.MarketFragment
-import makes.flint.alt.ui.tracker.TrackerFragment
+import makes.flint.alt.ui.tracker.TrackerListFragment
 
 /**
  * MainViewPagerAdapter
@@ -34,7 +34,7 @@ class MainViewPagerAdapter(fragmentManager: FragmentManager) : FragmentStatePage
     override fun getItem(position: Int): Fragment {
         return when (position) {
             0 -> MarketFragment()
-            else -> TrackerFragment()
+            else -> TrackerListFragment()
         }
     }
 

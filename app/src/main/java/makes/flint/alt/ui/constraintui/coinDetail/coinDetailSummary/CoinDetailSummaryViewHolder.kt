@@ -1,5 +1,6 @@
 package makes.flint.alt.ui.constraintui.coinDetail.coinDetailSummary
 
+import android.support.constraint.ConstraintLayout
 import android.view.View
 import android.widget.TextView
 import makes.flint.alt.R
@@ -22,4 +23,5 @@ class CoinDetailSummaryViewHolder(view: View) : FragmentViewHolder {
     internal var supplyAvailable: TextView = view.findViewById(R.id.dialog_coin_detail_available_supply)
     internal var supplyTotal: TextView = view.findViewById(R.id.dialog_coin_detail_total_supply)
     internal var marketCap: TextView = view.findViewById(R.id.dialog_coin_detail_market_cap)
+    internal var mainContent: ConstraintLayout = view.findViewById(R.id.dialog_coin_detail_main_content)
 }

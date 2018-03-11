@@ -43,7 +43,7 @@ class AddCoinFragment : BaseFragment(), AddCoinContractView {
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater?.inflate(R.layout.dialog_buy_asset, container)
+        val view = inflater?.inflate(R.layout.dialog_buy_asset, container, false)
         view ?: return super.onCreateView(inflater, container, savedInstanceState)
         this.views = AddCoinViewHolder(view)
         addCoinDialogPresenter.initialise()

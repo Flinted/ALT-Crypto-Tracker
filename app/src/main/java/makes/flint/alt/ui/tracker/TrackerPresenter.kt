@@ -21,14 +21,10 @@ class TrackerPresenter @Inject constructor(private var dataController: DataContr
 
     override fun initialise() {
         initialiseCoinListSubscriber()
-        view?.initialiseChartListeners()
         view?.initialiseAddCoinButtonListener()
-        view?.initialiseShowSnapShotButtonListener()
         view?.initialiseTrackerList()
         view?.initialiseTrackerListListeners()
         view?.initialiseRefreshListener()
-        view?.initialiseSummaryPager()
-        view?.hideProgressSpinner()
     }
 
     override fun onDestroy() {

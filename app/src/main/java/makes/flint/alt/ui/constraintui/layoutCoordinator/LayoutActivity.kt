@@ -6,9 +6,12 @@ import android.view.ViewTreeObserver
 import makes.flint.alt.R
 import makes.flint.alt.base.BaseActivity
 import makes.flint.alt.errors.ErrorHandler
+import makes.flint.alt.ui.constraintui.addCoin.AddCoinFragment
 import makes.flint.alt.ui.constraintui.coinlist.CoinListFragment
 import makes.flint.alt.ui.constraintui.trackerChart.TrackerChartFragment
 import makes.flint.alt.ui.constraintui.trackerSummary.SummaryFragment
+import makes.flint.alt.ui.tracker.TrackerListFragment
+import makes.flint.alt.ui.tracker.summary.summaryFragments.SummaryChartFragment
 import java.util.*
 
 /**
@@ -58,18 +61,49 @@ class LayoutActivity : BaseActivity(), LayoutActivityContractView, LayoutCoordin
     }
 
     override fun updateLayout(key: String) {
+        val callback = getCallbackForConstraintState(key)
+        coordinator.changeConstraints(key, views.masterLayout, callback)
+    }
+
+    private fun getCallbackForConstraintState(key: String): TransitionCallBack? {
+        return when (key) {
+            addCoin -> prepareAddCoinState()
+            tracker -> prepareTrackerState()
+            else -> prepareHomeState()
+        }
+    }
+
+    private fun prepareAddCoinState(): TransitionCallBack? {
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.pop_frame_bottom, AddCoinFragment())
+        transaction.commit()
+        return null
+    }
+
+    private fun prepareTrackerState(): TransitionCallBack? {
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.frame_centre, SummaryChartFragment())
+        transaction.replace(R.id.pop_frame_bottom, TrackerListFragment())
+        transaction.setTransition(FragmentTransaction.TRANSIT_ENTER_MASK)
+        transaction.commit()
+        return null
+    }
+
+    private fun prepareHomeState(): TransitionCallBack {
         val beforeState = coordinator.currentViewState
-        val callback = object : TransitionCallBack {
+        return object : TransitionCallBack {
             override fun transitionCompleted() {
-                if (key == home && beforeState != home) {
-                    val transaction = supportFragmentManager.beginTransaction()
-                    transaction.replace(R.id.frame_centre, TrackerChartFragment())
-                    transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                    transaction.commit()
+                if (beforeState == home) {
+                    return
                 }
+                val transaction = supportFragmentManager.beginTransaction()
+                transaction.replace(R.id.frame_centre, TrackerChartFragment())
+                transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                views.popFrameBottom.removeAllViews()
+                views.popFrameTop.removeAllViews()
+                transaction.commit()
             }
         }
-        coordinator.changeConstraints(key, views.masterLayout, callback)
     }
 
     override fun displayError(it: Throwable) {
@@ -78,8 +112,8 @@ class LayoutActivity : BaseActivity(), LayoutActivityContractView, LayoutCoordin
 
     override fun onBackPressed() {
         val viewKey = when (coordinator.currentViewState) {
-            coin -> home
-            search -> home
+            coin, search, tracker -> home
+            addCoin -> tracker
             else -> null
         }
         viewKey?.let {

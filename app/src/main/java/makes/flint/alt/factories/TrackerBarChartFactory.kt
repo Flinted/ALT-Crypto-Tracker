@@ -31,48 +31,47 @@ class TrackerBarChartFactory {
         return chart
     }
 
-
     private fun makeLabelFormatter(labels: MutableList<String>) = IAxisValueFormatter { value, _ -> labels[value.toInt()] }
-}
 
-private fun makeBarChart(context: Context, labelFormatter: IAxisValueFormatter): BarChart {
-    return BarChart(context).apply {
-        setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimarySoft))
-        setDrawValueAboveBar(true)
-        legend.isEnabled = false
-        xAxis.position = XAxis.XAxisPosition.BOTTOM_INSIDE
-        xAxis.textColor = ContextCompat.getColor(context, R.color.colorAccent)
-        xAxis.valueFormatter = labelFormatter
-        xAxis.granularity = 1f
-        description.isEnabled = false
-        setViewPortOffsets(0f, 0f, 0f, 0f)
-        axisRight.isEnabled = false
-        axisLeft.isEnabled = false
-        setPinchZoom(false)
-        animateXY(0, 1000)
+    private fun makeBarChart(context: Context, labelFormatter: IAxisValueFormatter): BarChart {
+        return BarChart(context).apply {
+            setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimarySoft))
+            setDrawValueAboveBar(true)
+            legend.isEnabled = false
+            xAxis.position = XAxis.XAxisPosition.BOTTOM_INSIDE
+            xAxis.textColor = ContextCompat.getColor(context, R.color.colorAccent)
+            xAxis.valueFormatter = labelFormatter
+            xAxis.granularity = 1f
+            description.isEnabled = false
+            setViewPortOffsets(0f, 0f, 0f, 0f)
+            axisRight.isEnabled = false
+            axisLeft.isEnabled = false
+            setPinchZoom(false)
+            animateXY(0, 1000)
+        }
     }
-}
 
-private fun makeEntries(dataSet: List<TrackerListItem>): Pair<MutableList<BarEntry>, MutableList<String>> {
-    val entries: MutableList<BarEntry> = mutableListOf()
-    val xAxisLabels: MutableList<String> = mutableListOf()
-    var count = 0f
-    dataSet.forEach {
-        val value = it.currentValueUSD.toFloat()
-        val entry = BarEntry(count, value)
-        entries.add(entry)
-        xAxisLabels.add(it.symbol)
-        count++
+    private fun makeEntries(dataSet: List<TrackerListItem>): Pair<MutableList<BarEntry>, MutableList<String>> {
+        val entries: MutableList<BarEntry> = mutableListOf()
+        val xAxisLabels: MutableList<String> = mutableListOf()
+        var count = 0f
+        dataSet.forEach {
+            val value = it.currentValueUSD.toFloat()
+            val entry = BarEntry(count, value)
+            entries.add(entry)
+            xAxisLabels.add(it.symbol)
+            count++
+        }
+        return Pair(entries, xAxisLabels)
     }
-    return Pair(entries, xAxisLabels)
-}
 
-private fun makeBarDataSet(entries: MutableList<BarEntry>, context: Context): BarDataSet {
-    return BarDataSet(entries, "Tracker").apply {
-        setDrawIcons(false)
-        setDrawValues(true)
-        color = ContextCompat.getColor(context, R.color.colorPrimary)
-        axisDependency = YAxis.AxisDependency.RIGHT
-        isHighlightEnabled = false
+    private fun makeBarDataSet(entries: MutableList<BarEntry>, context: Context): BarDataSet {
+        return BarDataSet(entries, "Tracker").apply {
+            setDrawIcons(false)
+            setDrawValues(true)
+            color = ContextCompat.getColor(context, R.color.colorPrimary)
+            axisDependency = YAxis.AxisDependency.RIGHT
+            isHighlightEnabled = false
+        }
     }
 }

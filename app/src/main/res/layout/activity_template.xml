@@ -45,6 +45,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         >
+
         <ImageView
             android:layout_width="65dp"
             android:layout_height="65dp"
@@ -71,18 +72,10 @@
             android:id="@+id/pop_frame_loading_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorAccent"
-            android:layout_gravity="center"
-            />
+            android:layout_marginEnd="@dimen/margin_xxLarge_20dp"
+            android:layout_marginStart="@dimen/margin_xxLarge_20dp"
+            android:gravity="center"
+            android:textColor="@color/colorAccent"/>
     </FrameLayout>
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/layout_fab"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_margin="@dimen/margin_large_8dp"
-        android:visibility="gone"
-        app:fabSize="normal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
 </android.support.constraint.ConstraintLayout>
