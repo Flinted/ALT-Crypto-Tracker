@@ -2,7 +2,8 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
                                              xmlns:app="http://schemas.android.com/apk/res-auto"
                                              android:layout_width="match_parent"
-                                             android:layout_height="match_parent">
+                                             android:layout_height="match_parent"
+                                             android:animateLayoutChanges="true">
 
     <FrameLayout
         android:id="@+id/coin_detail_chart_holder"
@@ -24,32 +25,56 @@
         app:layout_constraintTop_toTopOf="parent"/>
 
     <RadioGroup
+        android:id="@+id/coin_detail_chart_select_buttons"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:checkedButton="@id/coin_detail_radio_1D"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:orientation="horizontal"
         >
+
         <android.support.v7.widget.AppCompatRadioButton
+            android:id="@+id/coin_detail_radio_1D"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="1D"/>
+
         <android.support.v7.widget.AppCompatRadioButton
+            android:id="@+id/coin_detail_radio_1W"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="1W"/>
+
         <android.support.v7.widget.AppCompatRadioButton
+            android:id="@+id/coin_detail_radio_1M"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="1M"/>
+
         <android.support.v7.widget.AppCompatRadioButton
+            android:id="@+id/coin_detail_radio_1Y"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="1Y"/>
+
         <android.support.v7.widget.AppCompatRadioButton
+            android:id="@+id/coin_detail_radio_all"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="ALL"/>
     </RadioGroup>
+
+    <ProgressBar
+        android:id="@+id/coin_detail_progress_bar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        />
 </android.support.constraint.ConstraintLayout>

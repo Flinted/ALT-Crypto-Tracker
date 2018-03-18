@@ -53,7 +53,7 @@ class CoinDetailChart : BaseFragment(), CoinDetailChartContractView {
     }
 
     private fun addHighlightListener(chart: LineChart, currentData: Array<HistoricalDataUnitResponse>) {
-        chart.setOnChartValueSelectedListener(object:OnChartValueSelectedListener{
+        chart.setOnChartValueSelectedListener(object : OnChartValueSelectedListener {
             override fun onNothingSelected() {
                 hideHighLightedData()
             }
@@ -75,5 +75,19 @@ class CoinDetailChart : BaseFragment(), CoinDetailChartContractView {
         val close = BigDecimal(closeFloat.toDouble())
         views.chartHighlight.text = NumberFormatter.formatCurrency(close)
         views.chartHighlight.visibility = View.VISIBLE
+    }
+
+    override fun hideLoading() {
+        super.hideLoading()
+
+        views.progressBar.visibility = View.GONE
+        views.chartSelectButtons.visibility = View.VISIBLE
+    }
+
+    override fun showLoading() {
+        super.showLoading()
+
+        views.progressBar.visibility = View.VISIBLE
+        views.chartSelectButtons.visibility = View.INVISIBLE
     }
 }
