@@ -52,7 +52,6 @@ class LayoutCoordinator @Inject constructor(context: Context) {
         }
         currentViewState = viewKey
         updateForViewStateTransition(viewState, masterLayout, fragmentManager)
-
     }
 
     private fun updateForViewStateTransition(viewStateTransition: ViewStateTransition,

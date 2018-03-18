@@ -64,7 +64,6 @@ class LayoutActivity : BaseActivity(), LayoutActivityContractView, LayoutCoordin
     }
 
     override fun updateLayout(key: String, viewStateTransition: ViewStateTransition?) {
-        println("key $key and view: $viewStateTransition")
         coordinator.changeConstraints(key, views.masterLayout, supportFragmentManager, viewStateTransition)
     }
 

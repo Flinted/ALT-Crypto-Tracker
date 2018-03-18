@@ -34,14 +34,14 @@ class HomeToCoinDetailTransition(context: Context, coinSymbol: String) : ViewSta
     }
 
     override fun preExecute(fragmentManager: FragmentManager, constraintLayout: ConstraintLayout) {
+        return
+    }
+
+    override fun postExecute(fragmentManager: FragmentManager, constraintLayout: ConstraintLayout) {
         val transaction = fragmentManager.beginTransaction()
         transactions.forEach { viewAction ->
             viewAction.execute(transaction)
         }
         transaction.commit()
-    }
-
-    override fun postExecute(fragmentManager: FragmentManager, constraintLayout: ConstraintLayout) {
-        return
     }
 }
