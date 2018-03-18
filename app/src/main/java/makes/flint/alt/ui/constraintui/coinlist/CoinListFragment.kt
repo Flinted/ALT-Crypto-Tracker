@@ -11,13 +11,12 @@ import android.view.View
 import android.view.ViewGroup
 import makes.flint.alt.R
 import makes.flint.alt.base.BaseFragment
-import makes.flint.alt.ui.constraintui.coinDetail.coinDetailChart.CoinDetailChart
-import makes.flint.alt.ui.constraintui.coinDetail.coinDetailSummary.CoinDetailSummary
+import makes.flint.alt.layoutCoordination.coin
+import makes.flint.alt.layoutCoordination.search
+import makes.flint.alt.layoutCoordination.viewTransitions.HomeToCoinDetailTransition
 import makes.flint.alt.ui.constraintui.coinlist.coinListAdapter.CoinListAdapter
 import makes.flint.alt.ui.constraintui.coinlist.coinListAdapter.CoinListAdapterContractView
 import makes.flint.alt.ui.constraintui.layoutCoordinator.LayoutCoordinatable
-import makes.flint.alt.layoutCoordination.coin
-import makes.flint.alt.layoutCoordination.search
 
 /**
  * CoinListFragment
@@ -52,7 +51,6 @@ class CoinListFragment : BaseFragment(), CoinListContractView {
             override fun afterTextChanged(p0: Editable?) {
             }
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                println("BEFORE TEXT CHANGED")
                 (activity as LayoutCoordinatable).updateLayout(search)
             }
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -91,15 +89,8 @@ class CoinListFragment : BaseFragment(), CoinListContractView {
     }
 
     override fun showDialogForCoin(coinSymbol: String) {
-        val fragmentManager = activity.supportFragmentManager
-        val newCoinDetail = CoinDetailSummary.getInstanceFor(coinSymbol)
-        val coinChart = CoinDetailChart.getInstanceFor(coinSymbol)
-        fragmentManager
-                .beginTransaction()
-                .replace(R.id.pop_frame_bottom, newCoinDetail)
-                .replace(R.id.frame_centre, coinChart)
-                .commit()
-        (activity as LayoutCoordinatable).updateLayout(coin)
+        val coinDetailTransition = HomeToCoinDetailTransition(context, coinSymbol)
+        (activity as LayoutCoordinatable).updateLayout(coin, coinDetailTransition)
     }
 
     override fun initialiseFABonClick() {

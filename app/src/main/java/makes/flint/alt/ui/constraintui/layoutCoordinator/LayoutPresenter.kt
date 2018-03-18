@@ -38,8 +38,8 @@ class LayoutPresenter @Inject constructor(private val dataController: DataContro
             timeStampSubscription?.unsubscribe()
             timeStampSubscription = null
         }
-        errorSubscription = dataController.getErrorSubscription().subscribe {
-            view?.displayError(it)
+        errorSubscription = dataController.getErrorSubscription().subscribe { error ->
+            view?.displayError(error)
         }
     }
 }

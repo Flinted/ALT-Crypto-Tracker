@@ -1,9 +1,9 @@
 package makes.flint.alt.layoutCoordination.viewTransitions
 
 import android.content.Context
-import android.os.Bundle
 import android.support.constraint.ConstraintLayout
 import android.support.constraint.ConstraintSet
+import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentTransaction
 import makes.flint.alt.R
 import makes.flint.alt.layoutCoordination.viewTransitions.viewActions.Clear
@@ -16,7 +16,7 @@ import makes.flint.alt.ui.constraintui.trackerChart.TrackerChartFragment
  * HomeTransition
  * Copyright © 2018 Intelligent Loyalty Limited. All rights reserved.
  */
-class HomeTransition(context: Context, vararg bundles: Bundle) : ViewStateTransition {
+class HomeTransition(context: Context) : ViewStateTransition {
 
     private val transactions: List<ViewAction<FragmentTransaction>>
     private val clears: List<ViewAction<ConstraintLayout>>
@@ -32,11 +32,12 @@ class HomeTransition(context: Context, vararg bundles: Bundle) : ViewStateTransi
         clears = listOf(clearPopBottom, clearPopTop)
     }
 
-    override fun preExecute(transaction: FragmentTransaction, constraintLayout: ConstraintLayout) {
+    override fun preExecute(fragmentManager: FragmentManager, constraintLayout: ConstraintLayout) {
         return
     }
 
-    override fun postExecute(transaction: FragmentTransaction, constraintLayout: ConstraintLayout) {
+    override fun postExecute(fragmentManager: FragmentManager, constraintLayout: ConstraintLayout) {
+        val transaction = fragmentManager.beginTransaction()
         transactions.forEach { viewAction ->
             viewAction.execute(transaction)
         }

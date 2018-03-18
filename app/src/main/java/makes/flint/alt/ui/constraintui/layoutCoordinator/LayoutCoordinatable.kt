@@ -1,10 +1,12 @@
 package makes.flint.alt.ui.constraintui.layoutCoordinator
 
+import makes.flint.alt.layoutCoordination.viewTransitions.ViewStateTransition
+
 /**
  * LayoutCoordinatable
  * Copyright © 2018 ChrisDidThis. All rights reserved.
  */
-interface LayoutCoordinatable {
+internal interface LayoutCoordinatable {
 
-    fun updateLayout(key: String)
+    fun updateLayout(key: String, viewStateTransition: ViewStateTransition? = null)
 }

@@ -3,7 +3,7 @@ package makes.flint.alt.layoutCoordination.viewTransitions
 import android.content.Context
 import android.support.constraint.ConstraintLayout
 import android.support.constraint.ConstraintSet
-import android.support.v4.app.FragmentTransaction
+import android.support.v4.app.FragmentManager
 import makes.flint.alt.R
 
 /**
@@ -18,10 +18,10 @@ class HomeToSearchTransition(context: Context) : ViewStateTransition {
         constraintSet.clone(context, R.layout.constraint_search_coins)
     }
 
-    override fun preExecute(transaction: FragmentTransaction, constraintLayout: ConstraintLayout) {
+    override fun preExecute(fragmentManager: FragmentManager, constraintLayout: ConstraintLayout) {
         return
     }
-    override fun postExecute(transaction: FragmentTransaction, constraintLayout: ConstraintLayout) {
+    override fun postExecute(fragmentManager: FragmentManager, constraintLayout: ConstraintLayout) {
         return
     }
 }

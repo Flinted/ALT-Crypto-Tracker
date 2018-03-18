@@ -13,6 +13,7 @@ import makes.flint.alt.base.BaseFragment
 import makes.flint.alt.data.response.histoResponse.HistoricalDataUnitResponse
 import makes.flint.alt.errors.ErrorHandler
 import makes.flint.alt.factories.HistoricalDataChartFactory
+import makes.flint.alt.ui.constraintui.coinDetail.coinDetailSummary.COIN_SYMBOL_KEY
 import makes.flint.alt.utility.NumberFormatter
 import java.math.BigDecimal
 
@@ -21,21 +22,7 @@ import java.math.BigDecimal
  * Copyright © 2018 ChrisDidThis. All rights reserved.
  */
 
-const val COIN_SYMBOL_CHART_KEY = "CoinSymbolChartKey"
-
 class CoinDetailChart : BaseFragment(), CoinDetailChartContractView {
-
-    // Static Initializer
-
-    companion object {
-        fun getInstanceFor(coinSymbol: String): CoinDetailChart {
-            val coinDetail = CoinDetailChart()
-            val bundle = Bundle()
-            bundle.putString(COIN_SYMBOL_CHART_KEY, coinSymbol)
-            coinDetail.arguments = bundle
-            return coinDetail
-        }
-    }
 
     private lateinit var views: CoinDetailChartViewHolder
     private lateinit var coinDetailChartPresenter: CoinDetailChartContractPresenter
@@ -48,7 +35,7 @@ class CoinDetailChart : BaseFragment(), CoinDetailChartContractView {
         coinDetailChartPresenter = getPresenterComponent().provideCoinChartPresenter()
         coinDetailChartPresenter.attachView(this)
         attachPresenter(coinDetailChartPresenter)
-        val coinSymbol = arguments.get(COIN_SYMBOL_CHART_KEY) as String
+        val coinSymbol = arguments.get(COIN_SYMBOL_KEY) as String
         coinDetailChartPresenter.initialise(coinSymbol)
         return view
     }

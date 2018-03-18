@@ -40,7 +40,6 @@ class CoinListAdapter(presenterComponent: PresenterComponent)
 
     // RX Actions
     private val coinSelected: PublishSubject<String> = PublishSubject.create()
-
     override fun onCoinSelected() = coinSelected.asObservable()
 
     private val sortTypeChanged: PublishSubject<Int> = PublishSubject.create()
