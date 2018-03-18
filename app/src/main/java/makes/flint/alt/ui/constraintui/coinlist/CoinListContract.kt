@@ -19,5 +19,6 @@ interface CoinListContractView : BaseContractView {
 interface CoinListContractPresenter : BaseContractPresenter<CoinListContractView> {
     fun refresh()
     fun onCoinSelected(coinSymbol: String)
+    fun onDestroy()
 
 }

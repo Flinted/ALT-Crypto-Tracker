@@ -1,5 +1,6 @@
 package makes.flint.alt.ui.constraintui.addCoin
 
+import makes.flint.alt.base.BasePresenter
 import makes.flint.alt.data.coinListItem.CoinListItem
 import makes.flint.alt.data.dataController.DataController
 import makes.flint.alt.errors.ErrorHandler
@@ -15,11 +16,10 @@ import javax.inject.Inject
  */
 class AddCoinPresenter @Inject constructor(private val dataController: DataController,
                                            private val trackerEntryDataFactory: TrackerEntryDataFactory
-) : AddCoinContractPresenter {
+) : BasePresenter<AddCoinContractView>(), AddCoinContractPresenter {
 
     // Properties
 
-    private var dialog: AddCoinContractView? = null
     private var selectedCoin: CoinListItem? = null
     private var coinListSubscriber: Subscription? = null
 
@@ -27,17 +27,9 @@ class AddCoinPresenter @Inject constructor(private val dataController: DataContr
 
     override fun initialise() {
         initialiseCoinListSubscriber()
-        dialog?.initialiseFABListener()
-        dialog?.initialiseInputListeners()
-        dialog?.initialiseDateSelectListener()
-    }
-
-    override fun attachView(view: AddCoinContractView) {
-        this.dialog = view
-    }
-
-    override fun detachView() {
-        this.dialog = null
+        view?.initialiseFABListener()
+        view?.initialiseInputListeners()
+        view?.initialiseDateSelectListener()
     }
 
     // Overrides
@@ -48,7 +40,7 @@ class AddCoinPresenter @Inject constructor(private val dataController: DataContr
 
     override fun onAddEntryRequested(coinName: String?, exchange: String?, quantity: String?, price: String?, fees: String?, date: String, notes: String, typeId: String) {
         selectedCoin ?: let {
-            dialog?.showError(ErrorHandler.ADD_TRANSACTION_FAILURE)
+            view?.showError(ErrorHandler.ADD_TRANSACTION_FAILURE)
             return
         }
         val trackerEntry = dataController.getCopyOfTrackerEntry(selectedCoin?.name, selectedCoin?.symbol)
@@ -63,10 +55,11 @@ class AddCoinPresenter @Inject constructor(private val dataController: DataContr
                 typeId
         )
         preparedEntry ?: let {
-            dialog?.showError(ErrorHandler.ADD_TRANSACTION_FAILURE)
+            view?.showError(ErrorHandler.ADD_TRANSACTION_FAILURE)
             return
         }
         dataController.storeTrackerEntry(preparedEntry)
+        view?.didAddTrackerEntry()
     }
 
     override fun prepareDateSelected(day: Int, month: Int, year: Int) {
@@ -74,13 +67,13 @@ class AddCoinPresenter @Inject constructor(private val dataController: DataContr
         val month2digit = if (month < 10) "0$month" else month.toString()
         val year4digit = year.toString()
         val dateString = "$day2digit/$month2digit/$year4digit"
-        dialog?.setDateSelected(dateString)
+        view?.setDateSelected(dateString)
     }
 
     override fun updatePriceCalculation(quantity: String, price: String, fees: String) {
         if (quantity.isBlank() || quantity == ".") {
-            dialog?.displayUpdatedPurchasePrice("...")
-            dialog?.displayUpdatedCurrentPrice("...")
+            view?.displayUpdatedPurchasePrice("...")
+            view?.displayUpdatedCurrentPrice("...")
             return
         }
         val bigDecimalQuantity = BigDecimal(quantity)
@@ -94,28 +87,28 @@ class AddCoinPresenter @Inject constructor(private val dataController: DataContr
     private fun initialiseCoinListSubscriber() {
         val subscription = dataController.coinRefreshSubscriber()
         this.coinListSubscriber = subscription.first.subscribe {
-            dialog?.initialiseCoinAutoSuggest(it)
+            view?.initialiseCoinAutoSuggest(it)
         }
-        dialog?.initialiseCoinAutoSuggest(subscription.second)
+        view?.initialiseCoinAutoSuggest(subscription.second)
     }
 
     private fun updateCurrentPrice(bigDecimalQuantity: BigDecimal) {
         selectedCoin ?: return
         val coinPrice = selectedCoin?.priceData?.priceUSD ?: return
         val currentPrice = calculateAndRound(bigDecimalQuantity, coinPrice, BigDecimal.ZERO)
-        dialog?.displayUpdatedCurrentPrice(currentPrice)
+        view?.displayUpdatedCurrentPrice(currentPrice)
     }
 
     private fun updatePurchasePrice(bigDecimalQuantity: BigDecimal,
                                     price: String,
                                     bigDecimalFees: BigDecimal) {
         if (price.isBlank() || price == ".") {
-            dialog?.displayUpdatedPurchasePrice("...")
+            view?.displayUpdatedPurchasePrice("...")
             return
         }
         val bigDecimalPrice = BigDecimal(price)
         val purchasePrice = calculateAndRound(bigDecimalQuantity, bigDecimalPrice, bigDecimalFees)
-        dialog?.displayUpdatedPurchasePrice(purchasePrice)
+        view?.displayUpdatedPurchasePrice(purchasePrice)
     }
 
     private fun calculateAndRound(bigDecimalQuantity: BigDecimal,

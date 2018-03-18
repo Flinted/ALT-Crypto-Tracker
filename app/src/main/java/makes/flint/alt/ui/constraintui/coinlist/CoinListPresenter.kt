@@ -11,7 +11,8 @@ import javax.inject.Inject
  */
 class CoinListPresenter @Inject constructor(private val dataController: DataController) : BasePresenter<CoinListContractView>(), CoinListContractPresenter {
 
-    private lateinit var timeStampSubscription: Subscription
+    private var timeStampSubscription: Subscription? = null
+    private var updateSubscription: Subscription? = null
 
     override fun initialise() {
         subscribeForRefreshUpdates()
@@ -27,6 +28,9 @@ class CoinListPresenter @Inject constructor(private val dataController: DataCont
         timeStampSubscription = subscription.first.subscribe {
             view?.hideLoading()
         }
+        updateSubscription = dataController.updatingSubscriber().subscribe{
+            view?.showLoading()
+        }
     }
 
     override fun refresh() {
@@ -35,5 +39,13 @@ class CoinListPresenter @Inject constructor(private val dataController: DataCont
 
     override fun onCoinSelected(coinSymbol: String) {
         view?.showDialogForCoin(coinSymbol)
+    }
+
+    override fun onDestroy() {
+        detachView()
+        timeStampSubscription?.unsubscribe()
+        updateSubscription?.unsubscribe()
+        timeStampSubscription = null
+        updateSubscription = null
     }
 }

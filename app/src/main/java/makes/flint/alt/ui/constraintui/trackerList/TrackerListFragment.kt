@@ -10,7 +10,7 @@ import makes.flint.alt.R
 import makes.flint.alt.base.BaseFragment
 import makes.flint.alt.data.trackerListItem.TrackerListItem
 import makes.flint.alt.ui.constraintui.layoutCoordinator.LayoutCoordinatable
-import makes.flint.alt.ui.constraintui.layoutCoordinator.addCoin
+import makes.flint.alt.layoutCoordination.addCoin
 import makes.flint.alt.ui.constraintui.trackerEntryDetail.TrackerEntryDialog
 import makes.flint.alt.ui.constraintui.trackerList.trackerListAdapter.TrackerAdapterContractView
 import makes.flint.alt.ui.constraintui.trackerList.trackerListAdapter.TrackerListAdapter

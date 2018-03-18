@@ -40,6 +40,8 @@ class UIObjectCache @Inject constructor(private val coinListItemFactory: CoinLis
     private var hasRefreshedSummary: PublishSubject<Summary> = PublishSubject.create()
     private var hasRefreshedMarketData: PublishSubject<MarketSummaryResponse> = PublishSubject.create()
     private var hasUpdatedTimeStamp: PublishSubject<TimeStamp> = PublishSubject.create()
+    private var hasStartedUpdate: PublishSubject<Boolean> = PublishSubject.create()
+    internal fun getUpdateBegunSubscriber() = hasStartedUpdate.asObservable()
     internal fun getCoinsSubscription() = Pair(hasRefreshedCoins.asObservable(), coinListItems)
     internal fun getTrackerListSubscription() = Pair(hasRefreshedTrackerItems.asObservable(), trackerListItems)
     internal fun getSummarySubscription() = Pair(hasRefreshedSummary.asObservable(), summary)
@@ -100,5 +102,9 @@ class UIObjectCache @Inject constructor(private val coinListItemFactory: CoinLis
     internal fun emitLastSyncTime() {
         lastUpdate ?: return
         hasUpdatedTimeStamp.onNext(lastUpdate)
+    }
+
+    internal fun startingUpdate() {
+        hasStartedUpdate.onNext(true)
     }
 }

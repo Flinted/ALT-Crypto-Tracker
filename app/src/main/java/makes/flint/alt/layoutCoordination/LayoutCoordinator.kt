@@ -1,4 +1,4 @@
-package makes.flint.alt.ui.constraintui.layoutCoordinator
+package makes.flint.alt.layoutCoordination
 
 import android.support.constraint.ConstraintLayout
 import android.support.constraint.ConstraintSet

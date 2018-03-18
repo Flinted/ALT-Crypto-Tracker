@@ -13,6 +13,8 @@ import makes.flint.alt.base.BaseFragment
 import makes.flint.alt.data.coinListItem.CoinListItem
 import makes.flint.alt.data.tracker.TRANSACTION_BUY
 import makes.flint.alt.errors.ErrorHandler
+import makes.flint.alt.ui.constraintui.layoutCoordinator.LayoutCoordinatable
+import makes.flint.alt.layoutCoordination.home
 import rx.subjects.PublishSubject
 import java.util.*
 
@@ -46,6 +48,8 @@ class AddCoinFragment : BaseFragment(), AddCoinContractView {
         val view = inflater?.inflate(R.layout.dialog_buy_asset, container, false)
         view ?: return super.onCreateView(inflater, container, savedInstanceState)
         this.views = AddCoinViewHolder(view)
+        attachPresenter(addCoinDialogPresenter)
+        addCoinDialogPresenter.attachView(this)
         addCoinDialogPresenter.initialise()
         return view
     }
@@ -148,5 +152,9 @@ class AddCoinFragment : BaseFragment(), AddCoinContractView {
         val notes = views.notesInput.text.toString()
         val typeId = TRANSACTION_BUY
         addCoinDialogPresenter.onAddEntryRequested(coinName, exchange, quantity, price, fees, date, notes, typeId)
+    }
+
+    override fun didAddTrackerEntry() {
+        (activity as LayoutCoordinatable).updateLayout(home)
     }
 }

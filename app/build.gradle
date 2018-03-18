@@ -4,14 +4,6 @@ apply plugin: 'realm-android'
 apply from: '../config/flavors.gradle'
 
 android {
-    signingConfigs {
-        config {
-            keyAlias 'FlintMakesKey'
-            keyPassword 'Fir3wat3r'
-            storeFile file('/Users/chris.flint/FlintMakes/FLINT_MAKES_KEYSTORE.jks')
-            storePassword '1Carus52!'
-        }
-    }
     flavorDimensions "default"
     compileSdkVersion 26
     defaultConfig {
@@ -27,7 +19,6 @@ android {
             minifyEnabled false
             debuggable false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.config
         }
         debug {
             debuggable true

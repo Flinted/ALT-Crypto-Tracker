@@ -6,6 +6,8 @@ import android.view.ViewTreeObserver
 import makes.flint.alt.R
 import makes.flint.alt.base.BaseActivity
 import makes.flint.alt.errors.ErrorHandler
+import makes.flint.alt.layoutCoordination.*
+import makes.flint.alt.layoutCoordination.viewTransitions.HomeTransition
 import makes.flint.alt.ui.constraintui.addCoin.AddCoinFragment
 import makes.flint.alt.ui.constraintui.coinlist.CoinListFragment
 import makes.flint.alt.ui.constraintui.summaryChart.SummaryChartFragment
@@ -97,16 +99,18 @@ class LayoutActivity : BaseActivity(), LayoutActivityContractView, LayoutCoordin
 
     private fun prepareHomeState(): TransitionCallBack {
         val beforeState = coordinator.currentViewState
+        val homeTransition = HomeTransition(this)
         return object : TransitionCallBack {
             override fun transitionCompleted() {
                 if (beforeState == home) {
                     return
                 }
                 val transaction = supportFragmentManager.beginTransaction()
-                transaction.replace(R.id.frame_centre, TrackerChartFragment())
-                transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                views.popFrameBottom.removeAllViews()
-                views.popFrameTop.removeAllViews()
+                homeTransition.postExecute(transaction, views.masterLayout)
+//                transaction.replace(R.id.frame_centre, TrackerChartFragment())
+//                transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+//                views.popFrameBottom.removeAllViews()
+//                views.popFrameTop.removeAllViews()
                 transaction.commit()
             }
         }

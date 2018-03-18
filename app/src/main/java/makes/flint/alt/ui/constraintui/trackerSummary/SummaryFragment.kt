@@ -11,7 +11,7 @@ import makes.flint.alt.configuration.IndicatorCustomiser
 import makes.flint.alt.data.Summary
 import makes.flint.alt.data.interfaces.assessChange
 import makes.flint.alt.ui.constraintui.layoutCoordinator.LayoutCoordinatable
-import makes.flint.alt.ui.constraintui.layoutCoordinator.tracker
+import makes.flint.alt.layoutCoordination.tracker
 
 /**
  * SummaryFragment

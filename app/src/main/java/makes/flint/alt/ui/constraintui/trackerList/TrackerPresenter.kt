@@ -16,11 +16,12 @@ class TrackerPresenter @Inject constructor(private var dataController: DataContr
     // Properties
 
     private var coinListSubscriber: Subscription? = null
+    private var updateSubscription: Subscription? = null
 
     // Lifecycle
 
     override fun initialise() {
-        initialiseCoinListSubscriber()
+        initialiseSubscriptions()
         view?.initialiseAddCoinButtonListener()
         view?.initialiseTrackerList()
         view?.initialiseTrackerListListeners()
@@ -30,7 +31,9 @@ class TrackerPresenter @Inject constructor(private var dataController: DataContr
     override fun onDestroy() {
         detachView()
         coinListSubscriber?.unsubscribe()
+        updateSubscription?.unsubscribe()
         coinListSubscriber = null
+        updateSubscription = null
     }
 
     // Overrides
@@ -44,9 +47,12 @@ class TrackerPresenter @Inject constructor(private var dataController: DataContr
 
     // Private Functions
 
-    private fun initialiseCoinListSubscriber() {
+    private fun initialiseSubscriptions() {
         coinListSubscriber = dataController.coinRefreshSubscriber().first.subscribe {
             view?.hideLoading()
+        }
+        updateSubscription = dataController.updatingSubscriber().subscribe {
+            view?.showLoading()
         }
     }
 }

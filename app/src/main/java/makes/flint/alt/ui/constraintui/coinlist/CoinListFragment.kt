@@ -16,8 +16,8 @@ import makes.flint.alt.ui.constraintui.coinDetail.coinDetailSummary.CoinDetailSu
 import makes.flint.alt.ui.constraintui.coinlist.coinListAdapter.CoinListAdapter
 import makes.flint.alt.ui.constraintui.coinlist.coinListAdapter.CoinListAdapterContractView
 import makes.flint.alt.ui.constraintui.layoutCoordinator.LayoutCoordinatable
-import makes.flint.alt.ui.constraintui.layoutCoordinator.coin
-import makes.flint.alt.ui.constraintui.layoutCoordinator.search
+import makes.flint.alt.layoutCoordination.coin
+import makes.flint.alt.layoutCoordination.search
 
 /**
  * CoinListFragment
@@ -44,6 +44,7 @@ class CoinListFragment : BaseFragment(), CoinListContractView {
     override fun onDestroy() {
         super.onDestroy()
         coinListAdapter.onDestroy()
+        coinListPresenter.onDestroy()
     }
 
     override fun initialiseSearchOnClick() {
@@ -123,6 +124,10 @@ class CoinListFragment : BaseFragment(), CoinListContractView {
         views.goToTopFAB.hide()
     }
 
+    override fun showLoading() {
+        super.showLoading()
+        views.swipeRefresh.isRefreshing = true
+    }
     override fun hideLoading() {
         super.hideLoading()
         views.swipeRefresh.isRefreshing = false

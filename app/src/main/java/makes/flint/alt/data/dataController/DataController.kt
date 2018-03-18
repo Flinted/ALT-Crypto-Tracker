@@ -33,6 +33,8 @@ open class DataController @Inject constructor(private val apiRepository: ApiRepo
 
     internal fun coinRefreshSubscriber() = cache.getCoinsSubscription()
 
+    internal fun updatingSubscriber() = cache.getUpdateBegunSubscriber()
+
     internal fun trackerRefreshSubscriber() = cache.getTrackerListSubscription()
 
     internal fun summaryRefreshSubscriber()= cache.getSummarySubscription()
@@ -91,6 +93,7 @@ open class DataController @Inject constructor(private val apiRepository: ApiRepo
             updateTrackerEntries()
             return false
         }
+        cache.startingUpdate()
         refreshCache()
         return true
     }

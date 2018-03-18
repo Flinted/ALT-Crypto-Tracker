@@ -18,6 +18,7 @@ interface AddCoinContractView : BaseContractView {
     fun displayUpdatedCurrentPrice(currentPrice: String)
     fun initialiseDateSelectListener()
     fun setDateSelected(dateString: String)
+    fun didAddTrackerEntry()
 }
 
 interface AddCoinContractPresenter : BaseContractPresenter<AddCoinContractView> {
