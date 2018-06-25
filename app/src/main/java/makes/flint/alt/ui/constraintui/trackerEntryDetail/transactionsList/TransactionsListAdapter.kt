@@ -45,8 +45,8 @@ class TransactionsListAdapter(presenterComponent: PresenterComponent) : Recycler
         transactionsAdapterPresenter.initialise()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder {
-        val layoutInflater = LayoutInflater.from(parent?.context)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        val layoutInflater = LayoutInflater.from(parent.context)
         val layout = when (viewType) {
             1 -> R.layout.item_transaction_list_buy
             2 -> R.layout.item_transaction_list_sell
@@ -62,7 +62,7 @@ class TransactionsListAdapter(presenterComponent: PresenterComponent) : Recycler
         return transactionEntries.size
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val viewHolder = holder as TransactionsListViewHolder
         val entry = transactionEntries[position]
         val timeStamp = entry.purchaseDate.timeStampISO8601

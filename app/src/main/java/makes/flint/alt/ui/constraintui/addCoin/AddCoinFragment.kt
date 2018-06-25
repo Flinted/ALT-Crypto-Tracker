@@ -13,8 +13,8 @@ import makes.flint.alt.base.BaseFragment
 import makes.flint.alt.data.coinListItem.CoinListItem
 import makes.flint.alt.data.tracker.TRANSACTION_BUY
 import makes.flint.alt.errors.ErrorHandler
-import makes.flint.alt.ui.constraintui.layoutCoordinator.LayoutCoordinatable
 import makes.flint.alt.layoutCoordination.home
+import makes.flint.alt.ui.constraintui.layoutCoordinator.LayoutCoordinatable
 import rx.subjects.PublishSubject
 import java.util.*
 
@@ -38,13 +38,13 @@ class AddCoinFragment : BaseFragment(), AddCoinContractView {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        activity.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
+        activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
         this.addCoinDialogPresenter = getPresenterComponent().provideAddCoinDialogPresenter()
         addCoinDialogPresenter.attachView(this)
         attachPresenter(addCoinDialogPresenter)
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater?.inflate(R.layout.dialog_buy_asset, container, false)
         view ?: return super.onCreateView(inflater, container, savedInstanceState)
         this.views = AddCoinViewHolder(view)
@@ -89,7 +89,7 @@ class AddCoinFragment : BaseFragment(), AddCoinContractView {
 
     override fun initialiseCoinAutoSuggest(autoCompleteSuggestions: List<CoinListItem>) {
         val layout = R.layout.support_simple_spinner_dropdown_item
-        val adapter = CoinAutoCompleteAdapter.makeInstanceFor(activity, layout, autoCompleteSuggestions)
+        val adapter = CoinAutoCompleteAdapter.makeInstanceFor(requireContext(), layout, autoCompleteSuggestions)
         views.assetSearch.setAdapter(adapter)
         views.assetSearch.threshold = 2
         views.assetSearch.setOnItemClickListener { _, _, position, _ ->

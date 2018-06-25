@@ -10,8 +10,8 @@ import makes.flint.alt.base.BaseFragment
 import makes.flint.alt.configuration.IndicatorCustomiser
 import makes.flint.alt.data.Summary
 import makes.flint.alt.data.interfaces.assessChange
-import makes.flint.alt.ui.constraintui.layoutCoordinator.LayoutCoordinatable
 import makes.flint.alt.layoutCoordination.tracker
+import makes.flint.alt.ui.constraintui.layoutCoordinator.LayoutCoordinatable
 
 /**
  * SummaryFragment
@@ -26,9 +26,8 @@ class SummaryFragment : BaseFragment(), SummaryContractView {
 
     // Lifecycle
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater?.inflate(R.layout.fragment_summary, container, false)
-        view ?: return super.onCreateView(inflater, container, savedInstanceState)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val view = inflater.inflate(R.layout.fragment_summary, container, false)
         this.views = SummaryFragmentViewHolder(view)
         this.summaryPresenter = getPresenterComponent().provideSummaryPresenter()
         summaryPresenter.attachView(this)
@@ -65,6 +64,6 @@ class SummaryFragment : BaseFragment(), SummaryContractView {
         val customizer = IndicatorCustomiser()
         val status = summary.assessChange()
         val changeColor = customizer.getColor(status)
-        views.changePercentage.setTextColor(ContextCompat.getColor(context, changeColor))
+        views.changePercentage.setTextColor(ContextCompat.getColor(requireContext(), changeColor))
     }
 }

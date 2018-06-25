@@ -15,7 +15,7 @@ import makes.flint.alt.errors.ErrorHandler
  */
 const val COIN_SYMBOL_KEY = "CoinSymbolKey"
 
-class CoinDetailSummary : BaseFragment(), CoinDetailContractView{
+class CoinDetailSummary : BaseFragment(), CoinDetailContractView {
 
     // Static Initializer
 
@@ -43,12 +43,10 @@ class CoinDetailSummary : BaseFragment(), CoinDetailContractView{
         this.attachPresenter(coinDetailPresenter)
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater?.inflate(R.layout.fragment_coin_detail, container, false)
-        view?.let {
-            this.views = CoinDetailSummaryViewHolder(view)
-        }
-        val coinSymbol = arguments.get(COIN_SYMBOL_KEY) as String
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val view = inflater.inflate(R.layout.fragment_coin_detail, container, false)
+        this.views = CoinDetailSummaryViewHolder(view)
+        val coinSymbol = arguments?.get(COIN_SYMBOL_KEY) as String
         coinDetailPresenter.initialise(coinSymbol)
         return view
     }

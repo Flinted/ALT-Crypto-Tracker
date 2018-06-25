@@ -40,6 +40,7 @@ class CoinListAdapter(presenterComponent: PresenterComponent)
 
     // RX Actions
     private val coinSelected: PublishSubject<String> = PublishSubject.create()
+
     override fun onCoinSelected() = coinSelected.asObservable()
 
     private val sortTypeChanged: PublishSubject<Int> = PublishSubject.create()
@@ -51,8 +52,8 @@ class CoinListAdapter(presenterComponent: PresenterComponent)
         presenter.initialise()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder {
-        val layoutInflater = LayoutInflater.from(parent?.context)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        val layoutInflater = LayoutInflater.from(parent.context)
         val layout = when (viewType) {
             2 -> R.layout.item_coin_list_favourite
             else -> R.layout.item_coin_list
@@ -61,7 +62,7 @@ class CoinListAdapter(presenterComponent: PresenterComponent)
         return CoinListViewHolder(itemView)
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val coinListViewHolder = holder as CoinListViewHolder
         val coin = filteredCoins[position]
         val context = coinListViewHolder.oneHourIndicator.context
@@ -131,6 +132,7 @@ class CoinListAdapter(presenterComponent: PresenterComponent)
         coinListViewHolder.name.text = coin.name
         coinListViewHolder.ticker.text = coin.symbolFormatted
         coinListViewHolder.price.text = coin.priceData.priceUSDFormatted
+        println("${coin.name} is ${coin.priceData.priceUSD} and formatted is ${coin.priceData.priceUSDFormatted}")
     }
 
     private fun initialise1HourViews(coin: CoinListItem, holder: CoinListViewHolder, context: Context) {

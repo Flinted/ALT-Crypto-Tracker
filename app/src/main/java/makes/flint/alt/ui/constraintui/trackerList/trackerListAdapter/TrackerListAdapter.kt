@@ -54,13 +54,13 @@ class TrackerListAdapter(presenterComponent: PresenterComponent) : RecyclerView.
         trackerAdapterPresenter.initialise()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder {
-        val layoutInflater = LayoutInflater.from(parent?.context)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        val layoutInflater = LayoutInflater.from(parent.context)
         val itemView = layoutInflater.inflate(R.layout.item_tracker_list, parent, false)
         return TrackerListViewHolder(itemView)
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val viewHolder = holder as TrackerListViewHolder
         val entry = filteredTrackerEntries[position]
         val status = entry.assessChange()

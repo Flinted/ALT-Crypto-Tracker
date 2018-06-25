@@ -27,15 +27,13 @@ class CoinDetailChart : BaseFragment(), CoinDetailChartContractView {
     private lateinit var views: CoinDetailChartViewHolder
     private lateinit var coinDetailChartPresenter: CoinDetailChartContractPresenter
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater?.inflate(R.layout.fragment_coin_detail_chart, container, false)
-        view?.let {
-            views = CoinDetailChartViewHolder(view)
-        }
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val view = inflater.inflate(R.layout.fragment_coin_detail_chart, container, false)
+        views = CoinDetailChartViewHolder(view)
         coinDetailChartPresenter = getPresenterComponent().provideCoinChartPresenter()
         coinDetailChartPresenter.attachView(this)
         attachPresenter(coinDetailChartPresenter)
-        val coinSymbol = arguments.get(COIN_SYMBOL_KEY) as String
+        val coinSymbol = arguments?.get(COIN_SYMBOL_KEY) as String
         coinDetailChartPresenter.initialise(coinSymbol)
         return view
     }

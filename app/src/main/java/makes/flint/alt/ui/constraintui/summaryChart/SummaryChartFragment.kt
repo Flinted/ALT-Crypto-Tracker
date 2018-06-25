@@ -29,8 +29,8 @@ class SummaryChartFragment : BaseFragment(), SummaryContractView {
 
     // Lifecycle
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater?.inflate(R.layout.fragment_chart, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val view = inflater.inflate(R.layout.fragment_chart, container, false)
         view ?: return super.onCreateView(inflater, container, savedInstanceState)
         this.summaryPresenter = getPresenterComponent().provideSummaryPresenter()
         this.summaryPresenter.attachView(this)
@@ -60,6 +60,7 @@ class SummaryChartFragment : BaseFragment(), SummaryContractView {
         val pieEntries = data.map {
             PieEntry(it.currentValueUSD.toFloat(), it.symbol)
         }
+        val context = requireContext()
         val colorPrimary = ContextCompat.getColor(context, R.color.colorPrimary)
         val colorPrimarySoft = ContextCompat.getColor(context, R.color.colorPrimarySoft)
         val colorAccent = ContextCompat.getColor(context, R.color.colorAccent)

@@ -28,14 +28,12 @@ class CoinListFragment : BaseFragment(), CoinListContractView {
     private lateinit var coinListPresenter: CoinListContractPresenter
     private lateinit var coinListAdapter: CoinListAdapterContractView
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater?.inflate(R.layout.fragment_coin_list, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val view = inflater.inflate(R.layout.fragment_coin_list, container, false)
         coinListPresenter = getPresenterComponent().provideCoinListPresenter()
         coinListPresenter.attachView(this)
         this.attachPresenter(coinListPresenter)
-        view?.let {
-            this.views = CoinListViewHolder(view)
-        }
+        this.views = CoinListViewHolder(view)
         coinListPresenter.initialise()
         return view
     }
@@ -47,12 +45,14 @@ class CoinListFragment : BaseFragment(), CoinListContractView {
     }
 
     override fun initialiseSearchOnClick() {
-        views.coinSearch.addTextChangedListener(object:TextWatcher{
+        views.coinSearch.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
             }
+
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 (activity as LayoutCoordinatable).updateLayout(search)
             }
+
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 coinListAdapter.filterFor(p0.toString())
             }
@@ -70,7 +70,7 @@ class CoinListFragment : BaseFragment(), CoinListContractView {
     }
 
     override fun initialiseSwipeRefreshListener() {
-        val refreshColour = ContextCompat.getColor(context, R.color.colorAccent)
+        val refreshColour = ContextCompat.getColor(requireContext(), R.color.colorAccent)
         views.swipeRefresh.setColorSchemeColors(refreshColour)
         views.swipeRefresh.setOnRefreshListener {
             coinListPresenter.refresh()
@@ -89,7 +89,7 @@ class CoinListFragment : BaseFragment(), CoinListContractView {
     }
 
     override fun showDialogForCoin(coinSymbol: String) {
-        val coinDetailTransition = HomeToCoinDetailTransition(context, coinSymbol)
+        val coinDetailTransition = HomeToCoinDetailTransition(requireContext(), coinSymbol)
         (activity as LayoutCoordinatable).updateLayout(coin, coinDetailTransition)
     }
 
@@ -119,6 +119,7 @@ class CoinListFragment : BaseFragment(), CoinListContractView {
         super.showLoading()
         views.swipeRefresh.isRefreshing = true
     }
+
     override fun hideLoading() {
         super.hideLoading()
         views.swipeRefresh.isRefreshing = false

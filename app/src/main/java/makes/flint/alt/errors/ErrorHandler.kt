@@ -17,7 +17,8 @@ object ErrorHandler {
     var ADD_TRANSACTION_FAILURE = R.string.error_transaction_failure
     var ERROR_SYNC_TIMEOUT = R.string.error_sync_timeout
 
-    fun showError(context: Context, id: Int?) {
+    fun showError(context: Context?, id: Int?) {
+        context ?: return
         val errorId = id ?: GENERAL_ERROR
         val errorString = context.getString(errorId)
         Toast.makeText(context, errorString, Toast.LENGTH_SHORT).show()

@@ -24,7 +24,7 @@ open class BaseFragment : Fragment() {
 
     // Protected Functions
 
-    protected fun getBaseApplication(): BaseApplication = activity.application as BaseApplication
+    protected fun getBaseApplication(): BaseApplication = activity?.application as BaseApplication
 
     protected fun getPresenterComponent(): PresenterComponent = getBaseApplication().getPresenterComponent()
 

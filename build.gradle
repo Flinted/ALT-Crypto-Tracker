@@ -27,10 +27,13 @@ buildscript {
         google()
         jcenter()
         mavenCentral()
+        flatDir {
+            dirs 'libs' //this way we can find the .aar file in libs folder
+        }
     }
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath "com.android.tools.build:gradle:$gradle_version"
+        classpath 'com.android.tools.build:gradle:3.1.2'
         classpath "com.stanfy.spoon:spoon-gradle-plugin:$spoon_gradle_plugin_version"
         classpath "io.realm:realm-gradle-plugin:$realm_gradle_plugin_version"
         classpath 'com.google.gms:google-services:3.1.0'
@@ -44,6 +47,9 @@ allprojects {
         maven { url 'http://maven.google.com' }
         maven { url "https://jitpack.io" }
         mavenCentral()
+        flatDir {
+            dirs 'libs' //this way we can find the .aar file in libs folder
+        }
     }
 }
 

@@ -9,8 +9,8 @@ import android.view.ViewGroup
 import makes.flint.alt.R
 import makes.flint.alt.base.BaseFragment
 import makes.flint.alt.data.trackerListItem.TrackerListItem
-import makes.flint.alt.ui.constraintui.layoutCoordinator.LayoutCoordinatable
 import makes.flint.alt.layoutCoordination.addCoin
+import makes.flint.alt.ui.constraintui.layoutCoordinator.LayoutCoordinatable
 import makes.flint.alt.ui.constraintui.trackerEntryDetail.TrackerEntryDialog
 import makes.flint.alt.ui.constraintui.trackerList.trackerListAdapter.TrackerAdapterContractView
 import makes.flint.alt.ui.constraintui.trackerList.trackerListAdapter.TrackerListAdapter
@@ -35,9 +35,8 @@ class TrackerListFragment : BaseFragment(), TrackerContractView, FilterView {
 
     // Lifecycle
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater?.inflate(R.layout.fragment_tracker, container, false)
-        view ?: return null
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val view = inflater.inflate(R.layout.fragment_tracker, container, false)
         trackerPresenter = getPresenterComponent().provideTrackerPresenter()
         trackerPresenter.attachView(this)
         attachPresenter(trackerPresenter)
@@ -73,7 +72,7 @@ class TrackerListFragment : BaseFragment(), TrackerContractView, FilterView {
     }
 
     override fun initialiseRefreshListener() {
-        val refreshColour = ContextCompat.getColor(context, R.color.colorAccent)
+        val refreshColour = ContextCompat.getColor(requireContext(), R.color.colorAccent)
         views.swipeRefresh.setColorSchemeColors(refreshColour)
         views.swipeRefresh.setOnRefreshListener {
             trackerPresenter.refreshCache()
@@ -109,8 +108,8 @@ class TrackerListFragment : BaseFragment(), TrackerContractView, FilterView {
     // Private Functions
 
     private fun makeTrackerEntryDialogFor(item: TrackerListItem) {
-        val fragmentManager = activity.fragmentManager
-        val shownCoinDetail = fragmentManager.findFragmentByTag("TrackerEntryDetail")
+        val fragmentManager = activity?.fragmentManager
+        val shownCoinDetail = fragmentManager?.findFragmentByTag("TrackerEntryDetail")
         shownCoinDetail?.let {
             fragmentManager.beginTransaction().remove(it).commit()
         }
