@@ -45,14 +45,12 @@ class CoinListFragment : BaseFragment(), CoinListContractView {
     }
 
     override fun initialiseSearchOnClick() {
+        views.coinSearch.setOnClickListener {
+            (activity as LayoutCoordinatable).updateLayout(search)
+        }
         views.coinSearch.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(p0: Editable?) {
-            }
-
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                (activity as LayoutCoordinatable).updateLayout(search)
-            }
-
+            override fun afterTextChanged(p0: Editable?) {}
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 coinListAdapter.filterFor(p0.toString())
             }

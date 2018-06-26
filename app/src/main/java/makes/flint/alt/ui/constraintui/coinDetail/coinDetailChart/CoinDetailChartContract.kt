@@ -11,10 +11,10 @@ import makes.flint.alt.data.response.histoResponse.HistoricalDataUnitResponse
 
 interface CoinDetailChartContractView : BaseContractView {
     fun displayChart(currentData: Array<HistoricalDataUnitResponse>)
-
+    fun setChartChangeListener()
 }
 
 interface CoinDetailChartContractPresenter : BaseContractPresenter<CoinDetailChartContractView> {
     fun initialise(coinSymbol: String)
-
+    fun getHistoricalDataFor(chartResolution: Int)
 }

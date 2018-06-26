@@ -43,6 +43,9 @@ class LayoutCoordinator @Inject constructor(context: Context) {
                                    fragmentManager: FragmentManager,
                                    viewStateTransition: ViewStateTransition? = null
     ) {
+        if (currentViewState == viewKey) {
+            return
+        }
         var viewState = viewStateTransition
         if (viewState == null) {
             viewState = layouts[viewKey] ?: return

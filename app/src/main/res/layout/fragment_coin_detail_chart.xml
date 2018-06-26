@@ -40,30 +40,40 @@
             android:id="@+id/coin_detail_radio_1D"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:buttonTint="@color/colorAccent"
+            android:textColor="@color/colorOffWhite"
             android:text="1D"/>
 
         <android.support.v7.widget.AppCompatRadioButton
             android:id="@+id/coin_detail_radio_1W"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:buttonTint="@color/colorAccent"
+            android:textColor="@color/colorOffWhite"
             android:text="1W"/>
 
         <android.support.v7.widget.AppCompatRadioButton
             android:id="@+id/coin_detail_radio_1M"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:buttonTint="@color/colorAccent"
+            android:textColor="@color/colorOffWhite"
             android:text="1M"/>
 
         <android.support.v7.widget.AppCompatRadioButton
             android:id="@+id/coin_detail_radio_1Y"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:buttonTint="@color/colorAccent"
+            android:textColor="@color/colorOffWhite"
             android:text="1Y"/>
 
         <android.support.v7.widget.AppCompatRadioButton
             android:id="@+id/coin_detail_radio_all"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:buttonTint="@color/colorAccent"
+            android:textColor="@color/colorOffWhite"
             android:text="ALL"/>
     </RadioGroup>
 

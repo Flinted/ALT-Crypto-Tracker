@@ -10,6 +10,7 @@ import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import makes.flint.alt.R
 import makes.flint.alt.data.response.histoResponse.HistoricalDataUnitResponse
+import makes.flint.alt.ui.constraintui.coinDetail.coinDetailChart.DetailChartMarker
 
 /**
  * HistoricalDataChartFactory
@@ -32,6 +33,7 @@ class HistoricalDataChartFactory(private var dataSet: Array<HistoricalDataUnitRe
         val lineDataSet = makeLineDataSet(entries, context)
         val chart = makeLineChart(context)
         chart.data = LineData(lineDataSet)
+        chart.marker = DetailChartMarker(context, dataSet)
         return chart
     }
 

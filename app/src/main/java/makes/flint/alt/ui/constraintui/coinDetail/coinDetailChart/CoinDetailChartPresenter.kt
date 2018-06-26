@@ -41,10 +41,11 @@ class CoinDetailChartPresenter @Inject constructor(private val dataController: D
 
     override fun initialise(coinSymbol: String) {
         this.coinSymbol = coinSymbol
+        view?.setChartChangeListener()
         getHistoricalDataFor(CHART_90D)
     }
 
-    private fun getHistoricalDataFor(chartResolution: Int) {
+    override fun getHistoricalDataFor(chartResolution: Int) {
         val callback = makeHistoricalDataCallback()
         view?.showLoading()
         val apiResolution = getAPIResolutionForRequestedChartType(chartResolution)

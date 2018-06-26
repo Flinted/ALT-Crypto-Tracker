@@ -46,8 +46,23 @@ class CoinDetailChart : BaseFragment(), CoinDetailChartContractView {
             return
         }
         hideLoading()
+        views.chartHolder.removeAllViews()
         views.chartHolder.addView(chart)
         addHighlightListener(chart, currentData)
+    }
+
+    override fun setChartChangeListener() {
+        views.chartSelectButtons.setOnCheckedChangeListener { _, selected ->
+            val chartResolution = when (selected) {
+                R.id.coin_detail_radio_1D -> CHART_24H
+                R.id.coin_detail_radio_1W -> CHART_7D
+                R.id.coin_detail_radio_1M -> CHART_30D
+                R.id.coin_detail_radio_1Y -> CHART_1Y
+                R.id.coin_detail_radio_all -> CHART_ALL
+                else -> CHART_24H
+            }
+            coinDetailChartPresenter.getHistoricalDataFor(chartResolution)
+        }
     }
 
     private fun addHighlightListener(chart: LineChart, currentData: Array<HistoricalDataUnitResponse>) {

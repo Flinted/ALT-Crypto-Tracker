@@ -19,6 +19,7 @@ object NumberFormatter {
     fun formatCurrency(numberToFormat: BigDecimal, maximumDecimals: Int = 8, minimumDecimals: Int = 2): String {
         val number = numberToFormat.toDouble()
         currencyFormatter.minimumFractionDigits = minimumDecimals
+        currencyFormatter.maximumFractionDigits = maximumDecimals
         val formatted = currencyFormatter.format(number)
         return formatted
     }
