@@ -14,7 +14,8 @@ import makes.flint.alt.R
 class CoinDetailChartViewHolder(view: View) {
 
     internal var chartHolder: FrameLayout = view.findViewById(R.id.coin_detail_chart_holder)
-    internal var chartHighlight: TextView = view.findViewById(R.id.coin_detail_chart_highlight)
+    internal var chartHighlightTimeStamp: TextView = view.findViewById(R.id.coin_detail_chart_highlight_timestamp)
+    internal var chartHighlightValue: TextView = view.findViewById(R.id.coin_detail_chart_highlight_value)
     internal var progressBar: ProgressBar = view.findViewById(R.id.coin_detail_progress_bar)
     internal var chartSelectButtons: RadioGroup = view.findViewById(R.id.coin_detail_chart_select_buttons)
 }

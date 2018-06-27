@@ -1,6 +1,5 @@
 package makes.flint.alt.data.coinListItem
 
-import makes.flint.alt.configuration.POHSettings
 import makes.flint.alt.data.response.CoinResponse
 import makes.flint.alt.utility.NumberFormatter
 import java.math.BigDecimal
@@ -31,14 +30,14 @@ class PriceData(coinResponse: CoinResponse) {
 
     private fun priceUSDFormatted(): String {
         priceUSD ?: return "No Price"
-        val roundingMode = POHSettings.roundingMode
-        val roundedNumber = when {
-            priceUSD > decimal3Threshold -> priceUSD.setScale(2, roundingMode)
-            priceUSD > decimal4Threshold -> priceUSD.setScale(3, roundingMode)
-            priceUSD > decimal5Threshold -> priceUSD.setScale(4, roundingMode)
-            else -> priceUSD.setScale(7, roundingMode)
-        }
-        return NumberFormatter.formatCurrency(roundedNumber)
+//        val roundingMode = POHSettings.roundingMode
+//        val roundedNumber = when {
+//            priceUSD > decimal3Threshold -> priceUSD.setScale(2, roundingMode)
+//            priceUSD > decimal4Threshold -> priceUSD.setScale(3, roundingMode)
+//            priceUSD > decimal5Threshold -> priceUSD.setScale(4, roundingMode)
+//            else -> priceUSD.setScale(7, roundingMode)
+//        }
+        return NumberFormatter.formatCurrencyAutomaticDigit(priceUSD)
     }
 
     private fun createStabilisedPrice(): String {

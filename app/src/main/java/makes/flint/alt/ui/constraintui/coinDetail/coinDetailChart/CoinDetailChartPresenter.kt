@@ -26,6 +26,7 @@ const val CHART_1Y = 7
 const val CHART_ALL = 8
 
 // API Resolutions
+const val MINUTE_DATA = -1
 const val HOUR_DATA = 0
 const val DAY_DATA = 1
 
@@ -42,7 +43,7 @@ class CoinDetailChartPresenter @Inject constructor(private val dataController: D
     override fun initialise(coinSymbol: String) {
         this.coinSymbol = coinSymbol
         view?.setChartChangeListener()
-        getHistoricalDataFor(CHART_90D)
+        getHistoricalDataFor(CHART_24H)
     }
 
     override fun getHistoricalDataFor(chartResolution: Int) {
@@ -91,7 +92,7 @@ class CoinDetailChartPresenter @Inject constructor(private val dataController: D
         val invertedData = result.data.reversedArray()
         val subset = when (chartResolution) {
             CHART_24H -> invertedData.copyOfRange(0, 24)
-            CHART_7D -> invertedData
+            CHART_7D -> invertedData.copyOfRange(0, 163)
             CHART_30D -> invertedData.copyOfRange(0, 29)
             CHART_90D -> invertedData.copyOfRange(0, 89)
             CHART_180D -> invertedData.copyOfRange(0, 179)
@@ -103,7 +104,7 @@ class CoinDetailChartPresenter @Inject constructor(private val dataController: D
 
     private fun getAPIResolutionForRequestedChartType(chartType: Int): Int {
         return when (chartType) {
-            CHART_30D, CHART_90D, CHART_180D, CHART_1Y -> DAY_DATA
+            CHART_30D, CHART_90D, CHART_180D, CHART_1Y, CHART_ALL -> DAY_DATA
             else -> HOUR_DATA
         }
     }

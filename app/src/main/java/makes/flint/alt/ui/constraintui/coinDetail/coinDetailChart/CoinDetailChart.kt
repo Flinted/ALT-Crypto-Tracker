@@ -15,6 +15,9 @@ import makes.flint.alt.errors.ErrorHandler
 import makes.flint.alt.factories.HistoricalDataChartFactory
 import makes.flint.alt.ui.constraintui.coinDetail.coinDetailSummary.COIN_SYMBOL_KEY
 import makes.flint.alt.utility.NumberFormatter
+import org.threeten.bp.Instant
+import org.threeten.bp.ZoneId
+import org.threeten.bp.format.DateTimeFormatter
 import java.math.BigDecimal
 
 /**
@@ -39,6 +42,7 @@ class CoinDetailChart : BaseFragment(), CoinDetailChartContractView {
     }
 
     override fun displayChart(currentData: Array<HistoricalDataUnitResponse>) {
+        println("data $currentData and size ${currentData.size}")
         val factory = HistoricalDataChartFactory(currentData, "Data")
         val chart = factory.createLineChart(views.chartHolder.context) ?: let {
             hideLoading()
@@ -68,7 +72,6 @@ class CoinDetailChart : BaseFragment(), CoinDetailChartContractView {
     private fun addHighlightListener(chart: LineChart, currentData: Array<HistoricalDataUnitResponse>) {
         chart.setOnChartValueSelectedListener(object : OnChartValueSelectedListener {
             override fun onNothingSelected() {
-                hideHighLightedData()
             }
 
             override fun onValueSelected(entry: Entry?, highlight: Highlight?) {
@@ -79,15 +82,13 @@ class CoinDetailChart : BaseFragment(), CoinDetailChartContractView {
         })
     }
 
-    private fun hideHighLightedData() {
-        views.chartHighlight.visibility = View.INVISIBLE
-    }
-
     private fun presentHighlightedData(dataPoint: HistoricalDataUnitResponse) {
         val closeFloat = dataPoint.close ?: return
         val close = BigDecimal(closeFloat.toDouble())
-        views.chartHighlight.text = NumberFormatter.formatCurrency(close)
-        views.chartHighlight.visibility = View.VISIBLE
+        views.chartHighlightValue.text = NumberFormatter.formatCurrencyAutomaticDigit(close)
+        val formatter = DateTimeFormatter.ofPattern("dd-MM-YYYY HH:mm a")
+        views.chartHighlightTimeStamp.text = formatter.format(Instant.ofEpochSecond(dataPoint.time!!.toLong()).atZone(ZoneId.systemDefault()))
+        views.chartHighlightValue.visibility = View.VISIBLE
     }
 
     override fun hideLoading() {

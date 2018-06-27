@@ -72,6 +72,7 @@ class TrackerBarChartFactory {
         return BarDataSet(entries, "Tracker").apply {
             setDrawIcons(false)
             setDrawValues(true)
+            valueTextSize = 10f
             color = ContextCompat.getColor(context, R.color.colorPrimary)
             axisDependency = YAxis.AxisDependency.RIGHT
             isHighlightEnabled = false

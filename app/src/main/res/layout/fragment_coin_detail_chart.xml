@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                             xmlns:app="http://schemas.android.com/apk/res-auto"
-                                             android:layout_width="match_parent"
-                                             android:layout_height="match_parent"
-                                             android:animateLayoutChanges="true">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true">
 
     <FrameLayout
         android:id="@+id/coin_detail_chart_holder"
@@ -12,17 +12,25 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/coin_detail_chart_highlight"
+        android:id="@+id/coin_detail_chart_highlight_timestamp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/margin_large_8dp"
-        android:layout_marginStart="@dimen/margin_large_8dp"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        android:textColor="@color/colorAccent"
+        android:layout_marginStart="28dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/coin_detail_chart_highlight_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorAccent"
+        android:layout_marginEnd="28dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <RadioGroup
         android:id="@+id/coin_detail_chart_select_buttons"
@@ -31,50 +39,50 @@
         android:checkedButton="@id/coin_detail_radio_1D"
         android:orientation="horizontal"
         android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        >
+        app:layout_constraintTop_toTopOf="parent">
 
         <android.support.v7.widget.AppCompatRadioButton
             android:id="@+id/coin_detail_radio_1D"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:buttonTint="@color/colorAccent"
-            android:textColor="@color/colorOffWhite"
-            android:text="1D"/>
+            android:layout_marginStart="@dimen/margin_large_8dp"
+            android:buttonTint="@color/colorPrimaryDark"
+            android:text="1D"
+            android:textColor="@color/colorOffBlack" />
 
         <android.support.v7.widget.AppCompatRadioButton
             android:id="@+id/coin_detail_radio_1W"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:buttonTint="@color/colorAccent"
-            android:textColor="@color/colorOffWhite"
-            android:text="1W"/>
+            android:buttonTint="@color/colorPrimaryDark"
+            android:text="1W"
+            android:textColor="@color/colorOffBlack" />
 
         <android.support.v7.widget.AppCompatRadioButton
             android:id="@+id/coin_detail_radio_1M"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:buttonTint="@color/colorAccent"
-            android:textColor="@color/colorOffWhite"
-            android:text="1M"/>
+            android:buttonTint="@color/colorPrimaryDark"
+            android:text="1M"
+            android:textColor="@color/colorOffBlack" />
 
         <android.support.v7.widget.AppCompatRadioButton
             android:id="@+id/coin_detail_radio_1Y"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:buttonTint="@color/colorAccent"
-            android:textColor="@color/colorOffWhite"
-            android:text="1Y"/>
+            android:buttonTint="@color/colorPrimaryDark"
+            android:text="1Y"
+            android:textColor="@color/colorOffBlack" />
 
         <android.support.v7.widget.AppCompatRadioButton
             android:id="@+id/coin_detail_radio_all"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:buttonTint="@color/colorAccent"
-            android:textColor="@color/colorOffWhite"
-            android:text="ALL"/>
+            android:buttonTint="@color/colorPrimaryDark"
+            android:text="ALL"
+            android:textColor="@color/colorOffBlack" />
     </RadioGroup>
 
     <ProgressBar
@@ -85,6 +93,5 @@
         android:indeterminate="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        />
+        app:layout_constraintStart_toStartOf="parent" />
 </android.support.constraint.ConstraintLayout>
