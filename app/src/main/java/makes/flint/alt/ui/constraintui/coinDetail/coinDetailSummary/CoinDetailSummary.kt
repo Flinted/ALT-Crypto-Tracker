@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import makes.flint.alt.R
 import makes.flint.alt.base.BaseFragment
+import makes.flint.alt.configuration.POHSettings
 import makes.flint.alt.data.coinListItem.CoinListItem
 import makes.flint.alt.errors.ErrorHandler
 
@@ -57,6 +58,10 @@ class CoinDetailSummary : BaseFragment(), CoinDetailContractView {
         views.coinName.text = coin?.name
         views.coinSymbol.text = coin?.symbolFormatted
         views.rank.text = coin?.rank.toString()
+        views.sortedRankTitle.text =
+                getString(R.string.dialog_coinDetail_title_sorted_rank,
+                context?.resources?.getStringArray(R.array.sort_options)?.get(POHSettings.sortPreference))
+        views.sortedRank.text = coin?.sortedRank.toString()
         views.priceFiat.text =
                 getString(R.string.title_priceUSD, coin?.priceData?.priceUSDFormatted)
         views.priceBTC.text =

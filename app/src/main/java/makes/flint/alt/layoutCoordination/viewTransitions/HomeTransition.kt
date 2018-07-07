@@ -44,6 +44,6 @@ class HomeTransition(context: Context) : ViewStateTransition {
         clears.forEach { viewAction ->
             viewAction.execute(constraintLayout)
         }
-        transaction.commit()
+        transaction.commitAllowingStateLoss()
     }
 }

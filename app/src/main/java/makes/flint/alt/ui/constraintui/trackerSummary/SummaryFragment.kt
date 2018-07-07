@@ -1,5 +1,6 @@
 package makes.flint.alt.ui.constraintui.trackerSummary
 
+import android.app.Activity
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.view.LayoutInflater
@@ -12,6 +13,7 @@ import makes.flint.alt.data.Summary
 import makes.flint.alt.data.interfaces.assessChange
 import makes.flint.alt.layoutCoordination.tracker
 import makes.flint.alt.ui.constraintui.layoutCoordinator.LayoutCoordinatable
+import makes.flint.alt.ui.settings.SettingsActivity
 
 /**
  * SummaryFragment
@@ -46,6 +48,9 @@ class SummaryFragment : BaseFragment(), SummaryContractView {
     override fun setFABOnClickListener() {
         views.summaryFAB.setOnClickListener {
             (activity as LayoutCoordinatable).updateLayout(tracker)
+        }
+        views.settingsFAB.setOnClickListener{
+            SettingsActivity.start(activity as Activity)
         }
     }
 

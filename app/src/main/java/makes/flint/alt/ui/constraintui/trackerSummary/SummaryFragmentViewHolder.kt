@@ -18,4 +18,5 @@ class SummaryFragmentViewHolder(view: View) {
     internal var amountSpent: TextView = view.findViewById(R.id.summary_amount_spent)
     internal var amountSold: TextView = view.findViewById(R.id.summary_amount_sold)
     internal var summaryFAB: FloatingActionButton = view.findViewById(R.id.summary_fab)
+    internal var settingsFAB: FloatingActionButton = view.findViewById(R.id.settings_fab)
 }

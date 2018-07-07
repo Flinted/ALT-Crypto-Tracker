@@ -26,6 +26,7 @@ interface SortableCoin {
     var isFavourite: Boolean
     val name: String
     val rank: Int
+    var sortedRank: Int
     val changeData: ChangeData
     val priceData: PriceData
     val volume24Hour: BigDecimal?
@@ -34,24 +35,25 @@ interface SortableCoin {
 // Extension Functions
 
 fun <T : SortableCoin> MutableList<T>.sortedByFavouritesThen(sortId: Int): MutableList<T> {
-    val splitLists = this.partition { it.isFavourite }
-    val favourites = splitLists.first.sortByRank()
-    val otherSortables = when (sortId) {
-        SORT_RANK -> splitLists.second.sortByRank()
-        SORT_RANK_REV -> splitLists.second.sortByRank().reversed()
-        SORT_ONE_HOUR -> splitLists.second.sortByOneHourChange()
-        SORT_ONE_HOUR_REV -> splitLists.second.sortByOneHourChange().reversed()
-        SORT_TWENTY_FOUR_HOUR -> splitLists.second.sortByTwentyFourHourChange()
-        SORT_TWENTY_FOUR_HOUR_REV -> splitLists.second.sortByTwentyFourHourChange().reversed()
-        SORT_SEVEN_DAY -> splitLists.second.sortBySevenDayChange()
-        SORT_SEVEN_DAY_REV -> splitLists.second.sortBySevenDayChange().reversed()
-        SORT_VOLUME -> splitLists.second.sortByVolume()
-        SORT_VOLUME_REV -> splitLists.second.sortByVolume().reversed()
-        SORT_NAME -> splitLists.second.sortByName()
-        SORT_NAME_REV -> splitLists.second.sortByName().reversed()
-        else -> splitLists.second.sortByRank()
+    val sorted = when (sortId) {
+        SORT_RANK -> this.sortByRank()
+        SORT_RANK_REV -> this.sortByRank().reversed()
+        SORT_ONE_HOUR -> this.sortByOneHourChange()
+        SORT_ONE_HOUR_REV -> this.sortByOneHourChange().reversed()
+        SORT_TWENTY_FOUR_HOUR -> this.sortByTwentyFourHourChange()
+        SORT_TWENTY_FOUR_HOUR_REV -> this.sortByTwentyFourHourChange().reversed()
+        SORT_SEVEN_DAY -> this.sortBySevenDayChange()
+        SORT_SEVEN_DAY_REV -> this.sortBySevenDayChange().reversed()
+        SORT_VOLUME -> this.sortByVolume()
+        SORT_VOLUME_REV -> this.sortByVolume().reversed()
+        SORT_NAME -> this.sortByName()
+        SORT_NAME_REV -> this.sortByName().reversed()
+        else -> this.sortByRank()
     }
-    return (favourites + otherSortables).toMutableList()
+    this.forEachIndexed { index, item -> item.sortedRank = index + 1 }
+    val splitLists = sorted.partition { it.isFavourite }
+    val favourites = splitLists.first.sortByRank()
+    return (favourites + splitLists.second).toMutableList()
 }
 
 private fun SortableCoin.compareRank(comparator: SortableCoin): Int {

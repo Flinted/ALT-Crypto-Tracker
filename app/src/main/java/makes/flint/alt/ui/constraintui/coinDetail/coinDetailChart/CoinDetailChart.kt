@@ -86,7 +86,7 @@ class CoinDetailChart : BaseFragment(), CoinDetailChartContractView {
         val closeFloat = dataPoint.close ?: return
         val close = BigDecimal(closeFloat.toDouble())
         views.chartHighlightValue.text = NumberFormatter.formatCurrencyAutomaticDigit(close)
-        val formatter = DateTimeFormatter.ofPattern("dd-MM-YYYY HH:mm a")
+        val formatter = DateTimeFormatter.ofPattern("dd-MM-YYYY ha")
         views.chartHighlightTimeStamp.text = formatter.format(Instant.ofEpochSecond(dataPoint.time!!.toLong()).atZone(ZoneId.systemDefault()))
         views.chartHighlightValue.visibility = View.VISIBLE
     }

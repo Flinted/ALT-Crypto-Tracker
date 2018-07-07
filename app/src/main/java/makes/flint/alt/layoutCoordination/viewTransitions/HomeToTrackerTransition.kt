@@ -34,7 +34,7 @@ class HomeToTrackerTransition(context: Context) : ViewStateTransition {
         transactions.forEach { viewAction ->
             viewAction.execute(transaction)
         }
-        transaction.commit()
+        transaction.commitAllowingStateLoss()
     }
 
     override fun postExecute(fragmentManager: FragmentManager, constraintLayout: ConstraintLayout) {

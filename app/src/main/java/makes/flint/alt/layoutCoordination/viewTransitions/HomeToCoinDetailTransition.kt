@@ -42,6 +42,6 @@ class HomeToCoinDetailTransition(context: Context, coinSymbol: String) : ViewSta
         transactions.forEach { viewAction ->
             viewAction.execute(transaction)
         }
-        transaction.commit()
+        transaction.commitAllowingStateLoss()
     }
 }

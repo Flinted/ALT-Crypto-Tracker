@@ -32,6 +32,7 @@ class CoinListItem(
     internal val id = coinResponse.id
     internal val symbol = coinResponse.symbol
     override val rank = coinResponse.provideRank()
+    override var sortedRank = 0
     override val volume24Hour = coinResponse.provideVolume24Hour()
     internal val availableSupply = coinResponse.provideAvailableSupply()
     internal var totalSupply = coinResponse.provideTotalSupply()

@@ -60,7 +60,6 @@ class LayoutCoordinator @Inject constructor(context: Context) {
     private fun updateForViewStateTransition(viewStateTransition: ViewStateTransition,
                                               masterLayout: ConstraintLayout,
                                               fragmentManager: FragmentManager) {
-        println("Key $viewStateTransition and ${viewStateTransition.constraintSet}")
         viewStateTransition.preExecute(fragmentManager, masterLayout)
         val transition = AutoTransition()
         transition.addListener(object : TransitionListener {

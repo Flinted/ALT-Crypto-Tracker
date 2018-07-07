@@ -60,6 +60,7 @@
     <!--DIALOG COIN DETAIL-->
     <string name="dialog_coinDetail_title_doge_price">Price(DOGE):</string>
     <string name="dialog_coinDetail_title_rank">Rank:</string>
+    <string name="dialog_coinDetail_title_sorted_rank">Rank(%1$s):</string>
     <string name="dialog_coinDetail_title_volume24h">Volume 24H:</string>
     <string name="dialog_coinDetail_title_available_supply">Available Supply:</string>
     <string name="dialog_coinDetail_title_total_supply">Total Supply:</string>
@@ -138,10 +139,6 @@
     <string name="ticker_bottom_sort_type" formatted="false">Sorted by: %1$s</string>
 
     <!--Settings Arrays-->
-    <string-array name="start_screen_options">
-        <item>Market</item>
-        <item>Tracker</item>
-    </string-array>
 
     <string-array name="market_size_options">
         <item>100</item>
@@ -165,5 +162,20 @@
         <item>DYOR: Do Your Own Research</item>
         <item>ELI5: Explain Like I'm 5</item>
         <item>1 Doge = 1 Doge</item>
+    </string-array>
+
+    <string-array name="sort_options">
+        <item>@string/sort_menu_market_cap</item>
+        <item>@string/sort_menu_market_cap_reversed</item>
+        <item>@string/sort_menu_alphabetical</item>
+        <item>@string/sort_menu_alphabetical_reversed</item>
+        <item>@string/sort_menu_1H</item>
+        <item>@string/sort_menu_1H_reversed</item>
+        <item>@string/sort_menu_24H</item>
+        <item>@string/sort_menu_24H_reversed</item>
+        <item>@string/sort_menu_7D</item>
+        <item>@string/sort_menu_7D_reversed</item>
+        <item>@string/sort_menu_vol</item>
+        <item>@string/sort_menu_vol_reversed</item>
     </string-array>
 </resources>
