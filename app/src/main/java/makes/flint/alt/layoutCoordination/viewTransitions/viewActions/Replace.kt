@@ -6,7 +6,6 @@ import android.support.v4.app.FragmentTransaction
 
 /**
  * Replace
- * Copyright © 2018 Intelligent Loyalty Limited. All rights reserved.
  */
 class Replace<T: Fragment>(private val targetId: Int,
                            private val classId: Class<T>,

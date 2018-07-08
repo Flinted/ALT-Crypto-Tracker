@@ -21,9 +21,11 @@ import javax.inject.Inject
  * UIObjectCache
  * Copyright © 2018 ChrisDidThis. All rights reserved.
  */
-class UIObjectCache @Inject constructor(private val coinListItemFactory: CoinListItemFactory,
-                                        private val trackerItemFactory: TrackerItemFactory,
-                                        private val summaryFactory: SummaryFactory) {
+class UIObjectCache @Inject constructor(
+    private val coinListItemFactory: CoinListItemFactory,
+    private val trackerItemFactory: TrackerItemFactory,
+    private val summaryFactory: SummaryFactory
+) {
 
     // Properties
 
@@ -36,16 +38,22 @@ class UIObjectCache @Inject constructor(private val coinListItemFactory: CoinLis
     // RX Subscriptions
 
     private var hasRefreshedCoins: PublishSubject<List<CoinListItem>> = PublishSubject.create()
-    private var hasRefreshedTrackerItems: PublishSubject<List<TrackerListItem>> = PublishSubject.create()
+    private var hasRefreshedTrackerItems: PublishSubject<List<TrackerListItem>> =
+        PublishSubject.create()
     private var hasRefreshedSummary: PublishSubject<Summary> = PublishSubject.create()
-    private var hasRefreshedMarketData: PublishSubject<MarketSummaryResponse> = PublishSubject.create()
+    private var hasRefreshedMarketData: PublishSubject<MarketSummaryResponse> =
+        PublishSubject.create()
     private var hasUpdatedTimeStamp: PublishSubject<TimeStamp> = PublishSubject.create()
     private var hasStartedUpdate: PublishSubject<Boolean> = PublishSubject.create()
     internal fun getUpdateBegunSubscriber() = hasStartedUpdate.asObservable()
     internal fun getCoinsSubscription() = Pair(hasRefreshedCoins.asObservable(), coinListItems)
-    internal fun getTrackerListSubscription() = Pair(hasRefreshedTrackerItems.asObservable(), trackerListItems)
+    internal fun getTrackerListSubscription() =
+        Pair(hasRefreshedTrackerItems.asObservable(), trackerListItems)
+
     internal fun getSummarySubscription() = Pair(hasRefreshedSummary.asObservable(), summary)
-    internal fun getMarketSubscription() = Pair(hasRefreshedMarketData.asObservable(), marketSummary)
+    internal fun getMarketSubscription() =
+        Pair(hasRefreshedMarketData.asObservable(), marketSummary)
+
     internal fun getSyncTimeSubscription() = Pair(hasUpdatedTimeStamp.asObservable(), lastUpdate)
 
     // Internal Functions
@@ -57,9 +65,11 @@ class UIObjectCache @Inject constructor(private val coinListItemFactory: CoinLis
     }
 
     @Suppress("UNCHECKED_CAST")
-    internal fun updateForNewData(data: MutableList<SummaryCoinResponse>?,
-                                  favouritesData: MutableList<FavouriteCoin>,
-                                  trackerData: List<TrackerDataEntry>) {
+    internal fun updateForNewData(
+        data: MutableList<SummaryCoinResponse>?,
+        favouritesData: MutableList<FavouriteCoin>,
+        trackerData: List<TrackerDataEntry>
+    ) {
         data ?: return
         setThreadPriority(Process.THREAD_PRIORITY_BACKGROUND);
         val coinResponses = data as MutableList<CoinResponse>
@@ -91,7 +101,8 @@ class UIObjectCache @Inject constructor(private val coinListItemFactory: CoinLis
     }
 
     internal fun updateTrackerEntries(trackerEntries: List<TrackerDataEntry>) {
-        val updatedTrackerEntries = trackerItemFactory.makeTrackerItems(trackerEntries, coinListItems)
+        val updatedTrackerEntries =
+            trackerItemFactory.makeTrackerItems(trackerEntries, coinListItems)
         val updatedSummary = summaryFactory.makeSummaryFor(updatedTrackerEntries)
         this.trackerListItems = updatedTrackerEntries
         this.summary = updatedSummary
@@ -106,5 +117,9 @@ class UIObjectCache @Inject constructor(private val coinListItemFactory: CoinLis
 
     internal fun startingUpdate() {
         hasStartedUpdate.onNext(true)
+    }
+
+    fun invalidateData() {
+        lastUpdate?.invalidate()
     }
 }

@@ -26,6 +26,7 @@ open class SettingsData : RealmObject() {
     internal var startingScreen = START_TRACKER
 
     internal var defaultSort = SORT_RANK
+    internal var hiddenValues = false
 
     internal var marketUp3 = 50f
     internal var marketUp2 = 15f

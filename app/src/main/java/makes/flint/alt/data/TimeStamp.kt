@@ -23,6 +23,7 @@ open class TimeStamp() : RealmObject(), RealmDeletable {
     @PrimaryKey
     var id = UUID.randomUUID().toString()
     internal var timeStampISO8601: String
+    private var invalidated = false
 
     // Lifecycle
 
@@ -37,6 +38,10 @@ open class TimeStamp() : RealmObject(), RealmDeletable {
         this.timeStampISO8601 = timeNow.format(DateTimeFormatter.ISO_OFFSET_DATE_TIME)
     }
 
+    fun invalidate() {
+        invalidated = true
+    }
+
     // Overrides
 
     override fun nestedDeleteFromRealm() {
@@ -47,7 +52,8 @@ open class TimeStamp() : RealmObject(), RealmDeletable {
 
     fun shouldReSync(): Boolean {
         val timeNow = ZonedDateTime.now()
-        val syncThreshold = ZonedDateTime.parse(timeStampISO8601).plusMinutes(POHSettings.refreshGap)
-        return timeNow.isAfter(syncThreshold)
+        val syncThreshold =
+            ZonedDateTime.parse(timeStampISO8601).plusMinutes(POHSettings.refreshGap)
+        return timeNow.isAfter(syncThreshold) || invalidated
     }
 }

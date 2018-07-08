@@ -10,6 +10,7 @@ import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.formatter.IAxisValueFormatter
 import makes.flint.alt.R
+import makes.flint.alt.configuration.POHSettings
 import makes.flint.alt.data.trackerListItem.TrackerListItem
 
 /**
@@ -71,7 +72,7 @@ class TrackerBarChartFactory {
     private fun makeBarDataSet(entries: MutableList<BarEntry>, context: Context): BarDataSet {
         return BarDataSet(entries, "Tracker").apply {
             setDrawIcons(false)
-            setDrawValues(true)
+            setDrawValues(!POHSettings.hiddenValues)
             valueTextSize = 10f
             color = ContextCompat.getColor(context, R.color.colorPrimary)
             axisDependency = YAxis.AxisDependency.RIGHT

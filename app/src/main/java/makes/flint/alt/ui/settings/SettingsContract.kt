@@ -9,10 +9,12 @@ import makes.flint.alt.base.BaseContractView
 interface SettingsContractView : BaseContractView {
     fun initialiseSortSpinner()
     fun initialiseMarketSizeSelector()
+    fun initialiseHiddenValuesSwitch()
+    fun initialiseIconFields()
 }
 
 interface SettingsContractPresenter : BaseContractPresenter<SettingsContractView> {
-    abstract fun newMarketLimitSet(adjustedLimit: Int)
-    abstract fun newSortPreferenceSet(preferenceKey: Int)
-
+    fun newMarketLimitSet(adjustedLimit: Int)
+    fun newSortPreferenceSet(preferenceKey: Int)
+    fun newHiddenValueStateSet(value: Boolean)
 }

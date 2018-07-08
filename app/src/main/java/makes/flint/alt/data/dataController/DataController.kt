@@ -19,9 +19,10 @@ import javax.inject.Inject
  * DataController
  * Copyright © 2018 ChrisDidThis. All rights reserved.
  */
-open class DataController @Inject constructor(private val apiRepository: ApiRepository,
-                                              private val realmManager: RealmManager,
-                                              private val cache: UIObjectCache
+open class DataController @Inject constructor(
+    private val apiRepository: ApiRepository,
+    private val realmManager: RealmManager,
+    private val cache: UIObjectCache
 ) {
 
     // RX Actions
@@ -37,19 +38,23 @@ open class DataController @Inject constructor(private val apiRepository: ApiRepo
 
     internal fun trackerRefreshSubscriber() = cache.getTrackerListSubscription()
 
-    internal fun summaryRefreshSubscriber()= cache.getSummarySubscription()
+    internal fun summaryRefreshSubscriber() = cache.getSummarySubscription()
 
     internal fun marketRefreshSubscriber() = cache.getMarketSubscription()
 
     internal fun lastSyncSubscriber() = cache.getSyncTimeSubscription()
 
-    internal fun storeFavouriteCoin(favouriteCoins: FavouriteCoin) = realmManager.copyOrUpdate(favouriteCoins)
+    internal fun storeFavouriteCoin(favouriteCoins: FavouriteCoin) =
+        realmManager.copyOrUpdate(favouriteCoins)
 
-    internal fun getFavouriteCoin(symbol: String): FavouriteCoin? = realmManager.getFavouriteCoin(symbol)
+    internal fun getFavouriteCoin(symbol: String): FavouriteCoin? =
+        realmManager.getFavouriteCoin(symbol)
 
-    internal fun deleteFavouriteCoin(favouriteCoin: FavouriteCoin) = realmManager.remove(favouriteCoin)
+    internal fun deleteFavouriteCoin(favouriteCoin: FavouriteCoin) =
+        realmManager.remove(favouriteCoin)
 
-    internal fun getCoinForSymbol(coinSymbol: String) = cache.coinListItems.find { it.symbol == coinSymbol }
+    internal fun getCoinForSymbol(coinSymbol: String) =
+        cache.coinListItems.find { it.symbol == coinSymbol }
 
     internal fun getSettings() = realmManager.getSettings()
 
@@ -59,10 +64,12 @@ open class DataController @Inject constructor(private val apiRepository: ApiRepo
 
     internal fun getAllTrackerEntries() = cache.trackerListItems
 
-    internal fun getHistoricalDataFor(callback: RepositoryCallbackSingle<HistoricalDataResponse?>,
-                                      coinSymbol: String,
-                                      dataResolution: Int,
-                                      chartResolution: Int) {
+    internal fun getHistoricalDataFor(
+        callback: RepositoryCallbackSingle<HistoricalDataResponse?>,
+        coinSymbol: String,
+        dataResolution: Int,
+        chartResolution: Int
+    ) {
         apiRepository.getHistoricalDataFor(callback, coinSymbol, dataResolution, chartResolution)
     }
 
@@ -98,6 +105,10 @@ open class DataController @Inject constructor(private val apiRepository: ApiRepo
         return true
     }
 
+    internal fun invalidateData() {
+        cache.invalidateData()
+    }
+
     // Private Functions
 
     private fun updateFavouriteCoins() {
@@ -130,21 +141,22 @@ open class DataController @Inject constructor(private val apiRepository: ApiRepo
         val trackerEntryData = realmManager.getAllTrackerDataEntries()
         apiRepository.coinsGET()?.doOnNext { data ->
             cache.updateForNewData(
-                    data?.toMutableList(),
-                    favouriteCoins,
-                    trackerEntryData)
+                data?.toMutableList(),
+                favouriteCoins,
+                trackerEntryData
+            )
         }?.observeOn(AndroidSchedulers.mainThread())
-                ?.subscribe(object : Subscriber<Array<SummaryCoinResponse>>() {
-                    override fun onCompleted() {}
-                    override fun onError(error: Throwable) {
-                        println(error)
-                        hasEncounteredError.onNext(error)
-                    }
+            ?.subscribe(object : Subscriber<Array<SummaryCoinResponse>>() {
+                override fun onCompleted() {}
+                override fun onError(error: Throwable) {
+                    println(error)
+                    hasEncounteredError.onNext(error)
+                }
 
-                    override fun onNext(apiResponse: Array<SummaryCoinResponse>?) {
-                        cache.emitData()
-                        unsubscribe()
-                    }
-                })
+                override fun onNext(apiResponse: Array<SummaryCoinResponse>?) {
+                    cache.emitData()
+                    unsubscribe()
+                }
+            })
     }
 }

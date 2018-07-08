@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.AdapterView
 import makes.flint.alt.R
 import makes.flint.alt.base.BaseActivity
+import makes.flint.alt.configuration.IndicatorCustomiser
 import makes.flint.alt.configuration.POHSettings
 
 /**
@@ -29,22 +30,48 @@ class SettingsActivity : BaseActivity(), SettingsContractView {
         setContentView(R.layout.fragment_settings)
         views = SettingsActivityViewHolder(this)
         this.presenter = getPresenterComponent().provideSettingsPresenter()
+        attachPresenter(presenter)
+        presenter.attachView(this)
+        presenter.initialise()
     }
 
     override fun initialiseSortSpinner() {
         views.sortSpinner.setSelection(POHSettings.sortPreference)
         views.sortSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(p0: AdapterView<*>?) {}
-            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, preferenceKey: Int, p3: Long) {
+            override fun onItemSelected(
+                p0: AdapterView<*>?,
+                p1: View?,
+                preferenceKey: Int,
+                p3: Long
+            ) {
                 presenter.newSortPreferenceSet(preferenceKey)
             }
         }
     }
 
     override fun initialiseMarketSizeSelector() {
+        views.marketSelector.value = (POHSettings.limit / 100)
         views.marketSelector.setOnValueChangedListener { numberPicker, old, new ->
             val adjustedLimit = new * 100
             presenter.newMarketLimitSet(adjustedLimit)
         }
+    }
+
+    override fun initialiseHiddenValuesSwitch() {
+        views.hiddenValuesSwitch.isChecked = POHSettings.hiddenValues
+        views.hiddenValuesSwitch.setOnCheckedChangeListener { compoundButton, value ->
+            presenter.newHiddenValueStateSet(value)
+        }
+    }
+
+    override fun initialiseIconFields() {
+        val indicatorCustomiser = IndicatorCustomiser()
+        views.upExtremeIcon.setImageResource(indicatorCustomiser.icons.upExtreme)
+        views.upSignificantIcon.setImageResource(indicatorCustomiser.icons.upSignificant)
+        views.upModerateIcon.setImageResource(indicatorCustomiser.icons.upModerate)
+        views.downExtremeIcon.setImageResource(indicatorCustomiser.icons.downExtreme)
+        views.downSignificantIcon.setImageResource(indicatorCustomiser.icons.downSignificant)
+        views.downModerateIcon.setImageResource(indicatorCustomiser.icons.downModerate)
     }
 }

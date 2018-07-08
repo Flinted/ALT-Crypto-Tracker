@@ -9,6 +9,7 @@ import android.widget.Filter
 import android.widget.Filterable
 import makes.flint.alt.R
 import makes.flint.alt.configuration.IndicatorCustomiser
+import makes.flint.alt.configuration.POHSettings
 import makes.flint.alt.data.interfaces.assessChange
 import makes.flint.alt.data.trackerListItem.TrackerListItem
 import makes.flint.alt.injection.components.PresenterComponent
@@ -18,8 +19,9 @@ import rx.subjects.PublishSubject
  * TrackerListAdapter
  * Copyright © 2018  ChrisDidThis. All rights reserved.
  */
-class TrackerListAdapter(presenterComponent: PresenterComponent) : RecyclerView.Adapter<RecyclerView.ViewHolder>(),
-        TrackerAdapterContractView, Filterable {
+class TrackerListAdapter(presenterComponent: PresenterComponent) :
+    RecyclerView.Adapter<RecyclerView.ViewHolder>(),
+    TrackerAdapterContractView, Filterable {
 
     // Properties
 
@@ -67,14 +69,54 @@ class TrackerListAdapter(presenterComponent: PresenterComponent) : RecyclerView.
         val context = viewHolder.indicator.context
         viewHolder.coinName.text = entry.name
         viewHolder.coinSymbol.text = entry.symbolFormatted
-        viewHolder.numberOwned.text = entry.numberOwnedFormatted
         viewHolder.currentPrice.text = entry.getCurrentAssetPriceFormatted()
         viewHolder.dollarCostAverage.text = entry.dollarCostAverageFormatted
-        viewHolder.currentValue.text = entry.currentPriceUSDFormatted
         viewHolder.currentProfit.text = entry.percentageChangeFormatted
-        viewHolder.currentProfit.setTextColor(ContextCompat.getColor(context, indicatorCustomiser.getColor(status)))
-        viewHolder.indicator.setImageDrawable(ContextCompat.getDrawable(context, indicatorCustomiser.getIcon(status)))
+        viewHolder.currentProfit.setTextColor(
+            ContextCompat.getColor(
+                context,
+                indicatorCustomiser.getColor(
+                    entry.assessChange()
+                )
+            )
+        )
+        setAmountValues( viewHolder, entry)
+        viewHolder.indicator.setImageDrawable(
+            ContextCompat.getDrawable(
+                context,
+                indicatorCustomiser.getIcon(
+                    status
+                )
+            )
+        )
         setOnClickListener(viewHolder.itemContent, entry)
+    }
+
+    private fun setAmountValues(
+        viewHolder: TrackerListViewHolder,
+        entry: TrackerListItem
+    ) {
+        if (POHSettings.hiddenValues) {
+            setHiddenValues(viewHolder)
+            return
+        }
+        setActualValues( viewHolder, entry)
+    }
+
+    private fun setHiddenValues(viewHolder: TrackerListViewHolder) {
+        val hiddenText = "HIDDEN"
+        viewHolder.currentValue.text = hiddenText
+        viewHolder.currentProfit.text = hiddenText
+        viewHolder.numberOwned.text = hiddenText
+
+    }
+
+    private fun setActualValues(
+        viewHolder: TrackerListViewHolder,
+        entry: TrackerListItem
+    ) {
+        viewHolder.currentValue.text = entry.currentPriceUSDFormatted
+        viewHolder.numberOwned.text = entry.numberOwnedFormatted
     }
 
     override fun onDestroy() {

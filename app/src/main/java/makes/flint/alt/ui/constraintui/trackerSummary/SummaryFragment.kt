@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import makes.flint.alt.R
 import makes.flint.alt.base.BaseFragment
 import makes.flint.alt.configuration.IndicatorCustomiser
+import makes.flint.alt.configuration.POHSettings
 import makes.flint.alt.data.Summary
 import makes.flint.alt.data.interfaces.assessChange
 import makes.flint.alt.layoutCoordination.tracker
@@ -28,7 +29,11 @@ class SummaryFragment : BaseFragment(), SummaryContractView {
 
     // Lifecycle
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val view = inflater.inflate(R.layout.fragment_summary, container, false)
         this.views = SummaryFragmentViewHolder(view)
         this.summaryPresenter = getPresenterComponent().provideSummaryPresenter()
@@ -49,26 +54,58 @@ class SummaryFragment : BaseFragment(), SummaryContractView {
         views.summaryFAB.setOnClickListener {
             (activity as LayoutCoordinatable).updateLayout(tracker)
         }
-        views.settingsFAB.setOnClickListener{
+        views.settingsFAB.setOnClickListener {
             SettingsActivity.start(activity as Activity)
         }
     }
 
     override fun updateForSummary(summary: Summary) {
-        views.initialValue.text =
-                getString(R.string.fragment_summary_initial_value, summary.initialValueFormatted())
-        views.currentValueUSD.text =
-                getString(R.string.fragment_summary_current_value_usd, summary.currentValueFiatFormatted())
-        views.currentValueBTC.text =
-                getString(R.string.fragment_summary_current_value_btc, summary.currentValueBTCFormatted())
-        views.amountSpent.text =
-                getString(R.string.fragment_summary_value_spent, summary.amountSpentFormatted())
-        views.amountSold.text =
-                getString(R.string.fragment_summary_value_sold, summary.amountSoldFormatted())
+        setAmountValues(summary)
         views.changePercentage.text = summary.percentageChangeFormatted()
         val customizer = IndicatorCustomiser()
         val status = summary.assessChange()
         val changeColor = customizer.getColor(status)
         views.changePercentage.setTextColor(ContextCompat.getColor(requireContext(), changeColor))
+    }
+
+    private fun setAmountValues(summary: Summary) {
+        if (POHSettings.hiddenValues) {
+            setHiddenValues()
+            return
+        }
+        setActualValues(summary)
+    }
+
+    private fun setHiddenValues() {
+        val hiddenString = "HIDDEN"
+        views.initialValue.text =
+                getString(R.string.fragment_summary_initial_value, hiddenString)
+        views.currentValueUSD.text =
+                getString(R.string.fragment_summary_current_value_usd, hiddenString)
+        views.currentValueBTC.text =
+                getString(R.string.fragment_summary_current_value_btc, hiddenString)
+        views.amountSpent.text =
+                getString(R.string.fragment_summary_value_spent, hiddenString)
+        views.amountSold.text =
+                getString(R.string.fragment_summary_value_sold, hiddenString)
+    }
+
+    private fun setActualValues(summary: Summary) {
+        views.initialValue.text =
+                getString(R.string.fragment_summary_initial_value, summary.initialValueFormatted())
+        views.currentValueUSD.text =
+                getString(
+                    R.string.fragment_summary_current_value_usd,
+                    summary.currentValueFiatFormatted()
+                )
+        views.currentValueBTC.text =
+                getString(
+                    R.string.fragment_summary_current_value_btc,
+                    summary.currentValueBTCFormatted()
+                )
+        views.amountSpent.text =
+                getString(R.string.fragment_summary_value_spent, summary.amountSpentFormatted())
+        views.amountSold.text =
+                getString(R.string.fragment_summary_value_sold, summary.amountSoldFormatted())
     }
 }

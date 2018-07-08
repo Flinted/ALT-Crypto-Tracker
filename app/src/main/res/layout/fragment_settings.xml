@@ -1,57 +1,166 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/colorPrimaryDark"
-    android:padding="20dp">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/settings_default_sort_title"
-        android:layout_width="wrap_content"
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_large_8dp"
-        android:text="Sort market by:"
-        android:textColor="@color/colorOffWhite"
-        app:layout_constraintBottom_toBottomOf="@id/settings_default_sort_selector"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/settings_default_sort_selector" />
+        android:background="@color/colorPrimaryDark"
+        android:padding="20dp">
 
-    <Spinner
-        android:id="@+id/settings_default_sort_selector"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_large_8dp"
-        android:background="@color/colorOffWhite"
-        android:entries="@array/sort_options"
-        android:padding="@dimen/margin_large_8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/settings_default_sort_title"
-        app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/settings_default_sort_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_large_8dp"
+            android:text="Sort market by:"
+            android:textColor="@color/colorOffWhite"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/settings_market_size_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_large_8dp"
-        android:text="Market size:"
-        android:textColor="@color/colorOffWhite"
-        app:layout_constraintBottom_toBottomOf="@id/settings_market_size_selector"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/settings_market_size_selector" />
+        <Spinner
+            android:id="@+id/settings_default_sort_selector"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/colorOffWhite"
+            android:entries="@array/sort_options"
+            android:padding="@dimen/margin_large_8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/settings_default_sort_title" />
 
-    <makes.flint.alt.ui.settings.MarketSizeNumberPicker
-        android:id="@+id/settings_market_size_selector"
-        android:layout_width="0dp"
-        android:layout_height="30dp"
-        android:layout_margin="@dimen/margin_large_8dp"
-        android:layout_marginStart="@dimen/margin_large_8dp"
-        android:background="@color/colorOffWhite"
-        android:descendantFocusability="blocksDescendants"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/settings_market_size_title"
-        app:layout_constraintTop_toBottomOf="@id/settings_default_sort_selector" />
+        <TextView
+            android:id="@+id/settings_market_size_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_large_8dp"
+            android:text="Market size:"
+            android:textColor="@color/colorOffWhite"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/settings_default_sort_selector" />
 
-</android.support.constraint.ConstraintLayout>
+        <makes.flint.alt.ui.settings.MarketSizeNumberPicker
+            android:id="@+id/settings_market_size_selector"
+            android:layout_width="80dp"
+            android:layout_height="120dp"
+            android:layout_marginStart="@dimen/margin_large_8dp"
+            android:background="@color/colorOffWhite"
+            android:descendantFocusability="blocksDescendants"
+            android:padding="@dimen/margin_large_8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/settings_market_size_title" />
 
+        <TextView
+            android:id="@+id/settings_hide_values_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_large_8dp"
+            android:text="Hide Values:"
+            android:textColor="@color/colorOffWhite"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/settings_market_size_selector" />
+
+        <android.support.v7.widget.SwitchCompat
+            android:id="@+id/settings_hide_values_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:padding="@dimen/margin_large_8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/settings_market_size_selector" />
+
+        <TextView
+            android:id="@+id/settings_icon_values_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_large_8dp"
+            android:text="Icons:"
+            android:textColor="@color/colorOffWhite"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/settings_hide_values_switch" />
+
+        <Spinner
+            android:id="@+id/settings_icon_pack_select"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_large_8dp"
+            android:background="@color/colorOffWhite"
+            android:padding="@dimen/margin_large_8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/settings_icon_values_title" />
+
+        <TextView
+            android:id="@+id/settings_market_threshold_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_large_8dp"
+            android:text="Market"
+            android:textColor="@color/colorOffWhite"
+            app:layout_constraintStart_toEndOf="@id/settings_up_extreme_icon"
+            app:layout_constraintTop_toBottomOf="@id/settings_icon_pack_select" />
+
+        <TextView
+            android:id="@+id/settings_tracker_threshold_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_large_8dp"
+            android:text="Tracker"
+            android:textColor="@color/colorOffWhite"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/settings_icon_pack_select" />
+
+        <ImageView
+            android:id="@+id/settings_up_extreme_icon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_margin="@dimen/margin_small_4dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/settings_market_threshold_title" />
+
+        <ImageView
+            android:id="@+id/settings_up_significant_icon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_margin="@dimen/margin_small_4dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/settings_up_extreme_icon" />
+
+        <ImageView
+            android:id="@+id/settings_up_moderate_icon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_margin="@dimen/margin_small_4dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/settings_up_significant_icon" />
+
+        <ImageView
+            android:id="@+id/settings_down_moderate_icon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_margin="@dimen/margin_small_4dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/settings_up_moderate_icon" />
+
+        <ImageView
+            android:id="@+id/settings_down_significant_icon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_margin="@dimen/margin_small_4dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/settings_down_moderate_icon" />
+
+        <ImageView
+            android:id="@+id/settings_down_extreme_icon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_margin="@dimen/margin_small_4dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/settings_down_significant_icon" />
+
+    </android.support.constraint.ConstraintLayout>
+
+</ScrollView>

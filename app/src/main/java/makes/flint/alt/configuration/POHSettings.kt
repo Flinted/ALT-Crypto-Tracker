@@ -13,10 +13,10 @@ const val START_TRACKER = "StartTracker"
 object POHSettings {
 
     // Formatting
-
     internal var currency = "USD"
     internal var symbol = "$"
     internal var roundingMode = RoundingMode.HALF_EVEN
+    internal var hiddenValues = false
 
     // General
 
@@ -58,6 +58,7 @@ object POHSettings {
         exchange = settings.exchangeFilter
         limit = settings.syncLimit
         refreshGap = settings.refreshGap
+        hiddenValues = settings.hiddenValues
         changeUp1 = settings.marketUp1
         changeUp2 = settings.marketUp2
         changeUp3 = settings.marketUp3
@@ -71,5 +72,4 @@ object POHSettings {
         trackerChangeDown2 = settings.trackerDown2
         trackerChangeDown3 = settings.trackerDown3
     }
-
 }
