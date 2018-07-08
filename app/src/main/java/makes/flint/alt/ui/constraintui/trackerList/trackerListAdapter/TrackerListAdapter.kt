@@ -47,7 +47,7 @@ class TrackerListAdapter(presenterComponent: PresenterComponent) :
     override fun onNoEntriesPresent() = noEntriesFound.asObservable()
 
     private var trackerAdapterPresenter = presenterComponent.provideTrackerAdapterPresenter()
-    private val indicatorCustomiser = IndicatorCustomiser()
+    private val indicatorCustomiser = IndicatorCustomiser(POHSettings.iconSet)
 
     // Lifecycle
 

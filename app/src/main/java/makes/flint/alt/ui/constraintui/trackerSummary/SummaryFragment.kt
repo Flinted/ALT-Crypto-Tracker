@@ -62,7 +62,7 @@ class SummaryFragment : BaseFragment(), SummaryContractView {
     override fun updateForSummary(summary: Summary) {
         setAmountValues(summary)
         views.changePercentage.text = summary.percentageChangeFormatted()
-        val customizer = IndicatorCustomiser()
+        val customizer = IndicatorCustomiser(POHSettings.iconSet)
         val status = summary.assessChange()
         val changeColor = customizer.getColor(status)
         views.changePercentage.setTextColor(ContextCompat.getColor(requireContext(), changeColor))

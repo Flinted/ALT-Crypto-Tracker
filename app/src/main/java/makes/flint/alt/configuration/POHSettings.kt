@@ -48,6 +48,10 @@ object POHSettings {
     internal var trackerChangeDown2 = -0.4f
     internal var trackerChangeDown3 = -0.6f
 
+    // Icon set
+
+    internal var iconSet = DefaultIconPack()
+
     // Internal Functions
 
     internal fun updateSettings(settings: SettingsData) {

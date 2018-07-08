@@ -4,12 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="@dimen/margin_small_4dp"
-    android:layout_marginEnd="@dimen/margin_large_8dp"
-    android:layout_marginStart="@dimen/margin_large_8dp"
-    android:layout_marginTop="@dimen/margin_small_4dp"
     android:clickable="true"
     android:focusable="true"
-    android:foreground="?android:attr/selectableItemBackground">
+    android:foreground="?android:attr/selectableItemBackground"
+    android:paddingEnd="@dimen/margin_large_8dp"
+    android:paddingStart="@dimen/margin_large_8dp">
 
     <include layout="@layout/item_coin_list_shared_content" />
 
@@ -18,8 +17,8 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_gravity="end|top"
+        android:layout_marginEnd="@dimen/margin_large_8dp"
         android:contentDescription="@string/item_coinList_image_favourite_unchecked"
         android:src="@drawable/ic_favorite_border_24dp"
         android:tag="unchecked" />
-
 </android.support.v7.widget.CardView>

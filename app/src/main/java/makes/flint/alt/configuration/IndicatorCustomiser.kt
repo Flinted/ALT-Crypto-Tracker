@@ -1,15 +1,12 @@
 package makes.flint.alt.configuration
 
 import makes.flint.alt.data.coinListItem.*
-import javax.inject.Inject
 
 /**
  * IndicatorCustomiser
  * Copyright © 2018  ChrisDidThis. All rights reserved.
  */
-class IndicatorCustomiser @Inject constructor() {
-
-    internal var icons: IconPack = DefaultIconPack()
+class IndicatorCustomiser constructor(internal var icons: IconPack) {
 
     // Internal Functions
     internal fun getIcon(status: Int): Int {
@@ -26,8 +23,4 @@ class IndicatorCustomiser @Inject constructor() {
     }
 
     fun getColor(state: Int) = icons.getColor(state)
-
-    fun updateIcons(iconPack: IconPack) {
-        this.icons = iconPack
-    }
 }

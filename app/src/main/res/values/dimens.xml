@@ -16,4 +16,5 @@
     <dimen name="dialog_bottom_margin">56dp</dimen>
     <dimen name="text_xLarge_20sp">20sp</dimen>
     <dimen name="margin_xxLarge_20dp">20dp</dimen>
+    <dimen name="grid_spacing">0dp</dimen>
 </resources>

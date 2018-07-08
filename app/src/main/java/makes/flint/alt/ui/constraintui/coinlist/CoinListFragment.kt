@@ -1,6 +1,8 @@
 package makes.flint.alt.ui.constraintui.coinlist
 
+import android.content.Context
 import android.os.Bundle
+import android.support.v4.app.FragmentActivity
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -9,14 +11,17 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import makes.flint.alt.R
 import makes.flint.alt.base.BaseFragment
 import makes.flint.alt.layoutCoordination.coin
+import makes.flint.alt.layoutCoordination.home
 import makes.flint.alt.layoutCoordination.search
 import makes.flint.alt.layoutCoordination.viewTransitions.HomeToCoinDetailTransition
 import makes.flint.alt.ui.constraintui.coinlist.coinListAdapter.CoinListAdapter
 import makes.flint.alt.ui.constraintui.coinlist.coinListAdapter.CoinListAdapterContractView
 import makes.flint.alt.ui.constraintui.layoutCoordinator.LayoutCoordinatable
+
 
 /**
  * CoinListFragment
@@ -28,7 +33,11 @@ class CoinListFragment : BaseFragment(), CoinListContractView {
     private lateinit var coinListPresenter: CoinListContractPresenter
     private lateinit var coinListAdapter: CoinListAdapterContractView
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val view = inflater.inflate(R.layout.fragment_coin_list, container, false)
         coinListPresenter = getPresenterComponent().provideCoinListPresenter()
         coinListPresenter.attachView(this)
@@ -45,8 +54,28 @@ class CoinListFragment : BaseFragment(), CoinListContractView {
     }
 
     override fun initialiseSearchOnClick() {
+        views.coinSearchButton.setOnClickListener {
+            (activity as LayoutCoordinatable).updateLayout(search)
+            views.coinSearch.layoutParams.height = (views.coinSearch.layoutParams.height * 2)
+            views.coinSearch.visibility = View.VISIBLE
+            views.coinSearchCancelButton.visibility = View.VISIBLE
+            views.coinSearchButton.visibility = View.GONE
+            views.coinSearch.requestFocus()
+        }
         views.coinSearch.setOnClickListener {
             (activity as LayoutCoordinatable).updateLayout(search)
+            views.coinSearch.requestFocus()
+        }
+        views.coinSearchCancelButton.setOnClickListener {
+            (activity as LayoutCoordinatable).updateLayout(home)
+            val imm =
+                (activity as FragmentActivity).getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            views.coinSearch.layoutParams.height = (views.coinSearch.layoutParams.height / 2)
+            views.coinSearch.text.clear()
+            views.coinSearch.visibility = View.INVISIBLE
+            views.coinSearchCancelButton.visibility = View.GONE
+            views.coinSearchButton.visibility = View.VISIBLE
+            imm.hideSoftInputFromWindow(views.coinSearch.windowToken, 0)
         }
         views.coinSearch.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {}
@@ -64,7 +93,8 @@ class CoinListFragment : BaseFragment(), CoinListContractView {
         views.coinList.layoutManager = layoutManager
         views.coinList.adapter = coinListAdapter
         this.coinListAdapter = coinListAdapter
-        coinListAdapter.onCoinSelected().subscribe { coinSymbol -> coinListPresenter.onCoinSelected(coinSymbol) }
+        coinListAdapter.onCoinSelected()
+            .subscribe { coinSymbol -> coinListPresenter.onCoinSelected(coinSymbol) }
     }
 
     override fun initialiseSwipeRefreshListener() {

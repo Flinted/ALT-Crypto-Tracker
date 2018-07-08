@@ -7,7 +7,6 @@ import android.view.View
 import android.widget.AdapterView
 import makes.flint.alt.R
 import makes.flint.alt.base.BaseActivity
-import makes.flint.alt.configuration.IndicatorCustomiser
 import makes.flint.alt.configuration.POHSettings
 
 /**
@@ -66,12 +65,12 @@ class SettingsActivity : BaseActivity(), SettingsContractView {
     }
 
     override fun initialiseIconFields() {
-        val indicatorCustomiser = IndicatorCustomiser()
-        views.upExtremeIcon.setImageResource(indicatorCustomiser.icons.upExtreme)
-        views.upSignificantIcon.setImageResource(indicatorCustomiser.icons.upSignificant)
-        views.upModerateIcon.setImageResource(indicatorCustomiser.icons.upModerate)
-        views.downExtremeIcon.setImageResource(indicatorCustomiser.icons.downExtreme)
-        views.downSignificantIcon.setImageResource(indicatorCustomiser.icons.downSignificant)
-        views.downModerateIcon.setImageResource(indicatorCustomiser.icons.downModerate)
+        val icons = POHSettings.iconSet
+        views.upExtremeIcon.setImageResource(icons.upExtreme)
+        views.upSignificantIcon.setImageResource(icons.upSignificant)
+        views.upModerateIcon.setImageResource(icons.upModerate)
+        views.downExtremeIcon.setImageResource(icons.downExtreme)
+        views.downSignificantIcon.setImageResource(icons.downSignificant)
+        views.downModerateIcon.setImageResource(icons.downModerate)
     }
 }

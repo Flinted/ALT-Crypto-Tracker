@@ -9,9 +9,9 @@
         android:id="@+id/coin_list_search_input"
         android:layout_width="0dp"
         android:layout_height="30dp"
+        android:padding="@dimen/margin_large_8dp"
         android:background="@color/colorPrimary"
         android:gravity="center"
-        android:hint="Tap to Search"
         android:textColorHint="@color/colorAccent"
         android:textColor="@color/colorOffWhite"
         android:textSize="@dimen/text_size_small"
@@ -19,6 +19,29 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/coin_list_search_cancel_button"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:padding="@dimen/margin_small_4dp"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:src="@drawable/ic_close_24dp"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="@id/coin_list_search_input"
+        app:layout_constraintBottom_toBottomOf="@id/coin_list_search_input"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/coin_list_search_button"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/ic_search_24dp"
+        app:layout_constraintTop_toTopOf="@id/coin_list_search_input"
+        app:layout_constraintBottom_toBottomOf="@id/coin_list_search_input"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/coin_list_refresh_layout"
@@ -35,7 +58,7 @@
             android:id="@+id/coin_list_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/colorPrimary"/>
+            android:background="@color/colorPrimaryFade"/>
 
     </android.support.v4.widget.SwipeRefreshLayout>
 

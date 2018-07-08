@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                             xmlns:app="http://schemas.android.com/apk/res-auto"
-                                             android:layout_width="match_parent"
-                                             android:layout_height="wrap_content"
-                                             android:background="@color/colorPrimary">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorPrimary"
+    android:paddingBottom="@dimen/margin_small_4dp"
+    android:paddingTop="@dimen/margin_small_4dp">
 
     <include
         android:id="@+id/coin_list_item_indicators"
         layout="@layout/item_coin_list_coin_indicators"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/coin_list_name"
@@ -24,20 +26,20 @@
         android:textColor="@color/colorOffWhite"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@id/coin_list_item_indicators"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/coin_ticker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/margin_small_4dp"
-        android:layout_marginEnd="@dimen/margin_small_4dp"
+        android:layout_marginEnd="@dimen/margin_large_8dp"
         android:background="@color/colorPrimary"
         android:textColor="@color/colorAccent"
         android:textSize="@dimen/text_size_small"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent" />
 
 
     <TextView
@@ -50,6 +52,6 @@
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/coin_list_item_indicators"/>
+        app:layout_constraintStart_toEndOf="@id/coin_list_item_indicators" />
 
 </android.support.constraint.ConstraintLayout>

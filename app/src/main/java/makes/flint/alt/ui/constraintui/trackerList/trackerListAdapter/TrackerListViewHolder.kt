@@ -21,5 +21,5 @@ class TrackerListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) 
     val numberOwned: TextView = itemView.findViewById(R.id.number_owned)
     val currentValue: TextView = itemView.findViewById(R.id.value)
     val indicator: ImageView = itemView.findViewById(R.id.indicator)
-    val currentProfit: TextView = itemView.findViewById(R.id.current_profit)
+    val currentProfit: TextView = itemView.findViewById(R.id.current_profit_change)
 }

@@ -35,7 +35,11 @@ class TrackerListFragment : BaseFragment(), TrackerContractView, FilterView {
 
     // Lifecycle
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val view = inflater.inflate(R.layout.fragment_tracker, container, false)
         trackerPresenter = getPresenterComponent().provideTrackerPresenter()
         trackerPresenter.attachView(this)
@@ -55,7 +59,8 @@ class TrackerListFragment : BaseFragment(), TrackerContractView, FilterView {
 
     override fun initialiseTrackerList() {
         trackerListAdapter = TrackerListAdapter(getPresenterComponent())
-        views.trackerRecycler.layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
+        views.trackerRecycler.layoutManager =
+                GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
         views.trackerRecycler.adapter = trackerListAdapter as TrackerListAdapter
     }
 

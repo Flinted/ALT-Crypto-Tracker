@@ -1,67 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/tracker_item_content"
-    android:layout_width="165dp"
-    android:layout_height="160dp"
-    android:layout_margin="@dimen/margin_small_4dp"
+    android:layout_width="200dp"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/margin_small_4dp"
     android:clickable="true"
     android:focusable="true"
     android:foreground="?android:attr/selectableItemBackground"
     app:cardBackgroundColor="@color/colorPrimary"
-    app:cardElevation="8dp"
-    >
+    app:cardElevation="8dp">
 
     <android.support.constraint.ConstraintLayout
+        android:layout_margin="@dimen/margin_large_8dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <TextView
             android:id="@+id/dialog_coin_detail_name"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="end"
-            android:gravity="center"
             android:maxLines="1"
+            android:layout_margin="@dimen/margin_small_4dp"
             android:textColor="@color/colorAccent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/dialog_coin_detail_symbol"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margin_small_4dp"
-            android:gravity="center"
-            android:textColor="@color/colorAccent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/dialog_coin_detail_name"/>
-
-        <TextView
-            android:id="@+id/current_profit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/margin_small_4dp"
-            android:gravity="center"
-            android:textSize="@dimen/text_large"
-            android:textColor="@color/colorOffWhite"
-            app:layout_constraintBottom_toBottomOf="@id/indicator"
+            android:layout_margin="@dimen/margin_small_4dp"
+            android:textColor="@color/colorAccent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/indicator"
-            app:layout_constraintTop_toTopOf="@+id/indicator"/>
+            app:layout_constraintTop_toBottomOf="@id/dialog_coin_detail_name" />
+
+        <TextView
+            android:id="@+id/current_profit_change"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_small_4dp"
+            android:gravity="center"
+            android:textColor="@color/colorOffWhite"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/dialog_coin_detail_symbol" />
 
         <ImageView
             android:id="@+id/indicator"
-            android:contentDescription="@string/item_trackerEntry_image_indicator"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_marginStart="@dimen/margin_small_4dp"
+            android:contentDescription="@string/item_trackerEntry_image_indicator"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/dialog_coin_detail_symbol"
-            />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/current_price_USD_title"
@@ -69,35 +61,35 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/margin_small_4dp"
             android:layout_marginStart="@dimen/margin_small_4dp"
-            android:textColor="@color/colorOffWhite"
             android:gravity="center"
             android:text="@string/item_trackerEntry_title_current"
+            android:textColor="@color/colorOffWhite"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/indicator"/>
+            app:layout_constraintTop_toBottomOf="@+id/current_profit_change" />
 
         <TextView
             android:id="@+id/current_price_USD"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/margin_small_4dp"
-            android:textColor="@color/colorOffWhite"
             android:gravity="center"
+            android:textColor="@color/colorOffWhite"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/indicator"/>
+            app:layout_constraintTop_toBottomOf="@+id/current_profit_change" />
 
         <TextView
             android:id="@+id/value_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
-            android:textColor="@color/colorOffWhite"
             android:layout_marginStart="@dimen/margin_small_4dp"
             android:text="@string/item_trackerEntry_title_value"
+            android:textColor="@color/colorOffWhite"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/current_price_USD_title"/>
+            app:layout_constraintTop_toBottomOf="@id/current_price_USD_title" />
 
         <TextView
             android:id="@+id/value"
@@ -108,7 +100,7 @@
             android:textColor="@color/colorOffWhite"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/current_price_USD"/>
+            app:layout_constraintTop_toBottomOf="@id/current_price_USD" />
 
         <TextView
             android:id="@+id/number_owned_title"
@@ -116,10 +108,10 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/margin_small_4dp"
             android:layout_marginStart="@dimen/margin_small_4dp"
-            android:textColor="@color/colorOffWhite"
             android:text="@string/item_trackerEntry_title_owned"
+            android:textColor="@color/colorOffWhite"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/value_title"/>
+            app:layout_constraintTop_toBottomOf="@id/value_title" />
 
         <TextView
             android:id="@+id/number_owned"
@@ -129,7 +121,7 @@
             android:layout_marginEnd="@dimen/margin_small_4dp"
             android:textColor="@color/colorOffWhite"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/value"/>
+            app:layout_constraintTop_toBottomOf="@id/value" />
 
         <TextView
             android:id="@+id/tracker_item_dca_title"
@@ -138,20 +130,20 @@
             android:layout_marginEnd="@dimen/margin_small_4dp"
             android:layout_marginStart="@dimen/margin_small_4dp"
             android:gravity="center"
-            android:textColor="@color/colorOffWhite"
             android:text="@string/item_trackerEntry_title_dollar_cost_average"
+            android:textColor="@color/colorOffWhite"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/number_owned_title"/>
+            app:layout_constraintTop_toBottomOf="@+id/number_owned_title" />
 
         <TextView
             android:id="@+id/tracker_item_dca"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/margin_small_4dp"
-            android:textColor="@color/colorOffWhite"
             android:gravity="center"
+            android:textColor="@color/colorOffWhite"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/number_owned"/>
+            app:layout_constraintTop_toBottomOf="@+id/number_owned" />
 
     </android.support.constraint.ConstraintLayout>
 </android.support.v7.widget.CardView>

@@ -11,6 +11,7 @@ import android.widget.Filterable
 import android.widget.ImageView
 import makes.flint.alt.R
 import makes.flint.alt.configuration.IndicatorCustomiser
+import makes.flint.alt.configuration.POHSettings
 import makes.flint.alt.data.coinListItem.CoinListItem
 import makes.flint.alt.injection.components.PresenterComponent
 import rx.subjects.PublishSubject
@@ -36,7 +37,7 @@ class CoinListAdapter(presenterComponent: PresenterComponent)
         }
 
     private var presenter = presenterComponent.provideCoinListAdapterPresenter()
-    private var indicatorCustomizer = IndicatorCustomiser()
+    private var indicatorCustomizer = IndicatorCustomiser(POHSettings.iconSet)
 
     // RX Actions
     private val coinSelected: PublishSubject<String> = PublishSubject.create()
