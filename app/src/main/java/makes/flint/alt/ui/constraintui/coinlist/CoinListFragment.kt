@@ -67,6 +67,7 @@ class CoinListFragment : BaseFragment(), CoinListContractView {
             views.coinSearch.requestFocus()
         }
         views.coinSearchCancelButton.setOnClickListener {
+            views.coinList.stopScroll()
             (activity as LayoutCoordinatable).updateLayout(home)
             val imm =
                 (activity as FragmentActivity).getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager

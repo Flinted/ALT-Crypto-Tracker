@@ -18,8 +18,8 @@
         android:id="@+id/coin_detail_chart_highlight_timestamp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/colorAccent"
         android:layout_marginStart="28dp"
+        android:textColor="@color/colorAccent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -27,8 +27,8 @@
         android:id="@+id/coin_detail_chart_highlight_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/colorAccent"
         android:layout_marginEnd="28dp"
+        android:textColor="@color/colorAccent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -44,10 +44,26 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <android.support.v7.widget.AppCompatRadioButton
-            android:id="@+id/coin_detail_radio_1D"
+            android:id="@+id/coin_detail_radio_1H"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_large_8dp"
+            android:buttonTint="@color/colorPrimaryDark"
+            android:text="6H"
+            android:textColor="@color/colorOffBlack" />
+
+        <android.support.v7.widget.AppCompatRadioButton
+            android:id="@+id/coin_detail_radio_6H"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:buttonTint="@color/colorPrimaryDark"
+            android:text="6H"
+            android:textColor="@color/colorOffBlack" />
+
+        <android.support.v7.widget.AppCompatRadioButton
+            android:id="@+id/coin_detail_radio_1D"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:buttonTint="@color/colorPrimaryDark"
             android:text="1D"
             android:textColor="@color/colorOffBlack" />

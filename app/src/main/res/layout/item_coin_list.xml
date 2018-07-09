@@ -3,7 +3,7 @@
     android:id="@+id/main_card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/margin_small_4dp"
+    android:layout_marginTop="@dimen/margin_small_4dp"
     android:clickable="true"
     android:focusable="true"
     android:foreground="?android:attr/selectableItemBackground"

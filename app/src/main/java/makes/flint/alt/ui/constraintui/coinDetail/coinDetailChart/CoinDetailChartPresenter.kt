@@ -14,6 +14,10 @@ import javax.inject.Inject
  */
 
 
+// Minute Resolution
+const val CHART_1H = 0
+const val CHART_6H = 1
+
 // Hour Resolution
 const val CHART_24H = 2
 const val CHART_7D = 3
@@ -31,7 +35,7 @@ const val HOUR_DATA = 0
 const val DAY_DATA = 1
 
 class CoinDetailChartPresenter @Inject constructor(private val dataController: DataController) :
-        BasePresenter<CoinDetailChartContractView>(), CoinDetailChartContractPresenter {
+    BasePresenter<CoinDetailChartContractView>(), CoinDetailChartContractPresenter {
 
     private lateinit var coinSymbol: String
     private val chartData: SparseArray<HistoricalDataResponse> = SparseArray()
@@ -55,12 +59,19 @@ class CoinDetailChartPresenter @Inject constructor(private val dataController: D
 
     // Private Functions
 
-    private fun getDataForResolution(apiResolution: Int,
-                                     chartResolution: Int,
-                                     callback: RepositoryCallbackSingle<HistoricalDataResponse?>) {
+    private fun getDataForResolution(
+        apiResolution: Int,
+        chartResolution: Int,
+        callback: RepositoryCallbackSingle<HistoricalDataResponse?>
+    ) {
         val cachedData = chartData[apiResolution] ?: let {
             view?.showLoading()
-            dataController.getHistoricalDataFor(callback, coinSymbol, apiResolution, chartResolution)
+            dataController.getHistoricalDataFor(
+                callback,
+                coinSymbol,
+                apiResolution,
+                chartResolution
+            )
             return
         }
         currentData = prepareDataFor(chartResolution, cachedData)
@@ -73,8 +84,10 @@ class CoinDetailChartPresenter @Inject constructor(private val dataController: D
                 view?.hideLoading()
             }
 
-            override fun onRetrieve(refreshed: Boolean, apiResolution: Int, chartResolution: Int, result:
-            HistoricalDataResponse?) {
+            override fun onRetrieve(
+                refreshed: Boolean, apiResolution: Int, chartResolution: Int, result:
+                HistoricalDataResponse?
+            ) {
                 view?.hideLoading()
                 result ?: return
                 chartData.put(apiResolution, result)
@@ -88,24 +101,30 @@ class CoinDetailChartPresenter @Inject constructor(private val dataController: D
         view?.displayChart(currentData)
     }
 
-    private fun prepareDataFor(chartResolution: Int, result: HistoricalDataResponse): Array<HistoricalDataUnitResponse> {
+    private fun prepareDataFor(
+        chartResolution: Int,
+        result: HistoricalDataResponse
+    ): Array<HistoricalDataUnitResponse> {
         val invertedData = result.data.reversedArray()
         val subset = when (chartResolution) {
-            CHART_24H -> invertedData.copyOfRange(0, 24)
-            CHART_7D -> invertedData.copyOfRange(0, 163)
-            CHART_30D -> invertedData.copyOfRange(0, 29)
-            CHART_90D -> invertedData.copyOfRange(0, 89)
+            CHART_1H   -> invertedData.copyOfRange(0, 59)
+            CHART_6H   -> invertedData.copyOfRange(0, 359)
+            CHART_24H  -> invertedData.copyOfRange(0, 24)
+            CHART_7D   -> invertedData.copyOfRange(0, 163)
+            CHART_30D  -> invertedData.copyOfRange(0, 29)
+            CHART_90D  -> invertedData.copyOfRange(0, 89)
             CHART_180D -> invertedData.copyOfRange(0, 179)
-            CHART_1Y -> invertedData.copyOfRange(0, 364)
-            else -> invertedData
+            CHART_1Y   -> invertedData.copyOfRange(0, 364)
+            else       -> invertedData
         }
         return subset.reversedArray()
     }
 
     private fun getAPIResolutionForRequestedChartType(chartType: Int): Int {
         return when (chartType) {
+            CHART_6H                                              -> MINUTE_DATA
             CHART_30D, CHART_90D, CHART_180D, CHART_1Y, CHART_ALL -> DAY_DATA
-            else -> HOUR_DATA
+            else                                                  -> HOUR_DATA
         }
     }
 }
