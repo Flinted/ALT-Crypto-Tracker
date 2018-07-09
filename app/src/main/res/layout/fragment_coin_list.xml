@@ -27,6 +27,7 @@
         android:padding="@dimen/margin_small_4dp"
         android:paddingStart="10dp"
         android:paddingEnd="10dp"
+        android:layout_marginTop="@dimen/margin_small_4dp"
         android:src="@drawable/ic_close_24dp"
         android:visibility="gone"
         app:layout_constraintTop_toTopOf="@id/coin_list_search_input"
