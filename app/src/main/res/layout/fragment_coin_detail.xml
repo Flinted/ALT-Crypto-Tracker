@@ -4,8 +4,7 @@
     android:id="@+id/dialog_coin_detail_main_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimaryDark"
-    android:clickable="true"
+    android:background="@drawable/background_gradient_270"
     android:padding="@dimen/margin_xxLarge_20dp">
 
     <TextView

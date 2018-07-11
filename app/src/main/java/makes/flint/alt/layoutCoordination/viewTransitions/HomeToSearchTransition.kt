@@ -19,6 +19,7 @@ class HomeToSearchTransition(context: Context) : ViewStateTransition {
     }
 
     override fun preExecute(fragmentManager: FragmentManager, constraintLayout: ConstraintLayout) {
+        super.preExecute(fragmentManager, constraintLayout)
         return
     }
     override fun postExecute(fragmentManager: FragmentManager, constraintLayout: ConstraintLayout) {

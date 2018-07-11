@@ -24,6 +24,13 @@
     <string name="sort_menu_vol">24H volume</string>
     <string name="sort_menu_vol_reversed">24H volume(reversed)</string>
 
+    <!--MARKET SUMMARY-->
+    <string name="market_summary_marketcap">Market Cap: %1$s</string>
+    <string name="market_summary_volume">24H Vol: %1$s</string>
+    <string name="market_summary_count">Items in avg: %1$d</string>
+    <string name="market_summary_1d">1D(avg): %1$s</string>
+    <string name="market_summary_1w">1W(avg): %1$s</string>
+
     <!--ERRORS-->
     <string name="error_api_failure">There was a problem getting data, please try again.</string>
     <string name="error_general_error">There was a problem, please try again</string>

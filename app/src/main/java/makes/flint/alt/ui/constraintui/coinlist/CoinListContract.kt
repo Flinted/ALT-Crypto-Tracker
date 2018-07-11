@@ -2,6 +2,7 @@ package makes.flint.alt.ui.constraintui.coinlist
 
 import makes.flint.alt.base.BaseContractPresenter
 import makes.flint.alt.base.BaseContractView
+import makes.flint.alt.data.response.marketSummary.MarketSummaryResponse
 
 /**
  * CoinListContract
@@ -14,6 +15,7 @@ interface CoinListContractView : BaseContractView {
     fun initialiseFABonClick()
     fun showDialogForCoin(coinSymbol: String)
     fun initialiseSearchOnClick()
+    fun displayMarketSummary(marketSummaryResponse: MarketSummaryResponse?)
 }
 
 interface CoinListContractPresenter : BaseContractPresenter<CoinListContractView> {

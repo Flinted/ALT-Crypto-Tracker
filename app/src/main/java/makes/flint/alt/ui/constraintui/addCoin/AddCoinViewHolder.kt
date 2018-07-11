@@ -1,11 +1,7 @@
 package makes.flint.alt.ui.constraintui.addCoin
 
-import android.support.design.widget.FloatingActionButton
 import android.view.View
-import android.widget.AutoCompleteTextView
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
 import makes.flint.alt.R
 
 /**
@@ -25,5 +21,5 @@ class AddCoinViewHolder(view: View) {
     internal var currentPriceDisplay: TextView = view.findViewById(R.id.value_current)
     internal var purchasePriceDisplay: TextView = view.findViewById(R.id.value_at_purchase)
     internal var feesInput: EditText = view.findViewById(R.id.transaction_fees)
-    internal var addEntryFAB: FloatingActionButton = view.findViewById(R.id.add_coin_fab)
+    internal var addEntryButton: ImageButton= view.findViewById(R.id.add_coin_button)
 }

@@ -13,16 +13,16 @@ import makes.flint.alt.base.BaseFragment
 import makes.flint.alt.data.coinListItem.CoinListItem
 import makes.flint.alt.data.tracker.TRANSACTION_BUY
 import makes.flint.alt.errors.ErrorHandler
-import makes.flint.alt.layoutCoordination.home
+import makes.flint.alt.layoutCoordination.tracker
 import makes.flint.alt.ui.constraintui.layoutCoordinator.LayoutCoordinatable
 import rx.subjects.PublishSubject
 import java.util.*
 
 /**
- * AddCoinFragment
+ * AddCoinDialogFragment
  * Copyright © 2018  ChrisDidThis. All rights reserved.
  */
-class AddCoinFragment : BaseFragment(), AddCoinContractView {
+class AddCoinDialogFragment : BaseFragment(), AddCoinContractView {
 
     // Properties
 
@@ -44,7 +44,11 @@ class AddCoinFragment : BaseFragment(), AddCoinContractView {
         attachPresenter(addCoinDialogPresenter)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val view = inflater?.inflate(R.layout.dialog_buy_asset, container, false)
         view ?: return super.onCreateView(inflater, container, savedInstanceState)
         this.views = AddCoinViewHolder(view)
@@ -57,7 +61,7 @@ class AddCoinFragment : BaseFragment(), AddCoinContractView {
     // Overrides
 
     override fun initialiseFABListener() {
-        views.addEntryFAB.setOnClickListener {
+        views.addEntryButton.setOnClickListener {
             makeTrackerEntryData()
         }
     }
@@ -89,7 +93,11 @@ class AddCoinFragment : BaseFragment(), AddCoinContractView {
 
     override fun initialiseCoinAutoSuggest(autoCompleteSuggestions: List<CoinListItem>) {
         val layout = R.layout.support_simple_spinner_dropdown_item
-        val adapter = CoinAutoCompleteAdapter.makeInstanceFor(requireContext(), layout, autoCompleteSuggestions)
+        val adapter = CoinAutoCompleteAdapter.makeInstanceFor(
+            requireContext(),
+            layout,
+            autoCompleteSuggestions
+        )
         views.assetSearch.setAdapter(adapter)
         views.assetSearch.threshold = 2
         views.assetSearch.setOnItemClickListener { _, _, position, _ ->
@@ -98,6 +106,7 @@ class AddCoinFragment : BaseFragment(), AddCoinContractView {
             views.selectedAsset.text = stringId
             views.assetSearch.text.clear()
             addCoinDialogPresenter.updateSelectedCoin(coin)
+            updatePriceCalculation()
         }
     }
 
@@ -151,10 +160,20 @@ class AddCoinFragment : BaseFragment(), AddCoinContractView {
         val date = views.dateInput.text.toString()
         val notes = views.notesInput.text.toString()
         val typeId = TRANSACTION_BUY
-        addCoinDialogPresenter.onAddEntryRequested(coinName, exchange, quantity, price, fees, date, notes, typeId)
+        addCoinDialogPresenter.onAddEntryRequested(
+            coinName,
+            exchange,
+            quantity,
+            price,
+            fees,
+            date,
+            notes,
+            typeId
+        )
     }
 
     override fun didAddTrackerEntry() {
-        (activity as LayoutCoordinatable).updateLayout(home)
+        hideKeyboard(views.selectedAsset.windowToken)
+        (activity as LayoutCoordinatable).updateLayout(tracker)
     }
 }

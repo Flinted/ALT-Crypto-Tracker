@@ -8,7 +8,7 @@ import android.support.v4.app.FragmentTransaction
 import makes.flint.alt.R
 import makes.flint.alt.layoutCoordination.viewTransitions.viewActions.Replace
 import makes.flint.alt.layoutCoordination.viewTransitions.viewActions.ViewAction
-import makes.flint.alt.ui.constraintui.addCoin.AddCoinFragment
+import makes.flint.alt.ui.constraintui.addCoin.AddCoinDialogFragment
 
 /**
  * TrackerToAddCoinTransition
@@ -19,12 +19,13 @@ class TrackerToAddCoinTransition(context: Context): ViewStateTransition {
     override val constraintSet = ConstraintSet()
 
     init {
-        val replacePopBottom = Replace(R.id.pop_frame_bottom, AddCoinFragment::class.java)
+        val replacePopBottom = Replace(R.id.pop_frame_bottom, AddCoinDialogFragment::class.java)
         constraintSet.clone(context, R.layout.constraint_add_coin)
         transactions = listOf(replacePopBottom)
     }
 
     override fun preExecute(fragmentManager: FragmentManager, constraintLayout: ConstraintLayout) {
+        super.preExecute(fragmentManager, constraintLayout)
         val transaction = fragmentManager.beginTransaction()
         transactions.forEach {viewAction ->
             viewAction.execute(transaction)

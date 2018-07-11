@@ -6,11 +6,11 @@ import rx.Subscription
 import javax.inject.Inject
 
 /**
- * SummaryPresenter
+ * PortfolioSummaryPresenter
  * Copyright © 2018 ChrisDidThis. All rights reserved.
  */
-class SummaryPresenter @Inject constructor(private val dataController: DataController) : BasePresenter<SummaryContractView>(),
-        SummaryContractPresenter {
+class PortfolioSummaryPresenter @Inject constructor(private val dataController: DataController) : BasePresenter<PortfolioContractView>(),
+        PortfolioContractPresenter {
 
     // Properties
 

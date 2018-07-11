@@ -9,7 +9,7 @@ import makes.flint.alt.layoutCoordination.*
 import makes.flint.alt.layoutCoordination.viewTransitions.ViewStateTransition
 import makes.flint.alt.ui.constraintui.coinlist.CoinListFragment
 import makes.flint.alt.ui.constraintui.trackerChart.TrackerChartFragment
-import makes.flint.alt.ui.constraintui.trackerSummary.SummaryFragment
+import makes.flint.alt.ui.constraintui.trackerSummary.PortfolioSummaryFragment
 import java.util.*
 
 /**
@@ -42,7 +42,7 @@ class LayoutActivity : BaseActivity(), LayoutActivityContractView, LayoutCoordin
     override fun loadInitialScreens() {
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.frame_bottom, CoinListFragment())
-        transaction.replace(R.id.frame_top, SummaryFragment())
+        transaction.replace(R.id.frame_top, PortfolioSummaryFragment())
         transaction.replace(R.id.frame_centre, TrackerChartFragment())
         transaction.commit()
         views.masterLayout.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver
@@ -72,7 +72,8 @@ class LayoutActivity : BaseActivity(), LayoutActivityContractView, LayoutCoordin
     }
 
     override fun onBackPressed() {
-        val viewKey = when (coordinator.currentViewState) {
+        val currentViewState = coordinator.currentViewState
+        val viewKey = when (currentViewState) {
             coin, search, tracker -> home
             addCoin -> tracker
             else -> null

@@ -1,7 +1,7 @@
 package makes.flint.alt.ui.constraintui.trackerList.trackerListAdapter
 
+import android.support.constraint.ConstraintLayout
 import android.support.v4.content.ContextCompat
-import android.support.v7.widget.CardView
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -15,10 +15,6 @@ import makes.flint.alt.data.trackerListItem.TrackerListItem
 import makes.flint.alt.injection.components.PresenterComponent
 import rx.subjects.PublishSubject
 
-/**
- * TrackerListAdapter
- * Copyright © 2018  ChrisDidThis. All rights reserved.
- */
 class TrackerListAdapter(presenterComponent: PresenterComponent) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>(),
     TrackerAdapterContractView, Filterable {
@@ -106,7 +102,6 @@ class TrackerListAdapter(presenterComponent: PresenterComponent) :
     private fun setHiddenValues(viewHolder: TrackerListViewHolder) {
         val hiddenText = "HIDDEN"
         viewHolder.currentValue.text = hiddenText
-        viewHolder.currentProfit.text = hiddenText
         viewHolder.numberOwned.text = hiddenText
 
     }
@@ -156,7 +151,7 @@ class TrackerListAdapter(presenterComponent: PresenterComponent) :
 
     // Private Functions
 
-    private fun setOnClickListener(itemContent: CardView, entry: TrackerListItem) {
+    private fun setOnClickListener(itemContent: ConstraintLayout, entry: TrackerListItem) {
         itemContent.setOnClickListener {
             trackerEntrySelected.onNext(entry)
         }

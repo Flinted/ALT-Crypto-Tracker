@@ -37,7 +37,7 @@ class CoinListItem(
     internal val availableSupply = coinResponse.provideAvailableSupply()
     internal var totalSupply = coinResponse.provideTotalSupply()
     internal var symbolFormatted = "($symbol)"
-    internal var searchKey = "$name($symbol)"
+    internal var searchKey = "$name ($symbol)"
     internal val availableSupplyFormatted = availableSupplyFormatted()
     internal val totalSupplyFormatted = totalSupplyFormatted()
     internal val volume24HourFormatted = volume24HourFormatted()

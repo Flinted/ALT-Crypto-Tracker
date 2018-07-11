@@ -30,14 +30,12 @@ class PriceData(coinResponse: CoinResponse) {
 
     private fun priceUSDFormatted(): String {
         priceUSD ?: return "No Price"
-//        val roundingMode = POHSettings.roundingMode
-//        val roundedNumber = when {
-//            priceUSD > decimal3Threshold -> priceUSD.setScale(2, roundingMode)
-//            priceUSD > decimal4Threshold -> priceUSD.setScale(3, roundingMode)
-//            priceUSD > decimal5Threshold -> priceUSD.setScale(4, roundingMode)
-//            else -> priceUSD.setScale(7, roundingMode)
-//        }
-        return NumberFormatter.formatCurrencyAutomaticDigit(priceUSD)
+        val formatted = NumberFormatter.formatCurrencyAutomaticDigit(priceUSD)
+        if(formatted.length <3) {
+            println("$priceUSD unformatted: ${formatted}")
+            val wut = NumberFormatter.formatCurrencyAutomaticDigit(priceUSD)
+        }
+        return formatted
     }
 
     private fun createStabilisedPrice(): String {

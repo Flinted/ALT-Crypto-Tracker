@@ -1,6 +1,10 @@
 package makes.flint.alt.base
 
 import android.app.DialogFragment
+import android.content.Context
+import android.os.IBinder
+import android.support.v4.app.FragmentActivity
+import android.view.inputmethod.InputMethodManager
 import makes.flint.alt.R
 import makes.flint.alt.errors.ErrorHandler
 import makes.flint.alt.injection.components.PresenterComponent
@@ -38,5 +42,11 @@ open class BaseDialogFragment : DialogFragment() {
 
     protected fun attachPresenter(presenter: BaseContractPresenter<*>) {
         this.presenter = presenter
+    }
+
+    protected fun hideKeyboard(windowToken: IBinder) {
+        val imm =
+            (activity as FragmentActivity).getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(windowToken, 0)
     }
 }

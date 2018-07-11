@@ -17,7 +17,7 @@ import javax.inject.Inject
 class CoinListItemFactory @Inject constructor() {
 
     // Properties
-
+    private var count = 1
     private var twentyFourHourMarket = 0f
     private var sevenDayMarket = 0f
     private var itemsInAverage = 0
@@ -58,6 +58,8 @@ class CoinListItemFactory @Inject constructor() {
         val changeData = ChangeData(inputItem)
         twentyFourHourMarket += changeData.percentChange24H?.toFloat() ?: 0f
         sevenDayMarket += changeData.percentChange7D?.toFloat() ?: 0f
+        println("count $count now at $twentyFourHourMarket, added ${changeData.percentChange24H}")
+        count++
         return CoinListItem(inputItem, priceData, changeData, isFavourite)
     }
 

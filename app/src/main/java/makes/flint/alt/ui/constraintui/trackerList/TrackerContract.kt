@@ -9,7 +9,6 @@ import makes.flint.alt.base.BaseContractView
  */
 interface TrackerContractView : BaseContractView {
     fun initialiseTrackerList()
-    fun initialiseAddCoinButtonListener()
     fun showNoTrackerEntriesMessage()
     fun initialiseTrackerListListeners()
     fun initialiseRefreshListener()

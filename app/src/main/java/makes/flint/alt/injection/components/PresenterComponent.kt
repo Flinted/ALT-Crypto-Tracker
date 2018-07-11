@@ -13,7 +13,7 @@ import makes.flint.alt.ui.constraintui.trackerChart.TrackerChartPresenter
 import makes.flint.alt.ui.constraintui.trackerEntryDetail.TrackerEntryDialogPresenter
 import makes.flint.alt.ui.constraintui.trackerList.TrackerPresenter
 import makes.flint.alt.ui.constraintui.trackerList.trackerListAdapter.TrackerAdapterPresenter
-import makes.flint.alt.ui.constraintui.trackerSummary.SummaryPresenter
+import makes.flint.alt.ui.constraintui.trackerSummary.PortfolioSummaryPresenter
 import makes.flint.alt.ui.settings.SettingsPresenter
 import makes.flint.alt.ui.tracker.trackerEntryDialog.transactionsList.TransactionsAdapterPresenter
 import javax.inject.Singleton
@@ -48,7 +48,7 @@ interface PresenterComponent {
 
     fun provideTransactionsAdapterPresenter(): TransactionsAdapterPresenter
 
-    fun provideSummaryPresenter(): SummaryPresenter
+    fun provideSummaryPresenter(): PortfolioSummaryPresenter
 
     fun provideSettingsPresenter(): SettingsPresenter
 

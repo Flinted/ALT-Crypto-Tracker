@@ -33,6 +33,7 @@ class HomeTransition(context: Context) : ViewStateTransition {
     }
 
     override fun preExecute(fragmentManager: FragmentManager, constraintLayout: ConstraintLayout) {
+        super.preExecute(fragmentManager, constraintLayout)
         return
     }
 

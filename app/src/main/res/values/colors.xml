@@ -5,6 +5,7 @@
     <color name="colorPrimaryDark">#222222</color>
     <color name="colorPrimarySoft">#a7adba</color>
     <color name="colorPrimaryLight">#a7adba	</color>
+    <color name="colorPrimaryHighlight">#CACDD5	</color>
     <color name="colorAccent">#E69500</color>
     <color name="textColorPrimary">#DE000000</color>
     <color name="textColorSecondary">#222222</color>

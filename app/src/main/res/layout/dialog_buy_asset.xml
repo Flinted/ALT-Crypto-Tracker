@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fillViewport="true">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
 
     <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                 xmlns:app="http://schemas.android.com/apk/res-auto"
-                                                 android:layout_width="match_parent"
-                                                 android:layout_height="match_parent"
-                                                 android:background="@color/colorPrimaryDark"
-                                                 android:padding="@dimen/margin_xLarge_16dp">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimaryDark"
+        android:padding="@dimen/margin_xLarge_16dp">
 
         <TextView
             android:id="@+id/selected_coin"
@@ -26,14 +26,14 @@
             android:textSize="@dimen/text_xLarge_20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <AutoCompleteTextView
             android:id="@+id/asset_search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margin_large_8dp"
-            android:layout_marginTop="@dimen/margin_large_8dp"
+            android:layout_marginBottom="@dimen/margin_small_4dp"
+            android:layout_marginTop="@dimen/margin_small_4dp"
             android:background="@color/colorAccent"
             android:hint="@string/dialog_addCoin_hint_asset_search"
             android:inputType="textNoSuggestions"
@@ -44,15 +44,14 @@
             android:textSize="@dimen/text_large"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/selected_coin"
-            />
+            app:layout_constraintTop_toBottomOf="@id/selected_coin" />
 
         <EditText
             android:id="@+id/exchange_used"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margin_large_8dp"
-            android:layout_marginTop="@dimen/margin_large_8dp"
+            android:layout_marginBottom="@dimen/margin_small_4dp"
+            android:layout_marginTop="@dimen/margin_small_4dp"
             android:background="@color/colorOffWhite"
             android:hint="@string/dialog_addCoin_hint_exchange_optional"
             android:inputType="textNoSuggestions"
@@ -63,16 +62,15 @@
             android:textSize="@dimen/text_large"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/value_current"
-            />
+            app:layout_constraintTop_toBottomOf="@id/value_current" />
 
         <EditText
             android:id="@+id/quantity_purchased"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margin_large_8dp"
+            android:layout_marginBottom="@dimen/margin_small_4dp"
             android:layout_marginEnd="@dimen/margin_large_8dp"
-            android:layout_marginTop="@dimen/margin_large_8dp"
+            android:layout_marginTop="@dimen/margin_small_4dp"
             android:background="@color/colorOffWhite"
             android:hint="@string/dialog_addCoin_hint_quantity"
             android:inputType="numberDecimal"
@@ -82,16 +80,15 @@
             android:textSize="@dimen/text_large"
             app:layout_constraintEnd_toStartOf="@id/transaction_date_select"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/asset_search"
-            />
+            app:layout_constraintTop_toBottomOf="@id/asset_search" />
 
         <EditText
             android:id="@+id/cost_per_item"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margin_large_8dp"
             android:layout_marginEnd="@dimen/margin_large_8dp"
-            android:layout_marginTop="@dimen/margin_large_8dp"
+            android:layout_marginBottom="@dimen/margin_small_4dp"
+            android:layout_marginTop="@dimen/margin_small_4dp"
             android:background="@color/colorOffWhite"
             android:hint="@string/dialog_addCoin_hint_price_usd"
             android:inputType="numberDecimal"
@@ -101,16 +98,15 @@
             android:textSize="@dimen/text_large"
             app:layout_constraintEnd_toStartOf="@id/transaction_date_select"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/quantity_purchased"
-            />
+            app:layout_constraintTop_toBottomOf="@id/quantity_purchased" />
 
         <EditText
             android:id="@+id/transaction_fees"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margin_large_8dp"
             android:layout_marginEnd="@dimen/margin_large_8dp"
-            android:layout_marginTop="@dimen/margin_large_8dp"
+            android:layout_marginBottom="@dimen/margin_small_4dp"
+            android:layout_marginTop="@dimen/margin_small_4dp"
             android:background="@color/colorOffWhite"
             android:hint="@string/dialog_addCoin_hint_fees_optional"
             android:inputType="numberDecimal"
@@ -120,7 +116,7 @@
             android:textSize="@dimen/text_large"
             app:layout_constraintEnd_toStartOf="@id/transaction_date_select"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cost_per_item"/>
+            app:layout_constraintTop_toBottomOf="@id/cost_per_item" />
 
         <TextView
             android:id="@+id/value_at_purchase_title"
@@ -132,8 +128,7 @@
             android:text="@string/dialog_addCoin_title_purchase_value"
             android:textColor="@color/colorAccent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/transaction_fees"
-            />
+            app:layout_constraintTop_toBottomOf="@id/transaction_fees" />
 
         <TextView
             android:id="@+id/value_at_purchase"
@@ -144,7 +139,7 @@
             android:text="@string/dialog_addCoin_placeholder_purchase_value"
             android:textColor="@color/colorAccent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/transaction_fees"/>
+            app:layout_constraintTop_toBottomOf="@id/transaction_fees" />
 
         <TextView
             android:id="@+id/value_current_title"
@@ -156,8 +151,7 @@
             android:text="@string/dialog_addCoin_title_current_value"
             android:textColor="@color/colorOffWhite"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/value_at_purchase_title"
-            />
+            app:layout_constraintTop_toBottomOf="@id/value_at_purchase_title" />
 
         <TextView
             android:id="@+id/value_current"
@@ -168,7 +162,7 @@
             android:text="@string/dialog_addCoin_placeholder_current_value"
             android:textColor="@color/colorOffWhite"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/value_at_purchase_title"/>
+            app:layout_constraintTop_toBottomOf="@id/value_at_purchase_title" />
 
         <ImageView
             android:id="@+id/transaction_date_select"
@@ -178,8 +172,7 @@
             android:src="@drawable/ic_calendar_24dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/date_of_purchase"
-            app:layout_constraintTop_toTopOf="@id/quantity_purchased"
-            />
+            app:layout_constraintTop_toTopOf="@id/quantity_purchased" />
 
         <TextView
             android:id="@+id/date_of_purchase"
@@ -188,39 +181,37 @@
             android:gravity="center"
             android:textColor="@color/colorAccent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/transaction_date_select"/>
+            app:layout_constraintTop_toBottomOf="@id/transaction_date_select" />
 
         <EditText
             android:id="@+id/transaction_notes"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginBottom="60dp"
-            android:layout_marginTop="@dimen/margin_large_8dp"
+            android:layout_marginBottom="@dimen/margin_small_4dp"
+            android:layout_marginTop="@dimen/margin_small_4dp"
             android:background="@color/colorOffWhite"
             android:gravity="top|start"
             android:hint="Notes(optional)"
             android:padding="@dimen/margin_small_4dp"
             android:textColor="@color/colorOffBlack"
             android:textSize="@dimen/text_large"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/add_coin_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/exchange_used"
-            />
+            app:layout_constraintTop_toBottomOf="@id/exchange_used" />
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/add_coin_fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margin_large_8dp"
+        <ImageButton
+            android:id="@+id/add_coin_button"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
             android:layout_marginTop="@dimen/margin_large_8dp"
             android:clickable="true"
             android:focusable="true"
-            android:src="@drawable/ic_coins_24dp"
-            app:elevation="16dp"
+            android:background="@color/colorAccent"
+            android:src="@drawable/ic_add_black_24dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            />
+            app:layout_constraintStart_toStartOf="parent"/>
 
     </android.support.constraint.ConstraintLayout>
 </ScrollView>

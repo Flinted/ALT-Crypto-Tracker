@@ -9,12 +9,11 @@ import android.view.ViewGroup
 import makes.flint.alt.R
 import makes.flint.alt.base.BaseFragment
 import makes.flint.alt.data.trackerListItem.TrackerListItem
-import makes.flint.alt.layoutCoordination.addCoin
-import makes.flint.alt.ui.constraintui.layoutCoordinator.LayoutCoordinatable
 import makes.flint.alt.ui.constraintui.trackerEntryDetail.TrackerEntryDialog
 import makes.flint.alt.ui.constraintui.trackerList.trackerListAdapter.TrackerAdapterContractView
 import makes.flint.alt.ui.constraintui.trackerList.trackerListAdapter.TrackerListAdapter
 import makes.flint.alt.ui.interfaces.FilterView
+import makes.flint.alt.ui.interfaces.ListScrollController
 import rx.functions.Action1
 
 /**
@@ -25,7 +24,7 @@ const val CHART_HIDDEN = 0
 const val CHART_FULL_SCREEN = 1
 const val CHART_OFF_SCREEN = 2
 
-class TrackerListFragment : BaseFragment(), TrackerContractView, FilterView {
+class TrackerListFragment : BaseFragment(), TrackerContractView, FilterView, ListScrollController {
 
     // Properties
 
@@ -84,12 +83,6 @@ class TrackerListFragment : BaseFragment(), TrackerContractView, FilterView {
         }
     }
 
-    override fun initialiseAddCoinButtonListener() {
-        views.addCoinButton.setOnClickListener {
-            showAddCoinDialog()
-        }
-    }
-
     override fun hideProgressSpinner() {
         views.swipeRefresh.visibility = View.VISIBLE
     }
@@ -110,6 +103,9 @@ class TrackerListFragment : BaseFragment(), TrackerContractView, FilterView {
         views.swipeRefresh.isRefreshing = false
     }
 
+    override fun stopListScroll() {
+        views.trackerRecycler.stopScroll()
+    }
     // Private Functions
 
     private fun makeTrackerEntryDialogFor(item: TrackerListItem) {
@@ -120,9 +116,5 @@ class TrackerListFragment : BaseFragment(), TrackerContractView, FilterView {
         }
         val newCoinDetail = TrackerEntryDialog.getInstanceFor(item)
         newCoinDetail.show(fragmentManager, "TrackerEntryDetail")
-    }
-
-    private fun showAddCoinDialog() {
-        (activity as LayoutCoordinatable).updateLayout(addCoin)
     }
 }

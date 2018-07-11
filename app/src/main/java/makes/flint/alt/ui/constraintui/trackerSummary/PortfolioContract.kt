@@ -8,11 +8,11 @@ import makes.flint.alt.data.Summary
  * SummaryContract
  * Copyright © 2018 ChrisDidThis. All rights reserved.
  */
-interface SummaryContractView : BaseContractView {
+interface PortfolioContractView : BaseContractView {
     fun updateForSummary(summary: Summary)
     fun setFABOnClickListener()
 }
 
-interface SummaryContractPresenter : BaseContractPresenter<SummaryContractView> {
+interface PortfolioContractPresenter : BaseContractPresenter<PortfolioContractView> {
     fun onDestroy()
 }

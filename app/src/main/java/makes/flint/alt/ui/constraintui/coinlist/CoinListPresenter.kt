@@ -13,6 +13,7 @@ class CoinListPresenter @Inject constructor(private val dataController: DataCont
 
     private var timeStampSubscription: Subscription? = null
     private var updateSubscription: Subscription? = null
+    private var marketSubscription: Subscription? = null
 
     override fun initialise() {
         subscribeForRefreshUpdates()
@@ -31,6 +32,11 @@ class CoinListPresenter @Inject constructor(private val dataController: DataCont
         updateSubscription = dataController.updatingSubscriber().subscribe{
             view?.showLoading()
         }
+        val marketRefreshSubscription = dataController.marketRefreshSubscriber()
+        view?.displayMarketSummary(marketRefreshSubscription.second)
+        marketSubscription =marketRefreshSubscription.first.subscribe{
+            view?.displayMarketSummary(it)
+        }
     }
 
     override fun refresh() {
@@ -45,7 +51,9 @@ class CoinListPresenter @Inject constructor(private val dataController: DataCont
         detachView()
         timeStampSubscription?.unsubscribe()
         updateSubscription?.unsubscribe()
+        marketSubscription?.unsubscribe()
         timeStampSubscription = null
         updateSubscription = null
+        marketSubscription = null
     }
 }

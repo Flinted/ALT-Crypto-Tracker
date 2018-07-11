@@ -1,7 +1,8 @@
-package makes.flint.alt.ui.constraintui.summaryChart
+package makes.flint.alt.ui.constraintui.portfoliopiechart
 
 import android.graphics.Color
 import android.os.Bundle
+import android.support.design.widget.FloatingActionButton
 import android.support.v4.content.ContextCompat
 import android.view.LayoutInflater
 import android.view.View
@@ -13,30 +14,37 @@ import com.github.mikephil.charting.data.PieEntry
 import makes.flint.alt.R
 import makes.flint.alt.base.BaseFragment
 import makes.flint.alt.data.Summary
-import makes.flint.alt.ui.constraintui.trackerSummary.SummaryContractPresenter
-import makes.flint.alt.ui.constraintui.trackerSummary.SummaryContractView
+import makes.flint.alt.layoutCoordination.addCoin
+import makes.flint.alt.ui.constraintui.layoutCoordinator.LayoutCoordinatable
+import makes.flint.alt.ui.constraintui.trackerSummary.PortfolioContractPresenter
+import makes.flint.alt.ui.constraintui.trackerSummary.PortfolioContractView
 
 /**
- * SummaryChartFragment
+ * PortfolioPieChartFragment
  * Copyright © 2018 ChrisDidThis. All rights reserved.
  */
-class SummaryChartFragment : BaseFragment(), SummaryContractView {
+class PortfolioPieChartFragment : BaseFragment(), PortfolioContractView {
 
     // Properties
 
     private lateinit var pieChart: PieChart
-    private lateinit var summaryPresenter: SummaryContractPresenter
+    private lateinit var addCoinFAB: FloatingActionButton
+    private lateinit var portfolioPieChartPresenter: PortfolioContractPresenter
 
     // Lifecycle
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val view = inflater.inflate(R.layout.fragment_chart, container, false)
         view ?: return super.onCreateView(inflater, container, savedInstanceState)
-        this.summaryPresenter = getPresenterComponent().provideSummaryPresenter()
-        this.summaryPresenter.attachView(this)
-        attachPresenter(summaryPresenter)
+        this.portfolioPieChartPresenter = getPresenterComponent().provideSummaryPresenter()
+        this.portfolioPieChartPresenter.attachView(this)
+        attachPresenter(portfolioPieChartPresenter)
         bindViews(view)
-        summaryPresenter.initialise()
+        portfolioPieChartPresenter.initialise()
         return view
     }
 
@@ -47,12 +55,19 @@ class SummaryChartFragment : BaseFragment(), SummaryContractView {
 
     override fun onDestroy() {
         super.onDestroy()
-        summaryPresenter.onDestroy()
+        portfolioPieChartPresenter.onDestroy()
     }
 
     // Overrides
 
     override fun setFABOnClickListener() {
+        addCoinFAB.setOnClickListener {
+            showAddCoinDialog()
+        }
+    }
+
+    private fun showAddCoinDialog() {
+        (activity as LayoutCoordinatable).updateLayout(addCoin)
     }
 
     override fun updateForSummary(summary: Summary) {
@@ -62,7 +77,6 @@ class SummaryChartFragment : BaseFragment(), SummaryContractView {
         }
         val context = requireContext()
         val colorPrimary = ContextCompat.getColor(context, R.color.colorPrimary)
-        val colorPrimarySoft = ContextCompat.getColor(context, R.color.colorPrimarySoft)
         val colorAccent = ContextCompat.getColor(context, R.color.colorAccent)
         val chartColor2 = ContextCompat.getColor(context, R.color.chartSecondary)
         val chartColor3 = ContextCompat.getColor(context, R.color.chartTertiary)
@@ -79,7 +93,7 @@ class SummaryChartFragment : BaseFragment(), SummaryContractView {
         pieChart.isDrawHoleEnabled = true
         pieChart.setTransparentCircleColor(colorPrimary)
         pieChart.holeRadius = 50f
-        pieChart.setHoleColor(colorPrimarySoft)
+        pieChart.setHoleColor(Color.TRANSPARENT)
         pieChart.transparentCircleRadius = 60f
         pieChart.legend.isEnabled = false
         pieChart.setDrawCenterText(true)
@@ -88,7 +102,7 @@ class SummaryChartFragment : BaseFragment(), SummaryContractView {
         pieChart.setCenterTextColor(Color.WHITE)
         pieChart.isHighlightPerTapEnabled = true
         pieChart.description.isEnabled = false
-        pieChart.animateXY(0, 1200)
+        pieChart.animateXY(0, 1000)
         pieChart.data = pieData
     }
 
@@ -96,5 +110,6 @@ class SummaryChartFragment : BaseFragment(), SummaryContractView {
 
     private fun bindViews(view: View) {
         this.pieChart = view.findViewById(R.id.fragment_chart_pie)
+        this.addCoinFAB = view.findViewById(R.id.tracker_FAB)
     }
 }

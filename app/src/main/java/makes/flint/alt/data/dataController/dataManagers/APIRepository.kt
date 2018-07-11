@@ -17,10 +17,6 @@ import rx.schedulers.Schedulers
 import javax.inject.Inject
 import javax.inject.Singleton
 
-/**
- * APIRepository
- * Copyright © 2018 ChrisDidThis. All rights reserved.
- */
 @Singleton
 class ApiRepository @Inject constructor(private val cmcAPIService: CMCAPIService,
                                         private val cryptoCompareAPIService: CryptoCompareAPIService
@@ -74,7 +70,7 @@ class ApiRepository @Inject constructor(private val cmcAPIService: CMCAPIService
 
     private fun getDayHistoricalData(callback: RepositoryCallbackSingle<HistoricalDataResponse?>, coinSymbol:
     String, dataResolution: Int, chartResolution: Int) {
-        cryptoCompareAPIService.histoDayGET(coinSymbol, POHSettings.currency, POHSettings.exchange, 365)
+        cryptoCompareAPIService.histoDayGET(coinSymbol, POHSettings.currency, POHSettings.exchange, 1500)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(makeSubscriber(callback, dataResolution, chartResolution))

@@ -1,6 +1,7 @@
 package makes.flint.alt.factories.trackerBarChartFactory
 
 import android.content.Context
+import android.graphics.Color
 import android.support.v4.content.ContextCompat
 import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.components.XAxis
@@ -12,6 +13,9 @@ import com.github.mikephil.charting.formatter.IAxisValueFormatter
 import makes.flint.alt.R
 import makes.flint.alt.configuration.POHSettings
 import makes.flint.alt.data.trackerListItem.TrackerListItem
+
+
+
 
 /**
  * TrackerBarChartFactory
@@ -38,7 +42,7 @@ class TrackerBarChartFactory {
 
     private fun makeBarChart(context: Context, labelFormatter: IAxisValueFormatter): BarChart {
         return BarChart(context).apply {
-            setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimarySoft))
+            setBackgroundColor(Color.TRANSPARENT)
             setDrawValueAboveBar(true)
             legend.isEnabled = false
             xAxis.position = XAxis.XAxisPosition.BOTTOM_INSIDE

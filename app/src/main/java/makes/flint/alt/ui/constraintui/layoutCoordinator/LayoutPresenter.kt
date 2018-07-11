@@ -22,7 +22,6 @@ class LayoutPresenter @Inject constructor(private val dataController: DataContro
     override fun initialise() {
         view?.displayRandomLoadingMessage()
         setSubscription()
-        dataController.refreshRequested()
     }
 
     override fun onDestroy() {

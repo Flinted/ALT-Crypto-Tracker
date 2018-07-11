@@ -133,7 +133,6 @@ class CoinListAdapter(presenterComponent: PresenterComponent)
         coinListViewHolder.name.text = coin.name
         coinListViewHolder.ticker.text = coin.symbolFormatted
         coinListViewHolder.price.text = coin.priceData.priceUSDFormatted
-        println("${coin.name} is ${coin.priceData.priceUSD} and formatted is ${coin.priceData.priceUSDFormatted}")
     }
 
     private fun initialise1HourViews(coin: CoinListItem, holder: CoinListViewHolder, context: Context) {

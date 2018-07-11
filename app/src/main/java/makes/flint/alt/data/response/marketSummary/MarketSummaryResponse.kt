@@ -18,6 +18,7 @@ class MarketSummaryResponse {
 
     @SerializedName("total_24h_volume_usd")
     private var volume24HUSD: Double = 0.0
+
     internal lateinit var marketData: MarketData
 
     // Internal Functions

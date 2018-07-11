@@ -8,12 +8,6 @@ import makes.flint.alt.data.response.histoResponse.HistoricalDataResponse
 import makes.flint.alt.data.response.histoResponse.HistoricalDataUnitResponse
 import javax.inject.Inject
 
-/**
- * CoinDetailChartPresenter
- * Copyright © 2018 ChrisDidThis. All rights reserved.
- */
-
-
 // Minute Resolution
 const val CHART_1H = 0
 const val CHART_6H = 1
@@ -122,7 +116,7 @@ class CoinDetailChartPresenter @Inject constructor(private val dataController: D
 
     private fun getAPIResolutionForRequestedChartType(chartType: Int): Int {
         return when (chartType) {
-            CHART_6H                                              -> MINUTE_DATA
+            CHART_1H, CHART_6H                                    -> MINUTE_DATA
             CHART_30D, CHART_90D, CHART_180D, CHART_1Y, CHART_ALL -> DAY_DATA
             else                                                  -> HOUR_DATA
         }

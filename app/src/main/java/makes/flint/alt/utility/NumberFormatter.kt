@@ -11,9 +11,6 @@ import java.util.*
  * NumberFormatter
  * Copyright © 2018 ChrisDidThis. All rights reserved.
  */
-private const val THRESHOLD_3_DECIMAL = "0.99"
-private const val THRESHOLD_4_DECIMAL = "0.099"
-private const val THRESHOLD_5_DECIMAL = "0.0099"
 
 object NumberFormatter {
 

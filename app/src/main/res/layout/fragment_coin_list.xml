@@ -5,60 +5,25 @@
     android:layout_height="match_parent"
     android:focusableInTouchMode="true">
 
-    <EditText
-        android:id="@+id/coin_list_search_input"
-        android:layout_width="0dp"
-        android:layout_height="30dp"
-        android:background="@color/colorPrimary"
-        android:gravity="center"
-        android:inputType="textNoSuggestions"
-        android:padding="@dimen/margin_large_8dp"
-        android:textColor="@color/colorOffWhite"
-        android:textColorHint="@color/colorAccent"
-        android:textSize="@dimen/text_size_small"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <android.support.v7.widget.AppCompatImageView
-        android:id="@+id/coin_list_search_cancel_button"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginTop="@dimen/margin_small_4dp"
-        android:padding="@dimen/margin_small_4dp"
-        android:paddingEnd="10dp"
-        android:paddingStart="10dp"
-        android:src="@drawable/ic_close_24dp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@id/coin_list_search_input"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/coin_list_search_input" />
-
-    <android.support.v7.widget.AppCompatImageView
-        android:id="@+id/coin_list_search_button"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:src="@drawable/ic_search_24dp"
-        app:layout_constraintBottom_toBottomOf="@id/coin_list_search_input"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/coin_list_search_input" />
+    <include
+        android:id="@+id/coin_list_search_bar"
+        layout="@layout/search_bar_summary" />
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/coin_list_refresh_layout"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:background="@drawable/background_gradient_90"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/coin_list_search_input">
+        app:layout_constraintTop_toBottomOf="@id/coin_list_search_bar">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/coin_list_recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/colorPrimaryFade" />
+            android:layout_height="match_parent" />
 
     </android.support.v4.widget.SwipeRefreshLayout>
 

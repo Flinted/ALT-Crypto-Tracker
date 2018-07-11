@@ -15,7 +15,10 @@ import makes.flint.alt.data.response.histoResponse.HistoricalDataUnitResponse
  * HistoricalDataChartFactory
  * Copyright © 2018 ChrisDidThis. All rights reserved.
  */
-class HistoricalDataChartFactory(private var dataSet: Array<HistoricalDataUnitResponse>, private var label: String) {
+class HistoricalDataChartFactory(
+    private var dataSet: Array<HistoricalDataUnitResponse>,
+    private var label: String
+) {
 
     // Internal Functions
 
@@ -66,7 +69,7 @@ class HistoricalDataChartFactory(private var dataSet: Array<HistoricalDataUnitRe
 
     private fun makeLineChart(context: Context): LineChart {
         return LineChart(context).apply {
-            setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimarySoft))
+            setBackgroundColor(Color.TRANSPARENT)
             legend.isEnabled = false
             xAxis.isEnabled = false
             description.isEnabled = false

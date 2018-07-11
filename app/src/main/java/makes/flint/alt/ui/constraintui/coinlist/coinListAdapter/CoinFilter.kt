@@ -7,7 +7,7 @@ import makes.flint.alt.data.coinListItem.CoinListItem
  * CoinFilter
  * Copyright © 2018 ChrisDidThis. All rights reserved.
  */
-class CoinFilter(private var originalList: MutableList<CoinListItem>, private var callback: CoinFilterCallback) : Filter() {
+class CoinFilter(private var originalList: MutableList<CoinListItem>, private var callback: CoinFilterCallback?) : Filter() {
 
     // Overrides
 
@@ -21,7 +21,7 @@ class CoinFilter(private var originalList: MutableList<CoinListItem>, private va
     @Suppress("UNCHECKED_CAST")
     override fun publishResults(charSequence: CharSequence, results: Filter.FilterResults) {
         val filteredResults = (results.values as List<CoinListItem>).toMutableList()
-        callback.publishResults(filteredResults)
+        callback?.publishResults(filteredResults)
     }
 
     // Private Functions

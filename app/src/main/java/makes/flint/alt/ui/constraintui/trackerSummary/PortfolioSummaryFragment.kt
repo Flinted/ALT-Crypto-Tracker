@@ -17,15 +17,15 @@ import makes.flint.alt.ui.constraintui.layoutCoordinator.LayoutCoordinatable
 import makes.flint.alt.ui.settings.SettingsActivity
 
 /**
- * SummaryFragment
+ * PortfolioSummaryFragment
  * Copyright © 2018 ChrisDidThis. All rights reserved.
  */
-class SummaryFragment : BaseFragment(), SummaryContractView {
+class PortfolioSummaryFragment : BaseFragment(), PortfolioContractView {
 
     // Properties
 
-    private lateinit var views: SummaryFragmentViewHolder
-    private lateinit var summaryPresenter: SummaryContractPresenter
+    private lateinit var views: PortfolioSummaryFragmentViewHolder
+    private lateinit var summaryPresenter: PortfolioContractPresenter
 
     // Lifecycle
 
@@ -35,7 +35,7 @@ class SummaryFragment : BaseFragment(), SummaryContractView {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_summary, container, false)
-        this.views = SummaryFragmentViewHolder(view)
+        this.views = PortfolioSummaryFragmentViewHolder(view)
         this.summaryPresenter = getPresenterComponent().provideSummaryPresenter()
         summaryPresenter.attachView(this)
         attachPresenter(summaryPresenter)
@@ -84,10 +84,6 @@ class SummaryFragment : BaseFragment(), SummaryContractView {
                 getString(R.string.fragment_summary_current_value_usd, hiddenString)
         views.currentValueBTC.text =
                 getString(R.string.fragment_summary_current_value_btc, hiddenString)
-        views.amountSpent.text =
-                getString(R.string.fragment_summary_value_spent, hiddenString)
-        views.amountSold.text =
-                getString(R.string.fragment_summary_value_sold, hiddenString)
     }
 
     private fun setActualValues(summary: Summary) {
@@ -103,9 +99,5 @@ class SummaryFragment : BaseFragment(), SummaryContractView {
                     R.string.fragment_summary_current_value_btc,
                     summary.currentValueBTCFormatted()
                 )
-        views.amountSpent.text =
-                getString(R.string.fragment_summary_value_spent, summary.amountSpentFormatted())
-        views.amountSold.text =
-                getString(R.string.fragment_summary_value_sold, summary.amountSoldFormatted())
     }
 }
