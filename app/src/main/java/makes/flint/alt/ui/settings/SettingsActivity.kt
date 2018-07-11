@@ -7,7 +7,7 @@ import android.view.View
 import android.widget.AdapterView
 import makes.flint.alt.R
 import makes.flint.alt.base.BaseActivity
-import makes.flint.alt.configuration.POHSettings
+import makes.flint.alt.configuration.ALTSharedPreferences
 
 /**
  * SettingsActivity
@@ -35,7 +35,7 @@ class SettingsActivity : BaseActivity(), SettingsContractView {
     }
 
     override fun initialiseSortSpinner() {
-        views.sortSpinner.setSelection(POHSettings.sortPreference)
+        views.sortSpinner.setSelection(ALTSharedPreferences.getSort())
         views.sortSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(p0: AdapterView<*>?) {}
             override fun onItemSelected(
@@ -50,7 +50,7 @@ class SettingsActivity : BaseActivity(), SettingsContractView {
     }
 
     override fun initialiseMarketSizeSelector() {
-        views.marketSelector.value = (POHSettings.limit / 100)
+        views.marketSelector.value = (ALTSharedPreferences.getMarketLimit() / 100)
         views.marketSelector.setOnValueChangedListener { numberPicker, old, new ->
             val adjustedLimit = new * 100
             presenter.newMarketLimitSet(adjustedLimit)
@@ -58,14 +58,14 @@ class SettingsActivity : BaseActivity(), SettingsContractView {
     }
 
     override fun initialiseHiddenValuesSwitch() {
-        views.hiddenValuesSwitch.isChecked = POHSettings.hiddenValues
+        views.hiddenValuesSwitch.isChecked = ALTSharedPreferences.getValuesHidden()
         views.hiddenValuesSwitch.setOnCheckedChangeListener { compoundButton, value ->
             presenter.newHiddenValueStateSet(value)
         }
     }
 
     override fun initialiseIconFields() {
-        val icons = POHSettings.iconSet
+        val icons = ALTSharedPreferences.getIconPack()
         views.upExtremeIcon.setImageResource(icons.upExtreme)
         views.upSignificantIcon.setImageResource(icons.upSignificant)
         views.upModerateIcon.setImageResource(icons.upModerate)

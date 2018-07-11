@@ -1,6 +1,6 @@
 package makes.flint.alt.utility
 
-import makes.flint.alt.configuration.POHSettings
+import makes.flint.alt.configuration.ALTSharedPreferences
 import makes.flint.alt.data.coinListItem.PriceData
 import java.math.BigDecimal
 import java.text.DecimalFormat
@@ -19,17 +19,21 @@ object NumberFormatter {
     private var numberFormatter = makeNumberFormatter()
 
     fun formatCurrencyAutomaticDigit(numberToFormat: BigDecimal): String {
-        val roundingMode = POHSettings.roundingMode
+        val roundingMode = ALTSharedPreferences.getRoundingMode()
         val roundedNumber = when {
             numberToFormat > PriceData.decimal3Threshold -> numberToFormat.setScale(2, roundingMode)
             numberToFormat > PriceData.decimal4Threshold -> numberToFormat.setScale(3, roundingMode)
             numberToFormat > PriceData.decimal5Threshold -> numberToFormat.setScale(4, roundingMode)
-            else -> numberToFormat.setScale(7, roundingMode)
+            else                                         -> numberToFormat.setScale(7, roundingMode)
         }
         return formatCurrency(roundedNumber)
     }
 
-    fun formatCurrency(numberToFormat: BigDecimal, maximumDecimals: Int = 8, minimumDecimals: Int = 2): String {
+    fun formatCurrency(
+        numberToFormat: BigDecimal,
+        maximumDecimals: Int = 8,
+        minimumDecimals: Int = 2
+    ): String {
         val number = numberToFormat.toDouble()
         currencyFormatter.minimumFractionDigits = minimumDecimals
         currencyFormatter.maximumFractionDigits = maximumDecimals
@@ -54,7 +58,7 @@ object NumberFormatter {
 
     private fun makeCurrencyFormatter(): NumberFormat {
         val formatter = DecimalFormat.getCurrencyInstance(Locale.US)
-        formatter.currency = Currency.getInstance(POHSettings.currency)
+        formatter.currency = ALTSharedPreferences.getCurrency()
         return formatter
     }
 

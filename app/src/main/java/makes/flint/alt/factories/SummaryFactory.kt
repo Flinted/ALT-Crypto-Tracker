@@ -1,6 +1,6 @@
 package makes.flint.alt.factories
 
-import makes.flint.alt.configuration.POHSettings
+import makes.flint.alt.configuration.ALTSharedPreferences
 import makes.flint.alt.data.Summary
 import makes.flint.alt.data.trackerListItem.TrackerListItem
 import java.math.BigDecimal
@@ -58,8 +58,9 @@ class SummaryFactory @Inject constructor() {
             return BigDecimal.ZERO
         }
         val difference = currentValue.minus(initialValue)
-        val movement = difference.divide(initialValue, POHSettings.roundingMode)
-        return movement.setScale(4, POHSettings.roundingMode)
+        val roundingMode = ALTSharedPreferences.getRoundingMode()
+        val movement = difference.divide(initialValue, roundingMode)
+        return movement.setScale(4, roundingMode)
     }
 
     private fun getInitialFiatValueFor(data: List<TrackerListItem>): BigDecimal {

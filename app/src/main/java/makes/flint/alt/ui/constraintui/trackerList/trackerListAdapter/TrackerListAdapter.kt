@@ -8,8 +8,8 @@ import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
 import makes.flint.alt.R
+import makes.flint.alt.configuration.ALTSharedPreferences
 import makes.flint.alt.configuration.IndicatorCustomiser
-import makes.flint.alt.configuration.POHSettings
 import makes.flint.alt.data.interfaces.assessChange
 import makes.flint.alt.data.trackerListItem.TrackerListItem
 import makes.flint.alt.injection.components.PresenterComponent
@@ -43,7 +43,7 @@ class TrackerListAdapter(presenterComponent: PresenterComponent) :
     override fun onNoEntriesPresent() = noEntriesFound.asObservable()
 
     private var trackerAdapterPresenter = presenterComponent.provideTrackerAdapterPresenter()
-    private val indicatorCustomiser = IndicatorCustomiser(POHSettings.iconSet)
+    private val indicatorCustomiser = IndicatorCustomiser(ALTSharedPreferences.getIconPack())
 
     // Lifecycle
 
@@ -76,7 +76,7 @@ class TrackerListAdapter(presenterComponent: PresenterComponent) :
                 )
             )
         )
-        setAmountValues( viewHolder, entry)
+        setAmountValues(viewHolder, entry)
         viewHolder.indicator.setImageDrawable(
             ContextCompat.getDrawable(
                 context,
@@ -92,11 +92,11 @@ class TrackerListAdapter(presenterComponent: PresenterComponent) :
         viewHolder: TrackerListViewHolder,
         entry: TrackerListItem
     ) {
-        if (POHSettings.hiddenValues) {
+        if (ALTSharedPreferences.getValuesHidden()) {
             setHiddenValues(viewHolder)
             return
         }
-        setActualValues( viewHolder, entry)
+        setActualValues(viewHolder, entry)
     }
 
     private fun setHiddenValues(viewHolder: TrackerListViewHolder) {

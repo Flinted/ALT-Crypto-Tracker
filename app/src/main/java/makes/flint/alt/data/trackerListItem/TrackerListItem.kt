@@ -1,6 +1,6 @@
 package makes.flint.alt.data.trackerListItem
 
-import makes.flint.alt.configuration.POHSettings
+import makes.flint.alt.configuration.ALTSharedPreferences
 import makes.flint.alt.data.coinListItem.CoinListItem
 import makes.flint.alt.data.interfaces.TrackerAssessable
 import makes.flint.alt.utility.NumberFormatter
@@ -10,11 +10,13 @@ import java.math.BigDecimal
  * TrackerListItem
  * Copyright © 2018 ChrisDidThis. All rights reserved.
  */
-class TrackerListItem(val name: String,
-                      val symbol: String,
-                      val id: String,
-                      private val associatedCoin: CoinListItem?,
-                      var transactions: MutableList<TrackerTransaction>) : TrackerAssessable {
+class TrackerListItem(
+    val name: String,
+    val symbol: String,
+    val id: String,
+    private val associatedCoin: CoinListItem?,
+    var transactions: MutableList<TrackerTransaction>
+) : TrackerAssessable {
 
     // Properties
 
@@ -99,8 +101,9 @@ class TrackerListItem(val name: String,
         val currentPrice = getDecimalTotal(associatedCoin?.priceData?.priceUSD)
         val purchasePrice = purchasePriceTotal
         val difference = currentPrice.minus(purchasePrice)
-        val movement = difference.divide(purchasePrice, POHSettings.roundingMode)
-        return movement.setScale(4, POHSettings.roundingMode)
+        val roundingMode = ALTSharedPreferences.getRoundingMode()
+        val movement = difference.divide(purchasePrice, roundingMode)
+        return movement.setScale(4, roundingMode)
     }
 
     private fun makePurchasePriceTotalAccurate(): BigDecimal {
@@ -121,13 +124,15 @@ class TrackerListItem(val name: String,
 
     private fun makeCurrentValueUSDFormatted(): String {
         val currentPrice = associatedCoin?.priceData?.priceUSD
-        val totalPrice = getDecimalTotal(currentPrice).setScale(2, POHSettings.roundingMode)
+        val totalPrice =
+            getDecimalTotal(currentPrice).setScale(2, ALTSharedPreferences.getRoundingMode())
         return NumberFormatter.formatCurrency(totalPrice, 2)
     }
 
     private fun makeCurrentValueBTCFormatted(): String {
         val currentPrice = associatedCoin?.priceData?.priceBTC
-        val totalPrice = getDecimalTotal(currentPrice).setScale(8, POHSettings.roundingMode)
+        val totalPrice =
+            getDecimalTotal(currentPrice).setScale(8, ALTSharedPreferences.getRoundingMode())
         return "B${NumberFormatter.format(totalPrice, 8)}"
     }
 
@@ -145,7 +150,8 @@ class TrackerListItem(val name: String,
         if (numberOwned == BigDecimal.ZERO) {
             return BigDecimal.ZERO
         }
-        val dollarCostAverage = purchasePriceTotal.divide(numberOwned, POHSettings.roundingMode)
-        return dollarCostAverage.setScale(2, POHSettings.roundingMode)
+        val roundingMode = ALTSharedPreferences.getRoundingMode()
+        val dollarCostAverage = purchasePriceTotal.divide(numberOwned, roundingMode)
+        return dollarCostAverage.setScale(2, roundingMode)
     }
 }

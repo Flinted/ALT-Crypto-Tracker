@@ -1,5 +1,6 @@
 package makes.flint.alt.data.dataController.dataManagers
 
+import makes.flint.alt.configuration.ALTSharedPreferences
 import makes.flint.alt.configuration.POHSettings
 import makes.flint.alt.data.dataController.callbacks.RepositoryCallbackSingle
 import makes.flint.alt.data.dataController.dataSource.DataSource
@@ -18,67 +19,109 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class ApiRepository @Inject constructor(private val cmcAPIService: CMCAPIService,
-                                        private val cryptoCompareAPIService: CryptoCompareAPIService
+class ApiRepository @Inject constructor(
+    private val cmcAPIService: CMCAPIService,
+    private val cryptoCompareAPIService: CryptoCompareAPIService
 ) : DataSource {
 
     // Internal Functions
 
     internal fun coinsGET(): Observable<Array<SummaryCoinResponse>>? {
         return cmcAPIService
-                .coinListGET(POHSettings.limit)
-                .subscribeOn(Schedulers.io())
-                .observeOn(Schedulers.computation())
+            .coinListGET(ALTSharedPreferences.getMarketLimit())
+            .subscribeOn(Schedulers.io())
+            .observeOn(Schedulers.computation())
     }
 
     internal fun marketSummaryGET(): Observable<MarketSummaryResponse>? {
         return cmcAPIService
-                .marketSummaryGET()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+            .marketSummaryGET()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
     }
 
-    internal fun getHistoricalDataFor(callback: RepositoryCallbackSingle<HistoricalDataResponse?>, coinSymbol: String, dataResolution: Int, chartResolution: Int) {
+    internal fun getHistoricalDataFor(
+        callback: RepositoryCallbackSingle<HistoricalDataResponse?>,
+        coinSymbol: String,
+        dataResolution: Int,
+        chartResolution: Int
+    ) {
         when (dataResolution) {
-            MINUTE_DATA -> getMinuteHistoricalData(callback, coinSymbol, dataResolution, chartResolution)
-            HOUR_DATA -> getHourHistoricalData(callback, coinSymbol, dataResolution, chartResolution)
-            else -> getDayHistoricalData(callback, coinSymbol, dataResolution, chartResolution)
+            MINUTE_DATA -> getMinuteHistoricalData(
+                callback,
+                coinSymbol,
+                dataResolution,
+                chartResolution
+            )
+            HOUR_DATA   -> getHourHistoricalData(
+                callback,
+                coinSymbol,
+                dataResolution,
+                chartResolution
+            )
+            else        -> getDayHistoricalData(
+                callback,
+                coinSymbol,
+                dataResolution,
+                chartResolution
+            )
         }
     }
 
     // Private Functions
 
-    private fun getMinuteHistoricalData(callback: RepositoryCallbackSingle<HistoricalDataResponse?>,
-                                        coinSymbol: String,
-                                        dataResolution: Int,
-                                        chartResolution: Int) {
-        cryptoCompareAPIService.histoMinuteGET(coinSymbol, POHSettings.currency, POHSettings.exchange)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(makeSubscriber(callback, dataResolution, chartResolution))
+    private fun getMinuteHistoricalData(
+        callback: RepositoryCallbackSingle<HistoricalDataResponse?>,
+        coinSymbol: String,
+        dataResolution: Int,
+        chartResolution: Int
+    ) {
+        cryptoCompareAPIService.histoMinuteGET(
+            coinSymbol,
+            ALTSharedPreferences.getCurrencyCode(),
+            ALTSharedPreferences.getExchange()
+        )
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(makeSubscriber(callback, dataResolution, chartResolution))
     }
 
-    private fun getHourHistoricalData(callback: RepositoryCallbackSingle<HistoricalDataResponse?>,
-                                      coinSymbol: String,
-                                      dataResolution: Int,
-                                      chartResolution: Int) {
-        cryptoCompareAPIService.histoHourGET(coinSymbol, POHSettings.currency, POHSettings.exchange)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(makeSubscriber(callback, dataResolution, chartResolution))
+    private fun getHourHistoricalData(
+        callback: RepositoryCallbackSingle<HistoricalDataResponse?>,
+        coinSymbol: String,
+        dataResolution: Int,
+        chartResolution: Int
+    ) {
+        cryptoCompareAPIService.histoHourGET(
+            coinSymbol,
+            ALTSharedPreferences.getCurrencyCode(),
+            ALTSharedPreferences.getExchange()
+        )
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(makeSubscriber(callback, dataResolution, chartResolution))
     }
 
-    private fun getDayHistoricalData(callback: RepositoryCallbackSingle<HistoricalDataResponse?>, coinSymbol:
-    String, dataResolution: Int, chartResolution: Int) {
-        cryptoCompareAPIService.histoDayGET(coinSymbol, POHSettings.currency, POHSettings.exchange, 1500)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(makeSubscriber(callback, dataResolution, chartResolution))
+    private fun getDayHistoricalData(
+        callback: RepositoryCallbackSingle<HistoricalDataResponse?>, coinSymbol:
+        String, dataResolution: Int, chartResolution: Int
+    ) {
+        cryptoCompareAPIService.histoDayGET(
+            coinSymbol,
+            ALTSharedPreferences.getCurrencyCode(),
+            ALTSharedPreferences.getExchange(),
+            1500
+        )
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(makeSubscriber(callback, dataResolution, chartResolution))
     }
 
-    private fun makeSubscriber(callback: RepositoryCallbackSingle<HistoricalDataResponse?>,
-                               dataResolution: Int,
-                               chartResolution: Int): Subscriber<HistoricalDataResponse> {
+    private fun makeSubscriber(
+        callback: RepositoryCallbackSingle<HistoricalDataResponse?>,
+        dataResolution: Int,
+        chartResolution: Int
+    ): Subscriber<HistoricalDataResponse> {
         return object : Subscriber<HistoricalDataResponse>() {
             override fun onCompleted() {}
             override fun onError(error: Throwable) = callback.onError(error)

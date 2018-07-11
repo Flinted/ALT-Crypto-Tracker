@@ -2,7 +2,7 @@ package makes.flint.alt.data
 
 import io.realm.RealmObject
 import io.realm.annotations.PrimaryKey
-import makes.flint.alt.configuration.POHSettings
+import makes.flint.alt.configuration.ALTSharedPreferences
 import makes.flint.alt.data.services.interfaces.RealmDeletable
 import makes.flint.alt.utility.DateFormatter
 import org.threeten.bp.LocalDate
@@ -53,7 +53,7 @@ open class TimeStamp() : RealmObject(), RealmDeletable {
     fun shouldReSync(): Boolean {
         val timeNow = ZonedDateTime.now()
         val syncThreshold =
-            ZonedDateTime.parse(timeStampISO8601).plusMinutes(POHSettings.refreshGap)
+            ZonedDateTime.parse(timeStampISO8601).plusMinutes(ALTSharedPreferences.getRefreshGap())
         return timeNow.isAfter(syncThreshold) || invalidated
     }
 }

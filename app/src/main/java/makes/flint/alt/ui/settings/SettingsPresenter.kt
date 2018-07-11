@@ -1,7 +1,7 @@
 package makes.flint.alt.ui.settings
 
 import makes.flint.alt.base.BasePresenter
-import makes.flint.alt.configuration.POHSettings
+import makes.flint.alt.configuration.ALTSharedPreferences
 import makes.flint.alt.data.dataController.DataController
 import javax.inject.Inject
 
@@ -19,15 +19,15 @@ class SettingsPresenter @Inject constructor(private val dataController: DataCont
     }
 
     override fun newMarketLimitSet(adjustedLimit: Int) {
-        POHSettings.limit = adjustedLimit
+        ALTSharedPreferences.setMarketLimit(adjustedLimit)
         dataController.invalidateData()
     }
 
     override fun newSortPreferenceSet(preferenceKey: Int) {
-        POHSettings.sortPreference = preferenceKey
+        ALTSharedPreferences.setSort(preferenceKey)
     }
 
     override fun newHiddenValueStateSet(value: Boolean) {
-        POHSettings.hiddenValues = value
+        ALTSharedPreferences.setValuesHidden(value)
     }
 }

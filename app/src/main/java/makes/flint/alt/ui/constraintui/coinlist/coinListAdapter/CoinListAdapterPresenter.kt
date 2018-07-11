@@ -1,7 +1,7 @@
 package makes.flint.alt.ui.constraintui.coinlist.coinListAdapter
 
 import makes.flint.alt.base.BaseContractView
-import makes.flint.alt.configuration.POHSettings
+import makes.flint.alt.configuration.ALTSharedPreferences
 import makes.flint.alt.data.coinListItem.CoinListItem
 import makes.flint.alt.data.dataController.DataController
 import makes.flint.alt.data.favouriteCoins.FavouriteCoin
@@ -77,6 +77,6 @@ class CoinListAdapterPresenter @Inject constructor(private var dataController: D
 
     private fun onGetCoinListSuccess(coinListItems: List<CoinListItem>) {
         adapter?.coinList = coinListItems.toMutableList()
-        adapter?.emitSortTypeChanged(POHSettings.sortPreference)
+        adapter?.emitSortTypeChanged(ALTSharedPreferences.getSort())
     }
 }

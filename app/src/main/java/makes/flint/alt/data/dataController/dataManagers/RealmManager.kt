@@ -2,7 +2,6 @@ package makes.flint.alt.data.dataController.dataManagers
 
 import io.realm.Realm
 import io.realm.RealmObject
-import makes.flint.alt.configuration.SettingsData
 import makes.flint.alt.data.dataController.dataSource.DataSource
 import makes.flint.alt.data.favouriteCoins.FavouriteCoin
 import makes.flint.alt.data.tracker.TrackerDataEntry
@@ -110,18 +109,6 @@ class RealmManager @Inject constructor() : DataSource {
                     .equalTo("id", id)
                     .findFirst()
             entry?.nestedDeleteFromRealm()
-        }
-    }
-
-    internal fun getSettings(): SettingsData? {
-        return realm.where(SettingsData::class.java).findFirst()
-    }
-
-    internal fun updateAsFirstLoadComplete() {
-        val settings = getSettings()
-        realm.executeTransaction {
-            settings?.firstLoad = false
-            realm.copyToRealmOrUpdate(settings)
         }
     }
 }

@@ -10,8 +10,8 @@ import android.widget.Filter
 import android.widget.Filterable
 import android.widget.ImageView
 import makes.flint.alt.R
+import makes.flint.alt.configuration.ALTSharedPreferences
 import makes.flint.alt.configuration.IndicatorCustomiser
-import makes.flint.alt.configuration.POHSettings
 import makes.flint.alt.data.coinListItem.CoinListItem
 import makes.flint.alt.injection.components.PresenterComponent
 import rx.subjects.PublishSubject
@@ -20,8 +20,8 @@ import rx.subjects.PublishSubject
  * CoinListAdapter
  * Copyright © 2018 ChrisDidThis. All rights reserved.
  */
-class CoinListAdapter(presenterComponent: PresenterComponent)
-    : RecyclerView.Adapter<RecyclerView.ViewHolder>(), CoinListAdapterContractView, Filterable {
+class CoinListAdapter(presenterComponent: PresenterComponent) :
+    RecyclerView.Adapter<RecyclerView.ViewHolder>(), CoinListAdapterContractView, Filterable {
 
     // Properties
     override var coinList: MutableList<CoinListItem> = mutableListOf()
@@ -37,7 +37,7 @@ class CoinListAdapter(presenterComponent: PresenterComponent)
         }
 
     private var presenter = presenterComponent.provideCoinListAdapterPresenter()
-    private var indicatorCustomizer = IndicatorCustomiser(POHSettings.iconSet)
+    private var indicatorCustomizer = IndicatorCustomiser(ALTSharedPreferences.getIconPack())
 
     // RX Actions
     private val coinSelected: PublishSubject<String> = PublishSubject.create()
@@ -115,7 +115,7 @@ class CoinListAdapter(presenterComponent: PresenterComponent)
     override fun getItemViewType(position: Int): Int {
         return when {
             filteredCoins[position].isFavourite -> 2
-            else -> super.getItemViewType(position)
+            else                                -> super.getItemViewType(position)
         }
     }
 
@@ -135,7 +135,11 @@ class CoinListAdapter(presenterComponent: PresenterComponent)
         coinListViewHolder.price.text = coin.priceData.priceUSDFormatted
     }
 
-    private fun initialise1HourViews(coin: CoinListItem, holder: CoinListViewHolder, context: Context) {
+    private fun initialise1HourViews(
+        coin: CoinListItem,
+        holder: CoinListViewHolder,
+        context: Context
+    ) {
         holder.oneHourChange.text = coin.changeData.change1HFormatted()
         val status = coin.changeData.status1H
         val icon = ContextCompat.getDrawable(context, indicatorCustomizer.getIcon(status))
@@ -144,7 +148,11 @@ class CoinListAdapter(presenterComponent: PresenterComponent)
         holder.oneHourChange.setTextColor(colour)
     }
 
-    private fun initialise24HourViews(coin: CoinListItem, holder: CoinListViewHolder, context: Context) {
+    private fun initialise24HourViews(
+        coin: CoinListItem,
+        holder: CoinListViewHolder,
+        context: Context
+    ) {
         holder.twentyFourHourChange.text = coin.changeData.change24HFormatted()
         val status = coin.changeData.status24H
         val icon = ContextCompat.getDrawable(context, indicatorCustomizer.getIcon(status))
@@ -153,7 +161,11 @@ class CoinListAdapter(presenterComponent: PresenterComponent)
         holder.twentyFourHourChange.setTextColor(colour)
     }
 
-    private fun initialise7DayViews(coin: CoinListItem, holder: CoinListViewHolder, context: Context) {
+    private fun initialise7DayViews(
+        coin: CoinListItem,
+        holder: CoinListViewHolder,
+        context: Context
+    ) {
         holder.sevenDayChange.text = coin.changeData.change7DFormatted()
         val status = coin.changeData.status7D
         val icon = ContextCompat.getDrawable(context, indicatorCustomizer.getIcon(status))
@@ -168,7 +180,11 @@ class CoinListAdapter(presenterComponent: PresenterComponent)
         }
     }
 
-    private fun setOnCheckedChangeListener(favourite: ImageView, coin: CoinListItem, position: Int) {
+    private fun setOnCheckedChangeListener(
+        favourite: ImageView,
+        coin: CoinListItem,
+        position: Int
+    ) {
         favourite.setOnClickListener {
             val isFavourite = it.tag == "checked"
             presenter.onFavouriteStateChanged(isFavourite, coin, position)

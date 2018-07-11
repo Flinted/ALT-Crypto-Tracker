@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import makes.flint.alt.R
 import makes.flint.alt.base.BaseFragment
-import makes.flint.alt.configuration.POHSettings
+import makes.flint.alt.configuration.ALTSharedPreferences
 import makes.flint.alt.data.coinListItem.CoinListItem
 import makes.flint.alt.errors.ErrorHandler
 
@@ -44,7 +44,11 @@ class CoinDetailSummary : BaseFragment(), CoinDetailContractView {
         this.attachPresenter(coinDetailPresenter)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val view = inflater.inflate(R.layout.fragment_coin_detail, container, false)
         this.views = CoinDetailSummaryViewHolder(view)
         val coinSymbol = arguments?.get(COIN_SYMBOL_KEY) as String
@@ -59,15 +63,22 @@ class CoinDetailSummary : BaseFragment(), CoinDetailContractView {
         views.coinSymbol.text = coin?.symbolFormatted
         views.rank.text = coin?.rank.toString()
         views.sortedRankTitle.text =
-                getString(R.string.dialog_coinDetail_title_sorted_rank,
-                context?.resources?.getStringArray(R.array.sort_options)?.get(POHSettings.sortPreference))
+                getString(
+                    R.string.dialog_coinDetail_title_sorted_rank,
+                    context?.resources?.getStringArray(R.array.sort_options)?.get(
+                        ALTSharedPreferences.getSort()
+                    )
+                )
         views.sortedRank.text = coin?.sortedRank.toString()
         views.priceFiat.text =
                 getString(R.string.title_priceUSD, coin?.priceData?.priceUSDFormatted)
         views.priceBTC.text =
                 getString(R.string.title_priceBTC, coin?.priceData?.priceBTCFormatted)
         views.priceBillionCoin.text =
-                getString(R.string.dialog_coinDetail_one_billion_coin, coin?.priceData?.stabilisedPrice)
+                getString(
+                    R.string.dialog_coinDetail_one_billion_coin,
+                    coin?.priceData?.stabilisedPrice
+                )
         views.volume24H.text = coin?.volume24HourFormatted
         views.supplyAvailable.text = coin?.availableSupplyFormatted
         views.supplyTotal.text = coin?.totalSupplyFormatted

@@ -5,6 +5,7 @@ import com.github.mikephil.charting.utils.Utils
 import com.jakewharton.threetenabp.AndroidThreeTen
 import io.realm.Realm
 import io.realm.RealmConfiguration
+import makes.flint.alt.configuration.ALTSharedPreferences
 import makes.flint.alt.injection.components.DaggerDataComponent
 import makes.flint.alt.injection.components.DaggerPresenterComponent
 import makes.flint.alt.injection.components.DataComponent
@@ -29,6 +30,7 @@ class BaseApplication : Application() {
         super.onCreate()
         AndroidThreeTen.init(this)
         Utils.init(this)
+        ALTSharedPreferences.initialise(this)
         initialiseRealm()
     }
 
@@ -36,12 +38,14 @@ class BaseApplication : Application() {
 
     internal fun getAppComponent(): DataComponent = dataComponent ?: initialiseDataComponent()
 
-    internal fun getPresenterComponent(): PresenterComponent = presenterComponent ?: initialisePresenterComponent()
+    internal fun getPresenterComponent(): PresenterComponent =
+        presenterComponent ?: initialisePresenterComponent()
 
     // Private Functions
 
     private fun initialisePresenterComponent(): PresenterComponent {
-        presenterComponent = DaggerPresenterComponent.builder().presenterModule(PresenterModule()).build()
+        presenterComponent =
+                DaggerPresenterComponent.builder().presenterModule(PresenterModule()).build()
         return presenterComponent as PresenterComponent
     }
 
@@ -53,8 +57,8 @@ class BaseApplication : Application() {
     private fun initialiseRealm() {
         Realm.init(this)
         val realmConfiguration = RealmConfiguration.Builder()
-                .deleteRealmIfMigrationNeeded()
-                .build()
+            .deleteRealmIfMigrationNeeded()
+            .build()
         Realm.setDefaultConfiguration(realmConfiguration)
     }
 }

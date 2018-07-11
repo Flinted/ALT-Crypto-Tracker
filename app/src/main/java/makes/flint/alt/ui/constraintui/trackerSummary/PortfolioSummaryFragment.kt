@@ -8,8 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import makes.flint.alt.R
 import makes.flint.alt.base.BaseFragment
+import makes.flint.alt.configuration.ALTSharedPreferences
 import makes.flint.alt.configuration.IndicatorCustomiser
-import makes.flint.alt.configuration.POHSettings
 import makes.flint.alt.data.Summary
 import makes.flint.alt.data.interfaces.assessChange
 import makes.flint.alt.layoutCoordination.tracker
@@ -62,14 +62,14 @@ class PortfolioSummaryFragment : BaseFragment(), PortfolioContractView {
     override fun updateForSummary(summary: Summary) {
         setAmountValues(summary)
         views.changePercentage.text = summary.percentageChangeFormatted()
-        val customizer = IndicatorCustomiser(POHSettings.iconSet)
+        val customizer = IndicatorCustomiser(ALTSharedPreferences.getIconPack())
         val status = summary.assessChange()
         val changeColor = customizer.getColor(status)
         views.changePercentage.setTextColor(ContextCompat.getColor(requireContext(), changeColor))
     }
 
     private fun setAmountValues(summary: Summary) {
-        if (POHSettings.hiddenValues) {
+        if (ALTSharedPreferences.getValuesHidden()) {
             setHiddenValues()
             return
         }

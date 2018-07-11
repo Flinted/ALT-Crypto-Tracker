@@ -1,6 +1,5 @@
 package makes.flint.alt.data.dataController
 
-import makes.flint.alt.configuration.SettingsData
 import makes.flint.alt.data.dataController.cache.UIObjectCache
 import makes.flint.alt.data.dataController.callbacks.RepositoryCallbackSingle
 import makes.flint.alt.data.dataController.dataManagers.ApiRepository
@@ -55,10 +54,6 @@ open class DataController @Inject constructor(
 
     internal fun getCoinForSymbol(coinSymbol: String) =
         cache.coinListItems.find { it.symbol == coinSymbol }
-
-    internal fun getSettings() = realmManager.getSettings()
-
-    internal fun storeSettings(settings: SettingsData) = realmManager.copyOrUpdate(settings)
 
     internal fun emitLastSyncTime() = cache.emitLastSyncTime()
 

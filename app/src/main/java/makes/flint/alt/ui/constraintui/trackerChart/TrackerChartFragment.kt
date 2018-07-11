@@ -19,7 +19,11 @@ class TrackerChartFragment : BaseFragment(), TrackerChartContractView {
     private lateinit var views: TrackerChartViewHolder
     private lateinit var trackerChartPresenter: TrackerChartContractPresenter
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val view = inflater.inflate(R.layout.tracker_fragment_chart, container, false)
         views = TrackerChartViewHolder(view)
         trackerChartPresenter = getPresenterComponent().provideTrackerChartPresenter()
@@ -30,6 +34,7 @@ class TrackerChartFragment : BaseFragment(), TrackerChartContractView {
     }
 
     override fun displayTrackerEntriesChart(trackerListItems: List<TrackerListItem>) {
+        views.noEntriesMessage.visibility = View.GONE
         val factory = TrackerBarChartFactory()
         val chart = factory.makeChart(requireContext(), trackerListItems)
         displayMoreItemsIconIfRequired(trackerListItems.count())
@@ -45,5 +50,6 @@ class TrackerChartFragment : BaseFragment(), TrackerChartContractView {
     }
 
     override fun showNoTrackerEntriesMessage() {
+        views.noEntriesMessage.visibility = View.VISIBLE
     }
 }

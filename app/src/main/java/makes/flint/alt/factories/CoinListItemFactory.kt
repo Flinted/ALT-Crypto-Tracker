@@ -1,6 +1,6 @@
 package makes.flint.alt.factories
 
-import makes.flint.alt.configuration.POHSettings
+import makes.flint.alt.configuration.ALTSharedPreferences
 import makes.flint.alt.data.coinListItem.ChangeData
 import makes.flint.alt.data.coinListItem.CoinListItem
 import makes.flint.alt.data.coinListItem.PriceData
@@ -24,34 +24,38 @@ class CoinListItemFactory @Inject constructor() {
 
     // Internal Functions
 
-    internal fun makeCoinListItems(inputItems: MutableList<CoinResponse>,
-                                   favouriteCoins: MutableList<FavouriteCoin>?
+    internal fun makeCoinListItems(
+        inputItems: MutableList<CoinResponse>,
+        favouriteCoins: MutableList<FavouriteCoin>?
     ): MutableList<CoinListItem> {
         twentyFourHourMarket = 0f
         sevenDayMarket = 0f
         val coinListMap = makeFavouritesHashMap(favouriteCoins)
-        val coinListItems = inputItems.map { makeCoinListItem(it, coinListMap) } as MutableList<CoinListItem>
+        val coinListItems =
+            inputItems.map { makeCoinListItem(it, coinListMap) } as MutableList<CoinListItem>
         itemsInAverage = coinListItems.size
-        return coinListItems.sortedByFavouritesThen(POHSettings.sortPreference)
+        return coinListItems.sortedByFavouritesThen(ALTSharedPreferences.getSort())
     }
 
-    internal fun updateFavouriteCoins(cachedCoins: List<CoinListItem>?,
-                                      favouriteCoins: MutableList<FavouriteCoin>
+    internal fun updateFavouriteCoins(
+        cachedCoins: List<CoinListItem>?,
+        favouriteCoins: MutableList<FavouriteCoin>
     ): MutableList<CoinListItem>? {
         val mutableCachedCoins = cachedCoins?.toMutableList() ?: return mutableListOf()
         val favouritesMap = makeFavouritesHashMap(favouriteCoins)
         cachedCoins.forEach {
             it.isFavourite = favouritesMap[it.symbol] != null
         }
-        return mutableCachedCoins.sortedByFavouritesThen(POHSettings.sortPreference)
+        return mutableCachedCoins.sortedByFavouritesThen(ALTSharedPreferences.getSort())
     }
 
     internal fun getMarketData() = MarketData(twentyFourHourMarket, sevenDayMarket, itemsInAverage)
 
     // Private Functions
 
-    private fun makeCoinListItem(inputItem: CoinResponse,
-                                 favouriteCoins: HashMap<String, FavouriteCoin>
+    private fun makeCoinListItem(
+        inputItem: CoinResponse,
+        favouriteCoins: HashMap<String, FavouriteCoin>
     ): CoinListItem {
         val isFavourite = favouriteCoins[inputItem.symbol] != null
         val priceData = PriceData(inputItem)
