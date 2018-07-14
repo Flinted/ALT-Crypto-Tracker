@@ -110,7 +110,7 @@ dependencies {
     androidTestImplementation "com.squareup.spoon:spoon-client:$SPOON_VERSION"
     androidTestImplementation "com.android.support.test.uiautomator:uiautomator-v18:$UI_AUTOMATOR_VERSION"
 
-    implementation (name:"doppel-debug", ext:"aar" )
+    implementation(name: "doppel-debug", ext: "aar")
 
     // Test Dependencies
     implementation fileTree(include: ['*.jar', '.aar'], dir: 'libs')

@@ -106,6 +106,10 @@ class CoinListAdapter(presenterComponent: PresenterComponent) :
         return CoinFilter(coinList, callback)
     }
 
+    override fun isFiltered(): Boolean {
+        return filteredCoins.size != coinList.size
+    }
+
     private fun makeCoinFilterCallback(): CoinFilterCallback {
         return object : CoinFilterCallback {
             override fun publishResults(filteredList: MutableList<CoinListItem>) {

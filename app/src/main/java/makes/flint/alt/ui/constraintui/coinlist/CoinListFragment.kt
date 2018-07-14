@@ -12,8 +12,8 @@ import makes.flint.alt.R
 import makes.flint.alt.base.BaseFragment
 import makes.flint.alt.data.response.marketSummary.MarketSummaryResponse
 import makes.flint.alt.layoutCoordination.coin
-import makes.flint.alt.layoutCoordination.home
 import makes.flint.alt.layoutCoordination.coinToSearch
+import makes.flint.alt.layoutCoordination.home
 import makes.flint.alt.layoutCoordination.viewTransitions.HomeToCoinDetailTransition
 import makes.flint.alt.ui.constraintui.coinlist.coinListAdapter.CoinListAdapter
 import makes.flint.alt.ui.constraintui.coinlist.coinListAdapter.CoinListAdapterContractView
@@ -68,6 +68,7 @@ class CoinListFragment : BaseFragment(), CoinListContractView, ListScrollControl
 
             override fun newSearchQuery(query: String) {
                 coinListAdapter.filterFor(query)
+                hideGoToTopFAB()
             }
 
         })
@@ -112,6 +113,7 @@ class CoinListFragment : BaseFragment(), CoinListContractView, ListScrollControl
     override fun initialiseFABonClick() {
         views.goToTopFAB.setOnClickListener {
             views.coinList.smoothScrollToPosition(0)
+            hideGoToTopFAB()
         }
     }
 

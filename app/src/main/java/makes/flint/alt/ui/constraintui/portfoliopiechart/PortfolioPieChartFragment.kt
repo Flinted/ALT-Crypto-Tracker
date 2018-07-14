@@ -69,7 +69,6 @@ class PortfolioPieChartFragment : BaseFragment(), PortfolioContractView {
         }
         val newCoinDetail = AddCoinDialogFragment.createForAsset(null)
         newCoinDetail.show(fragmentManager, "AddCoinDialog")
-//        (activity as LayoutCoordinatable).updateLayout(coinToAddCoin)
     }
 
     override fun updateForSummary(summary: Summary) {
@@ -82,10 +81,12 @@ class PortfolioPieChartFragment : BaseFragment(), PortfolioContractView {
         val colorAccent = ContextCompat.getColor(context, R.color.colorAccent)
         val chartColor2 = ContextCompat.getColor(context, R.color.chartSecondary)
         val chartColor3 = ContextCompat.getColor(context, R.color.chartTertiary)
+        val chartColor4 = ContextCompat.getColor(context, R.color.chartQuaternary)
+        val chartColor5 = ContextCompat.getColor(context, R.color.chartQuinary)
         val colorBlack = ContextCompat.getColor(context, R.color.colorOffBlack)
         val dataSet = PieDataSet(pieEntries, "Holding")
         val pieData = PieData(dataSet)
-        dataSet.setColors(colorAccent, chartColor2, chartColor3)
+        dataSet.setColors(colorAccent, chartColor2, chartColor3,chartColor4,chartColor5)
         dataSet.valueTextColor = colorBlack
         dataSet.valueTextSize = 15f
         pieChart.setUsePercentValues(true)

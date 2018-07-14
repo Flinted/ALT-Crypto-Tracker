@@ -132,6 +132,7 @@ class AddCoinDialogFragment : BaseDialogFragment(), AddCoinContractView {
         views.assetSearch.text.clear()
         addCoinDialogPresenter.updateSelectedCoin(coin)
         updatePriceCalculation()
+        views.quantityInput.requestFocus()
     }
 
     override fun displayUpdatedPurchasePrice(purchasePrice: String) {

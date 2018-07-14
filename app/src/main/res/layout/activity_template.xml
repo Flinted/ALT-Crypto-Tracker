@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                             xmlns:app="http://schemas.android.com/apk/res-auto"
-                                             android:id="@+id/master_layout"
-                                             android:layout_width="match_parent"
-                                             android:layout_height="match_parent"
-                                             android:background="@drawable/background_gradient_135">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/master_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_gradient_135">
 
     <FrameLayout
         android:id="@+id/frame_top"
@@ -13,8 +13,7 @@
         android:layout_height="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <FrameLayout
         android:id="@+id/frame_centre"
@@ -22,8 +21,7 @@
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <FrameLayout
         android:id="@+id/frame_bottom"
@@ -32,48 +30,60 @@
         android:background="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <FrameLayout
         android:id="@+id/pop_frame_top"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        >
+        app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:layout_width="65dp"
-            android:layout_height="65dp"
-            android:layout_gravity="center"
-            android:padding="@dimen/margin_small_4dp"
-            android:src="@mipmap/ic_launcher"/>
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
-        <ProgressBar
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            <ImageView
+                android:id="@+id/loading_spinner"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:layout_gravity="center"
+                android:padding="@dimen/margin_small_4dp"
+                android:src="@mipmap/ic_launcher"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ProgressBar
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/pop_frame_loading_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="test"
+                android:layout_margin="@dimen/margin_xxLarge_20dp"
+                android:textColor="@color/colorAccent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/loading_spinner" />
+        </android.support.constraint.ConstraintLayout>
     </FrameLayout>
 
     <FrameLayout
         android:id="@+id/pop_frame_bottom"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_xxLarge_20dp"
+        android:layout_height="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/pop_frame_top">
-
-        <TextView
-            android:id="@+id/pop_frame_loading_textview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/margin_xxLarge_20dp"
-            android:layout_marginStart="@dimen/margin_xxLarge_20dp"
-            android:gravity="center"
-            android:textColor="@color/colorAccent"/>
-    </FrameLayout>
+        app:layout_constraintTop_toBottomOf="@id/pop_frame_top" />
 </android.support.constraint.ConstraintLayout>
 

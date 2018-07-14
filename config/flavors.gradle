@@ -2,12 +2,8 @@ apply plugin: 'com.android.application'
 android {
     productFlavors {
 
-        light {
-            dimension "default"
-        }
         full {
             dimension "default"
         }
-
     }
 }

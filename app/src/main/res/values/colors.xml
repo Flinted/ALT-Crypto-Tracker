@@ -3,18 +3,16 @@
     <color name="colorPrimary">#222222</color>
     <color name="colorPrimaryFade">#333333</color>
     <color name="colorPrimaryDark">#222222</color>
-    <color name="colorPrimarySoft">#a7adba</color>
     <color name="colorAccent">#E69500</color>
     <color name="textColorPrimary">#DE000000</color>
     <color name="textColorSecondary">#222222</color>
-    <color name="chartSecondary">#99FFC107</color>
-    <color name="chartTertiary">#66FFC107</color>
+    <color name="chartSecondary">#ebaa32</color>
+    <color name="chartTertiary">#f0bf66</color>
+    <color name="chartQuaternary">#f5d499</color>
+    <color name="chartQuinary">#fae9cc</color>
     <color name="colorRed">#ff0000</color>
     <color name="colorGreen">#00ff00</color>
-    <color name="colorCandleGreen">#00FF00</color>
-    <color name="colorCandleRed">#FF0000</color>
     <color name="colorOffBlack">#222222</color>
-    <color name="colorWhite">#FFFFFF</color>
     <color name="colorOffWhite">#fbfbee</color>
     <color name="colorGold">#FF997700</color>
 

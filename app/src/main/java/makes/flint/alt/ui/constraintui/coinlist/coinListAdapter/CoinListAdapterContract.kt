@@ -18,6 +18,7 @@ interface CoinListAdapterContractView : BaseContractView {
     fun onSortTypeChanged(): Observable<Int>
     fun emitSortTypeChanged(sortId: Int)
     fun updateIconPack()
+    fun isFiltered(): Boolean
 }
 
 interface CoinListAdapterContractPresenter : BaseContractPresenter<BaseContractView> {
