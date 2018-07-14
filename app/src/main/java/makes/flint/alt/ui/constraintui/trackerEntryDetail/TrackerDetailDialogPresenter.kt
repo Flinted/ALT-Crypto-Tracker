@@ -7,12 +7,12 @@ import makes.flint.alt.factories.TrackerItemFactory
 import javax.inject.Inject
 
 /**
- * TrackerEntryDialogPresenter
+ * TrackerDetailDialogPresenter
  * Copyright © 2018 ChrisDidThis. All rights reserved.
  */
-class TrackerEntryDialogPresenter @Inject constructor(private var dataController: DataController,
-                                                      private var trackerItemFactory: TrackerItemFactory)
-    : BasePresenter<TrackerEntryDialogContractView>(), TrackerEntryDialogContractPresenter {
+class TrackerDetailDialogPresenter @Inject constructor(private var dataController: DataController,
+                                                       private var trackerItemFactory: TrackerItemFactory)
+    : BasePresenter<TrackerDetailDialogContractView>(), TrackerDetailDialogContractPresenter {
 
     // Properties
 
@@ -26,6 +26,7 @@ class TrackerEntryDialogPresenter @Inject constructor(private var dataController
         view?.initialiseTransactionsList(trackerEntry.transactions)
         view?.initialiseDeleteButton()
         view?.initialiseTransactionsListListener()
+        view?.initialiseAddAssetButton()
     }
 
     override fun initialise() {}

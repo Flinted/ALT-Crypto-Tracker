@@ -12,29 +12,30 @@ import makes.flint.alt.base.BaseDialogFragment
 import makes.flint.alt.data.trackerListItem.TrackerListItem
 import makes.flint.alt.data.trackerListItem.TrackerTransaction
 import makes.flint.alt.errors.ErrorHandler
+import makes.flint.alt.ui.constraintui.addCoin.AddCoinDialogFragment
 import makes.flint.alt.ui.tracker.trackerEntryDialog.transactionsList.TransactionsListAdapter
 import rx.subjects.PublishSubject
 
 /**
- * TrackerEntryDialog
+ * TrackerDetailDialog
  * Copyright © 2018 ChrisDidThis. All rights reserved.
  */
-class TrackerEntryDialog : BaseDialogFragment(), TrackerEntryDialogContractView {
+class TrackerDetailDialog : BaseDialogFragment(), TrackerDetailDialogContractView {
 
     // Static Builder
     companion object {
-        fun getInstanceFor(entry: TrackerListItem): TrackerEntryDialog {
-            val fragment = TrackerEntryDialog()
+        fun getInstanceFor(entry: TrackerListItem): TrackerDetailDialog {
+            val fragment = TrackerDetailDialog()
             fragment.entry = entry
             return fragment
         }
     }
 
     // Properties
-    private lateinit var views: TrackerEntryDialogViewHolder
+    private lateinit var views: TrackerDetailDialogViewHolder
     private lateinit var entry: TrackerListItem
     private lateinit var transactionsListAdapter: TransactionsListAdapter
-    private lateinit var trackerEntryDialogPresenter: TrackerEntryDialogContractPresenter
+    private lateinit var trackerEntryDialogPresenter: TrackerDetailDialogContractPresenter
 
 
     // RX Actions
@@ -51,17 +52,24 @@ class TrackerEntryDialog : BaseDialogFragment(), TrackerEntryDialogContractView 
         attachPresenter(trackerEntryDialogPresenter)
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        val view = inflater?.inflate(R.layout.dialog_tracker_entry, container)
+    override fun onCreateView(
+        inflater: LayoutInflater?,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        val view = inflater?.inflate(R.layout.dialog_tracker_detail, container)
         view ?: return super.onCreateView(inflater, container, savedInstanceState)
-        this.views = TrackerEntryDialogViewHolder(view)
+        this.views = TrackerDetailDialogViewHolder(view)
         trackerEntryDialogPresenter.initialise(entry)
         return view
     }
 
     override fun onStart() {
         super.onStart()
-        dialog.window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+        dialog.window.setLayout(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.MATCH_PARENT
+        )
     }
 
     // Overrides
@@ -106,6 +114,20 @@ class TrackerEntryDialog : BaseDialogFragment(), TrackerEntryDialogContractView 
         }
     }
 
+    override fun initialiseAddAssetButton() {
+        views.addAssetButton.setOnClickListener { _ ->
+            val coin = entry.getSearchId()
+            val fragment = AddCoinDialogFragment.createForAsset(coin)
+            val fragmentManager = activity?.fragmentManager
+            val shownCoinDetail = fragmentManager?.findFragmentByTag("AddCoinDialog")
+            shownCoinDetail?.let { shownDialog ->
+                fragmentManager.beginTransaction().remove(shownDialog).commit()
+            }
+            fragment.show(fragmentManager, "AddCoinDialog")
+            dismiss()
+        }
+    }
+
     override fun onDeletionOfEntry() {
         entryDeleted.onNext(true)
         dismiss()
@@ -127,7 +149,7 @@ class TrackerEntryDialog : BaseDialogFragment(), TrackerEntryDialogContractView 
         return DialogInterface.OnClickListener { _, choice ->
             when (choice) {
                 DialogInterface.BUTTON_POSITIVE -> trackerEntryDialogPresenter.deleteCurrentEntry()
-                else -> return@OnClickListener
+                else                            -> return@OnClickListener
             }
         }
     }

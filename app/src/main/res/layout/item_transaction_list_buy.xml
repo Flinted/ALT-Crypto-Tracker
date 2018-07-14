@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/colorPrimaryFade"
+    android:background="@drawable/background_gradient_225"
     android:layout_marginTop="@dimen/margin_small_4dp"
     android:layout_marginStart="@dimen/margin_xLarge_16dp">
 

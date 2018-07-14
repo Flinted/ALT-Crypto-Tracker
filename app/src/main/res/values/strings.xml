@@ -98,6 +98,7 @@
     <string name="fragment_summary_initial_value">Initial(USD): %1$s</string>
     <string name="fragment_summary_value_spent">Value Spent: %1$s</string>
     <string name="fragment_summary_value_sold">Value Sold: %1$s</string>
+    <string name="fragment_summary_value_change">Change: %1$s</string>
 
     <!--TRACKER FRAGMENT-->
     <string name="fragment_tracker_image_show_snapshots">Show snapshots button</string>
@@ -145,16 +146,24 @@
     <string name="ticker_bottom_time_stamp" formatted="false">Updated: %1$s</string>
     <string name="ticker_bottom_sort_type" formatted="false">Sorted by: %1$s</string>
 
+
+    <!--ICON PACKS-->
+    <string name="icon_pack_default">"Emoticon Faces"</string>
+    <string name="icon_pack_arrows">"Arrows"</string>
+    <string name="icon_pack_signals">"Signal Strength"</string>
+    <string name="icon_pack_dice">"Dice"</string>
     <!--Settings Arrays-->
 
     <string-array name="market_size_options">
+        <item>25</item>
+        <item>50</item>
         <item>100</item>
         <item>250</item>
         <item>500</item>
         <item>750</item>
         <item>1000</item>
         <item>1500</item>
-        <item>All</item>
+        <item>2000</item>
     </string-array>
 
     <string-array name="currency_options">
@@ -184,5 +193,12 @@
         <item>@string/sort_menu_7D_reversed</item>
         <item>@string/sort_menu_vol</item>
         <item>@string/sort_menu_vol_reversed</item>
+    </string-array>
+
+    <string-array name="icon_pack_options">
+        <item>@string/icon_pack_default</item>
+        <item>@string/icon_pack_arrows</item>
+        <item>@string/icon_pack_signals</item>
+        <item>@string/icon_pack_dice</item>
     </string-array>
 </resources>

@@ -9,23 +9,29 @@ import javax.inject.Inject
  * PortfolioSummaryPresenter
  * Copyright © 2018 ChrisDidThis. All rights reserved.
  */
-class PortfolioSummaryPresenter @Inject constructor(private val dataController: DataController) : BasePresenter<PortfolioContractView>(),
-        PortfolioContractPresenter {
+class PortfolioSummaryPresenter @Inject constructor(private val dataController: DataController) :
+    BasePresenter<PortfolioContractView>(),
+    PortfolioContractPresenter {
 
     // Properties
 
     private var summarySubscription: Subscription? = null
+    private var updateSubscription: Subscription? = null
 
     // Lifecycle
 
     override fun initialise() {
         initialiseSummarySubscriber()
+        initialiseUpdateSubscriber()
         view?.setFABOnClickListener()
     }
 
     override fun onDestroy() {
         this.summarySubscription?.unsubscribe()
+        this.updateSubscription?.unsubscribe()
+        this.updateSubscription = null
         this.summarySubscription = null
+
     }
 
     // Private Functions
@@ -36,5 +42,11 @@ class PortfolioSummaryPresenter @Inject constructor(private val dataController: 
             view?.updateForSummary(it)
         }
         view?.updateForSummary(subscription.second)
+    }
+
+    private fun initialiseUpdateSubscriber() {
+        this.updateSubscription = dataController.updatingSubscriber().subscribe{
+            view?.showLoading()
+        }
     }
 }

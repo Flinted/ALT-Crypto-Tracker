@@ -8,7 +8,7 @@ import makes.flint.alt.errors.ErrorHandler
 import makes.flint.alt.layoutCoordination.*
 import makes.flint.alt.layoutCoordination.viewTransitions.ViewStateTransition
 import makes.flint.alt.ui.constraintui.coinlist.CoinListFragment
-import makes.flint.alt.ui.constraintui.trackerChart.TrackerChartFragment
+import makes.flint.alt.ui.constraintui.trackerBarChart.TrackerBarChartFragment
 import makes.flint.alt.ui.constraintui.trackerSummary.PortfolioSummaryFragment
 import java.util.*
 
@@ -42,8 +42,8 @@ class LayoutActivity : BaseActivity(), LayoutActivityContractView, LayoutCoordin
     override fun loadInitialScreens() {
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.frame_bottom, CoinListFragment())
-        transaction.replace(R.id.frame_top, PortfolioSummaryFragment())
-        transaction.replace(R.id.frame_centre, TrackerChartFragment())
+        transaction.replace(R.id.frame_centre, PortfolioSummaryFragment())
+        transaction.replace(R.id.frame_top, TrackerBarChartFragment())
         transaction.commit()
         views.masterLayout.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver
         .OnGlobalLayoutListener {
@@ -64,7 +64,12 @@ class LayoutActivity : BaseActivity(), LayoutActivityContractView, LayoutCoordin
     }
 
     override fun updateLayout(key: String, viewStateTransition: ViewStateTransition?) {
-        coordinator.changeConstraints(key, views.masterLayout, supportFragmentManager, viewStateTransition)
+        coordinator.changeConstraints(
+            key,
+            views.masterLayout,
+            supportFragmentManager,
+            viewStateTransition
+        )
     }
 
     override fun displayError(it: Throwable) {
@@ -74,9 +79,10 @@ class LayoutActivity : BaseActivity(), LayoutActivityContractView, LayoutCoordin
     override fun onBackPressed() {
         val currentViewState = coordinator.currentViewState
         val viewKey = when (currentViewState) {
-            coin, search, tracker -> home
-            addCoin -> tracker
-            else -> null
+            coin, coinSearch, tracker -> home
+            trackerSearch             -> tracker
+            addCoin                   -> tracker
+            else                      -> null
         }
         viewKey?.let {
             updateLayout(viewKey)

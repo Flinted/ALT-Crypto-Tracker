@@ -3,27 +3,35 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimaryHighlight"
+    android:background="@drawable/background_gradient_90"
     android:clipChildren="false"
     android:clipToPadding="false"
     android:padding="@dimen/margin_large_8dp">
 
     <TextView
+        android:id="@+id/summary_change_percentage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_large"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
         android:id="@+id/summary_current_value_USD"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/colorPrimary"
-        android:textSize="@dimen/text_xLarge_20sp"
+        android:textColor="@color/colorOffWhite"
+        android:textSize="@dimen/text_large"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/summary_initial_value"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/summary_change_percentage" />
 
     <TextView
         android:id="@+id/summary_current_value_BTC"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/colorOffBlack"
+        android:textColor="@color/colorOffWhite"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/summary_current_value_USD" />
@@ -32,34 +40,20 @@
         android:id="@+id/summary_initial_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/colorOffBlack"
+        android:textColor="@color/colorOffWhite"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/summary_current_value_BTC" />
-
-    <TextView
-        android:id="@+id/summary_change_percentage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textSize="@dimen/text_xLarge_20sp"
-        android:textStyle="bold"
-        android:shadowDx="1"
-        android:shadowDy="1"
-        android:shadowRadius="2"
-        android:shadowColor="#000000"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/summary_initial_value" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/settings_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin_large_8dp"
         android:src="@drawable/ic_settings_black_24dp"
         app:fabSize="mini"
-        android:layout_marginTop="@dimen/margin_large_8dp"
-        app:layout_constraintStart_toStartOf="@id/summary_fab"
-        app:layout_constraintEnd_toEndOf="@id/summary_fab"
-        app:layout_constraintTop_toBottomOf="@id/summary_fab" />
+        app:layout_constraintBottom_toBottomOf="@id/summary_fab"
+        app:layout_constraintEnd_toStartOf="@id/summary_fab"
+        app:layout_constraintTop_toTopOf="@id/summary_fab" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/summary_fab"
@@ -67,6 +61,20 @@
         android:layout_height="wrap_content"
         android:src="@drawable/ic_tracker_24dp"
         app:fabSize="normal"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/tracker_fab_progress_spinner"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:elevation="40dp"
+        android:indeterminate="true"
+        android:indeterminateTint="@color/colorPrimary"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/summary_fab"
+        app:layout_constraintEnd_toEndOf="@id/summary_fab"
+        app:layout_constraintStart_toStartOf="@id/summary_fab"
+        app:layout_constraintTop_toTopOf="@id/summary_fab" />
 </android.support.constraint.ConstraintLayout>

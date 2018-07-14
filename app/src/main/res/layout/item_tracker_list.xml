@@ -2,12 +2,11 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/tracker_item_content"
-    android:layout_width="200dp"
+    android:layout_width="0dp"
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/margin_small_4dp"
     android:background="@drawable/background_gradient_225"
     android:clickable="true"
-    android:elevation="@dimen/margin_small_4dp"
     android:focusable="true"
     android:foreground="?android:attr/selectableItemBackground"
     android:padding="@dimen/margin_large_8dp">

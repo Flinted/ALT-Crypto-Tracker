@@ -11,16 +11,17 @@ import rx.Observable
  * Copyright © 2018 ChrisDidThis. All rights reserved.
  */
 
-interface TrackerEntryDialogContractView : BaseContractView {
+interface TrackerDetailDialogContractView : BaseContractView {
     fun displayTrackerEntry(trackerEntry: TrackerListItem)
     fun initialiseTransactionsList(transactions: MutableList<TrackerTransaction>)
     fun initialiseDeleteButton()
     fun onDeletionOfEntry()
     fun onEntryDeleted(): Observable<Boolean>?
     fun initialiseTransactionsListListener()
+    fun initialiseAddAssetButton()
 }
 
-interface TrackerEntryDialogContractPresenter : BaseContractPresenter<TrackerEntryDialogContractView> {
+interface TrackerDetailDialogContractPresenter : BaseContractPresenter<TrackerDetailDialogContractView> {
     fun initialise(entry: TrackerListItem)
     fun deleteCurrentEntry()
 }

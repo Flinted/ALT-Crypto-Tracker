@@ -17,8 +17,8 @@ class CoinListPresenter @Inject constructor(private val dataController: DataCont
 
     override fun initialise() {
         subscribeForRefreshUpdates()
-        view?.initialiseListAdapter()
         view?.initialiseSearchOnClick()
+        view?.initialiseListAdapter()
         view?.initialiseSwipeRefreshListener()
         view?.initialiseScrollListener()
         view?.initialiseFABonClick()
@@ -29,12 +29,12 @@ class CoinListPresenter @Inject constructor(private val dataController: DataCont
         timeStampSubscription = subscription.first.subscribe {
             view?.hideLoading()
         }
-        updateSubscription = dataController.updatingSubscriber().subscribe{
+        updateSubscription = dataController.updatingSubscriber().subscribe {
             view?.showLoading()
         }
         val marketRefreshSubscription = dataController.marketRefreshSubscriber()
         view?.displayMarketSummary(marketRefreshSubscription.second)
-        marketSubscription =marketRefreshSubscription.first.subscribe{
+        marketSubscription = marketRefreshSubscription.first.subscribe {
             view?.displayMarketSummary(it)
         }
     }

@@ -1,6 +1,6 @@
 package makes.flint.alt.ui.constraintui.coinlist.coinListAdapter
 
-import android.support.v7.widget.CardView
+import android.support.constraint.ConstraintLayout
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.ImageView
@@ -13,7 +13,7 @@ import makes.flint.alt.R
  */
 class CoinListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-    var card: CardView = itemView.findViewById(R.id.main_card)
+    var card: ConstraintLayout = itemView.findViewById(R.id.main_card)
     var name: TextView = itemView.findViewById(R.id.coin_list_name)
     var ticker: TextView = itemView.findViewById(R.id.coin_ticker)
     var price: TextView = itemView.findViewById(R.id.coin_price)

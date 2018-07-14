@@ -5,15 +5,16 @@
     android:layout_height="match_parent"
     android:focusableInTouchMode="true">
 
-    <include
+    <makes.flint.alt.ui.search.SearchSummaryView
         android:id="@+id/coin_list_search_bar"
-        layout="@layout/search_bar_summary" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/coin_list_refresh_layout"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@drawable/background_gradient_90"
+        android:background="@color/colorPrimary"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -1,11 +1,10 @@
 package makes.flint.alt.ui.constraintui.coinlist
 
 import android.os.Bundle
+import android.os.IBinder
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,18 +13,14 @@ import makes.flint.alt.base.BaseFragment
 import makes.flint.alt.data.response.marketSummary.MarketSummaryResponse
 import makes.flint.alt.layoutCoordination.coin
 import makes.flint.alt.layoutCoordination.home
-import makes.flint.alt.layoutCoordination.search
+import makes.flint.alt.layoutCoordination.coinSearch
 import makes.flint.alt.layoutCoordination.viewTransitions.HomeToCoinDetailTransition
 import makes.flint.alt.ui.constraintui.coinlist.coinListAdapter.CoinListAdapter
 import makes.flint.alt.ui.constraintui.coinlist.coinListAdapter.CoinListAdapterContractView
 import makes.flint.alt.ui.constraintui.layoutCoordinator.LayoutCoordinatable
 import makes.flint.alt.ui.interfaces.ListScrollController
+import makes.flint.alt.ui.search.SearchSummaryCallback
 
-
-/**
- * CoinListFragment
- * Copyright © 2018 ChrisDidThis. All rights reserved.
- */
 class CoinListFragment : BaseFragment(), CoinListContractView, ListScrollController {
 
     private lateinit var views: CoinListViewHolder
@@ -42,6 +37,7 @@ class CoinListFragment : BaseFragment(), CoinListContractView, ListScrollControl
         coinListPresenter.attachView(this)
         this.attachPresenter(coinListPresenter)
         this.views = CoinListViewHolder(view)
+        views.coinSearchBar.initialise(requireContext())
         coinListPresenter.initialise()
         return view
     }
@@ -53,40 +49,27 @@ class CoinListFragment : BaseFragment(), CoinListContractView, ListScrollControl
     }
 
     override fun initialiseSearchOnClick() {
-        views.coinSearchButton.setOnClickListener {
-            (activity as LayoutCoordinatable).updateLayout(search)
-            views.marketSummary.visibility = View.INVISIBLE
-            views.coinSearch.isEnabled = true
-            views.coinSearch.visibility = View.VISIBLE
-            views.coinSearchCancelButton.visibility = View.VISIBLE
-            views.coinSearchButton.visibility = View.GONE
-            views.coinSearch.requestFocus()
-        }
-        views.marketSummary.setOnClickListener {
-            (activity as LayoutCoordinatable).updateLayout(search)
-        }
-
-        views.coinSearch.setOnClickListener {
-            (activity as LayoutCoordinatable).updateLayout(search)
-            views.coinSearch.requestFocus()
-        }
-        views.coinSearchCancelButton.setOnClickListener {
-            views.coinList.stopScroll()
-            (activity as LayoutCoordinatable).updateLayout(home)
-            views.coinSearch.text.clear()
-            views.coinSearch.isEnabled = false
-            views.marketSummary.visibility = View.VISIBLE
-            views.coinSearch.visibility = View.INVISIBLE
-            views.coinSearchCancelButton.visibility = View.GONE
-            views.coinSearchButton.visibility = View.VISIBLE
-            hideKeyboard(views.coinSearch.windowToken)
-        }
-        views.coinSearch.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(p0: Editable?) {}
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                coinListAdapter.filterFor(p0.toString())
+        views.coinSearchBar.setCallback(object : SearchSummaryCallback {
+            override fun keyboardRequested() {
+                showKeyboard()
             }
+
+            override fun keyboardDismissed(windowToken: IBinder) {
+                hideKeyboard(windowToken)
+            }
+
+            override fun searchStateRequested() {
+                (activity as LayoutCoordinatable).updateLayout(coinSearch)
+            }
+
+            override fun cancelSearchRequested() {
+                (activity as LayoutCoordinatable).updateLayout(home)
+            }
+
+            override fun newSearchQuery(query: String) {
+                coinListAdapter.filterFor(query)
+            }
+
         })
     }
 
@@ -121,7 +104,7 @@ class CoinListFragment : BaseFragment(), CoinListContractView, ListScrollControl
     }
 
     override fun showDialogForCoin(coinSymbol: String) {
-        hideKeyboard(views.coinSearch.windowToken)
+        hideKeyboard(views.coinList.windowToken)
         val coinDetailTransition = HomeToCoinDetailTransition(requireContext(), coinSymbol)
         (activity as LayoutCoordinatable).updateLayout(coin, coinDetailTransition)
     }
@@ -133,24 +116,7 @@ class CoinListFragment : BaseFragment(), CoinListContractView, ListScrollControl
     }
 
     override fun displayMarketSummary(marketSummaryResponse: MarketSummaryResponse?) {
-        marketSummaryResponse ?: return
-        views.marketTotalCap.text = getString(
-            R.string.market_summary_marketcap, marketSummaryResponse.marketCapUSDFormatted()
-        )
-        views.marketCount.text = getString(
-            R.string.market_summary_count,
-            marketSummaryResponse.marketData.numberItems
-        )
-        views.marketVolume.text = getString(
-            R.string.market_summary_volume, marketSummaryResponse.volume24HUSDFormatted()
-        )
-        views.marketChange1d.text = getString(
-            R.string.market_summary_1d,
-            marketSummaryResponse.marketData.twentyFourHourAverageFormatted()
-        )
-        views.marketChange1w.text = getString(
-            R.string.market_summary_1w, marketSummaryResponse.marketData.sevenDayAverageFormatted()
-        )
+        views.coinSearchBar.displayMarketSummary(requireContext(), marketSummaryResponse)
     }
 
     private fun handleScrollChange(yPosition: Int) {

@@ -1,8 +1,8 @@
 package makes.flint.alt.ui.constraintui.coinlist.coinListAdapter
 
 import android.content.Context
+import android.support.constraint.ConstraintLayout
 import android.support.v4.content.ContextCompat
-import android.support.v7.widget.CardView
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -36,6 +36,10 @@ class CoinListAdapter(presenterComponent: PresenterComponent) :
             notifyDataSetChanged()
         }
 
+    override fun updateIconPack() {
+        indicatorCustomizer.updateIconPack(ALTSharedPreferences.getIconPack())
+    }
+
     private var presenter = presenterComponent.provideCoinListAdapterPresenter()
     private var indicatorCustomizer = IndicatorCustomiser(ALTSharedPreferences.getIconPack())
 
@@ -56,7 +60,7 @@ class CoinListAdapter(presenterComponent: PresenterComponent) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val layout = when (viewType) {
-            2 -> R.layout.item_coin_list_favourite
+            2    -> R.layout.item_coin_list_favourite
             else -> R.layout.item_coin_list
         }
         val itemView = layoutInflater.inflate(layout, parent, false)
@@ -133,6 +137,11 @@ class CoinListAdapter(presenterComponent: PresenterComponent) :
         coinListViewHolder.name.text = coin.name
         coinListViewHolder.ticker.text = coin.symbolFormatted
         coinListViewHolder.price.text = coin.priceData.priceUSDFormatted
+        if (!coin.isFavourite) {
+            return
+        }
+        val context = coinListViewHolder.name.context
+        coinListViewHolder.name.setTextColor(ContextCompat.getColor(context, R.color.colorAccent))
     }
 
     private fun initialise1HourViews(
@@ -174,7 +183,7 @@ class CoinListAdapter(presenterComponent: PresenterComponent) :
         holder.sevenDayChange.setTextColor(colour)
     }
 
-    private fun setOnClickListener(card: CardView, coin: CoinListItem) {
+    private fun setOnClickListener(card: ConstraintLayout, coin: CoinListItem) {
         card.setOnClickListener {
             coinSelected.onNext(coin.symbol)
         }

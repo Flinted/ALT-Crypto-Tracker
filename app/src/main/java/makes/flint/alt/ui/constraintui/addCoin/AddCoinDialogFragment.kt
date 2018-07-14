@@ -9,25 +9,33 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import makes.flint.alt.R
-import makes.flint.alt.base.BaseFragment
+import makes.flint.alt.base.BaseDialogFragment
 import makes.flint.alt.data.coinListItem.CoinListItem
 import makes.flint.alt.data.tracker.TRANSACTION_BUY
 import makes.flint.alt.errors.ErrorHandler
-import makes.flint.alt.layoutCoordination.tracker
-import makes.flint.alt.ui.constraintui.layoutCoordinator.LayoutCoordinatable
 import rx.subjects.PublishSubject
 import java.util.*
 
-/**
- * AddCoinDialogFragment
- * Copyright © 2018  ChrisDidThis. All rights reserved.
- */
-class AddCoinDialogFragment : BaseFragment(), AddCoinContractView {
+private const val ASSET_KEY = "assetKey"
+
+class AddCoinDialogFragment : BaseDialogFragment(), AddCoinContractView {
+
+    companion object {
+        fun createForAsset(asset: String?): AddCoinDialogFragment {
+            val bundle = Bundle()
+            bundle.putString(ASSET_KEY, asset)
+            val fragment = AddCoinDialogFragment()
+            fragment.arguments = bundle
+            return fragment
+        }
+    }
 
     // Properties
 
     private lateinit var views: AddCoinViewHolder
     private lateinit var addCoinDialogPresenter: AddCoinContractPresenter
+    private lateinit var adapter: CoinAutoCompleteAdapter
+    private var preSelectAsset: String? = null
 
     // RX Actions
 
@@ -38,6 +46,7 @@ class AddCoinDialogFragment : BaseFragment(), AddCoinContractView {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        preSelectAsset = arguments?.getString(ASSET_KEY)
         activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
         this.addCoinDialogPresenter = getPresenterComponent().provideAddCoinDialogPresenter()
         addCoinDialogPresenter.attachView(this)
@@ -49,7 +58,7 @@ class AddCoinDialogFragment : BaseFragment(), AddCoinContractView {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater?.inflate(R.layout.dialog_buy_asset, container, false)
+        val view = inflater.inflate(R.layout.dialog_buy_asset, container, false)
         view ?: return super.onCreateView(inflater, container, savedInstanceState)
         this.views = AddCoinViewHolder(view)
         attachPresenter(addCoinDialogPresenter)
@@ -59,7 +68,6 @@ class AddCoinDialogFragment : BaseFragment(), AddCoinContractView {
     }
 
     // Overrides
-
     override fun initialiseFABListener() {
         views.addEntryButton.setOnClickListener {
             makeTrackerEntryData()
@@ -93,8 +101,8 @@ class AddCoinDialogFragment : BaseFragment(), AddCoinContractView {
 
     override fun initialiseCoinAutoSuggest(autoCompleteSuggestions: List<CoinListItem>) {
         val layout = R.layout.support_simple_spinner_dropdown_item
-        val adapter = CoinAutoCompleteAdapter.makeInstanceFor(
-            requireContext(),
+        adapter = CoinAutoCompleteAdapter.makeInstanceFor(
+            activity,
             layout,
             autoCompleteSuggestions
         )
@@ -102,12 +110,28 @@ class AddCoinDialogFragment : BaseFragment(), AddCoinContractView {
         views.assetSearch.threshold = 2
         views.assetSearch.setOnItemClickListener { _, _, position, _ ->
             val stringId = adapter.getItem(position)
-            val coin = adapter.getCoinListItemForId(stringId)
-            views.selectedAsset.text = stringId
-            views.assetSearch.text.clear()
-            addCoinDialogPresenter.updateSelectedCoin(coin)
-            updatePriceCalculation()
+            setAssetForId(stringId)
         }
+        showKeyboard()
+        if (checkForPresetAsset()) {
+            views.quantityInput.requestFocus()
+            return
+        }
+        views.assetSearch.requestFocus()
+    }
+
+    private fun checkForPresetAsset(): Boolean {
+        val assetId = preSelectAsset ?: return false
+        setAssetForId(assetId)
+        return true
+    }
+
+    private fun setAssetForId(assetId: String) {
+        val coin = adapter.getCoinListItemForId(assetId)
+        views.selectedAsset.text = assetId
+        views.assetSearch.text.clear()
+        addCoinDialogPresenter.updateSelectedCoin(coin)
+        updatePriceCalculation()
     }
 
     override fun displayUpdatedPurchasePrice(purchasePrice: String) {
@@ -174,6 +198,6 @@ class AddCoinDialogFragment : BaseFragment(), AddCoinContractView {
 
     override fun didAddTrackerEntry() {
         hideKeyboard(views.selectedAsset.windowToken)
-        (activity as LayoutCoordinatable).updateLayout(tracker)
+        dismiss()
     }
 }

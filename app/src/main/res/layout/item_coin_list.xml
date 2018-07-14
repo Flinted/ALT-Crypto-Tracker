@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main_card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -16,9 +17,10 @@
         android:id="@+id/coin_list_item_favourite_checkbox"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_gravity="end|top"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginEnd="@dimen/margin_large_8dp"
         android:contentDescription="@string/item_coinList_image_favourite_unchecked"
         android:src="@drawable/ic_favorite_border_24dp"
         android:tag="unchecked" />
-</android.support.v7.widget.CardView>
+</android.support.constraint.ConstraintLayout>

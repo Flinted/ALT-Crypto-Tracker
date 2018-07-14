@@ -26,7 +26,7 @@ class HomeToCoinDetailTransition(context: Context, coinSymbol: String) : ViewSta
     init {
         val bundle = Bundle()
         bundle.putString(COIN_SYMBOL_KEY, coinSymbol)
-        val replaceCentre = Replace(R.id.frame_centre, CoinDetailChart::class.java, bundle)
+        val replaceCentre = Replace(R.id.frame_top, CoinDetailChart::class.java, bundle)
         val replacePopFrameBottom = Replace(R.id.pop_frame_bottom, CoinDetailSummary::class.java, bundle)
         val transition = ViewTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
         constraintSet.clone(context, R.layout.constraint_coin)

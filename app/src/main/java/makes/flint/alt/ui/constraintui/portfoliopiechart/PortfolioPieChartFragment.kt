@@ -14,15 +14,10 @@ import com.github.mikephil.charting.data.PieEntry
 import makes.flint.alt.R
 import makes.flint.alt.base.BaseFragment
 import makes.flint.alt.data.Summary
-import makes.flint.alt.layoutCoordination.addCoin
-import makes.flint.alt.ui.constraintui.layoutCoordinator.LayoutCoordinatable
+import makes.flint.alt.ui.constraintui.addCoin.AddCoinDialogFragment
 import makes.flint.alt.ui.constraintui.trackerSummary.PortfolioContractPresenter
 import makes.flint.alt.ui.constraintui.trackerSummary.PortfolioContractView
 
-/**
- * PortfolioPieChartFragment
- * Copyright © 2018 ChrisDidThis. All rights reserved.
- */
 class PortfolioPieChartFragment : BaseFragment(), PortfolioContractView {
 
     // Properties
@@ -38,7 +33,7 @@ class PortfolioPieChartFragment : BaseFragment(), PortfolioContractView {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_chart, container, false)
+        val view = inflater.inflate(R.layout.fragment_tracker_pie_chart, container, false)
         view ?: return super.onCreateView(inflater, container, savedInstanceState)
         this.portfolioPieChartPresenter = getPresenterComponent().provideSummaryPresenter()
         this.portfolioPieChartPresenter.attachView(this)
@@ -67,7 +62,14 @@ class PortfolioPieChartFragment : BaseFragment(), PortfolioContractView {
     }
 
     private fun showAddCoinDialog() {
-        (activity as LayoutCoordinatable).updateLayout(addCoin)
+        val fragmentManager = activity?.fragmentManager
+        val shownCoinDetail = fragmentManager?.findFragmentByTag("AddCoinDialog")
+        shownCoinDetail?.let {
+            fragmentManager.beginTransaction().remove(it).commit()
+        }
+        val newCoinDetail = AddCoinDialogFragment.createForAsset(null)
+        newCoinDetail.show(fragmentManager, "AddCoinDialog")
+//        (activity as LayoutCoordinatable).updateLayout(addCoin)
     }
 
     override fun updateForSummary(summary: Summary) {

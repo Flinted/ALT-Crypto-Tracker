@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main_card"
     android:layout_width="match_parent"
@@ -10,7 +10,7 @@
     android:foreground="?android:attr/selectableItemBackground"
     android:paddingEnd="@dimen/margin_large_8dp"
     android:paddingStart="@dimen/margin_large_8dp"
-    app:cardElevation="8dp">
+    android:elevation="@dimen/margin_large_8dp">
 
     <include layout="@layout/item_coin_list_shared_content" />
 
@@ -18,15 +18,10 @@
         android:id="@+id/coin_list_item_favourite_checkbox"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_gravity="end|top"
         android:layout_marginEnd="@dimen/margin_large_8dp"
         android:contentDescription="@string/item_coinList_image_favourite_checked"
         android:src="@drawable/ic_favorite_24dp"
-        android:tag="checked" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_gravity="bottom"
-        android:background="@color/colorAccent" />
-</android.support.v7.widget.CardView>
+        android:tag="checked"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</android.support.constraint.ConstraintLayout>

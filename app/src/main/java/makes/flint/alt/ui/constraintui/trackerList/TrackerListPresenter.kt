@@ -6,10 +6,10 @@ import rx.Subscription
 import javax.inject.Inject
 
 /**
- * TrackerPresenter
+ * TrackerListPresenter
  * Copyright © 2018 ChrisDidThis. All rights reserved.
  */
-class TrackerPresenter @Inject constructor(private var dataController: DataController) :
+class TrackerListPresenter @Inject constructor(private var dataController: DataController) :
         BasePresenter<TrackerContractView>(),
         TrackerContractPresenter {
 
@@ -17,6 +17,7 @@ class TrackerPresenter @Inject constructor(private var dataController: DataContr
 
     private var coinListSubscriber: Subscription? = null
     private var updateSubscription: Subscription? = null
+    private var marketSummarySubscription: Subscription? = null
 
     // Lifecycle
 
@@ -25,6 +26,7 @@ class TrackerPresenter @Inject constructor(private var dataController: DataContr
         view?.initialiseTrackerList()
         view?.initialiseTrackerListListeners()
         view?.initialiseRefreshListener()
+        view?.initialiseSearchBar()
     }
 
     override fun onDestroy() {
@@ -53,5 +55,10 @@ class TrackerPresenter @Inject constructor(private var dataController: DataContr
         updateSubscription = dataController.updatingSubscriber().subscribe {
             view?.showLoading()
         }
+        val subscription = dataController.marketRefreshSubscriber()
+        marketSummarySubscription  = subscription.first.subscribe {
+            view?.displayMarketSummary(it)
+        }
+        view?.displayMarketSummary(subscription.second)
     }
 }

@@ -21,8 +21,9 @@ const val home = "HOME"
 const val coin = "COIN"
 const val addCoin = "ADDCOIN"
 const val tracker = "TRACKER"
+const val trackerSearch = "TRACKERSEARCH"
 const val error = "ERROR"
-const val search = "SEARCH"
+const val coinSearch = "SEARCH"
 
 @UserScope
 class LayoutCoordinator @Inject constructor(context: Context) {
@@ -32,10 +33,10 @@ class LayoutCoordinator @Inject constructor(context: Context) {
         private set
 
     private fun makeConstraintSetsMap(context: Context) = mutableMapOf(
-            home to HomeTransition(context),
-            search to HomeToSearchTransition(context),
-            addCoin to TrackerToAddCoinTransition(context),
-            tracker to HomeToTrackerTransition(context)
+        home to HomeTransition(context),
+        coinSearch to HomeToSearchTransition(context),
+        tracker to HomeToTrackerTransition(context),
+        trackerSearch to TrackerToSearchTransition(context)
     )
 
     internal fun changeConstraints(viewKey: String,

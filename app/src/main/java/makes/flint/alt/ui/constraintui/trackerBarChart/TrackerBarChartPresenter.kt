@@ -1,4 +1,4 @@
-package makes.flint.alt.ui.constraintui.trackerChart
+package makes.flint.alt.ui.constraintui.trackerBarChart
 
 import makes.flint.alt.base.BasePresenter
 import makes.flint.alt.data.dataController.DataController
@@ -7,11 +7,11 @@ import rx.Subscription
 import javax.inject.Inject
 
 /**
- * TrackerChartPresenter
+ * TrackerBarChartPresenter
  * Copyright © 2018 ChrisDidThis. All rights reserved.
  */
-class TrackerChartPresenter @Inject constructor(private val dataController: DataController) :
-        BasePresenter<TrackerChartContractView>(), TrackerChartContractPresenter {
+class TrackerBarChartPresenter @Inject constructor(private val dataController: DataController) :
+        BasePresenter<TrackerBarChartContractView>(), TrackerBarChartContractPresenter {
     // Properties
 
     private var trackerItemSubscription: Subscription? = null

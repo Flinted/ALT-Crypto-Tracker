@@ -71,12 +71,24 @@ class CoinListAdapterPresenter @Inject constructor(private var dataController: D
         val subscription = dataController.coinRefreshSubscriber()
         cacheSubscription = subscription.first.subscribe {
             onGetCoinListSuccess(it)
+            checkForListRedraw()
         }
         onGetCoinListSuccess(subscription.second)
+    }
+
+
+    private fun checkForListRedraw() {
+        if( !ALTSharedPreferences.getCoinListRedrawRequired()) {
+            return
+        }
+        adapter?.updateIconPack()
+        ALTSharedPreferences.setCoinListRedrawRequired(false)
     }
 
     private fun onGetCoinListSuccess(coinListItems: List<CoinListItem>) {
         adapter?.coinList = coinListItems.toMutableList()
         adapter?.emitSortTypeChanged(ALTSharedPreferences.getSort())
     }
+
+
 }

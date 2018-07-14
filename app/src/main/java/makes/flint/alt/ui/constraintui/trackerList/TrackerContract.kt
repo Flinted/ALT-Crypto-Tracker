@@ -2,6 +2,7 @@ package makes.flint.alt.ui.constraintui.trackerList
 
 import makes.flint.alt.base.BaseContractPresenter
 import makes.flint.alt.base.BaseContractView
+import makes.flint.alt.data.response.marketSummary.MarketSummaryResponse
 
 /**
  * TrackerContract
@@ -13,6 +14,8 @@ interface TrackerContractView : BaseContractView {
     fun initialiseTrackerListListeners()
     fun initialiseRefreshListener()
     fun hideProgressSpinner()
+    fun initialiseSearchBar()
+    fun displayMarketSummary(marketSummary: MarketSummaryResponse?)
 }
 
 interface TrackerContractPresenter : BaseContractPresenter<TrackerContractView> {

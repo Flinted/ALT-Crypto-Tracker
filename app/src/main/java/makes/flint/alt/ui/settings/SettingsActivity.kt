@@ -50,10 +50,21 @@ class SettingsActivity : BaseActivity(), SettingsContractView {
     }
 
     override fun initialiseMarketSizeSelector() {
-        views.marketSelector.value = (ALTSharedPreferences.getMarketLimit() / 100)
-        views.marketSelector.setOnValueChangedListener { numberPicker, old, new ->
-            val adjustedLimit = new * 100
-            presenter.newMarketLimitSet(adjustedLimit)
+        val options = resources.getStringArray(R.array.market_size_options)
+        val currentSet = ALTSharedPreferences.getMarketLimit().toString()
+        val index = options.indexOfFirst { it == currentSet }
+        views.marketSelector.setSelection(index)
+        views.marketSelector.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(p0: AdapterView<*>?) {}
+            override fun onItemSelected(
+                p0: AdapterView<*>?,
+                p1: View?,
+                limitKey: Int,
+                p3: Long
+            ) {
+                val selection = options[limitKey]
+                presenter.newMarketLimitSet(selection.toInt())
+            }
         }
     }
 
@@ -61,6 +72,23 @@ class SettingsActivity : BaseActivity(), SettingsContractView {
         views.hiddenValuesSwitch.isChecked = ALTSharedPreferences.getValuesHidden()
         views.hiddenValuesSwitch.setOnCheckedChangeListener { compoundButton, value ->
             presenter.newHiddenValueStateSet(value)
+        }
+        initialiseIconThreshholds()
+    }
+
+    fun initialiseIconThreshholds() {
+        views.marketThresholds.forEachIndexed { index, numberPicker ->
+            numberPicker.value = ALTSharedPreferences.getValueForMarketThreshold(index).toInt()
+            numberPicker.setListener { value ->
+                presenter.newMarketThresholdSet(index, value)
+            }
+        }
+        views.trackerThresholds.forEachIndexed { index, numberPicker ->
+            val percentageFloat = ALTSharedPreferences.getValueForTrackerThreshold(index) * 100
+            numberPicker.value = percentageFloat.toInt()
+            numberPicker.setListener { value ->
+                presenter.newTrackerThresholdSet(index, value)
+            }
         }
     }
 
@@ -72,5 +100,21 @@ class SettingsActivity : BaseActivity(), SettingsContractView {
         views.downExtremeIcon.setImageResource(icons.downExtreme)
         views.downSignificantIcon.setImageResource(icons.downSignificant)
         views.downModerateIcon.setImageResource(icons.downModerate)
+    }
+
+
+    override fun initialiseIconPacksSelector() {
+        views.iconPackSpinner.setSelection(ALTSharedPreferences.getIconPackId())
+        views.iconPackSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(p0: AdapterView<*>?) {}
+            override fun onItemSelected(
+                p0: AdapterView<*>?,
+                p1: View?,
+                iconKey: Int,
+                p3: Long
+            ) {
+                presenter.newIconPackSelected(iconKey)
+            }
+        }
     }
 }

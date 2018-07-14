@@ -15,7 +15,7 @@ import makes.flint.alt.data.trackerListItem.TrackerListItem
 import makes.flint.alt.injection.components.PresenterComponent
 import rx.subjects.PublishSubject
 
-class TrackerListAdapter(presenterComponent: PresenterComponent) :
+class TrackerListAdapter(presenterComponent: PresenterComponent, private val screenWidth: Int) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>(),
     TrackerAdapterContractView, Filterable {
 
@@ -25,6 +25,7 @@ class TrackerListAdapter(presenterComponent: PresenterComponent) :
         set(value) {
             field = value
             filteredTrackerEntries = value
+            noEntriesFound.onNext(value.isEmpty())
         }
 
     internal var filteredTrackerEntries = trackerEntries
@@ -40,7 +41,8 @@ class TrackerListAdapter(presenterComponent: PresenterComponent) :
     private var isRefreshing: PublishSubject<Boolean> = PublishSubject.create()
     override fun onRefreshStateChange() = isRefreshing.asObservable()
     override fun onTrackerEntrySelected() = trackerEntrySelected.asObservable()
-    override fun onNoEntriesPresent() = noEntriesFound.asObservable()
+    override fun onNoEntriesPresent() =
+        Pair(noEntriesFound.asObservable(), trackerEntries.isEmpty())
 
     private var trackerAdapterPresenter = presenterComponent.provideTrackerAdapterPresenter()
     private val indicatorCustomiser = IndicatorCustomiser(ALTSharedPreferences.getIconPack())
@@ -55,6 +57,7 @@ class TrackerListAdapter(presenterComponent: PresenterComponent) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val itemView = layoutInflater.inflate(R.layout.item_tracker_list, parent, false)
+        itemView.layoutParams.width = screenWidth / 2
         return TrackerListViewHolder(itemView)
     }
 
@@ -100,10 +103,9 @@ class TrackerListAdapter(presenterComponent: PresenterComponent) :
     }
 
     private fun setHiddenValues(viewHolder: TrackerListViewHolder) {
-        val hiddenText = "HIDDEN"
-        viewHolder.currentValue.text = hiddenText
-        viewHolder.numberOwned.text = hiddenText
-
+        val hiddenValue = "???????.??"
+        viewHolder.currentValue.text = hiddenValue
+        viewHolder.numberOwned.text = hiddenValue
     }
 
     private fun setActualValues(

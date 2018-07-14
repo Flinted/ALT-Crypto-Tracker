@@ -22,7 +22,7 @@ class HomeToTrackerTransition(context: Context) : ViewStateTransition {
     override val constraintSet = ConstraintSet()
 
     init {
-        val replaceCentre = Replace(R.id.frame_centre, PortfolioPieChartFragment::class.java)
+        val replaceCentre = Replace(R.id.frame_top, PortfolioPieChartFragment::class.java)
         val replacePopFrameBottom = Replace(R.id.pop_frame_bottom, TrackerListFragment::class.java)
         val transition = ViewTransition(FragmentTransaction.TRANSIT_ENTER_MASK)
         constraintSet.clone(context, R.layout.constraint_tracker)

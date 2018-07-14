@@ -15,6 +15,7 @@ class SettingsPresenter @Inject constructor(private val dataController: DataCont
         view?.initialiseIconFields()
         view?.initialiseSortSpinner()
         view?.initialiseMarketSizeSelector()
+        view?.initialiseIconPacksSelector()
         view?.initialiseHiddenValuesSwitch()
     }
 
@@ -29,5 +30,25 @@ class SettingsPresenter @Inject constructor(private val dataController: DataCont
 
     override fun newHiddenValueStateSet(value: Boolean) {
         ALTSharedPreferences.setValuesHidden(value)
+    }
+
+    override fun newMarketThresholdSet(index: Int, value: Int) {
+        ALTSharedPreferences.setValueForMarketThreshold(index, value.toFloat())
+        ALTSharedPreferences.setCoinListRedrawRequired(true)
+        dataController.invalidateData()
+    }
+
+    override fun newTrackerThresholdSet(index: Int, value: Int) {
+        val decimalValue = value / 100f
+        ALTSharedPreferences.setValueForTrackerThreshold(index, decimalValue)
+        ALTSharedPreferences.setCoinListRedrawRequired(true)
+        dataController.invalidateData()
+    }
+
+    override fun newIconPackSelected(iconKey: Int) {
+        ALTSharedPreferences.setIconPack(iconKey)
+        ALTSharedPreferences.setCoinListRedrawRequired(true)
+        view?.initialiseIconFields()
+        dataController.invalidateData()
     }
 }

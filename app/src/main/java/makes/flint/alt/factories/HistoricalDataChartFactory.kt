@@ -57,10 +57,9 @@ class HistoricalDataChartFactory(
             setDrawIcons(false)
             setDrawValues(false)
             setDrawCircles(false)
-            setDrawFilled(true)
-            fillColor = ContextCompat.getColor(context, R.color.colorPrimary)
-            color = ContextCompat.getColor(context, R.color.colorPrimary)
-            fillAlpha = 255
+            setDrawFilled(false)
+            color = ContextCompat.getColor(context, R.color.colorAccent)
+            lineWidth = 2f
             axisDependency = YAxis.AxisDependency.RIGHT
             highLightColor = Color.WHITE
             highlightLineWidth = 0.7f

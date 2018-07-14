@@ -1,4 +1,4 @@
-package makes.flint.alt.ui.constraintui.trackerChart
+package makes.flint.alt.ui.constraintui.trackerBarChart
 
 import android.view.View
 import android.widget.FrameLayout
@@ -7,10 +7,10 @@ import android.widget.TextView
 import makes.flint.alt.R
 
 /**
- * TrackerChartViewHolder
+ * TrackerBarChartViewHolder
  * Copyright © 2018 ChrisDidThis. All rights reserved.
  */
-class TrackerChartViewHolder(view: View) {
+class TrackerBarChartViewHolder(view: View) {
 
     internal var chartHolder: FrameLayout = view.findViewById(R.id.tracker_chart_holder)
     internal var noEntriesMessage: TextView = view.findViewById(R.id.tracker_no_entries_message)

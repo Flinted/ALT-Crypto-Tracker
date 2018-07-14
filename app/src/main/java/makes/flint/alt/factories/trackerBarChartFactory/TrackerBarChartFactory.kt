@@ -19,7 +19,7 @@ import makes.flint.alt.data.trackerListItem.TrackerListItem
  * TrackerBarChartFactory
  * Copyright © 2018 ChrisDidThis. All rights reserved.
  */
-const val TRACKER_ITEM_LIMIT = 7f
+const val TRACKER_ITEM_LIMIT = 6f
 
 class TrackerBarChartFactory {
 
@@ -28,7 +28,7 @@ class TrackerBarChartFactory {
             return null
         }
         val barEntries = makeEntries(dataSet)
-        val barDataSet = makeBarDataSet(barEntries.first, context)
+        val barDataSet = makeBarDataSet(context, barEntries.first)
         val labelFormatter = SymbolAxisFormatter(barEntries.second)
         val chart = makeBarChart(context, labelFormatter)
         val barData = BarData(barDataSet)
@@ -45,7 +45,7 @@ class TrackerBarChartFactory {
             legend.isEnabled = false
             xAxis.position = XAxis.XAxisPosition.BOTTOM_INSIDE
             xAxis.setDrawGridLines(false)
-            xAxis.textColor = ContextCompat.getColor(context, R.color.colorAccent)
+            xAxis.textColor = ContextCompat.getColor(context, R.color.colorOffWhite)
             xAxis.valueFormatter = labelFormatter
             xAxis.granularity = 1f
             description.isEnabled = false
@@ -71,12 +71,18 @@ class TrackerBarChartFactory {
         return Pair(entries, xAxisLabels)
     }
 
-    private fun makeBarDataSet(entries: MutableList<BarEntry>, context: Context): BarDataSet {
+    private fun makeBarDataSet(
+        context: Context,
+        entries: MutableList<BarEntry>
+    ): BarDataSet {
         return BarDataSet(entries, "Tracker").apply {
             setDrawIcons(false)
             setDrawValues(!ALTSharedPreferences.getValuesHidden())
             valueTextSize = 10f
-            color = ContextCompat.getColor(context, R.color.colorPrimary)
+            valueTextColor = ContextCompat.getColor(context, R.color.colorOffWhite)
+            barBorderColor = ContextCompat.getColor(context, R.color.colorAccent)
+            barBorderWidth = 2f
+            color = Color.TRANSPARENT
             axisDependency = YAxis.AxisDependency.RIGHT
             isHighlightEnabled = false
         }

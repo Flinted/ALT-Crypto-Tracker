@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:layout_constraintTop_toBottomOf="@id/settings_icon_pack_selector">
+
+    <TextView
+        android:id="@+id/settings_market_threshold_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_large_8dp"
+        android:text="Market"
+        android:textColor="@color/colorOffWhite"
+        app:layout_constraintStart_toEndOf="@id/icons_column"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/settings_tracker_threshold_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_large_8dp"
+        android:text="Tracker"
+        android:textColor="@color/colorOffWhite"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/icons_column"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toStartOf="@id/market_column"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/settings_market_threshold_title">
+
+        <ImageView
+            android:id="@+id/settings_up_extreme_icon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_margin="@dimen/margin_small_4dp" />
+
+        <ImageView
+            android:id="@+id/settings_up_significant_icon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_margin="@dimen/margin_small_4dp" />
+
+        <ImageView
+            android:id="@+id/settings_up_moderate_icon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_margin="@dimen/margin_small_4dp" />
+
+        <ImageView
+            android:id="@+id/settings_down_moderate_icon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_margin="@dimen/margin_small_4dp" />
+
+        <ImageView
+            android:id="@+id/settings_down_significant_icon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_margin="@dimen/margin_small_4dp" />
+
+        <ImageView
+            android:id="@+id/settings_down_extreme_icon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_margin="@dimen/margin_small_4dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/market_column"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toStartOf="@id/tracker_column"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toEndOf="@id/icons_column"
+        app:layout_constraintTop_toBottomOf="@id/settings_market_threshold_title">
+
+        <com.michaelmuenzer.android.scrollablennumberpicker.ScrollableNumberPicker
+            android:id="@+id/threshold_market_up_extreme"
+            android:layout_width="match_parent"
+            android:layout_height="24dp"
+            android:layout_margin="@dimen/margin_small_4dp"
+            android:background="@color/colorAccent"
+            android:orientation="horizontal"
+            app:snp_buttonBackgroundTintSelector="@color/colorPrimary"
+            app:snp_buttonTouchScaleFactor="0.8"
+            app:snp_maxValue="500"
+            app:snp_minValue="0"
+            app:snp_orientation="horizontal"
+            app:snp_stepSize="5"
+            app:snp_value_text_color="@color/colorPrimary" />
+
+        <com.michaelmuenzer.android.scrollablennumberpicker.ScrollableNumberPicker
+            android:id="@+id/threshold_market_up_significant"
+            android:layout_width="match_parent"
+            android:layout_height="24dp"
+            android:layout_margin="@dimen/margin_small_4dp"
+            android:background="@color/colorAccent"
+            android:orientation="horizontal"
+            app:snp_buttonBackgroundTintSelector="@color/colorPrimary"
+            app:snp_buttonTouchScaleFactor="0.8"
+            app:snp_maxValue="500"
+            app:snp_minValue="0"
+            app:snp_orientation="horizontal"
+            app:snp_stepSize="5"
+            app:snp_value_text_color="@color/colorPrimary" />
+
+        <com.michaelmuenzer.android.scrollablennumberpicker.ScrollableNumberPicker
+            android:id="@+id/threshold_market_up_moderate"
+            android:layout_width="match_parent"
+            android:layout_height="24dp"
+            android:layout_margin="@dimen/margin_small_4dp"
+            android:background="@color/colorAccent"
+            android:orientation="horizontal"
+            app:snp_buttonBackgroundTintSelector="@color/colorPrimary"
+            app:snp_buttonTouchScaleFactor="0.8"
+            app:snp_maxValue="500"
+            app:snp_minValue="0"
+            app:snp_orientation="horizontal"
+            app:snp_stepSize="5"
+            app:snp_value_text_color="@color/colorPrimary" />
+
+        <com.michaelmuenzer.android.scrollablennumberpicker.ScrollableNumberPicker
+            android:id="@+id/threshold_market_down_moderate"
+            android:layout_width="match_parent"
+            android:layout_height="24dp"
+            android:layout_margin="@dimen/margin_small_4dp"
+            android:background="@color/colorAccent"
+            android:orientation="horizontal"
+            app:snp_buttonBackgroundTintSelector="@color/colorPrimary"
+            app:snp_buttonTouchScaleFactor="0.8"
+            app:snp_maxValue="0"
+            app:snp_minValue="-100"
+            app:snp_orientation="horizontal"
+            app:snp_stepSize="5"
+            app:snp_value_text_color="@color/colorPrimary" />
+
+        <com.michaelmuenzer.android.scrollablennumberpicker.ScrollableNumberPicker
+            android:id="@+id/threshold_market_down_significant"
+            android:layout_width="match_parent"
+            android:layout_height="24dp"
+            android:layout_margin="@dimen/margin_small_4dp"
+            android:background="@color/colorAccent"
+            android:orientation="horizontal"
+            app:snp_buttonBackgroundTintSelector="@color/colorPrimary"
+            app:snp_buttonTouchScaleFactor="0.8"
+            app:snp_maxValue="0"
+            app:snp_minValue="-100"
+            app:snp_orientation="horizontal"
+            app:snp_stepSize="5"
+            app:snp_value_text_color="@color/colorPrimary" />
+
+        <com.michaelmuenzer.android.scrollablennumberpicker.ScrollableNumberPicker
+            android:id="@+id/threshold_market_down_extreme"
+            android:layout_width="match_parent"
+            android:layout_height="24dp"
+            android:layout_margin="@dimen/margin_small_4dp"
+            android:background="@color/colorAccent"
+            android:orientation="horizontal"
+            app:snp_buttonBackgroundTintSelector="@color/colorPrimary"
+            app:snp_buttonTouchScaleFactor="0.8"
+            app:snp_maxValue="0"
+            app:snp_minValue="-100"
+            app:snp_orientation="horizontal"
+            app:snp_stepSize="5"
+            app:snp_value_text_color="@color/colorPrimary" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/tracker_column"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toEndOf="@id/market_column"
+        app:layout_constraintTop_toBottomOf="@id/settings_tracker_threshold_title">
+
+        <com.michaelmuenzer.android.scrollablennumberpicker.ScrollableNumberPicker
+            android:id="@+id/threshold_tracker_up_extreme"
+            android:layout_width="match_parent"
+            android:layout_height="24dp"
+            android:layout_margin="@dimen/margin_small_4dp"
+            android:background="@color/colorAccent"
+            android:orientation="horizontal"
+            app:snp_buttonBackgroundTintSelector="@color/colorPrimary"
+            app:snp_buttonTouchScaleFactor="0.8"
+            app:snp_maxValue="100"
+            app:snp_minValue="0"
+            app:snp_orientation="horizontal"
+            app:snp_stepSize="5"
+            app:snp_value_text_color="@color/colorPrimary" />
+
+        <com.michaelmuenzer.android.scrollablennumberpicker.ScrollableNumberPicker
+            android:id="@+id/threshold_tracker_up_significant"
+            android:layout_width="match_parent"
+            android:layout_height="24dp"
+            android:layout_margin="@dimen/margin_small_4dp"
+            android:background="@color/colorAccent"
+            android:orientation="horizontal"
+            app:snp_buttonBackgroundTintSelector="@color/colorPrimary"
+            app:snp_buttonTouchScaleFactor="0.8"
+            app:snp_maxValue="100"
+            app:snp_minValue="0"
+            app:snp_orientation="horizontal"
+            app:snp_stepSize="5"
+            app:snp_value_text_color="@color/colorPrimary" />
+
+        <com.michaelmuenzer.android.scrollablennumberpicker.ScrollableNumberPicker
+            android:id="@+id/threshold_tracker_up_moderate"
+            android:layout_width="match_parent"
+            android:layout_height="24dp"
+            android:layout_margin="@dimen/margin_small_4dp"
+            android:background="@color/colorAccent"
+            android:orientation="horizontal"
+            app:snp_buttonBackgroundTintSelector="@color/colorPrimary"
+            app:snp_buttonTouchScaleFactor="0.8"
+            app:snp_maxValue="100"
+            app:snp_minValue="0"
+            app:snp_orientation="horizontal"
+            app:snp_stepSize="5"
+            app:snp_value_text_color="@color/colorPrimary" />
+
+        <com.michaelmuenzer.android.scrollablennumberpicker.ScrollableNumberPicker
+            android:id="@+id/threshold_tracker_down_moderate"
+            android:layout_width="match_parent"
+            android:layout_height="24dp"
+            android:layout_margin="@dimen/margin_small_4dp"
+            android:background="@color/colorAccent"
+            android:orientation="horizontal"
+            app:snp_buttonBackgroundTintSelector="@color/colorPrimary"
+            app:snp_buttonTouchScaleFactor="0.8"
+            app:snp_maxValue="0"
+            app:snp_minValue="-100"
+            app:snp_orientation="horizontal"
+            app:snp_stepSize="5"
+            app:snp_value_text_color="@color/colorPrimary" />
+
+        <com.michaelmuenzer.android.scrollablennumberpicker.ScrollableNumberPicker
+            android:id="@+id/threshold_tracker_down_significant"
+            android:layout_width="match_parent"
+            android:layout_height="24dp"
+            android:layout_margin="@dimen/margin_small_4dp"
+            android:background="@color/colorAccent"
+            android:orientation="horizontal"
+            app:snp_buttonBackgroundTintSelector="@color/colorPrimary"
+            app:snp_buttonTouchScaleFactor="0.8"
+            app:snp_maxValue="0"
+            app:snp_minValue="-100"
+            app:snp_orientation="horizontal"
+            app:snp_stepSize="5"
+            app:snp_value_text_color="@color/colorPrimary" />
+
+        <com.michaelmuenzer.android.scrollablennumberpicker.ScrollableNumberPicker
+            android:id="@+id/threshold_tracker_down_extreme"
+            android:layout_width="match_parent"
+            android:layout_height="24dp"
+            android:layout_margin="@dimen/margin_small_4dp"
+            android:background="@color/colorAccent"
+            android:orientation="horizontal"
+            app:snp_buttonBackgroundTintSelector="@color/colorPrimary"
+            app:snp_buttonTouchScaleFactor="0.8"
+            app:snp_maxValue="0"
+            app:snp_minValue="-100"
+            app:snp_orientation="horizontal"
+            app:snp_stepSize="5"
+            app:snp_value_text_color="@color/colorPrimary" />
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

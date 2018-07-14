@@ -4,7 +4,12 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.SharedPreferences
+import android.support.v4.content.ContextCompat
+import makes.flint.alt.R
 import makes.flint.alt.ui.interfaces.SORT_RANK
+import makes.flint.doppel.backgroundproviders.DoppelViewTypeColorProvider
+import makes.flint.doppel.doppelbuilder.DoppelConfigurationBuilder
+import makes.flint.doppel.doppelbuilder.configuration.DoppelConfiguration
 import java.math.RoundingMode
 import java.util.*
 
@@ -24,6 +29,11 @@ private const val EXCHANGE_SOURCE = "exchangeSource"
 private const val MARKET_LIMIT = "marketLimit"
 private const val SORT_BY = "sortBy"
 private const val ICON_PACK = "iconPack"
+private const val COIN_REDRAW_REQUIRED = "coinRedrawRequired"
+private const val TRACKER_REDRAW_REQUIRED = "trackerRedrawRequired"
+private const val MARKET_THRESHOLDS = "marketThresholds"
+private const val TRACKER_THRESHOLDS = "trackerThresholds"
+
 
 object ALTSharedPreferences {
 
@@ -55,13 +65,47 @@ object ALTSharedPreferences {
     fun getExchange(): String = preferences.getString(EXCHANGE_SOURCE, "CCCAGG")
     fun getMarketLimit() = preferences.getInt(MARKET_LIMIT, 1000)
     fun getSort() = preferences.getInt(SORT_BY, SORT_RANK)
+    fun getIconPackId() = preferences.getInt(ICON_PACK, 0)
     fun getIconPack(): IconPack {
-        val packKey = preferences.getInt(ICON_PACK, 0)
+        val packKey = getIconPackId()
         return when (packKey) {
-            0 -> DefaultIconPack()
-            else -> ArrowIconPack()
+            0    -> DefaultIconPack()
+            1    -> ArrowIconPack()
+            2    -> SignalIconPack()
+            3    -> DiceIconPack()
+            else -> DefaultIconPack()
         }
     }
+
+    private var doppelConfiguration: DoppelConfiguration? = null
+
+    fun getDoppelConfiguration(context: Context): DoppelConfiguration {
+        val configuration = doppelConfiguration
+        configuration?.let { return configuration }
+        doppelConfiguration = makeDoppelConfiguration(context)
+        return doppelConfiguration!!
+    }
+
+    private fun makeDoppelConfiguration(context: Context): DoppelConfiguration {
+        val colorProvider = DoppelViewTypeColorProvider(
+            ContextCompat.getColor(context, R.color.colorAccent)
+        )
+        colorProvider.setCornerRadius(context, 5)
+        colorProvider.setShrinkage(context, 3)
+        return DoppelConfigurationBuilder(context)
+            .withBackgroundProvider(colorProvider)
+            .parentViewInclusive(true)
+            .build()
+    }
+
+    fun getCoinListRedrawRequired() = preferences.getBoolean(COIN_REDRAW_REQUIRED, false)
+
+    fun getTrackerListRedrawRequired() = preferences.getBoolean(TRACKER_REDRAW_REQUIRED, false)
+
+    fun setTrackerListRedrawRequired(required: Boolean) =
+        putBoolean(TRACKER_REDRAW_REQUIRED, required)
+
+    fun setCoinListRedrawRequired(required: Boolean) = putBoolean(COIN_REDRAW_REQUIRED, required)
 
     fun setSort(sort: Int) = putInt(SORT_BY, sort)
 
@@ -94,24 +138,31 @@ object ALTSharedPreferences {
             .putBoolean(key, value)
             .commit()
     }
-}
 
-object POHSettings {
+    private val marketDefaults = listOf(50f, 15f, 5f, -5f, -15f, -50f)
+    private val trackerDefaults = listOf(1.5f, 0.5f, 0.15f, -0.1f, -0.25f, -0.5f)
 
-    // Market Thresholds
-    internal var changeUp3 = 50f
-    internal var changeUp2 = 15f
-    internal var changeUp1 = 5f
-    internal var changeDown1 = -5f
-    internal var changeDown2 = -15f
-    internal var changeDown3 = -50f
+    fun getValueForMarketThreshold(index: Int): Float {
+        val key = MARKET_THRESHOLDS + index
+        val default = marketDefaults[index]
+        return preferences.getFloat(key, default)
+    }
 
-    // Portfolio Thresholds
+    fun getValueForTrackerThreshold(index: Int): Float {
+        val key = TRACKER_THRESHOLDS + index
+        val default = trackerDefaults[index]
+        return preferences.getFloat(key, default)
+    }
 
-    internal var trackerChangeUp3 = 1.5f
-    internal var trackerChangeUp2 = 0.1f
-    internal var trackerChangeUp1 = 0.2f
-    internal var trackerChangeDown1 = -0.2f
-    internal var trackerChangeDown2 = -0.4f
-    internal var trackerChangeDown3 = -0.6f
+    @SuppressLint("ApplySharedPref")
+    fun setValueForMarketThreshold(index: Int, value: Float) {
+        val key = MARKET_THRESHOLDS + index
+        preferences.edit().putFloat(key, value).commit()
+    }
+
+    @SuppressLint("ApplySharedPref")
+    fun setValueForTrackerThreshold(index: Int, value: Float) {
+        val key = TRACKER_THRESHOLDS + index
+        preferences.edit().putFloat(key, value).commit()
+    }
 }

@@ -5,6 +5,7 @@ import com.github.mikephil.charting.utils.Utils
 import com.jakewharton.threetenabp.AndroidThreeTen
 import io.realm.Realm
 import io.realm.RealmConfiguration
+import makes.flint.alt.R
 import makes.flint.alt.configuration.ALTSharedPreferences
 import makes.flint.alt.injection.components.DaggerDataComponent
 import makes.flint.alt.injection.components.DaggerPresenterComponent

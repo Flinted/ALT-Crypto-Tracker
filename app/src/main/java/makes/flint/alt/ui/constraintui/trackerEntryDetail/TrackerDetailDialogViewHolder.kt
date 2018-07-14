@@ -1,5 +1,6 @@
 package makes.flint.alt.ui.constraintui.trackerEntryDetail
 
+import android.support.design.widget.FloatingActionButton
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.ImageView
@@ -7,10 +8,10 @@ import android.widget.TextView
 import makes.flint.alt.R
 
 /**
- * TrackerEntryDialogViewHolder
+ * TrackerDetailDialogViewHolder
  * Copyright © 2018 ChrisDidThis. All rights reserved.
  */
-class TrackerEntryDialogViewHolder(view: View) {
+class TrackerDetailDialogViewHolder(view: View) {
 
     internal var deleteButton: ImageView = view.findViewById(R.id.dialog_tracker_delete)
     internal var coinName: TextView = view.findViewById(R.id.dialog_tracker_coin_name)
@@ -20,4 +21,5 @@ class TrackerEntryDialogViewHolder(view: View) {
     internal var currentValueBTC: TextView = view.findViewById(R.id.dialog_tracker_current_value_BTC)
     internal var percentageChange: TextView = view.findViewById(R.id.dialog_tracker_percentage_change)
     internal var transactionsList: RecyclerView = view.findViewById(R.id.dialog_tracker_transactions_recycler)
+    internal var addAssetButton: FloatingActionButton = view.findViewById(R.id.dialog_tracker_add_coin_button)
 }

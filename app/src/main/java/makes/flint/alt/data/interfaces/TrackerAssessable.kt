@@ -1,6 +1,6 @@
 package makes.flint.alt.data.interfaces
 
-import makes.flint.alt.configuration.POHSettings
+import makes.flint.alt.configuration.ALTSharedPreferences
 import makes.flint.alt.data.coinListItem.*
 import java.math.BigDecimal
 
@@ -12,19 +12,19 @@ interface TrackerAssessable {
 
     // Properties
 
-    var percentageChange : BigDecimal
+    var percentageChange: BigDecimal
 }
 
 fun TrackerAssessable.assessChange(): Int {
     val floatChange = percentageChange.toFloat()
     return when {
-        floatChange > POHSettings.trackerChangeUp3 -> CHANGE_UP_EXTREME
-        floatChange > POHSettings.trackerChangeUp2 -> CHANGE_UP_SIGNIFICANT
-        floatChange > POHSettings.trackerChangeUp1 -> CHANGE_UP_MODERATE
-        floatChange < POHSettings.trackerChangeDown3 -> CHANGE_DOWN_EXTREME
-        floatChange < POHSettings.trackerChangeDown2 -> CHANGE_DOWN_SIGNIFICANT
-        floatChange < POHSettings.trackerChangeDown1 -> CHANGE_DOWN_MODERATE
-        floatChange < 0f -> CHANGE_STATIC_NEGATIVE
-        else -> CHANGE_STATIC_POSITIVE
+        floatChange > ALTSharedPreferences.getValueForTrackerThreshold(0) -> CHANGE_UP_EXTREME
+        floatChange > ALTSharedPreferences.getValueForTrackerThreshold(1) -> CHANGE_UP_SIGNIFICANT
+        floatChange > ALTSharedPreferences.getValueForTrackerThreshold(2) -> CHANGE_UP_MODERATE
+        floatChange < ALTSharedPreferences.getValueForTrackerThreshold(5) -> CHANGE_DOWN_EXTREME
+        floatChange < ALTSharedPreferences.getValueForTrackerThreshold(4) -> CHANGE_DOWN_SIGNIFICANT
+        floatChange < ALTSharedPreferences.getValueForTrackerThreshold(3) -> CHANGE_DOWN_MODERATE
+        floatChange < 0f                                                  -> CHANGE_STATIC_NEGATIVE
+        else                                                              -> CHANGE_STATIC_POSITIVE
     }
 }

@@ -4,19 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/tracker_search_input"
+    <makes.flint.alt.ui.search.SearchSummaryView
+        android:id="@+id/tracker_summary_search_bar"
         android:layout_width="0dp"
-        android:layout_height="30dp"
-        android:background="@drawable/background_gradient_270"
-        android:clickable="true"
-        android:focusable="true"
-        android:gravity="center"
-        android:hint="Tap to Search"
-        android:inputType="textNoSuggestions"
-        android:textColor="@color/colorOffWhite"
-        android:textColorHint="@color/colorAccent"
-        android:textSize="@dimen/text_size_small"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -25,15 +16,15 @@
         android:id="@+id/tracker_refresh_layout"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@drawable/background_gradient_90"
+        android:background="@color/colorPrimary"
         android:clickable="true"
         android:focusable="true"
-        android:paddingStart="@dimen/margin_small_4dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:padding="@dimen/margin_small_4dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tracker_search_input">
+        app:layout_constraintTop_toBottomOf="@id/tracker_summary_search_bar">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/tracker_recycler_view"
@@ -43,4 +34,16 @@
             android:padding="@dimen/grid_spacing" />
     </android.support.v4.widget.SwipeRefreshLayout>
 
+    <TextView
+        android:id="@+id/tracker_list_no_entries_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableTop="@drawable/ic_down_moderate_24dp"
+        android:text="Nothing here yet, hit + to add some!"
+        android:textColor="@color/colorOffWhite"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </android.support.constraint.ConstraintLayout>

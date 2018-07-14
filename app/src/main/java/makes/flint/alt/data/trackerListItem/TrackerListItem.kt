@@ -46,6 +46,10 @@ class TrackerListItem(
         return associatedCoin?.priceData?.priceUSDFormatted ?: ""
     }
 
+    internal fun getSearchId(): String? {
+        return associatedCoin?.searchKey
+    }
+
     // Private Functions
 
     private fun makeAmountSpent(): BigDecimal {
@@ -153,5 +157,9 @@ class TrackerListItem(
         val roundingMode = ALTSharedPreferences.getRoundingMode()
         val dollarCostAverage = purchasePriceTotal.divide(numberOwned, roundingMode)
         return dollarCostAverage.setScale(2, roundingMode)
+    }
+
+    fun isNegative(): Boolean {
+        return percentageChange < BigDecimal.ZERO
     }
 }

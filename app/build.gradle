@@ -50,6 +50,7 @@ dependencies {
     final RXJAVA_VERSION = '1.1.6'
     final MOCKITO_VERSION = '2.6.3'
     final ESPRESSO_VERSION = '2.2.2'
+    final SCROLLABLE_NUMBER_VERSION = '0.2.2'
     final SPOON_VERSION = '1.7.1'
     final SUPPORT_TEST_VERSION = '0.5'
     final UI_AUTOMATOR_VERSION = '2.1.2'
@@ -57,6 +58,11 @@ dependencies {
 
     // Welcome
     implementation 'com.stephentuso:welcome:1.4.1'
+
+    // ScrollableNumberPicker
+    implementation "com.michaelmuenzer.android:ScrollableNumberPicker:$SCROLLABLE_NUMBER_VERSION"
+
+    implementation 'com.android.billingclient:billing:1.1'
 
     //Anko
     implementation "org.jetbrains.anko:anko-support-v4:$ANKO_VERSION"
@@ -79,16 +85,16 @@ dependencies {
     implementation "com.github.PhilJay:MPAndroidChart:$MP_ANDROID_CHART_VERSION"
 
     // Retrofit
-    api "com.google.code.gson:gson:$GSON_VERSION"
-    api "com.squareup.retrofit2:retrofit:$RETROFIT_VERSION"
-    api "com.squareup.retrofit2:converter-gson:$RETROFIT_VERSION"
-    api "com.squareup.retrofit2:adapter-rxjava:$RETROFIT_VERSION"
-    api "com.squareup.okhttp3:logging-interceptor:$LOGGING_INTERCEPTOR_VERSION"
-    api "com.squareup.okhttp3:okhttp:$OKHTTP_VERSION"
+    implementation "com.google.code.gson:gson:$GSON_VERSION"
+    implementation "com.squareup.retrofit2:retrofit:$RETROFIT_VERSION"
+    implementation "com.squareup.retrofit2:converter-gson:$RETROFIT_VERSION"
+    implementation "com.squareup.retrofit2:adapter-rxjava:$RETROFIT_VERSION"
+    implementation "com.squareup.okhttp3:logging-interceptor:$LOGGING_INTERCEPTOR_VERSION"
+    implementation "com.squareup.okhttp3:okhttp:$OKHTTP_VERSION"
 
     // RX
-    api "io.reactivex:rxjava:$RXJAVA_VERSION"
-    api "io.reactivex:rxandroid:$RXANDROID_VERSION"
+    implementation "io.reactivex:rxjava:$RXJAVA_VERSION"
+    implementation "io.reactivex:rxandroid:$RXANDROID_VERSION"
 
     // ThreeTenABP
     implementation "com.jakewharton.threetenabp:threetenabp:$THREE_TEN_VERSION"

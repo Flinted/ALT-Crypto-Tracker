@@ -1,7 +1,6 @@
 package makes.flint.alt.data.dataController.dataManagers
 
 import makes.flint.alt.configuration.ALTSharedPreferences
-import makes.flint.alt.configuration.POHSettings
 import makes.flint.alt.data.dataController.callbacks.RepositoryCallbackSingle
 import makes.flint.alt.data.dataController.dataSource.DataSource
 import makes.flint.alt.data.response.coinSummary.SummaryCoinResponse

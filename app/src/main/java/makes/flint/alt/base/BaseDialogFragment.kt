@@ -38,10 +38,17 @@ open class BaseDialogFragment : DialogFragment() {
 
     protected fun getBaseApplication(): BaseApplication = activity.application as BaseApplication
 
-    protected fun getPresenterComponent(): PresenterComponent = getBaseApplication().getPresenterComponent()
+    protected fun getPresenterComponent(): PresenterComponent =
+        getBaseApplication().getPresenterComponent()
 
     protected fun attachPresenter(presenter: BaseContractPresenter<*>) {
         this.presenter = presenter
+    }
+
+    protected fun showKeyboard() {
+        val imm =
+            (activity as FragmentActivity).getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0)
     }
 
     protected fun hideKeyboard(windowToken: IBinder) {

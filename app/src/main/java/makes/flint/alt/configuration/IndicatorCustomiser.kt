@@ -23,4 +23,8 @@ class IndicatorCustomiser constructor(internal var icons: IconPack) {
     }
 
     fun getColor(state: Int) = icons.getColor(state)
+
+    fun updateIconPack(iconPack: IconPack) {
+        this.icons = iconPack
+    }
 }

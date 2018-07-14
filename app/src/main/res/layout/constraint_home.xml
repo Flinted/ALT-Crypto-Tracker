@@ -9,16 +9,21 @@
     <FrameLayout
         android:id="@+id/frame_top"
         android:layout_width="0dp"
-        android:layout_height="120dp"
+        android:layout_height="0dp"
+        app:layout_constraintVertical_chainStyle="spread"
+        app:layout_constraintVertical_weight="7"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/frame_centre"
         />
 
     <FrameLayout
         android:id="@+id/frame_centre"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        app:layout_constraintVertical_chainStyle="spread"
+        app:layout_constraintVertical_weight="3"
         app:layout_constraintBottom_toTopOf="@id/frame_bottom"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,7 +33,10 @@
     <FrameLayout
         android:id="@+id/frame_bottom"
         android:layout_width="0dp"
-        android:layout_height="450dp"
+        android:layout_height="0dp"
+        app:layout_constraintVertical_chainStyle="spread"
+        app:layout_constraintVertical_weight="10"
+        app:layout_constraintTop_toBottomOf="@id/frame_centre"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

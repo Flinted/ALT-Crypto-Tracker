@@ -10,7 +10,7 @@ import makes.flint.alt.layoutCoordination.viewTransitions.viewActions.Clear
 import makes.flint.alt.layoutCoordination.viewTransitions.viewActions.Replace
 import makes.flint.alt.layoutCoordination.viewTransitions.viewActions.ViewAction
 import makes.flint.alt.layoutCoordination.viewTransitions.viewActions.ViewTransition
-import makes.flint.alt.ui.constraintui.trackerChart.TrackerChartFragment
+import makes.flint.alt.ui.constraintui.trackerBarChart.TrackerBarChartFragment
 
 /**
  * HomeTransition
@@ -23,7 +23,7 @@ class HomeTransition(context: Context) : ViewStateTransition {
     override val constraintSet = ConstraintSet()
 
     init {
-        val replaceCentre = Replace(R.id.frame_centre, TrackerChartFragment::class.java)
+        val replaceCentre = Replace(R.id.frame_top, TrackerBarChartFragment::class.java)
         val transition = ViewTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
         val clearPopBottom = Clear(R.id.pop_frame_bottom)
         val clearPopTop = Clear(R.id.pop_frame_top)

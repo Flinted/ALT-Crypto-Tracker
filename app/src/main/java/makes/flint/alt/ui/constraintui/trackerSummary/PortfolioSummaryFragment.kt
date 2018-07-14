@@ -60,8 +60,12 @@ class PortfolioSummaryFragment : BaseFragment(), PortfolioContractView {
     }
 
     override fun updateForSummary(summary: Summary) {
+        hideLoading()
         setAmountValues(summary)
-        views.changePercentage.text = summary.percentageChangeFormatted()
+        views.changePercentage.text = getString(
+            R.string.fragment_summary_value_change,
+            summary.percentageChangeFormatted()
+        )
         val customizer = IndicatorCustomiser(ALTSharedPreferences.getIconPack())
         val status = summary.assessChange()
         val changeColor = customizer.getColor(status)
@@ -76,14 +80,15 @@ class PortfolioSummaryFragment : BaseFragment(), PortfolioContractView {
         setActualValues(summary)
     }
 
-    private fun setHiddenValues() {
-        val hiddenString = "HIDDEN"
-        views.initialValue.text =
-                getString(R.string.fragment_summary_initial_value, hiddenString)
-        views.currentValueUSD.text =
-                getString(R.string.fragment_summary_current_value_usd, hiddenString)
-        views.currentValueBTC.text =
-                getString(R.string.fragment_summary_current_value_btc, hiddenString)
+
+    override fun showLoading() {
+        views.summaryFAB.isEnabled = false
+        views.progressSpinner.visibility = View.VISIBLE
+    }
+
+    override fun hideLoading() {
+        views.summaryFAB.isEnabled = true
+        views.progressSpinner.visibility = View.GONE
     }
 
     private fun setActualValues(summary: Summary) {
@@ -98,6 +103,22 @@ class PortfolioSummaryFragment : BaseFragment(), PortfolioContractView {
                 getString(
                     R.string.fragment_summary_current_value_btc,
                     summary.currentValueBTCFormatted()
+                )
+    }
+
+    private fun setHiddenValues() {
+        val hidden = "???????.??"
+        views.initialValue.text =
+                getString(R.string.fragment_summary_initial_value, hidden)
+        views.currentValueUSD.text =
+                getString(
+                    R.string.fragment_summary_current_value_usd,
+                    hidden
+                )
+        views.currentValueBTC.text =
+                getString(
+                    R.string.fragment_summary_current_value_btc,
+                    hidden
                 )
     }
 }

@@ -1,6 +1,6 @@
 package makes.flint.alt.data.coinListItem
 
-import makes.flint.alt.configuration.POHSettings
+import makes.flint.alt.configuration.ALTSharedPreferences
 import makes.flint.alt.data.response.CoinResponse
 
 /**
@@ -30,14 +30,14 @@ class ChangeData(coinResponse: CoinResponse) {
         change ?: return CHANGE_UNKNOWN
         val floatChange = change.toFloat()
         return when {
-            floatChange > POHSettings.changeUp3 -> CHANGE_UP_EXTREME
-            floatChange > POHSettings.changeUp2 -> CHANGE_UP_SIGNIFICANT
-            floatChange > POHSettings.changeUp1 -> CHANGE_UP_MODERATE
-            floatChange < POHSettings.changeDown3 -> CHANGE_DOWN_EXTREME
-            floatChange < POHSettings.changeDown2 -> CHANGE_DOWN_SIGNIFICANT
-            floatChange < POHSettings.changeDown1 -> CHANGE_DOWN_MODERATE
-            floatChange < 0f -> CHANGE_STATIC_NEGATIVE
-            else -> CHANGE_STATIC_POSITIVE
+            floatChange > ALTSharedPreferences.getValueForMarketThreshold(0) -> CHANGE_UP_EXTREME
+            floatChange > ALTSharedPreferences.getValueForMarketThreshold(1) -> CHANGE_UP_SIGNIFICANT
+            floatChange > ALTSharedPreferences.getValueForMarketThreshold(2) -> CHANGE_UP_MODERATE
+            floatChange < ALTSharedPreferences.getValueForMarketThreshold(5) -> CHANGE_DOWN_EXTREME
+            floatChange < ALTSharedPreferences.getValueForMarketThreshold(4) -> CHANGE_DOWN_SIGNIFICANT
+            floatChange < ALTSharedPreferences.getValueForMarketThreshold(3) -> CHANGE_DOWN_MODERATE
+            floatChange < 0f                                                 -> CHANGE_STATIC_NEGATIVE
+            else                                                             -> CHANGE_STATIC_POSITIVE
         }
     }
 }
