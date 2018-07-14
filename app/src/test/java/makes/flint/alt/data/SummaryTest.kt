@@ -1,8 +1,8 @@
-package makes.flint.alt.data
+package did.chris.alt.data
 
 import junit.framework.Assert.assertEquals
 import junit.framework.Assert.assertNotNull
-import makes.flint.alt.data.trackerListItem.TrackerListItem
+import did.chris.alt.data.trackerListItem.TrackerListItem
 import org.junit.Before
 import org.junit.Test
 import java.math.BigDecimal

@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:focusableInTouchMode="true">
 
-    <makes.flint.alt.ui.search.SearchSummaryView
+    <did.chris.alt.ui.search.SearchSummaryView
         android:id="@+id/coin_list_search_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

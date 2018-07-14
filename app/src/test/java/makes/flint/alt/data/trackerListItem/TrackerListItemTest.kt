@@ -1,8 +1,8 @@
-package makes.flint.alt.data.trackerListItem
+package did.chris.alt.data.trackerListItem
 
 import junit.framework.Assert.assertEquals
-import makes.flint.alt.data.TimeStamp
-import makes.flint.alt.data.tracker.TrackerDataTransaction
+import did.chris.alt.data.TimeStamp
+import did.chris.alt.data.tracker.TrackerDataTransaction
 import org.junit.Before
 import org.junit.Test
 import java.math.BigDecimal

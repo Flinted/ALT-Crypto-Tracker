@@ -15,7 +15,7 @@ android {
     flavorDimensions "default"
     compileSdkVersion 27
     defaultConfig {
-        applicationId "makes.flint.alt"
+        applicationId "did.chris.alt"
         minSdkVersion 21
         targetSdkVersion 27
         versionCode 3
@@ -117,7 +117,6 @@ dependencies {
     androidTestImplementation "com.android.support.test.espresso:espresso-core:$ESPRESSO_VERSION"
     androidTestImplementation "com.squareup.spoon:spoon-client:$SPOON_VERSION"
     androidTestImplementation "com.android.support.test.uiautomator:uiautomator-v18:$UI_AUTOMATOR_VERSION"
-    implementation(name: "doppel-debug", ext: "aar")
 
     // Test Dependencies
     implementation fileTree(include: ['*.jar', '.aar'], dir: 'libs')
