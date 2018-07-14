@@ -79,10 +79,10 @@ class LayoutActivity : BaseActivity(), LayoutActivityContractView, LayoutCoordin
     override fun onBackPressed() {
         val currentViewState = coordinator.currentViewState
         val viewKey = when (currentViewState) {
-            coin, coinSearch, tracker -> home
-            trackerSearch             -> tracker
-            addCoin                   -> tracker
-            else                      -> null
+            coin, coinToSearch, coinToTracker -> home
+            trackerToSearch                   -> searchToTracker
+            coinToAddCoin                     -> coinToTracker
+            else                              -> null
         }
         viewKey?.let {
             updateLayout(viewKey)

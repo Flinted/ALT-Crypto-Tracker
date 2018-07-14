@@ -41,6 +41,11 @@ class Summary(
         return NumberFormatter.formatCurrency(rounded, 2)
     }
 
+    fun profitLossFormatted(): String {
+        val difference = currentFiatValue.minus(initialValue)
+        return NumberFormatter.formatCurrency(difference, 2)
+    }
+
     fun currentStandingFormatted(): String {
         val rounded = currentStanding.setScale(2, ALTSharedPreferences.getRoundingMode())
         return NumberFormatter.formatCurrency(rounded, 2)

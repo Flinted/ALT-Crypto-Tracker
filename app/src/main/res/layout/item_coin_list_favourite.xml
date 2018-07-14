@@ -8,6 +8,7 @@
     android:clickable="true"
     android:focusable="true"
     android:foreground="?android:attr/selectableItemBackground"
+    android:background="@color/colorPrimaryFade"
     android:paddingEnd="@dimen/margin_large_8dp"
     android:paddingStart="@dimen/margin_large_8dp"
     android:elevation="@dimen/margin_large_8dp">
@@ -19,6 +20,7 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginEnd="@dimen/margin_large_8dp"
+        android:layout_marginTop="@dimen/margin_small_4dp"
         android:contentDescription="@string/item_coinList_image_favourite_checked"
         android:src="@drawable/ic_favorite_24dp"
         android:tag="checked"

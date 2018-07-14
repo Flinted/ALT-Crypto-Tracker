@@ -5,10 +5,6 @@ import makes.flint.alt.utility.NumberFormatter
 import java.math.BigDecimal
 import java.math.RoundingMode
 
-/**
- * PriceData
- * Copyright © 2018 ChrisDidThis. All rights reserved.
- */
 private const val ONE_BILLION = "1000000000"
 private const val NO_INFORMATION = ""
 private const val THRESHOLD_3_DECIMAL = "0.99"
@@ -30,12 +26,7 @@ class PriceData(coinResponse: CoinResponse) {
 
     private fun priceUSDFormatted(): String {
         priceUSD ?: return "No Price"
-        val formatted = NumberFormatter.formatCurrencyAutomaticDigit(priceUSD)
-        if(formatted.length <3) {
-            println("$priceUSD unformatted: ${formatted}")
-            val wut = NumberFormatter.formatCurrencyAutomaticDigit(priceUSD)
-        }
-        return formatted
+        return NumberFormatter.formatCurrencyAutomaticDigit(priceUSD)
     }
 
     private fun createStabilisedPrice(): String {

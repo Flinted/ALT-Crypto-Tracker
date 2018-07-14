@@ -19,11 +19,12 @@ import javax.inject.Inject
 const val loading = "LOADING"
 const val home = "HOME"
 const val coin = "COIN"
-const val addCoin = "ADDCOIN"
-const val tracker = "TRACKER"
-const val trackerSearch = "TRACKERSEARCH"
+const val coinToAddCoin = "ADDCOIN"
+const val coinToTracker = "TRACKER"
+const val trackerToSearch = "TRACKERSEARCH"
+const val searchToTracker = "SEARCHTRACKER"
 const val error = "ERROR"
-const val coinSearch = "SEARCH"
+const val coinToSearch = "SEARCH"
 
 @UserScope
 class LayoutCoordinator @Inject constructor(context: Context) {
@@ -34,15 +35,17 @@ class LayoutCoordinator @Inject constructor(context: Context) {
 
     private fun makeConstraintSetsMap(context: Context) = mutableMapOf(
         home to HomeTransition(context),
-        coinSearch to HomeToSearchTransition(context),
-        tracker to HomeToTrackerTransition(context),
-        trackerSearch to TrackerToSearchTransition(context)
+        coinToSearch to HomeToSearchTransition(context),
+        coinToTracker to HomeToTrackerTransition(context),
+        trackerToSearch to TrackerToSearchTransition(context),
+        searchToTracker to SearchToTrackerTransition(context)
     )
 
-    internal fun changeConstraints(viewKey: String,
-                                   masterLayout: ConstraintLayout,
-                                   fragmentManager: FragmentManager,
-                                   viewStateTransition: ViewStateTransition? = null
+    internal fun changeConstraints(
+        viewKey: String,
+        masterLayout: ConstraintLayout,
+        fragmentManager: FragmentManager,
+        viewStateTransition: ViewStateTransition? = null
     ) {
         if (currentViewState == viewKey) {
             return
@@ -58,9 +61,11 @@ class LayoutCoordinator @Inject constructor(context: Context) {
         updateForViewStateTransition(viewState, masterLayout, fragmentManager)
     }
 
-    private fun updateForViewStateTransition(viewStateTransition: ViewStateTransition,
-                                              masterLayout: ConstraintLayout,
-                                              fragmentManager: FragmentManager) {
+    private fun updateForViewStateTransition(
+        viewStateTransition: ViewStateTransition,
+        masterLayout: ConstraintLayout,
+        fragmentManager: FragmentManager
+    ) {
         viewStateTransition.preExecute(fragmentManager, masterLayout)
         val transition = AutoTransition()
         transition.addListener(object : TransitionListener {

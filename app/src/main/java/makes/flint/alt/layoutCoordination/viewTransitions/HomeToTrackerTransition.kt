@@ -12,10 +12,6 @@ import makes.flint.alt.layoutCoordination.viewTransitions.viewActions.ViewTransi
 import makes.flint.alt.ui.constraintui.portfoliopiechart.PortfolioPieChartFragment
 import makes.flint.alt.ui.constraintui.trackerList.TrackerListFragment
 
-/**
- * HomeToTrackerTransition
- * Copyright © 2018 Intelligent Loyalty Limited. All rights reserved.
- */
 class HomeToTrackerTransition(context: Context) : ViewStateTransition {
 
     private val transactions: List<ViewAction<FragmentTransaction>>

@@ -14,10 +14,6 @@ import makes.flint.alt.ui.constraintui.coinDetail.coinDetailChart.CoinDetailChar
 import makes.flint.alt.ui.constraintui.coinDetail.coinDetailSummary.COIN_SYMBOL_KEY
 import makes.flint.alt.ui.constraintui.coinDetail.coinDetailSummary.CoinDetailSummary
 
-/**
- * HomeToCoinDetailTransition
- * Copyright © 2018 Intelligent Loyalty Limited. All rights reserved.
- */
 class HomeToCoinDetailTransition(context: Context, coinSymbol: String) : ViewStateTransition {
 
     private val transactions: List<ViewAction<FragmentTransaction>>

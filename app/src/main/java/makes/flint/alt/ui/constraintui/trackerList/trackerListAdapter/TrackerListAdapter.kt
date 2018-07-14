@@ -103,7 +103,7 @@ class TrackerListAdapter(presenterComponent: PresenterComponent, private val scr
     }
 
     private fun setHiddenValues(viewHolder: TrackerListViewHolder) {
-        val hiddenValue = "???????.??"
+        val hiddenValue = viewHolder.getContext().getString(R.string.hidden_values)
         viewHolder.currentValue.text = hiddenValue
         viewHolder.numberOwned.text = hiddenValue
     }

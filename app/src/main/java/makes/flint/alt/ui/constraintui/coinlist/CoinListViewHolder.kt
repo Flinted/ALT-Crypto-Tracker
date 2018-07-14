@@ -13,7 +13,7 @@ import makes.flint.alt.ui.search.SearchSummaryView
  */
 class CoinListViewHolder(view: View) {
     internal var coinList: RecyclerView = view.findViewById(R.id.coin_list_recycler_view)
-//    internal var coinSearch: EditText = view.findViewById(R.id.coin_list_search_input)
+//    internal var coinToSearch: EditText = view.findViewById(R.id.coin_list_search_input)
     internal var coinSearchBar: SearchSummaryView = view.findViewById(R.id.coin_list_search_bar)
 //    internal var marketSummary: ConstraintLayout = view.findViewById(R.id.market_summary_container)
 //    internal var marketTotalCap: TextView = view.findViewById(R.id.market_summary_marketcap)

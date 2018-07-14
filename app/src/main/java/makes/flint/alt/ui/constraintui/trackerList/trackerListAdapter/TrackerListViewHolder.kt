@@ -22,4 +22,5 @@ class TrackerListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) 
     val currentValue: TextView = itemView.findViewById(R.id.value)
     val indicator: ImageView = itemView.findViewById(R.id.indicator)
     val currentProfit: TextView = itemView.findViewById(R.id.current_profit_change)
+    fun getContext() = itemContent.context
 }

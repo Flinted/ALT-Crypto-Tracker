@@ -8,6 +8,7 @@
     android:clickable="true"
     android:focusable="true"
     android:foreground="?android:attr/selectableItemBackground"
+    android:background="@drawable/background_gradient_225"
     android:paddingEnd="@dimen/margin_large_8dp"
     android:paddingStart="@dimen/margin_large_8dp">
 
@@ -20,6 +21,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginEnd="@dimen/margin_large_8dp"
+        android:layout_marginTop="@dimen/margin_small_4dp"
         android:contentDescription="@string/item_coinList_image_favourite_unchecked"
         android:src="@drawable/ic_favorite_border_24dp"
         android:tag="unchecked" />

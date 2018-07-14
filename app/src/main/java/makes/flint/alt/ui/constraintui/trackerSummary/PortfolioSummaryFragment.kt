@@ -12,7 +12,7 @@ import makes.flint.alt.configuration.ALTSharedPreferences
 import makes.flint.alt.configuration.IndicatorCustomiser
 import makes.flint.alt.data.Summary
 import makes.flint.alt.data.interfaces.assessChange
-import makes.flint.alt.layoutCoordination.tracker
+import makes.flint.alt.layoutCoordination.coinToTracker
 import makes.flint.alt.ui.constraintui.layoutCoordinator.LayoutCoordinatable
 import makes.flint.alt.ui.settings.SettingsActivity
 
@@ -52,7 +52,7 @@ class PortfolioSummaryFragment : BaseFragment(), PortfolioContractView {
 
     override fun setFABOnClickListener() {
         views.summaryFAB.setOnClickListener {
-            (activity as LayoutCoordinatable).updateLayout(tracker)
+            (activity as LayoutCoordinatable).updateLayout(coinToTracker)
         }
         views.settingsFAB.setOnClickListener {
             SettingsActivity.start(activity as Activity)
@@ -62,10 +62,6 @@ class PortfolioSummaryFragment : BaseFragment(), PortfolioContractView {
     override fun updateForSummary(summary: Summary) {
         hideLoading()
         setAmountValues(summary)
-        views.changePercentage.text = getString(
-            R.string.fragment_summary_value_change,
-            summary.percentageChangeFormatted()
-        )
         val customizer = IndicatorCustomiser(ALTSharedPreferences.getIconPack())
         val status = summary.assessChange()
         val changeColor = customizer.getColor(status)
@@ -74,7 +70,7 @@ class PortfolioSummaryFragment : BaseFragment(), PortfolioContractView {
 
     private fun setAmountValues(summary: Summary) {
         if (ALTSharedPreferences.getValuesHidden()) {
-            setHiddenValues()
+            setHiddenValues(summary)
             return
         }
         setActualValues(summary)
@@ -104,10 +100,15 @@ class PortfolioSummaryFragment : BaseFragment(), PortfolioContractView {
                     R.string.fragment_summary_current_value_btc,
                     summary.currentValueBTCFormatted()
                 )
+        views.changePercentage.text = getString(
+            R.string.fragment_summary_value_change,
+            summary.profitLossFormatted(),
+            summary.percentageChangeFormatted()
+        )
     }
 
-    private fun setHiddenValues() {
-        val hidden = "???????.??"
+    private fun setHiddenValues(summary: Summary) {
+        val hidden = getString(R.string.hidden_values)
         views.initialValue.text =
                 getString(R.string.fragment_summary_initial_value, hidden)
         views.currentValueUSD.text =
@@ -120,5 +121,10 @@ class PortfolioSummaryFragment : BaseFragment(), PortfolioContractView {
                     R.string.fragment_summary_current_value_btc,
                     hidden
                 )
+        views.changePercentage.text = getString(
+            R.string.fragment_summary_value_change,
+            hidden,
+            summary.percentageChangeFormatted()
+        )
     }
 }

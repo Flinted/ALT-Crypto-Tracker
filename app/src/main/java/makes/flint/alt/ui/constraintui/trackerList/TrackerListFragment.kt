@@ -12,8 +12,8 @@ import makes.flint.alt.R
 import makes.flint.alt.base.BaseFragment
 import makes.flint.alt.data.response.marketSummary.MarketSummaryResponse
 import makes.flint.alt.data.trackerListItem.TrackerListItem
-import makes.flint.alt.layoutCoordination.tracker
-import makes.flint.alt.layoutCoordination.trackerSearch
+import makes.flint.alt.layoutCoordination.searchToTracker
+import makes.flint.alt.layoutCoordination.trackerToSearch
 import makes.flint.alt.ui.constraintui.layoutCoordinator.LayoutCoordinatable
 import makes.flint.alt.ui.constraintui.trackerEntryDetail.TrackerDetailDialog
 import makes.flint.alt.ui.constraintui.trackerList.trackerListAdapter.TrackerAdapterContractView
@@ -110,11 +110,11 @@ class TrackerListFragment : BaseFragment(), TrackerContractView, FilterView, Lis
             }
 
             override fun searchStateRequested() {
-                (activity as LayoutCoordinatable).updateLayout(trackerSearch)
+                (activity as LayoutCoordinatable).updateLayout(trackerToSearch)
             }
 
             override fun cancelSearchRequested() {
-                (activity as LayoutCoordinatable).updateLayout(tracker)
+                (activity as LayoutCoordinatable).updateLayout(searchToTracker)
             }
 
             override fun newSearchQuery(query: String) {

@@ -5,10 +5,6 @@ import junit.framework.Assert.assertNotNull
 import org.junit.Before
 import org.junit.Test
 
-/**
- * TimeStampTest
- * Copyright © 2018 ChrisDidThis. All rights reserved.
- */
 class TimeStampTest {
     private lateinit var timeStamp: TimeStamp
 

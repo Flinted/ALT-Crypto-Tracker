@@ -98,7 +98,7 @@
     <string name="fragment_summary_initial_value">Initial(USD): %1$s</string>
     <string name="fragment_summary_value_spent">Value Spent: %1$s</string>
     <string name="fragment_summary_value_sold">Value Sold: %1$s</string>
-    <string name="fragment_summary_value_change">Change: %1$s</string>
+    <string name="fragment_summary_value_change">Change: %1$s (%2$s)</string>
 
     <!--TRACKER FRAGMENT-->
     <string name="fragment_tracker_image_show_snapshots">Show snapshots button</string>
@@ -152,6 +152,7 @@
     <string name="icon_pack_arrows">"Arrows"</string>
     <string name="icon_pack_signals">"Signal Strength"</string>
     <string name="icon_pack_dice">"Dice"</string>
+    <string name="hidden_values">\???????.??</string>
     <!--Settings Arrays-->
 
     <string-array name="market_size_options">

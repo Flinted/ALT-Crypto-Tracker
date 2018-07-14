@@ -69,7 +69,7 @@ class PortfolioPieChartFragment : BaseFragment(), PortfolioContractView {
         }
         val newCoinDetail = AddCoinDialogFragment.createForAsset(null)
         newCoinDetail.show(fragmentManager, "AddCoinDialog")
-//        (activity as LayoutCoordinatable).updateLayout(addCoin)
+//        (activity as LayoutCoordinatable).updateLayout(coinToAddCoin)
     }
 
     override fun updateForSummary(summary: Summary) {
