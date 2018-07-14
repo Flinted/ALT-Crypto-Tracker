@@ -89,6 +89,4 @@ class CoinListAdapterPresenter @Inject constructor(private var dataController: D
         adapter?.coinList = coinListItems.toMutableList()
         adapter?.emitSortTypeChanged(ALTSharedPreferences.getSort())
     }
-
-
 }

@@ -4,21 +4,30 @@ apply plugin: 'realm-android'
 apply from: '../config/flavors.gradle'
 
 android {
+    signingConfigs {
+        config {
+            keyAlias 'FlintMakes'
+            keyPassword '71o7Shs2vH61YAqNXvd0OUT9@'
+            storeFile file('/Users/chris.flint/FlintMakes/FLINT_MAKES_KEY.jks')
+            storePassword '35n*^g%bWpt9*cVBgKO6xvnTD'
+        }
+    }
     flavorDimensions "default"
     compileSdkVersion 27
     defaultConfig {
         applicationId "makes.flint.alt"
         minSdkVersion 21
         targetSdkVersion 27
-        versionCode 2
-        versionName "0.2.0"
+        versionCode 3
+        versionName "1.0.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             debuggable false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
         }
         debug {
             debuggable true
@@ -61,7 +70,6 @@ dependencies {
 
     // ScrollableNumberPicker
     implementation "com.michaelmuenzer.android:ScrollableNumberPicker:$SCROLLABLE_NUMBER_VERSION"
-
     implementation 'com.android.billingclient:billing:1.1'
 
     //Anko
@@ -109,7 +117,6 @@ dependencies {
     androidTestImplementation "com.android.support.test.espresso:espresso-core:$ESPRESSO_VERSION"
     androidTestImplementation "com.squareup.spoon:spoon-client:$SPOON_VERSION"
     androidTestImplementation "com.android.support.test.uiautomator:uiautomator-v18:$UI_AUTOMATOR_VERSION"
-
     implementation(name: "doppel-debug", ext: "aar")
 
     // Test Dependencies

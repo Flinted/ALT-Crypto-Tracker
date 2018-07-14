@@ -18,6 +18,7 @@ class TrackerListPresenter @Inject constructor(private var dataController: DataC
     private var coinListSubscriber: Subscription? = null
     private var updateSubscription: Subscription? = null
     private var marketSummarySubscription: Subscription? = null
+    private var errorSubscription: Subscription? = null
 
     // Lifecycle
 
@@ -33,6 +34,8 @@ class TrackerListPresenter @Inject constructor(private var dataController: DataC
         detachView()
         coinListSubscriber?.unsubscribe()
         updateSubscription?.unsubscribe()
+        errorSubscription?.unsubscribe()
+        errorSubscription = null
         coinListSubscriber = null
         updateSubscription = null
     }
@@ -49,6 +52,9 @@ class TrackerListPresenter @Inject constructor(private var dataController: DataC
     // Private Functions
 
     private fun initialiseSubscriptions() {
+        errorSubscription = dataController.getErrorSubscription().subscribe{
+            view?.hideLoading()
+        }
         coinListSubscriber = dataController.coinRefreshSubscriber().first.subscribe {
             view?.hideLoading()
         }

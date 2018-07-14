@@ -17,13 +17,21 @@ class PortfolioSummaryPresenter @Inject constructor(private val dataController: 
 
     private var summarySubscription: Subscription? = null
     private var updateSubscription: Subscription? = null
+    private var errorSubscription: Subscription? = null
 
     // Lifecycle
 
     override fun initialise() {
         initialiseSummarySubscriber()
         initialiseUpdateSubscriber()
+        initialiseErrorSubscriber()
         view?.setFABOnClickListener()
+    }
+
+    private fun initialiseErrorSubscriber() {
+        errorSubscription = dataController.getErrorSubscription().subscribe {
+            view?.hideLoading()
+        }
     }
 
     override fun onDestroy() {

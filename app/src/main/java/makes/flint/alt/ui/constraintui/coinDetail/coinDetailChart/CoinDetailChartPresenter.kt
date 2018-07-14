@@ -6,6 +6,7 @@ import makes.flint.alt.data.dataController.DataController
 import makes.flint.alt.data.dataController.callbacks.RepositoryCallbackSingle
 import makes.flint.alt.data.response.histoResponse.HistoricalDataResponse
 import makes.flint.alt.data.response.histoResponse.HistoricalDataUnitResponse
+import makes.flint.alt.errors.ErrorHandler
 import javax.inject.Inject
 
 // Minute Resolution
@@ -46,7 +47,6 @@ class CoinDetailChartPresenter @Inject constructor(private val dataController: D
 
     override fun getHistoricalDataFor(chartResolution: Int) {
         val callback = makeHistoricalDataCallback()
-        view?.showLoading()
         val apiResolution = getAPIResolutionForRequestedChartType(chartResolution)
         getDataForResolution(apiResolution, chartResolution, callback)
     }
@@ -76,6 +76,7 @@ class CoinDetailChartPresenter @Inject constructor(private val dataController: D
         return object : RepositoryCallbackSingle<HistoricalDataResponse?> {
             override fun onError(error: Throwable) {
                 view?.hideLoading()
+                view?.showError(ErrorHandler.API_FAILURE)
             }
 
             override fun onRetrieve(

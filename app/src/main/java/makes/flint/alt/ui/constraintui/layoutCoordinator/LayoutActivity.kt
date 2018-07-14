@@ -73,7 +73,7 @@ class LayoutActivity : BaseActivity(), LayoutActivityContractView, LayoutCoordin
     }
 
     override fun displayError(it: Throwable) {
-        ErrorHandler.showError(this, ErrorHandler.ERROR_SYNC_TIMEOUT)
+        ErrorHandler.showError(this, ErrorHandler.API_FAILURE)
     }
 
     override fun onBackPressed() {
