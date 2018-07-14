@@ -50,6 +50,11 @@ class TrackerListItem(
         return associatedCoin?.searchKey
     }
 
+    internal fun getProfitLossFormatted(): String {
+        val difference = currentValueUSD.minus(purchasePriceTotal)
+        return NumberFormatter.formatCurrency(difference,2)
+    }
+
     // Private Functions
 
     private fun makeAmountSpent(): BigDecimal {

@@ -25,5 +25,6 @@ class CoinDetailPresenter @Inject constructor(private var dataController: DataCo
         this.coinSymbol = coinSymbol
         val coin = dataController.getCoinForSymbol(coinSymbol)
         view?.displayCoinDetail(coin)
+        view?.initialiseDYORButton(coin)
     }
 }

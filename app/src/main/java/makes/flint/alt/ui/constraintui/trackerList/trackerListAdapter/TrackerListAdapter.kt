@@ -70,7 +70,6 @@ class TrackerListAdapter(presenterComponent: PresenterComponent, private val scr
         viewHolder.coinSymbol.text = entry.symbolFormatted
         viewHolder.currentPrice.text = entry.getCurrentAssetPriceFormatted()
         viewHolder.dollarCostAverage.text = entry.dollarCostAverageFormatted
-        viewHolder.currentProfit.text = entry.percentageChangeFormatted
         viewHolder.currentProfit.setTextColor(
             ContextCompat.getColor(
                 context,
@@ -96,24 +95,39 @@ class TrackerListAdapter(presenterComponent: PresenterComponent, private val scr
         entry: TrackerListItem
     ) {
         if (ALTSharedPreferences.getValuesHidden()) {
-            setHiddenValues(viewHolder)
+            setHiddenValues(viewHolder, entry)
             return
         }
         setActualValues(viewHolder, entry)
     }
 
-    private fun setHiddenValues(viewHolder: TrackerListViewHolder) {
+    private fun setHiddenValues(
+        viewHolder: TrackerListViewHolder,
+        entry: TrackerListItem
+    ) {
+        val context = viewHolder.getContext()
         val hiddenValue = viewHolder.getContext().getString(R.string.hidden_values)
         viewHolder.currentValue.text = hiddenValue
         viewHolder.numberOwned.text = hiddenValue
+        viewHolder.currentProfit.text = context.getString(
+            R.string.item_trackerEntry_change,
+            hiddenValue,
+            entry.percentageChangeFormatted
+        )
     }
 
     private fun setActualValues(
         viewHolder: TrackerListViewHolder,
         entry: TrackerListItem
     ) {
+        val context = viewHolder.getContext()
         viewHolder.currentValue.text = entry.currentPriceUSDFormatted
         viewHolder.numberOwned.text = entry.numberOwnedFormatted
+        viewHolder.currentProfit.text = context.getString(
+            R.string.item_trackerEntry_change,
+            entry.getProfitLossFormatted(),
+            entry.percentageChangeFormatted
+        )
     }
 
     override fun onDestroy() {

@@ -5,12 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/margin_small_4dp"
+    android:layout_marginStart="@dimen/margin_xLarge_16dp"
     android:clickable="true"
     android:focusable="true"
     android:foreground="?android:attr/selectableItemBackground"
     android:background="@color/colorPrimaryFade"
     android:paddingEnd="@dimen/margin_large_8dp"
-    android:paddingStart="@dimen/margin_large_8dp"
     android:elevation="@dimen/margin_large_8dp">
 
     <include layout="@layout/item_coin_list_shared_content" />

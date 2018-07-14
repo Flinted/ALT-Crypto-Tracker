@@ -16,10 +16,6 @@ import makes.flint.alt.layoutCoordination.coinToTracker
 import makes.flint.alt.ui.constraintui.layoutCoordinator.LayoutCoordinatable
 import makes.flint.alt.ui.settings.SettingsActivity
 
-/**
- * PortfolioSummaryFragment
- * Copyright © 2018 ChrisDidThis. All rights reserved.
- */
 class PortfolioSummaryFragment : BaseFragment(), PortfolioContractView {
 
     // Properties
@@ -75,7 +71,6 @@ class PortfolioSummaryFragment : BaseFragment(), PortfolioContractView {
         }
         setActualValues(summary)
     }
-
 
     override fun showLoading() {
         views.summaryFAB.isEnabled = false

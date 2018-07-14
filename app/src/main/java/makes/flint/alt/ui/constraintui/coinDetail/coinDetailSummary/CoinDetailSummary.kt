@@ -1,5 +1,7 @@
 package makes.flint.alt.ui.constraintui.coinDetail.coinDetailSummary
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +11,8 @@ import makes.flint.alt.base.BaseFragment
 import makes.flint.alt.configuration.ALTSharedPreferences
 import makes.flint.alt.data.coinListItem.CoinListItem
 import makes.flint.alt.errors.ErrorHandler
+import java.net.URLEncoder
+
 
 /**
  * CoinDetailSummary
@@ -86,6 +90,16 @@ class CoinDetailSummary : BaseFragment(), CoinDetailContractView {
         checkDogeMuchWow(coin?.symbol)
     }
 
+    override fun initialiseDYORButton(coin: CoinListItem?) {
+        views.dyorButton.setOnClickListener {
+            val queryString = "Cryptocurrency ${coin?.name} information"
+            val query = URLEncoder.encode(queryString, "utf-8")
+            val url = "http://www.google.com/search?q=$query"
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.data = Uri.parse(url)
+            startActivity(intent)
+        }
+    }
     override fun showError(stringId: Int?) = ErrorHandler.showError(activity, stringId)
 
     // Private Functions

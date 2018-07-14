@@ -10,6 +10,7 @@ import makes.flint.alt.data.coinListItem.CoinListItem
  */
 interface CoinDetailContractView : BaseContractView {
     fun displayCoinDetail(coin: CoinListItem?)
+    fun initialiseDYORButton(coin: CoinListItem?)
 }
 
 interface CoinDetailContractPresenter : BaseContractPresenter<CoinDetailContractView> {

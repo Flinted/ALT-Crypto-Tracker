@@ -26,4 +26,5 @@ class CoinDetailSummaryViewHolder(view: View) : FragmentViewHolder {
     internal var supplyTotal: TextView = view.findViewById(R.id.dialog_coin_detail_total_supply)
     internal var marketCap: TextView = view.findViewById(R.id.dialog_coin_detail_market_cap)
     internal var mainContent: ConstraintLayout = view.findViewById(R.id.dialog_coin_detail_main_content)
+    internal var dyorButton: TextView = view.findViewById(R.id.dialog_coin_detail_DYOR)
 }

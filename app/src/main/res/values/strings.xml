@@ -72,6 +72,7 @@
     <string name="dialog_coinDetail_title_available_supply">Available Supply:</string>
     <string name="dialog_coinDetail_title_total_supply">Total Supply:</string>
     <string name="dialog_coinDetail_title_marketcap">MarketCap:</string>
+    <string name="dialog_coinDetail_dyor_title">Do Your Own Research</string>
 
     <string name="dialog_coinDetail_one_billion_coin">Price(1B coin): %1$s</string>
 
@@ -126,6 +127,7 @@
     <string name="item_trackerEntry_title_value">Value:</string>
     <string name="item_trackerEntry_title_owned">Owned:</string>
     <string name="item_trackerEntry_title_dollar_cost_average">DCA:</string>
+    <string name="item_trackerEntry_change">%1$s (%2$s)</string>
 
     <string name="item_trackerEntry_image_indicator">Indicator tracker entry</string>
 
@@ -172,12 +174,12 @@
     </string-array>
 
     <string-array name="loading_messages">
-        <item>FUD: Fear, Uncertainty and Doubt :(</item>
+        <item>FUD: Fear, Uncertainty, and Doubt :(</item>
         <item>FOMO: Fear Of Missing Out</item>
         <item>HODL: Typo meme of HOLD</item>
         <item>MOON: When a crypto asset increases significantly and quickly</item>
         <item>DYOR: Do Your Own Research</item>
-        <item>ELI5: Explain Like I'm 5</item>
+        <item>ELI5: Explain Like I am 5</item>
         <item>1 Doge = 1 Doge</item>
     </string-array>
 
