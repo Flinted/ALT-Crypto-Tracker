@@ -15,7 +15,7 @@ android {
     flavorDimensions "default"
     compileSdkVersion 27
     defaultConfig {
-        applicationId "makes.flint.alt"
+        applicationId "this.chrisdid.alt"
         minSdkVersion 21
         targetSdkVersion 27
         versionCode 3

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <makes.flint.alt.ui.search.SearchSummaryView
+    <this.chrisdid.alt.ui.search.SearchSummaryView
         android:id="@+id/tracker_summary_search_bar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

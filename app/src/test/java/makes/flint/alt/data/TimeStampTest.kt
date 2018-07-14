@@ -1,4 +1,4 @@
-package makes.flint.alt.data
+package this.chrisdid.alt.data
 
 import junit.framework.Assert.assertEquals
 import junit.framework.Assert.assertNotNull
