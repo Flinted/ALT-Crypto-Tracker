@@ -14,6 +14,7 @@ import did.chris.alt.ui.constraintui.trackerEntryDetail.TrackerDetailDialogPrese
 import did.chris.alt.ui.constraintui.trackerList.TrackerListPresenter
 import did.chris.alt.ui.constraintui.trackerList.trackerListAdapter.TrackerAdapterPresenter
 import did.chris.alt.ui.constraintui.trackerSummary.PortfolioSummaryPresenter
+import did.chris.alt.ui.dyor.DYORBottomSheetPresenter
 import did.chris.alt.ui.settings.SettingsPresenter
 import did.chris.alt.ui.tracker.trackerEntryDialog.transactionsList.TransactionsAdapterPresenter
 import javax.inject.Singleton
@@ -51,5 +52,7 @@ interface PresenterComponent {
     fun provideSummaryPresenter(): PortfolioSummaryPresenter
 
     fun provideSettingsPresenter(): SettingsPresenter
+
+    fun provideDYORBottomSheetPresenter(): DYORBottomSheetPresenter
 
 }

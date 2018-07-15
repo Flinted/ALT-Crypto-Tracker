@@ -1,7 +1,5 @@
 package did.chris.alt.ui.constraintui.coinDetail.coinDetailSummary
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +9,9 @@ import did.chris.alt.base.BaseFragment
 import did.chris.alt.configuration.ALTSharedPreferences
 import did.chris.alt.data.coinListItem.CoinListItem
 import did.chris.alt.errors.ErrorHandler
-import java.net.URLEncoder
+import did.chris.alt.layoutCoordination.home
+import did.chris.alt.ui.constraintui.layoutCoordinator.LayoutCoordinatable
+import did.chris.alt.ui.dyor.DYORBottomSheet
 
 
 /**
@@ -55,8 +55,10 @@ class CoinDetailSummaryFragment : BaseFragment(), CoinDetailContractView {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_coin_detail, container, false)
         this.views = CoinDetailSummaryViewHolder(view)
-        val coinSymbol = arguments?.get(COIN_SYMBOL_KEY) as String
-        coinDetailPresenter.initialise(coinSymbol)
+        val coinSymbol = arguments?.getString(COIN_SYMBOL_KEY)
+        coinDetailPresenter.setCoinSymbol(coinSymbol)
+        coinDetailPresenter.initialise()
+        initialiseBackButton()
         return view
     }
 
@@ -91,16 +93,20 @@ class CoinDetailSummaryFragment : BaseFragment(), CoinDetailContractView {
     }
 
     override fun initialiseDYORButton(coin: CoinListItem?) {
+        coin ?: return
         views.dyorButton.setOnClickListener {
-            val queryString = "Cryptocurrency ${coin?.name} information"
-            val query = URLEncoder.encode(queryString, "utf-8")
-            val url = "http://www.google.com/search?q=$query"
-            val intent = Intent(Intent.ACTION_VIEW)
-            intent.data = Uri.parse(url)
-            startActivity(intent)
+            val bottomSheetFragment = DYORBottomSheet.getInstanceFor(coin.symbol)
+            bottomSheetFragment.show(activity?.supportFragmentManager, bottomSheetFragment.tag)
         }
     }
+
     override fun showError(stringId: Int?) = ErrorHandler.showError(activity, stringId)
+
+    private fun initialiseBackButton() {
+        views.backButton.setOnClickListener {
+            (activity as LayoutCoordinatable).updateLayout(home)
+        }
+    }
 
     // Private Functions
 

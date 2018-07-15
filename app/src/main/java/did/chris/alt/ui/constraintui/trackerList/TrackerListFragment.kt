@@ -12,8 +12,10 @@ import did.chris.alt.R
 import did.chris.alt.base.BaseFragment
 import did.chris.alt.data.response.marketSummary.MarketSummaryResponse
 import did.chris.alt.data.trackerListItem.TrackerListItem
+import did.chris.alt.layoutCoordination.home
 import did.chris.alt.layoutCoordination.searchToTracker
 import did.chris.alt.layoutCoordination.trackerToSearch
+import did.chris.alt.ui.constraintui.addCoin.AddCoinDialogFragment
 import did.chris.alt.ui.constraintui.layoutCoordinator.LayoutCoordinatable
 import did.chris.alt.ui.constraintui.trackerEntryDetail.TrackerDetailDialog
 import did.chris.alt.ui.constraintui.trackerList.trackerListAdapter.TrackerAdapterContractView
@@ -43,8 +45,15 @@ class TrackerListFragment : BaseFragment(), TrackerContractView, FilterView, Lis
         attachPresenter(trackerPresenter)
         this.views = TrackerFragmentViewholder(view)
         views.summarySearchBar.initialise(requireContext())
+        initialiseBackButton()
         trackerPresenter.initialise()
         return view
+    }
+
+    private fun initialiseBackButton() {
+        views.backButton.setOnClickListener {
+            (activity as LayoutCoordinatable).updateLayout(home)
+        }
     }
 
     override fun onDestroy() {
@@ -96,6 +105,18 @@ class TrackerListFragment : BaseFragment(), TrackerContractView, FilterView, Lis
         views.swipeRefresh.setColorSchemeColors(refreshColour)
         views.swipeRefresh.setOnRefreshListener {
             trackerPresenter.refreshCache()
+        }
+    }
+
+    override fun initialiseAddEntryButton() {
+        views.addButton.setOnClickListener {
+            val fragmentManager = activity?.fragmentManager
+            val shownCoinDetail = fragmentManager?.findFragmentByTag("AddCoinDialog")
+            shownCoinDetail?.let {
+                fragmentManager.beginTransaction().remove(it).commit()
+            }
+            val newCoinDetail = AddCoinDialogFragment.createForAsset(null)
+            newCoinDetail.show(fragmentManager, "AddCoinDialog")
         }
     }
 

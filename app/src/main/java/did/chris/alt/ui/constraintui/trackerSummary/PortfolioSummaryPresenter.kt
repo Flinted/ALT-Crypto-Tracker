@@ -39,7 +39,6 @@ class PortfolioSummaryPresenter @Inject constructor(private val dataController: 
         this.updateSubscription?.unsubscribe()
         this.updateSubscription = null
         this.summarySubscription = null
-
     }
 
     // Private Functions

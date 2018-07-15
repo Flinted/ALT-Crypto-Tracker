@@ -113,9 +113,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_large_8dp"
-        android:textSize="@dimen/text_large"
         android:text="@string/dialog_coinDetail_title_volume24h"
         android:textColor="@color/colorOffWhite"
+        android:textSize="@dimen/text_large"
         app:layout_constraintBottom_toTopOf="@id/dialog_coin_detail_available_supply_title"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -124,8 +124,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_large_8dp"
-        android:textSize="@dimen/text_large"
         android:textColor="@color/colorOffWhite"
+        android:textSize="@dimen/text_large"
         app:layout_constraintBottom_toTopOf="@id/dialog_coin_detail_available_supply"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -134,9 +134,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_large_8dp"
-        android:textSize="@dimen/text_large"
         android:text="@string/dialog_coinDetail_title_available_supply"
         android:textColor="@color/colorOffWhite"
+        android:textSize="@dimen/text_large"
         app:layout_constraintBottom_toTopOf="@id/dialog_coin_detail_total_supply_title"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -144,9 +144,9 @@
         android:id="@+id/dialog_coin_detail_available_supply"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/text_large"
         android:layout_margin="@dimen/margin_large_8dp"
         android:textColor="@color/colorOffWhite"
+        android:textSize="@dimen/text_large"
         app:layout_constraintBottom_toTopOf="@id/dialog_coin_detail_total_supply"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -154,10 +154,10 @@
         android:id="@+id/dialog_coin_detail_total_supply_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/text_large"
         android:layout_margin="@dimen/margin_large_8dp"
         android:text="@string/dialog_coinDetail_title_total_supply"
         android:textColor="@color/colorOffWhite"
+        android:textSize="@dimen/text_large"
         app:layout_constraintBottom_toTopOf="@id/dialog_coin_detail_market_cap_title"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -165,9 +165,9 @@
         android:id="@+id/dialog_coin_detail_total_supply"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/text_large"
         android:layout_margin="@dimen/margin_large_8dp"
         android:textColor="@color/colorOffWhite"
+        android:textSize="@dimen/text_large"
         app:layout_constraintBottom_toTopOf="@id/dialog_coin_detail_market_cap"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -175,10 +175,10 @@
         android:id="@+id/dialog_coin_detail_market_cap_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/text_large"
         android:layout_margin="@dimen/margin_large_8dp"
         android:text="@string/dialog_coinDetail_title_marketcap"
         android:textColor="@color/colorOffWhite"
+        android:textSize="@dimen/text_large"
         app:layout_constraintBottom_toTopOf="@id/dialog_coin_detail_DYOR"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -187,22 +187,38 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_large_8dp"
-        android:textSize="@dimen/text_large"
         android:textColor="@color/colorOffWhite"
+        android:textSize="@dimen/text_large"
         app:layout_constraintBottom_toTopOf="@id/dialog_coin_detail_DYOR"
         app:layout_constraintEnd_toEndOf="parent" />
 
+    <ImageView
+        android:id="@+id/back_button"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:background="@color/colorAccent"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:padding="@dimen/margin_large_8dp"
+        android:src="@drawable/ic_arrow_back_black_24dp"
+        app:layout_constraintBottom_toBottomOf="@id/dialog_coin_detail_DYOR"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/dialog_coin_detail_DYOR" />
+
     <TextView
         android:id="@+id/dialog_coin_detail_DYOR"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_large_8dp"
+        android:layout_marginTop="@dimen/margin_large_8dp"
         android:background="@color/colorAccent"
+        android:foreground="?android:attr/selectableItemBackground"
         android:gravity="center"
         android:padding="@dimen/margin_large_8dp"
-        android:layout_marginTop="@dimen/margin_large_8dp"
         android:text="@string/dialog_coinDetail_dyor_title"
         android:textColor="@color/colorPrimary"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/back_button" />
 
 </android.support.constraint.ConstraintLayout>

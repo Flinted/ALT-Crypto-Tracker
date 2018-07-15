@@ -2,7 +2,6 @@ package did.chris.alt.ui.constraintui.portfoliopiechart
 
 import android.graphics.Color
 import android.os.Bundle
-import android.support.design.widget.FloatingActionButton
 import android.support.v4.content.ContextCompat
 import android.view.LayoutInflater
 import android.view.View
@@ -14,7 +13,6 @@ import com.github.mikephil.charting.data.PieEntry
 import did.chris.alt.R
 import did.chris.alt.base.BaseFragment
 import did.chris.alt.data.Summary
-import did.chris.alt.ui.constraintui.addCoin.AddCoinDialogFragment
 import did.chris.alt.ui.constraintui.trackerSummary.PortfolioContractPresenter
 import did.chris.alt.ui.constraintui.trackerSummary.PortfolioContractView
 
@@ -23,7 +21,6 @@ class PortfolioPieChartFragment : BaseFragment(), PortfolioContractView {
     // Properties
 
     private lateinit var pieChart: PieChart
-    private lateinit var addCoinFAB: FloatingActionButton
     private lateinit var portfolioPieChartPresenter: PortfolioContractPresenter
 
     // Lifecycle
@@ -55,22 +52,6 @@ class PortfolioPieChartFragment : BaseFragment(), PortfolioContractView {
 
     // Overrides
 
-    override fun setFABOnClickListener() {
-        addCoinFAB.setOnClickListener {
-            showAddCoinDialog()
-        }
-    }
-
-    private fun showAddCoinDialog() {
-        val fragmentManager = activity?.fragmentManager
-        val shownCoinDetail = fragmentManager?.findFragmentByTag("AddCoinDialog")
-        shownCoinDetail?.let {
-            fragmentManager.beginTransaction().remove(it).commit()
-        }
-        val newCoinDetail = AddCoinDialogFragment.createForAsset(null)
-        newCoinDetail.show(fragmentManager, "AddCoinDialog")
-    }
-
     override fun updateForSummary(summary: Summary) {
         val data = summary.getTrackerEntries()
         val pieEntries = data.map {
@@ -86,7 +67,7 @@ class PortfolioPieChartFragment : BaseFragment(), PortfolioContractView {
         val colorBlack = ContextCompat.getColor(context, R.color.colorOffBlack)
         val dataSet = PieDataSet(pieEntries, "Holding")
         val pieData = PieData(dataSet)
-        dataSet.setColors(colorAccent, chartColor2, chartColor3,chartColor4,chartColor5)
+        dataSet.setColors(colorAccent, chartColor2, chartColor3, chartColor4, chartColor5)
         dataSet.valueTextColor = colorBlack
         dataSet.valueTextSize = 15f
         pieChart.setUsePercentValues(true)
@@ -109,10 +90,12 @@ class PortfolioPieChartFragment : BaseFragment(), PortfolioContractView {
         pieChart.data = pieData
     }
 
+    override fun setFABOnClickListener() {
+    }
+
     // Private Functions
 
     private fun bindViews(view: View) {
         this.pieChart = view.findViewById(R.id.fragment_chart_pie)
-        this.addCoinFAB = view.findViewById(R.id.tracker_FAB)
     }
 }

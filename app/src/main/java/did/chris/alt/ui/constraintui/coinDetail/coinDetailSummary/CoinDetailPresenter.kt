@@ -16,13 +16,11 @@ class CoinDetailPresenter @Inject constructor(private var dataController: DataCo
 
     private lateinit var coinSymbol: String
 
-    // Lifecycle
-
-    override fun initialise() {
-    }
-
-    override fun initialise(coinSymbol: String) {
+    override fun setCoinSymbol(coinSymbol: String?) {
+        coinSymbol ?: return
         this.coinSymbol = coinSymbol
+    }
+    override fun initialise() {
         val coin = dataController.getCoinForSymbol(coinSymbol)
         view?.displayCoinDetail(coin)
         view?.initialiseDYORButton(coin)

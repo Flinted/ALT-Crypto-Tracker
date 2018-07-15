@@ -2,6 +2,7 @@ package did.chris.alt.ui.constraintui.coinDetail.coinDetailSummary
 
 import android.support.constraint.ConstraintLayout
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import did.chris.alt.R
 import did.chris.alt.ui.interfaces.FragmentViewHolder
@@ -27,4 +28,5 @@ class CoinDetailSummaryViewHolder(view: View) : FragmentViewHolder {
     internal var marketCap: TextView = view.findViewById(R.id.dialog_coin_detail_market_cap)
     internal var mainContent: ConstraintLayout = view.findViewById(R.id.dialog_coin_detail_main_content)
     internal var dyorButton: TextView = view.findViewById(R.id.dialog_coin_detail_DYOR)
+    internal var backButton: ImageView = view.findViewById(R.id.back_button)
 }

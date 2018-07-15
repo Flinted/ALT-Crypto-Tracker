@@ -64,7 +64,15 @@ class AddCoinDialogFragment : BaseDialogFragment(), AddCoinContractView {
         attachPresenter(addCoinDialogPresenter)
         addCoinDialogPresenter.attachView(this)
         addCoinDialogPresenter.initialise()
+        initialiseBackButton()
         return view
+    }
+
+    private fun initialiseBackButton() {
+        views.backButton.setOnClickListener {
+            hideKeyboard(views.addEntryButton.windowToken)
+            dismiss()
+        }
     }
 
     // Overrides

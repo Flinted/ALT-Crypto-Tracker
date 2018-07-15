@@ -61,7 +61,14 @@ class TrackerDetailDialog : BaseDialogFragment(), TrackerDetailDialogContractVie
         view ?: return super.onCreateView(inflater, container, savedInstanceState)
         this.views = TrackerDetailDialogViewHolder(view)
         trackerEntryDialogPresenter.initialise(entry)
+        initialiseBackButton()
         return view
+    }
+
+    private fun initialiseBackButton() {
+        views.backButton.setOnClickListener{
+            dismiss()
+        }
     }
 
     override fun onStart() {

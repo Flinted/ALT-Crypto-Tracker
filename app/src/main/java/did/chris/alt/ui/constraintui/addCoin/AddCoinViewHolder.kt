@@ -1,7 +1,10 @@
 package did.chris.alt.ui.constraintui.addCoin
 
 import android.view.View
-import android.widget.*
+import android.widget.AutoCompleteTextView
+import android.widget.EditText
+import android.widget.ImageView
+import android.widget.TextView
 import did.chris.alt.R
 
 /**
@@ -21,5 +24,6 @@ class AddCoinViewHolder(view: View) {
     internal var currentPriceDisplay: TextView = view.findViewById(R.id.value_current)
     internal var purchasePriceDisplay: TextView = view.findViewById(R.id.value_at_purchase)
     internal var feesInput: EditText = view.findViewById(R.id.transaction_fees)
-    internal var addEntryButton: ImageButton= view.findViewById(R.id.add_coin_button)
+    internal var addEntryButton: ImageView = view.findViewById(R.id.add_coin_button)
+    internal var backButton: ImageView = view.findViewById(R.id.back_button)
 }

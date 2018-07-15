@@ -16,6 +16,7 @@ interface TrackerContractView : BaseContractView {
     fun hideProgressSpinner()
     fun initialiseSearchBar()
     fun displayMarketSummary(marketSummary: MarketSummaryResponse?)
+    fun initialiseAddEntryButton()
 }
 
 interface TrackerContractPresenter : BaseContractPresenter<TrackerContractView> {

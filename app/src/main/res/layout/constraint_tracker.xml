@@ -14,8 +14,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_weight="10"
-        />
+        app:layout_constraintVertical_weight="8" />
 
     <FrameLayout
         android:id="@+id/frame_centre"
@@ -51,6 +50,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/frame_top"
         app:layout_constraintVertical_chainStyle="spread"
-        app:layout_constraintVertical_weight="10" />
+        app:layout_constraintVertical_weight="12" />
 
 </android.support.constraint.ConstraintLayout>

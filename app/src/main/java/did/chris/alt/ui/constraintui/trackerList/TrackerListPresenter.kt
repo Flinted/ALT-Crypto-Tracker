@@ -28,6 +28,7 @@ class TrackerListPresenter @Inject constructor(private var dataController: DataC
         view?.initialiseTrackerListListeners()
         view?.initialiseRefreshListener()
         view?.initialiseSearchBar()
+        view?.initialiseAddEntryButton()
     }
 
     override fun onDestroy() {

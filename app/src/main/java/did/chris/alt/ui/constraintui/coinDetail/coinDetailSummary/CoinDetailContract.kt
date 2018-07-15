@@ -14,5 +14,5 @@ interface CoinDetailContractView : BaseContractView {
 }
 
 interface CoinDetailContractPresenter : BaseContractPresenter<CoinDetailContractView> {
-    fun initialise(coinSymbol: String)
+    fun setCoinSymbol(coinSymbol: String?)
 }
