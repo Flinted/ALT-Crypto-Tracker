@@ -62,7 +62,6 @@ class AddCoinDialogFragment : BaseDialogFragment(), AddCoinContractView {
         view ?: return super.onCreateView(inflater, container, savedInstanceState)
         this.views = AddCoinViewHolder(view)
         attachPresenter(addCoinDialogPresenter)
-        addCoinDialogPresenter.attachView(this)
         addCoinDialogPresenter.initialise()
         initialiseBackButton()
         return view
@@ -144,11 +143,18 @@ class AddCoinDialogFragment : BaseDialogFragment(), AddCoinContractView {
     }
 
     override fun displayUpdatedPurchasePrice(purchasePrice: String) {
-        views.purchasePriceDisplay.text = purchasePrice
+        views.purchasePriceDisplay.text =
+                getString(R.string.dialog_addCoin_title_purchase_value, purchasePrice)
     }
 
-    override fun displayUpdatedCurrentPrice(currentPrice: String) {
-        views.currentPriceDisplay.text = currentPrice
+    override fun displayUpdatedCurrentValue(currentPrice: String) {
+        views.currentPriceDisplay.text =
+                getString(R.string.dialog_addCoin_title_current_value, currentPrice)
+    }
+
+    override fun displayCurrentAssetPrice(coinPrice: String) {
+        views.currentCostDisplay.text =
+                getString(R.string.dialog_addCoin_title_current_price, coinPrice)
     }
 
     override fun hideLoading() {

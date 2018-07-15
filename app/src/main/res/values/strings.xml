@@ -56,8 +56,9 @@
     <string name="dialog_addCoin_radio_sell">Sell</string>
     <string name="dialog_addCoin_radio_mined">Mined</string>
 
-    <string name="dialog_addCoin_title_purchase_value">Purchase Value:</string>
-    <string name="dialog_addCoin_title_current_value">Current Value:</string>
+    <string name="dialog_addCoin_title_purchase_value">Purchase Value: %1$s</string>
+    <string name="dialog_addCoin_title_current_price">Current Price: %1$s</string>
+    <string name="dialog_addCoin_title_current_value">Current Value: %1$s</string>
 
     <string name="dialog_addCoin_placeholder_purchase_value">$...</string>
     <string name="dialog_addCoin_placeholder_current_value">$...</string>

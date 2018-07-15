@@ -5,17 +5,18 @@ import did.chris.alt.data.coinListItem.CoinListItem
 import did.chris.alt.data.dataController.DataController
 import did.chris.alt.errors.ErrorHandler
 import did.chris.alt.factories.TrackerEntryDataFactory
+import did.chris.alt.utility.NumberFormatter
 import rx.Subscription
 import java.math.BigDecimal
-import java.math.RoundingMode
 import javax.inject.Inject
 
 /**
  * AddCoinPresenter
  * Copyright © 2018 ChrisDidThis. All rights reserved.
  */
-class AddCoinPresenter @Inject constructor(private val dataController: DataController,
-                                           private val trackerEntryDataFactory: TrackerEntryDataFactory
+class AddCoinPresenter @Inject constructor(
+    private val dataController: DataController,
+    private val trackerEntryDataFactory: TrackerEntryDataFactory
 ) : BasePresenter<AddCoinContractView>(), AddCoinContractPresenter {
 
     // Properties
@@ -26,10 +27,18 @@ class AddCoinPresenter @Inject constructor(private val dataController: DataContr
     // Lifecycle
 
     override fun initialise() {
+        setPlaceholdersForValues()
         initialiseCoinListSubscriber()
         view?.initialiseFABListener()
         view?.initialiseInputListeners()
         view?.initialiseDateSelectListener()
+    }
+
+    private fun setPlaceholdersForValues() {
+        val placeholder = "..."
+        view?.displayCurrentAssetPrice(placeholder)
+        view?.displayUpdatedCurrentValue(placeholder)
+        view?.displayUpdatedPurchasePrice(placeholder)
     }
 
     // Overrides
@@ -38,21 +47,32 @@ class AddCoinPresenter @Inject constructor(private val dataController: DataContr
         this.selectedCoin = coin
     }
 
-    override fun onAddEntryRequested(coinName: String?, exchange: String?, quantity: String?, price: String?, fees: String?, date: String, notes: String, typeId: String) {
+    override fun onAddEntryRequested(
+        coinName: String?,
+        exchange: String?,
+        quantity: String?,
+        price: String?,
+        fees: String?,
+        date: String,
+        notes: String,
+        typeId: String
+    ) {
         selectedCoin ?: let {
             view?.showError(ErrorHandler.ADD_TRANSACTION_FAILURE)
             return
         }
-        val trackerEntry = dataController.getCopyOfTrackerEntry(selectedCoin?.name, selectedCoin?.symbol)
-        val preparedEntry = trackerEntryDataFactory.makeTrackerEntryDataFor(trackerEntry,
-                selectedCoin,
-                exchange,
-                quantity,
-                price,
-                fees,
-                date,
-                notes,
-                typeId
+        val trackerEntry =
+            dataController.getCopyOfTrackerEntry(selectedCoin?.name, selectedCoin?.symbol)
+        val preparedEntry = trackerEntryDataFactory.makeTrackerEntryDataFor(
+            trackerEntry,
+            selectedCoin,
+            exchange,
+            quantity,
+            price,
+            fees,
+            date,
+            notes,
+            typeId
         )
         preparedEntry ?: let {
             view?.showError(ErrorHandler.ADD_TRANSACTION_FAILURE)
@@ -73,13 +93,15 @@ class AddCoinPresenter @Inject constructor(private val dataController: DataContr
     override fun updatePriceCalculation(quantity: String, price: String, fees: String) {
         if (quantity.isBlank() || quantity == ".") {
             view?.displayUpdatedPurchasePrice("...")
-            view?.displayUpdatedCurrentPrice("...")
+            view?.displayUpdatedCurrentValue("...")
+            updateCurrentCost()
             return
         }
         val bigDecimalQuantity = BigDecimal(quantity)
         val bigDecimalFees = if (fees.isBlank()) BigDecimal.ZERO else BigDecimal(fees)
         updatePurchasePrice(bigDecimalQuantity, price, bigDecimalFees)
         updateCurrentPrice(bigDecimalQuantity)
+        updateCurrentCost()
     }
 
     // Private Functions
@@ -96,12 +118,21 @@ class AddCoinPresenter @Inject constructor(private val dataController: DataContr
         selectedCoin ?: return
         val coinPrice = selectedCoin?.priceData?.priceUSD ?: return
         val currentPrice = calculateAndRound(bigDecimalQuantity, coinPrice, BigDecimal.ZERO)
-        view?.displayUpdatedCurrentPrice(currentPrice)
+        view?.displayUpdatedCurrentValue(currentPrice)
     }
 
-    private fun updatePurchasePrice(bigDecimalQuantity: BigDecimal,
-                                    price: String,
-                                    bigDecimalFees: BigDecimal) {
+    private fun updateCurrentCost() {
+        val coinPrice = selectedCoin?.priceData?.priceUSD ?: return
+        val formattedPrice = NumberFormatter.formatCurrencyAutomaticDigit(coinPrice)
+        view?.displayCurrentAssetPrice(formattedPrice)
+
+    }
+
+    private fun updatePurchasePrice(
+        bigDecimalQuantity: BigDecimal,
+        price: String,
+        bigDecimalFees: BigDecimal
+    ) {
         if (price.isBlank() || price == ".") {
             view?.displayUpdatedPurchasePrice("...")
             return
@@ -111,11 +142,12 @@ class AddCoinPresenter @Inject constructor(private val dataController: DataContr
         view?.displayUpdatedPurchasePrice(purchasePrice)
     }
 
-    private fun calculateAndRound(bigDecimalQuantity: BigDecimal,
-                                  bigDecimalPrice: BigDecimal,
-                                  bigDecimalFees: BigDecimal): String {
+    private fun calculateAndRound(
+        bigDecimalQuantity: BigDecimal,
+        bigDecimalPrice: BigDecimal,
+        bigDecimalFees: BigDecimal
+    ): String {
         val calculatedTotal = bigDecimalPrice.multiply(bigDecimalQuantity).plus(bigDecimalFees)
-        val rounded = calculatedTotal.setScale(2, RoundingMode.HALF_EVEN)
-        return "$${rounded.toPlainString()}"
+        return NumberFormatter.formatCurrency(calculatedTotal, 2)
     }
 }

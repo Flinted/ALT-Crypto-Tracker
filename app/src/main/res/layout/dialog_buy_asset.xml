@@ -34,13 +34,15 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/margin_small_4dp"
             android:layout_marginTop="@dimen/margin_small_4dp"
-            android:background="@color/colorAccent"
+            android:background="@drawable/background_gradient_180"
             android:hint="@string/dialog_addCoin_hint_asset_search"
+            android:textStyle="bold"
             android:inputType="textNoSuggestions"
             android:maxLines="1"
             android:nextFocusDown="@id/cost_per_item"
             android:padding="@dimen/margin_small_4dp"
-            android:textColor="@color/colorOffBlack"
+            android:textColor="@color/colorOffWhite"
+            android:textColorHint="@color/colorAccent"
             android:textSize="@dimen/text_large"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/selected_coin" />
@@ -62,7 +64,7 @@
             android:textSize="@dimen/text_large"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/value_current" />
+            app:layout_constraintTop_toBottomOf="@id/value_current_title" />
 
         <EditText
             android:id="@+id/quantity_purchased"
@@ -124,6 +126,18 @@
             app:layout_constraintTop_toBottomOf="@id/asset_search" />
 
         <TextView
+            android:id="@+id/current_price_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_large_8dp"
+            android:layout_marginEnd="@dimen/margin_large_8dp"
+            android:layout_marginTop="@dimen/margin_large_8dp"
+            android:text="@string/dialog_addCoin_title_current_price"
+            android:textColor="@color/colorAccent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/transaction_fees" />
+
+        <TextView
             android:id="@+id/value_at_purchase_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -133,19 +147,7 @@
             android:text="@string/dialog_addCoin_title_purchase_value"
             android:textColor="@color/colorAccent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/transaction_fees" />
-
-        <TextView
-            android:id="@+id/value_at_purchase"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margin_large_8dp"
-            android:layout_marginStart="@dimen/margin_large_8dp"
-            android:layout_marginTop="@dimen/margin_large_8dp"
-            android:text="@string/dialog_addCoin_placeholder_purchase_value"
-            android:textColor="@color/colorAccent"
-            app:layout_constraintStart_toEndOf="@id/value_at_purchase_title"
-            app:layout_constraintTop_toBottomOf="@id/transaction_fees" />
+            app:layout_constraintTop_toBottomOf="@id/current_price_title" />
 
         <TextView
             android:id="@+id/value_current_title"
@@ -157,18 +159,6 @@
             android:text="@string/dialog_addCoin_title_current_value"
             android:textColor="@color/colorOffWhite"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/value_at_purchase_title" />
-
-        <TextView
-            android:id="@+id/value_current"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margin_large_8dp"
-            android:layout_marginStart="@dimen/margin_large_8dp"
-            android:layout_marginTop="@dimen/margin_large_8dp"
-            android:text="@string/dialog_addCoin_placeholder_current_value"
-            android:textColor="@color/colorOffWhite"
-            app:layout_constraintStart_toEndOf="@id/value_current_title"
             app:layout_constraintTop_toBottomOf="@id/value_at_purchase_title" />
 
         <android.support.design.widget.FloatingActionButton
@@ -236,6 +226,5 @@
             android:src="@drawable/ic_check_black_24dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
-
     </android.support.constraint.ConstraintLayout>
 </ScrollView>

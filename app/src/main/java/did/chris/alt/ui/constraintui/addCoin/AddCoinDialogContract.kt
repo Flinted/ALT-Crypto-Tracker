@@ -15,10 +15,11 @@ interface AddCoinContractView : BaseContractView {
     fun displayUpdatedPurchasePrice(purchasePrice: String)
     fun onTransactionAdded(): Observable<Boolean>?
     fun initialiseCoinAutoSuggest(autoCompleteSuggestions: List<CoinListItem>)
-    fun displayUpdatedCurrentPrice(currentPrice: String)
+    fun displayUpdatedCurrentValue(currentPrice: String)
     fun initialiseDateSelectListener()
     fun setDateSelected(dateString: String)
     fun didAddTrackerEntry()
+    fun displayCurrentAssetPrice(coinPrice: String)
 }
 
 interface AddCoinContractPresenter : BaseContractPresenter<AddCoinContractView> {

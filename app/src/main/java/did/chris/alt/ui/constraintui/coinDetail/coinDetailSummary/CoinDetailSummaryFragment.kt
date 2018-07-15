@@ -10,14 +10,10 @@ import did.chris.alt.configuration.ALTSharedPreferences
 import did.chris.alt.data.coinListItem.CoinListItem
 import did.chris.alt.errors.ErrorHandler
 import did.chris.alt.layoutCoordination.home
+import did.chris.alt.ui.constraintui.addCoin.AddCoinDialogFragment
 import did.chris.alt.ui.constraintui.layoutCoordinator.LayoutCoordinatable
 import did.chris.alt.ui.dyor.DYORBottomSheet
 
-
-/**
- * CoinDetailSummaryFragment
- * Copyright © 2018 ChrisDidThis. All rights reserved.
- */
 const val COIN_SYMBOL_KEY = "CoinSymbolKey"
 
 class CoinDetailSummaryFragment : BaseFragment(), CoinDetailContractView {
@@ -105,6 +101,19 @@ class CoinDetailSummaryFragment : BaseFragment(), CoinDetailContractView {
     private fun initialiseBackButton() {
         views.backButton.setOnClickListener {
             (activity as LayoutCoordinatable).updateLayout(home)
+        }
+    }
+
+    override fun initialiseAddEntryButton(coin: CoinListItem?) {
+        views.addEntryButton.setOnClickListener {
+            val coinKey = coin?.searchKey
+            val fragment = AddCoinDialogFragment.createForAsset(coinKey)
+            val fragmentManager = activity?.fragmentManager
+            val shownCoinDetail = fragmentManager?.findFragmentByTag("AddCoinDialog")
+            shownCoinDetail?.let { shownDialog ->
+                fragmentManager.beginTransaction().remove(shownDialog).commit()
+            }
+            fragment.show(fragmentManager, "AddCoinDialog")
         }
     }
 
