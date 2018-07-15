@@ -12,7 +12,8 @@
         android:layout_margin="@dimen/margin_large_8dp"
         android:text="Market"
         android:textColor="@color/colorOffWhite"
-        app:layout_constraintStart_toEndOf="@id/icons_column"
+        app:layout_constraintEnd_toEndOf="@id/market_column"
+        app:layout_constraintStart_toStartOf="@id/market_column"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -22,7 +23,8 @@
         android:layout_margin="@dimen/margin_large_8dp"
         android:text="Tracker"
         android:textColor="@color/colorOffWhite"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/tracker_column"
+        app:layout_constraintStart_toStartOf="@id/tracker_column"
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout

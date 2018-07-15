@@ -12,10 +12,6 @@ import did.chris.alt.ui.constraintui.trackerBarChart.TrackerBarChartFragment
 import did.chris.alt.ui.constraintui.trackerSummary.PortfolioSummaryFragment
 import java.util.*
 
-/**
- * LayoutActivity
- * Copyright © 2018 ChrisDidThis. All rights reserved.
- */
 class LayoutActivity : BaseActivity(), LayoutActivityContractView, LayoutCoordinatable {
 
     private lateinit var views: LayoutViewHolder
@@ -79,10 +75,10 @@ class LayoutActivity : BaseActivity(), LayoutActivityContractView, LayoutCoordin
     override fun onBackPressed() {
         val currentViewState = coordinator.currentViewState
         val viewKey = when (currentViewState) {
-            coin, coinToSearch, coinToTracker -> home
-            trackerToSearch                   -> searchToTracker
-            coinToAddCoin                     -> coinToTracker
-            else                              -> null
+            coin, coinToSearch, coinToTracker, searchToTracker -> home
+            trackerToSearch                                    -> searchToTracker
+            coinToAddCoin                                      -> coinToTracker
+            else                                               -> null
         }
         viewKey?.let {
             updateLayout(viewKey)

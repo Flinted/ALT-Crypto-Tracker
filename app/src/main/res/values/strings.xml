@@ -25,9 +25,9 @@
     <string name="sort_menu_vol_reversed">24H volume(reversed)</string>
 
     <!--MARKET SUMMARY-->
-    <string name="market_summary_marketcap">Market Cap: %1$s</string>
+    <string name="market_summary_marketcap">MCap: %1$s</string>
     <string name="market_summary_volume">24H Vol: %1$s</string>
-    <string name="market_summary_count">Items in avg: %1$d</string>
+    <string name="market_summary_count">Items: %1$d</string>
     <string name="market_summary_1d">1D(avg): %1$s</string>
     <string name="market_summary_1w">1W(avg): %1$s</string>
 

@@ -12,7 +12,7 @@ import did.chris.alt.layoutCoordination.viewTransitions.viewActions.ViewAction
 import did.chris.alt.layoutCoordination.viewTransitions.viewActions.ViewTransition
 import did.chris.alt.ui.constraintui.coinDetail.coinDetailChart.CoinDetailChart
 import did.chris.alt.ui.constraintui.coinDetail.coinDetailSummary.COIN_SYMBOL_KEY
-import did.chris.alt.ui.constraintui.coinDetail.coinDetailSummary.CoinDetailSummary
+import did.chris.alt.ui.constraintui.coinDetail.coinDetailSummary.CoinDetailSummaryFragment
 
 class HomeToCoinDetailTransition(context: Context, coinSymbol: String) : ViewStateTransition {
 
@@ -23,7 +23,7 @@ class HomeToCoinDetailTransition(context: Context, coinSymbol: String) : ViewSta
         val bundle = Bundle()
         bundle.putString(COIN_SYMBOL_KEY, coinSymbol)
         val replaceCentre = Replace(R.id.frame_top, CoinDetailChart::class.java, bundle)
-        val replacePopFrameBottom = Replace(R.id.pop_frame_bottom, CoinDetailSummary::class.java, bundle)
+        val replacePopFrameBottom = Replace(R.id.pop_frame_bottom, CoinDetailSummaryFragment::class.java, bundle)
         val transition = ViewTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
         constraintSet.clone(context, R.layout.constraint_coin)
         transactions = listOf(replaceCentre, replacePopFrameBottom, transition)

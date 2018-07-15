@@ -15,18 +15,18 @@ import java.net.URLEncoder
 
 
 /**
- * CoinDetailSummary
+ * CoinDetailSummaryFragment
  * Copyright © 2018 ChrisDidThis. All rights reserved.
  */
 const val COIN_SYMBOL_KEY = "CoinSymbolKey"
 
-class CoinDetailSummary : BaseFragment(), CoinDetailContractView {
+class CoinDetailSummaryFragment : BaseFragment(), CoinDetailContractView {
 
     // Static Initializer
 
     companion object {
-        fun getInstanceFor(coinSymbol: String): CoinDetailSummary {
-            val coinDetail = CoinDetailSummary()
+        fun getInstanceFor(coinSymbol: String): CoinDetailSummaryFragment {
+            val coinDetail = CoinDetailSummaryFragment()
             val bundle = Bundle()
             bundle.putString(COIN_SYMBOL_KEY, coinSymbol)
             coinDetail.arguments = bundle
