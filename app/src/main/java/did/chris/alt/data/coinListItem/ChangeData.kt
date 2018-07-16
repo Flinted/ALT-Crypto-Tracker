@@ -3,10 +3,6 @@ package did.chris.alt.data.coinListItem
 import did.chris.alt.configuration.ALTSharedPreferences
 import did.chris.alt.data.response.CoinResponse
 
-/**
- * ChangeData
- * Copyright © 2018 ChrisDidThis. All rights reserved.
- */
 class ChangeData(coinResponse: CoinResponse) {
 
     // Properties
@@ -18,7 +14,6 @@ class ChangeData(coinResponse: CoinResponse) {
     internal val status7D = assessChange(percentChange7D)
 
     // Internal Functions
-
     internal fun change1HFormatted() = "${percentChange1H.toString()}%"
 
     internal fun change24HFormatted() = "${percentChange24H.toString()}%"
@@ -30,14 +25,22 @@ class ChangeData(coinResponse: CoinResponse) {
         change ?: return CHANGE_UNKNOWN
         val floatChange = change.toFloat()
         return when {
-            floatChange > ALTSharedPreferences.getValueForMarketThreshold(0) -> CHANGE_UP_EXTREME
-            floatChange > ALTSharedPreferences.getValueForMarketThreshold(1) -> CHANGE_UP_SIGNIFICANT
-            floatChange > ALTSharedPreferences.getValueForMarketThreshold(2) -> CHANGE_UP_MODERATE
-            floatChange < ALTSharedPreferences.getValueForMarketThreshold(5) -> CHANGE_DOWN_EXTREME
-            floatChange < ALTSharedPreferences.getValueForMarketThreshold(4) -> CHANGE_DOWN_SIGNIFICANT
-            floatChange < ALTSharedPreferences.getValueForMarketThreshold(3) -> CHANGE_DOWN_MODERATE
-            floatChange < 0f                                                 -> CHANGE_STATIC_NEGATIVE
-            else                                                             -> CHANGE_STATIC_POSITIVE
+            isGreaterThanMarketCutOff(floatChange, 0) -> CHANGE_UP_EXTREME
+            isGreaterThanMarketCutOff(floatChange, 1) -> CHANGE_UP_SIGNIFICANT
+            isGreaterThanMarketCutOff(floatChange, 2) -> CHANGE_UP_MODERATE
+            isLessThanMarketCutOff(floatChange, 5)    -> CHANGE_DOWN_EXTREME
+            isLessThanMarketCutOff(floatChange, 4)    -> CHANGE_DOWN_SIGNIFICANT
+            isLessThanMarketCutOff(floatChange, 3)    -> CHANGE_DOWN_MODERATE
+            floatChange < 0f                          -> CHANGE_STATIC_NEGATIVE
+            else                                      -> CHANGE_STATIC_POSITIVE
         }
+    }
+
+    private fun isGreaterThanMarketCutOff(change: Float, marketKey: Int): Boolean {
+        return change > ALTSharedPreferences.getValueForMarketThreshold(0)
+    }
+
+    private fun isLessThanMarketCutOff(change: Float, marketKey: Int): Boolean {
+        return change < ALTSharedPreferences.getValueForMarketThreshold(0)
     }
 }

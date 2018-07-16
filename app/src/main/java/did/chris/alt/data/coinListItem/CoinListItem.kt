@@ -27,13 +27,12 @@ class CoinListItem(
 ) : SortableCoin, MarketListItem {
 
     // Properties
-
     override val name = coinResponse.name
-    internal val id = coinResponse.id
-    internal val symbol = coinResponse.symbol
     override val rank = coinResponse.provideRank()
     override var sortedRank = 0
     override val volume24Hour = coinResponse.provideVolume24Hour()
+    internal val id = coinResponse.id
+    internal val symbol = coinResponse.symbol
     internal val availableSupply = coinResponse.provideAvailableSupply()
     internal var totalSupply = coinResponse.provideTotalSupply()
     internal var symbolFormatted = "($symbol)"
@@ -43,13 +42,11 @@ class CoinListItem(
     internal val volume24HourFormatted = volume24HourFormatted()
 
     // Internal Functions
-
     internal fun marketCapFormatted(): String {
         return priceData.marketCapFormatted
     }
 
     // Private Functions
-
     private fun volume24HourFormatted(): String {
         volume24Hour?.let {
             return NumberFormatter.formatCurrency(it, 0, 0)
