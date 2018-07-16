@@ -14,10 +14,6 @@ import rx.android.schedulers.AndroidSchedulers
 import rx.subjects.PublishSubject
 import javax.inject.Inject
 
-/**
- * DataController
- * Copyright © 2018 ChrisDidThis. All rights reserved.
- */
 open class DataController @Inject constructor(
     private val apiRepository: ApiRepository,
     private val realmManager: RealmManager,
@@ -25,7 +21,6 @@ open class DataController @Inject constructor(
 ) {
 
     // RX Actions
-
     private var hasEncounteredError: PublishSubject<Throwable> = PublishSubject.create()
     internal fun getErrorSubscription() = hasEncounteredError.asObservable()
 
@@ -105,7 +100,6 @@ open class DataController @Inject constructor(
     }
 
     // Private Functions
-
     private fun updateFavouriteCoins() {
         val favouriteCoins = realmManager.getFavouriteCoins()
         cache.updateFavouriteCoins(favouriteCoins)

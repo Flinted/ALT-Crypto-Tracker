@@ -24,7 +24,6 @@ class ApiRepository @Inject constructor(
 ) : DataSource {
 
     // Internal Functions
-
     internal fun coinsGET(): Observable<Array<SummaryCoinResponse>>? {
         return cmcAPIService
             .coinListGET(ALTSharedPreferences.getMarketLimit())
@@ -68,7 +67,6 @@ class ApiRepository @Inject constructor(
     }
 
     // Private Functions
-
     private fun getMinuteHistoricalData(
         callback: RepositoryCallbackSingle<HistoricalDataResponse?>,
         coinSymbol: String,
