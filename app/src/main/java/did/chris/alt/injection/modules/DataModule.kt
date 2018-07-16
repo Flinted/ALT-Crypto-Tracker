@@ -21,23 +21,10 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Named
 import javax.inject.Singleton
 
-/**
- * DataModule
- * Copyright © 2018 ChrisDidThis. All rights reserved.
- */
 @Module
-open class DataModule() {
+open class DataModule {
 
-    private fun provideHeaderInterceptor(): Interceptor {
-        return Interceptor { chain ->
-            val request = chain.request().newBuilder()
-                    .addHeader("Content-Type:", "application/json")
-                    .addHeader("Accept", "application/json")
-                    .build()
-            chain.proceed(request)
-        }
-    }
-
+    // Functions
     @Provides
     fun provideHttpLoggingInterceptor(): HttpLoggingInterceptor {
         val httpLoggingInterceptor = HttpLoggingInterceptor()
@@ -116,5 +103,16 @@ open class DataModule() {
     @Singleton
     fun provideDataController(apiManager: ApiRepository, realmManager: RealmManager, uiObjectCache: UIObjectCache): DataController {
         return DataController(apiManager, realmManager, uiObjectCache)
+    }
+
+    // Private Functions
+    private fun provideHeaderInterceptor(): Interceptor {
+        return Interceptor { chain ->
+            val request = chain.request().newBuilder()
+                .addHeader("Content-Type:", "application/json")
+                .addHeader("Accept", "application/json")
+                .build()
+            chain.proceed(request)
+        }
     }
 }
