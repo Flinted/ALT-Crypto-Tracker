@@ -1,10 +1,5 @@
 package did.chris.alt.base
 
-/**
- * BaseContract
- * Copyright © 2018 ChrisDidThis.. All rights reserved.
- */
-
 interface BaseContractView {
     fun showLoading()
 

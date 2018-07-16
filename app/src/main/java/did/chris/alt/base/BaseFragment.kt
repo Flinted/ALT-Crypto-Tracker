@@ -9,10 +9,6 @@ import android.widget.Toast
 import did.chris.alt.errors.ErrorHandler
 import did.chris.alt.injection.components.PresenterComponent
 
-/**
- * BaseFragment
- * Copyright © 2018 ChrisDidThis. All rights reserved.
- */
 open class BaseFragment : Fragment() {
 
     // Properties
@@ -37,11 +33,25 @@ open class BaseFragment : Fragment() {
         this.presenter = presenter
     }
 
+    protected fun hideKeyboard(windowToken: IBinder) {
+        val imm =
+            (activity as FragmentActivity).getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(windowToken, 0)
+    }
+
+    protected fun showKeyboard() {
+        val imm =
+            (activity as FragmentActivity).getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0)
+    }
+
     // Internal Functions
 
     internal fun showToast(stringId: Int, toastLength: Int) {
         Toast.makeText(context, getString(stringId), toastLength).show()
     }
+
+    // Open Functions
 
     open fun showLoading() {
 
@@ -53,17 +63,5 @@ open class BaseFragment : Fragment() {
 
     open fun showError(stringId: Int?) {
         ErrorHandler.showError(activity, stringId)
-    }
-
-    protected fun hideKeyboard(windowToken: IBinder) {
-        val imm =
-            (activity as FragmentActivity).getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(windowToken, 0)
-    }
-
-    protected fun showKeyboard() {
-        val imm =
-            (activity as FragmentActivity).getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0)
     }
 }

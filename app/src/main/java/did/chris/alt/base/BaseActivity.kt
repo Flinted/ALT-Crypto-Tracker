@@ -6,11 +6,6 @@ import did.chris.alt.errors.ErrorHandler
 import did.chris.alt.injection.components.PresenterComponent
 import org.jetbrains.anko.AnkoLogger
 
-
-/**
- * BaseActivity
- * Copyright © 2018 ChrisDidThis. All rights reserved.
- */
 abstract class BaseActivity : AppCompatActivity(), AnkoLogger {
 
     // Properties
@@ -28,7 +23,8 @@ abstract class BaseActivity : AppCompatActivity(), AnkoLogger {
 
     protected fun getBaseApplication(): BaseApplication = application as BaseApplication
 
-    protected fun getPresenterComponent(): PresenterComponent = getBaseApplication().getPresenterComponent()
+    protected fun getPresenterComponent(): PresenterComponent =
+        getBaseApplication().getPresenterComponent()
 
     protected fun attachPresenter(presenter: BaseContractPresenter<*>) {
         this.presenter = presenter
@@ -39,6 +35,8 @@ abstract class BaseActivity : AppCompatActivity(), AnkoLogger {
     internal fun showToast(stringId: Int, toastLength: Int) {
         Toast.makeText(this, getString(stringId), toastLength).show()
     }
+
+    // Open Functions
 
     open fun showLoading() {
 

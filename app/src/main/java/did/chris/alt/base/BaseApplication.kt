@@ -14,10 +14,6 @@ import did.chris.alt.injection.components.PresenterComponent
 import did.chris.alt.injection.modules.DataModule
 import did.chris.alt.injection.modules.PresenterModule
 
-/**
- * BaseApplication
- * Copyright © 2018 ChrisDidThis. All rights reserved.
- */
 class BaseApplication : Application() {
 
     // Properties
