@@ -6,10 +6,6 @@ import did.chris.alt.data.trackerListItem.TrackerListItem
 import did.chris.alt.utility.NumberFormatter
 import java.math.BigDecimal
 
-/**
- * Summary
- * Copyright © 2018 ChrisDidThis. All rights reserved.
- */
 class Summary(
     private val initialValue: BigDecimal,
     private val amountSpent: BigDecimal,
@@ -21,50 +17,48 @@ class Summary(
 ) : TrackerAssessable {
 
     // Properties
-
     private val currentStanding = amountSold + amountSpent
 
-    // Public Functions
-
-    fun initialValueFormatted(): String {
+    // Internal Functions
+    internal fun initialValueFormatted(): String {
         val rounded = initialValue.setScale(2, ALTSharedPreferences.getRoundingMode())
         return NumberFormatter.formatCurrency(rounded, 2)
     }
 
-    fun amountSpentFormatted(): String {
+    internal fun amountSpentFormatted(): String {
         val rounded = amountSpent.setScale(2, ALTSharedPreferences.getRoundingMode())
         return NumberFormatter.formatCurrency(rounded, 2)
     }
 
-    fun amountSoldFormatted(): String {
+    internal fun amountSoldFormatted(): String {
         val rounded = amountSold.setScale(2, ALTSharedPreferences.getRoundingMode())
         return NumberFormatter.formatCurrency(rounded, 2)
     }
 
-    fun profitLossFormatted(): String {
+    internal fun profitLossFormatted(): String {
         val difference = currentFiatValue.minus(initialValue)
         return NumberFormatter.formatCurrency(difference, 2)
     }
 
-    fun currentStandingFormatted(): String {
+    internal fun currentStandingFormatted(): String {
         val rounded = currentStanding.setScale(2, ALTSharedPreferences.getRoundingMode())
         return NumberFormatter.formatCurrency(rounded, 2)
     }
 
-    fun currentValueFiatFormatted(): String {
+    internal fun currentValueFiatFormatted(): String {
         val rounded = currentFiatValue.setScale(2, ALTSharedPreferences.getRoundingMode())
         return NumberFormatter.formatCurrency(rounded, 2)
     }
 
-    fun currentValueBTCFormatted(): String {
+    internal fun currentValueBTCFormatted(): String {
         val rounded = currentBTCValue.setScale(8, ALTSharedPreferences.getRoundingMode())
         return "B${NumberFormatter.format(rounded, 8)}"
     }
 
-    fun percentageChangeFormatted(): String {
+    internal fun percentageChangeFormatted(): String {
         val rounded = percentageChange.setScale(4, ALTSharedPreferences.getRoundingMode())
         return NumberFormatter.formatPercentage(rounded, 2)
     }
 
-    fun getTrackerEntries() = data
+    internal fun getTrackerEntries() = data
 }

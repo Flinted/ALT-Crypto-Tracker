@@ -2,14 +2,9 @@ package did.chris.alt.data.response.histoResponse
 
 import com.google.gson.annotations.SerializedName
 
-/**
- * HistoricalDataResponse
- * Copyright © 2018  ChrisDidThis. All rights reserved.
- */
 class HistoricalDataResponse {
 
     // Properties
-
     @SerializedName("Response")
     internal var response: String? = null
 

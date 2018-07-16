@@ -37,10 +37,10 @@ class ChangeData(coinResponse: CoinResponse) {
     }
 
     private fun isGreaterThanMarketCutOff(change: Float, marketKey: Int): Boolean {
-        return change > ALTSharedPreferences.getValueForMarketThreshold(0)
+        return change > ALTSharedPreferences.getValueForMarketThreshold(marketKey)
     }
 
     private fun isLessThanMarketCutOff(change: Float, marketKey: Int): Boolean {
-        return change < ALTSharedPreferences.getValueForMarketThreshold(0)
+        return change < ALTSharedPreferences.getValueForMarketThreshold(marketKey)
     }
 }
