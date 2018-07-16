@@ -7,6 +7,11 @@ import did.chris.alt.data.dataController.callbacks.RepositoryCallbackSingle
 import did.chris.alt.data.response.histoResponse.HistoricalDataResponse
 import did.chris.alt.data.response.histoResponse.HistoricalDataUnitResponse
 import did.chris.alt.errors.ErrorHandler
+import did.chris.alt.utility.DateFormatter
+import did.chris.alt.utility.NumberFormatter
+import org.threeten.bp.Instant
+import org.threeten.bp.ZoneId
+import java.math.BigDecimal
 import javax.inject.Inject
 
 // Minute Resolution
@@ -36,10 +41,11 @@ class CoinDetailChartPresenter @Inject constructor(private val dataController: D
     private val chartData: SparseArray<HistoricalDataResponse> = SparseArray()
     private var currentData: Array<HistoricalDataUnitResponse> = arrayOf()
 
-    override fun initialise() {
+    override fun setCoinSymbol(coinSymbol: String) {
+        this.coinSymbol = coinSymbol
     }
 
-    override fun initialise(coinSymbol: String) {
+    override fun initialise() {
         this.coinSymbol = coinSymbol
         view?.setChartChangeListener()
         getHistoricalDataFor(CHART_24H)
@@ -48,10 +54,30 @@ class CoinDetailChartPresenter @Inject constructor(private val dataController: D
     override fun getHistoricalDataFor(chartResolution: Int) {
         val callback = makeHistoricalDataCallback()
         val apiResolution = getAPIResolutionForRequestedChartType(chartResolution)
+        view?.hideHighlightedData()
         getDataForResolution(apiResolution, chartResolution, callback)
     }
 
+    override fun valueSelected(dataPoint: HistoricalDataUnitResponse) {
+        val closeFloat = dataPoint.close ?: return
+        formatValueForHighlight(closeFloat)
+        val time = dataPoint.time?.toLong() ?: return
+        formatTimeForHighlight(time)
+    }
+
     // Private Functions
+    private fun formatTimeForHighlight(time: Long) {
+        val zoneId = ZoneId.systemDefault()
+        val instant = Instant.ofEpochSecond(time).atZone(zoneId)
+        val formattedTime = DateFormatter.DATE_HOUR_AMPM.format(instant)
+        view?.displayHighlightTime(formattedTime)
+    }
+
+    private fun formatValueForHighlight(closeFloat: Float) {
+        val close = BigDecimal(closeFloat.toDouble())
+        val formattedAmount = NumberFormatter.formatCurrencyAutomaticDigit(close)
+        view?.displayHighlightValue(formattedAmount)
+    }
 
     private fun getDataForResolution(
         apiResolution: Int,

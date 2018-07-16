@@ -4,13 +4,13 @@ import did.chris.alt.base.BaseContractPresenter
 import did.chris.alt.base.BaseContractView
 import did.chris.alt.data.trackerListItem.TrackerListItem
 
-/**
- * TrackerChartContract
- * Copyright © 2018 ChrisDidThis. All rights reserved.
- */
 interface TrackerBarChartContractView: BaseContractView {
+
+    // Functions
     fun displayTrackerEntriesChart(trackerListItems: List<TrackerListItem>)
     fun showNoTrackerEntriesMessage()
+    fun showMoreItemsIndicator()
+    fun hideMoreItemsIndicator()
 }
 
 interface TrackerBarChartContractPresenter: BaseContractPresenter<TrackerBarChartContractView> {

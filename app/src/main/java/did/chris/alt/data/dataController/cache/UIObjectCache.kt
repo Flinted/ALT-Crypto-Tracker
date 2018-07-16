@@ -17,10 +17,6 @@ import did.chris.alt.factories.TrackerItemFactory
 import rx.subjects.PublishSubject
 import javax.inject.Inject
 
-/**
- * UIObjectCache
- * Copyright © 2018 ChrisDidThis. All rights reserved.
- */
 class UIObjectCache @Inject constructor(
     private val coinListItemFactory: CoinListItemFactory,
     private val trackerItemFactory: TrackerItemFactory,
@@ -28,15 +24,13 @@ class UIObjectCache @Inject constructor(
 ) {
 
     // Properties
-
     private var lastUpdate: TimeStamp? = null
+    private var marketSummary: MarketSummaryResponse? = null
     internal var coinListItems: List<CoinListItem> = mutableListOf()
     internal var trackerListItems: List<TrackerListItem> = mutableListOf()
     internal var summary: Summary = summaryFactory.makeEmptySummary()
-    private var marketSummary: MarketSummaryResponse? = null
 
     // RX Subscriptions
-
     private var hasRefreshedCoins: PublishSubject<List<CoinListItem>> = PublishSubject.create()
     private var hasRefreshedTrackerItems: PublishSubject<List<TrackerListItem>> =
         PublishSubject.create()
@@ -45,6 +39,7 @@ class UIObjectCache @Inject constructor(
         PublishSubject.create()
     private var hasUpdatedTimeStamp: PublishSubject<TimeStamp> = PublishSubject.create()
     private var hasStartedUpdate: PublishSubject<Boolean> = PublishSubject.create()
+
     internal fun getUpdateBegunSubscriber() = hasStartedUpdate.asObservable()
     internal fun getCoinsSubscription() = Pair(hasRefreshedCoins.asObservable(), coinListItems)
     internal fun getTrackerListSubscription() =
@@ -57,7 +52,6 @@ class UIObjectCache @Inject constructor(
     internal fun getSyncTimeSubscription() = Pair(hasUpdatedTimeStamp.asObservable(), lastUpdate)
 
     // Internal Functions
-
     internal fun shouldReSyncData() = lastUpdate?.shouldReSync() ?: true
 
     internal fun updateMarketSummary(marketSummary: MarketSummaryResponse) {
@@ -119,7 +113,7 @@ class UIObjectCache @Inject constructor(
         hasStartedUpdate.onNext(true)
     }
 
-    fun invalidateData() {
+    internal fun invalidateData() {
         lastUpdate?.invalidate()
     }
 }

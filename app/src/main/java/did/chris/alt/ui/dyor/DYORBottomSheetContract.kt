@@ -4,10 +4,9 @@ import did.chris.alt.base.BaseContractPresenter
 import did.chris.alt.base.BaseContractView
 import did.chris.alt.data.coinListItem.CoinListItem
 
-/**
- * DYORBottomSheetContract
- */
 interface DYORBottomSheetContractView : BaseContractView {
+
+    // Functions
     fun initialiseGoogleButton(coin: CoinListItem?)
     fun initialiseFacebookButton(coin: CoinListItem?)
     fun initialiseGitHubButton(coin: CoinListItem?)
@@ -15,5 +14,7 @@ interface DYORBottomSheetContractView : BaseContractView {
 }
 
 interface DYORBottomSheetContractPresenter : BaseContractPresenter<DYORBottomSheetContractView> {
+
+    // Functions
     fun setCoinSymbol(coinSymbol: String?)
 }

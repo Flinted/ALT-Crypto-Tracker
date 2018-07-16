@@ -1,9 +1,7 @@
 package did.chris.alt.ui.interfaces
 
-/**
- * FilterView
- * Copyright © 2018  ChrisDidThis. All rights reserved.
- */
 interface FilterView {
+
+    // Functions
     fun filterFor(input: String)
 }

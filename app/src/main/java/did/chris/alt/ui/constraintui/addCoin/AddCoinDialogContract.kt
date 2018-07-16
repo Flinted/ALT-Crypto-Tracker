@@ -5,11 +5,8 @@ import did.chris.alt.base.BaseContractView
 import did.chris.alt.data.coinListItem.CoinListItem
 import rx.Observable
 
-/**
- * AddCoinDialogContract
- * Copyright © 2018  ChrisDidThis. All rights reserved.
- */
 interface AddCoinContractView : BaseContractView {
+
     fun initialiseFABListener()
     fun initialiseInputListeners()
     fun displayUpdatedPurchasePrice(purchasePrice: String)
@@ -23,6 +20,7 @@ interface AddCoinContractView : BaseContractView {
 }
 
 interface AddCoinContractPresenter : BaseContractPresenter<AddCoinContractView> {
+
     fun onAddEntryRequested(coinName: String?,
                             exchange: String?,
                             quantity: String?,

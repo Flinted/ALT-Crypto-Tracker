@@ -20,7 +20,6 @@ class TrackerListAdapter(presenterComponent: PresenterComponent, private val scr
     TrackerAdapterContractView, Filterable {
 
     // Properties
-
     override var trackerEntries: MutableList<TrackerListItem> = mutableListOf()
         set(value) {
             field = value
@@ -35,7 +34,6 @@ class TrackerListAdapter(presenterComponent: PresenterComponent, private val scr
         }
 
     // RX Actions
-
     private var trackerEntrySelected: PublishSubject<TrackerListItem> = PublishSubject.create()
     private var noEntriesFound: PublishSubject<Boolean> = PublishSubject.create()
     private var isRefreshing: PublishSubject<Boolean> = PublishSubject.create()
@@ -48,7 +46,6 @@ class TrackerListAdapter(presenterComponent: PresenterComponent, private val scr
     private val indicatorCustomiser = IndicatorCustomiser(ALTSharedPreferences.getIconPack())
 
     // Lifecycle
-
     init {
         trackerAdapterPresenter.attachView(this)
         trackerAdapterPresenter.initialise()
@@ -59,6 +56,10 @@ class TrackerListAdapter(presenterComponent: PresenterComponent, private val scr
         val itemView = layoutInflater.inflate(R.layout.item_tracker_list, parent, false)
         itemView.layoutParams.width = screenWidth / 2
         return TrackerListViewHolder(itemView)
+    }
+
+    override fun onDestroy() {
+        trackerAdapterPresenter.onDestroy()
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -90,6 +91,7 @@ class TrackerListAdapter(presenterComponent: PresenterComponent, private val scr
         setOnClickListener(viewHolder.itemContent, entry)
     }
 
+    // Private Functions
     private fun setAmountValues(
         viewHolder: TrackerListViewHolder,
         entry: TrackerListItem
@@ -99,6 +101,43 @@ class TrackerListAdapter(presenterComponent: PresenterComponent, private val scr
             return
         }
         setActualValues(viewHolder, entry)
+    }
+
+    // Overrides
+    override fun getFilter(): Filter {
+        val callback = makeTrackerFilterCallback()
+        return TrackerFilter(trackerEntries, callback)
+    }
+
+    override fun getItemCount() = filteredTrackerEntries.size
+
+    override fun showNoTrackerEntriesMessage() = noEntriesFound.onNext(true)
+
+    override fun didHaveEntries() = noEntriesFound.onNext(false)
+
+    override fun initialiseTrackerList() = trackerAdapterPresenter.initialise()
+
+    override fun showLoading() = isRefreshing.onNext(true)
+
+    override fun hideLoading() = isRefreshing.onNext(false)
+
+    override fun showError(stringId: Int?) {}
+
+    override fun filterFor(input: String) = filter.filter(input)
+
+    // Private Functions
+    private fun setOnClickListener(itemContent: ConstraintLayout, entry: TrackerListItem) {
+        itemContent.setOnClickListener {
+            trackerEntrySelected.onNext(entry)
+        }
+    }
+
+    private fun makeTrackerFilterCallback(): TrackerFilterCallback {
+        return object : TrackerFilterCallback {
+            override fun publishResults(filteredList: MutableList<TrackerListItem>) {
+                filteredTrackerEntries = filteredList
+            }
+        }
     }
 
     private fun setHiddenValues(
@@ -128,48 +167,5 @@ class TrackerListAdapter(presenterComponent: PresenterComponent, private val scr
             entry.getProfitLossFormatted(),
             entry.percentageChangeFormatted
         )
-    }
-
-    override fun onDestroy() {
-        trackerAdapterPresenter.onDestroy()
-    }
-
-    // Overrides
-
-    override fun getFilter(): Filter {
-        val callback = makeTrackerFilterCallback()
-        return TrackerFilter(trackerEntries, callback)
-    }
-
-    private fun makeTrackerFilterCallback(): TrackerFilterCallback {
-        return object : TrackerFilterCallback {
-            override fun publishResults(filteredList: MutableList<TrackerListItem>) {
-                filteredTrackerEntries = filteredList
-            }
-        }
-    }
-
-    override fun getItemCount() = filteredTrackerEntries.size
-
-    override fun showNoTrackerEntriesMessage() = noEntriesFound.onNext(true)
-
-    override fun didHaveEntries() = noEntriesFound.onNext(false)
-
-    override fun initialiseTrackerList() = trackerAdapterPresenter.initialise()
-
-    override fun showLoading() = isRefreshing.onNext(true)
-
-    override fun hideLoading() = isRefreshing.onNext(false)
-
-    override fun showError(stringId: Int?) {}
-
-    override fun filterFor(input: String) = filter.filter(input)
-
-    // Private Functions
-
-    private fun setOnClickListener(itemContent: ConstraintLayout, entry: TrackerListItem) {
-        itemContent.setOnClickListener {
-            trackerEntrySelected.onNext(entry)
-        }
     }
 }

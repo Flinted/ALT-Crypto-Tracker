@@ -15,15 +15,10 @@ import did.chris.alt.utility.DateFormatter
 import org.threeten.bp.ZonedDateTime
 import rx.subjects.PublishSubject
 
-/**
- * TransactionsListAdapter
- * Copyright © 2018 ChrisDidThis. All rights reserved.
- */
 class TransactionsListAdapter(presenterComponent: PresenterComponent) : RecyclerView.Adapter<RecyclerView.ViewHolder>(),
         TransactionAdapterContractView {
 
     // Properties
-
     internal var transactionEntries: MutableList<TrackerTransaction> = mutableListOf()
         set(value) {
             field = value
@@ -33,13 +28,10 @@ class TransactionsListAdapter(presenterComponent: PresenterComponent) : Recycler
     private var transactionsAdapterPresenter = presenterComponent.provideTransactionsAdapterPresenter()
 
     // RX Actions
-
     private var summaryRefreshRequired: PublishSubject<Boolean> = PublishSubject.create()
-
     override fun onSummaryRefreshRequired() = summaryRefreshRequired.asObservable()
 
     // Lifecycle
-
     init {
         transactionsAdapterPresenter.attachView(this)
         transactionsAdapterPresenter.initialise()
@@ -57,7 +49,6 @@ class TransactionsListAdapter(presenterComponent: PresenterComponent) : Recycler
     }
 
     // Overrides
-
     override fun getItemCount(): Int {
         return transactionEntries.size
     }
@@ -105,15 +96,14 @@ class TransactionsListAdapter(presenterComponent: PresenterComponent) : Recycler
     }
 
     // Private Functions
-
     private fun initialiseDeleteButton(deleteButton: ImageView, entry: TrackerTransaction, position: Int) {
         val listener = makeDeleteDialogListener(entry, position)
         deleteButton.setOnClickListener {
             val dialog = AlertDialog.Builder(deleteButton.context)
             dialog.apply {
-                setMessage("This will delete this transaction irreversibly. Are you sure?")
-                setPositiveButton("Yes", listener)
-                setNegativeButton("No", listener)
+                setMessage(context.getString(R.string.dialog_transactions_delete_confirmation))
+                setPositiveButton(context.getString(R.string.dialog_yes), listener)
+                setNegativeButton(context.getString(R.string.dialog_no), listener)
                 setCancelable(false)
             }.create()
             dialog.show()

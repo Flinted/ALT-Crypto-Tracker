@@ -20,8 +20,9 @@ private const val ASSET_KEY = "assetKey"
 
 class AddCoinDialogFragment : BaseDialogFragment(), AddCoinContractView {
 
+    // Companion
     companion object {
-        fun createForAsset(asset: String?): AddCoinDialogFragment {
+        fun getInstanceFor(asset: String?): AddCoinDialogFragment {
             val bundle = Bundle()
             bundle.putString(ASSET_KEY, asset)
             val fragment = AddCoinDialogFragment()
@@ -31,19 +32,17 @@ class AddCoinDialogFragment : BaseDialogFragment(), AddCoinContractView {
     }
 
     // Properties
-
     private lateinit var views: AddCoinViewHolder
     private lateinit var addCoinDialogPresenter: AddCoinContractPresenter
     private lateinit var adapter: CoinAutoCompleteAdapter
     private var preSelectAsset: String? = null
 
     // RX Actions
-
     private var transactionAdded: PublishSubject<Boolean> = PublishSubject.create()
+
     override fun onTransactionAdded() = transactionAdded.asObservable()
 
     // Lifecycle
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         preSelectAsset = arguments?.getString(ASSET_KEY)
@@ -65,13 +64,6 @@ class AddCoinDialogFragment : BaseDialogFragment(), AddCoinContractView {
         addCoinDialogPresenter.initialise()
         initialiseBackButton()
         return view
-    }
-
-    private fun initialiseBackButton() {
-        views.backButton.setOnClickListener {
-            hideKeyboard(views.addEntryButton.windowToken)
-            dismiss()
-        }
     }
 
     // Overrides
@@ -127,21 +119,6 @@ class AddCoinDialogFragment : BaseDialogFragment(), AddCoinContractView {
         views.assetSearch.requestFocus()
     }
 
-    private fun checkForPresetAsset(): Boolean {
-        val assetId = preSelectAsset ?: return false
-        setAssetForId(assetId)
-        return true
-    }
-
-    private fun setAssetForId(assetId: String) {
-        val coin = adapter.getCoinListItemForId(assetId)
-        views.selectedAsset.text = assetId
-        views.assetSearch.text.clear()
-        addCoinDialogPresenter.updateSelectedCoin(coin)
-        updatePriceCalculation()
-        views.quantityInput.requestFocus()
-    }
-
     override fun displayUpdatedPurchasePrice(purchasePrice: String) {
         views.purchasePriceDisplay.text =
                 getString(R.string.dialog_addCoin_title_purchase_value, purchasePrice)
@@ -165,6 +142,12 @@ class AddCoinDialogFragment : BaseDialogFragment(), AddCoinContractView {
     }
 
     override fun showLoading() {
+    }
+
+
+    override fun didAddTrackerEntry() {
+        hideKeyboard(views.selectedAsset.windowToken)
+        dismiss()
     }
 
     // Private Functions
@@ -211,8 +194,25 @@ class AddCoinDialogFragment : BaseDialogFragment(), AddCoinContractView {
         )
     }
 
-    override fun didAddTrackerEntry() {
-        hideKeyboard(views.selectedAsset.windowToken)
-        dismiss()
+    private fun initialiseBackButton() {
+        views.backButton.setOnClickListener {
+            hideKeyboard(views.addEntryButton.windowToken)
+            dismiss()
+        }
+    }
+
+    private fun checkForPresetAsset(): Boolean {
+        val assetId = preSelectAsset ?: return false
+        setAssetForId(assetId)
+        return true
+    }
+
+    private fun setAssetForId(assetId: String) {
+        val coin = adapter.getCoinListItemForId(assetId)
+        views.selectedAsset.text = assetId
+        views.assetSearch.text.clear()
+        addCoinDialogPresenter.updateSelectedCoin(coin)
+        updatePriceCalculation()
+        views.quantityInput.requestFocus()
     }
 }

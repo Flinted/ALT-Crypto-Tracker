@@ -16,13 +16,9 @@ import did.chris.alt.ui.constraintui.addCoin.AddCoinDialogFragment
 import did.chris.alt.ui.tracker.trackerEntryDialog.transactionsList.TransactionsListAdapter
 import rx.subjects.PublishSubject
 
-/**
- * TrackerDetailDialog
- * Copyright © 2018 ChrisDidThis. All rights reserved.
- */
 class TrackerDetailDialog : BaseDialogFragment(), TrackerDetailDialogContractView {
 
-    // Static Builder
+    // Companion
     companion object {
         fun getInstanceFor(entry: TrackerListItem): TrackerDetailDialog {
             val fragment = TrackerDetailDialog()
@@ -44,7 +40,6 @@ class TrackerDetailDialog : BaseDialogFragment(), TrackerDetailDialogContractVie
     override fun onEntryDeleted() = entryDeleted.asObservable()
 
     // Lifecycle
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         trackerEntryDialogPresenter = getPresenterComponent().provideTrackerEntryDialogPresenter()
@@ -65,12 +60,6 @@ class TrackerDetailDialog : BaseDialogFragment(), TrackerDetailDialogContractVie
         return view
     }
 
-    private fun initialiseBackButton() {
-        views.backButton.setOnClickListener{
-            dismiss()
-        }
-    }
-
     override fun onStart() {
         super.onStart()
         dialog.window.setLayout(
@@ -80,7 +69,6 @@ class TrackerDetailDialog : BaseDialogFragment(), TrackerDetailDialogContractVie
     }
 
     // Overrides
-
     override fun displayTrackerEntry(trackerEntry: TrackerListItem) {
         views.coinName.text = trackerEntry.name
         views.coinSymbol.text = trackerEntry.symbolFormatted
@@ -112,9 +100,9 @@ class TrackerDetailDialog : BaseDialogFragment(), TrackerDetailDialogContractVie
         views.deleteButton.setOnClickListener {
             val dialog = AlertDialog.Builder(activity)
             dialog.apply {
-                setMessage("This will delete ALL transactions for this asset irreversibly. Are you sure?")
-                setPositiveButton("Yes", listener)
-                setNegativeButton("No", listener)
+                setMessage(getString(R.string.tracker_dialog_delete_confirmation))
+                setPositiveButton(context.getString(R.string.dialog_yes), listener)
+                setNegativeButton(context.getString(R.string.dialog_no), listener)
                 setCancelable(false)
             }.create()
             dialog.show()
@@ -124,7 +112,7 @@ class TrackerDetailDialog : BaseDialogFragment(), TrackerDetailDialogContractVie
     override fun initialiseAddAssetButton() {
         views.addAssetButton.setOnClickListener { _ ->
             val coin = entry.getSearchId()
-            val fragment = AddCoinDialogFragment.createForAsset(coin)
+            val fragment = AddCoinDialogFragment.getInstanceFor(coin)
             val fragmentManager = activity?.fragmentManager
             val shownCoinDetail = fragmentManager?.findFragmentByTag("AddCoinDialog")
             shownCoinDetail?.let { shownDialog ->
@@ -151,6 +139,12 @@ class TrackerDetailDialog : BaseDialogFragment(), TrackerDetailDialogContractVie
     }
 
     // Private Functions
+
+    private fun initialiseBackButton() {
+        views.backButton.setOnClickListener {
+            dismiss()
+        }
+    }
 
     private fun makeDeleteDialogListener(): DialogInterface.OnClickListener {
         return DialogInterface.OnClickListener { _, choice ->

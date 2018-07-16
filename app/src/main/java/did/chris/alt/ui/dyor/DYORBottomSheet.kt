@@ -11,10 +11,12 @@ import did.chris.alt.base.BaseBottomSheetDialogFragment
 import did.chris.alt.data.coinListItem.CoinListItem
 import java.net.URLEncoder
 
+// Const Properties
 private const val DYOR_COIN_KEY = "dyor"
 
 class DYORBottomSheet : BaseBottomSheetDialogFragment(), DYORBottomSheetContractView {
 
+    // Companion
     companion object {
         fun getInstanceFor(coinSymbol: String): DYORBottomSheet {
             val bundle = Bundle()
@@ -25,9 +27,11 @@ class DYORBottomSheet : BaseBottomSheetDialogFragment(), DYORBottomSheetContract
         }
     }
 
-    lateinit var bottomSheetPresenter: DYORBottomSheetContractPresenter
-    lateinit var views: DYORBottomSheetViewHolder
+    // Properties
+    private lateinit var bottomSheetPresenter: DYORBottomSheetContractPresenter
+    private lateinit var views: DYORBottomSheetViewHolder
 
+    // Lifecycle
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         bottomSheetPresenter = getPresenterComponent().provideDYORBottomSheetPresenter()
@@ -48,6 +52,7 @@ class DYORBottomSheet : BaseBottomSheetDialogFragment(), DYORBottomSheetContract
         return view
     }
 
+    // Overrides
     override fun showLoading() {
     }
 
@@ -91,6 +96,7 @@ class DYORBottomSheet : BaseBottomSheetDialogFragment(), DYORBottomSheetContract
         }
     }
 
+    // Private Functions
     private fun startBrowser(url: String) {
         val intent = Intent(Intent.ACTION_VIEW)
         intent.data = Uri.parse(url)

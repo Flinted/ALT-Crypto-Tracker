@@ -10,10 +10,6 @@ import did.chris.alt.data.response.CoinResponse
 import did.chris.alt.ui.interfaces.sortedByFavouritesThen
 import javax.inject.Inject
 
-/**
- * CoinListItemFactory
- * Copyright © 2018 ChrisDidThis. All rights reserved.
- */
 class CoinListItemFactory @Inject constructor() {
 
     // Properties
@@ -23,7 +19,6 @@ class CoinListItemFactory @Inject constructor() {
     private var itemsInAverage = 0
 
     // Internal Functions
-
     internal fun makeCoinListItems(
         inputItems: MutableList<CoinResponse>,
         favouriteCoins: MutableList<FavouriteCoin>?
@@ -52,7 +47,6 @@ class CoinListItemFactory @Inject constructor() {
     internal fun getMarketData() = MarketData(twentyFourHourMarket, sevenDayMarket, itemsInAverage)
 
     // Private Functions
-
     private fun makeCoinListItem(
         inputItem: CoinResponse,
         favouriteCoins: HashMap<String, FavouriteCoin>

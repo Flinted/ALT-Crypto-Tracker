@@ -6,14 +6,9 @@ import did.chris.alt.data.trackerListItem.TrackerListItem
 import java.math.BigDecimal
 import javax.inject.Inject
 
-/**
- * SummaryFactory
- * Copyright © 2018 ChrisDidThis. All rights reserved.
- */
 class SummaryFactory @Inject constructor() {
 
     // Internal Functions
-
     internal fun makeSummaryFor(data: List<TrackerListItem>): Summary {
         if (data.isEmpty()) {
             return makeEmptySummary()
@@ -40,7 +35,6 @@ class SummaryFactory @Inject constructor() {
     }
 
     // Private Functions
-
     private fun getAmountSoldFiat(data: List<TrackerListItem>): BigDecimal {
         return data.fold(BigDecimal.ZERO) { acc, entry ->
             acc.add(entry.amountSold)

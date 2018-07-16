@@ -8,14 +8,8 @@ import did.chris.alt.ui.interfaces.SORT_RANK
 import java.math.RoundingMode
 import java.util.*
 
-/**
- * POHSettings
- * Copyright © 2018  ChrisDidThis. All rights reserved.
- */
-const val START_MARKET = "StartMarket"
-const val START_TRACKER = "StartTracker"
+// Const Properties
 private const val SHARED_PREFERENCES_KEY = "ALT_SETTINGS"
-
 private const val CURRENCY = "currency"
 private const val HIDDEN_VALUES = "hiddenValues"
 private const val FIRST_LOAD = "firstLoad"
@@ -29,39 +23,50 @@ private const val TRACKER_REDRAW_REQUIRED = "trackerRedrawRequired"
 private const val MARKET_THRESHOLDS = "marketThresholds"
 private const val TRACKER_THRESHOLDS = "trackerThresholds"
 
-
 object ALTSharedPreferences {
 
+    // Properties
     private lateinit var preferences: SharedPreferences
+    private val marketDefaults = listOf(50f, 15f, 5f, -5f, -15f, -50f)
+    private val trackerDefaults = listOf(1.5f, 0.5f, 0.15f, -0.1f, -0.25f, -0.5f)
 
-    fun initialise(context: Context) {
+    // Internal Functions
+    internal fun initialise(context: Context) {
         preferences = context.getSharedPreferences(SHARED_PREFERENCES_KEY, Activity.MODE_PRIVATE)
     }
 
-    fun setSharedPreferenceChangeListener(listener: SharedPreferences.OnSharedPreferenceChangeListener) {
+    internal fun setSharedPreferenceChangeListener(listener: SharedPreferences.OnSharedPreferenceChangeListener) {
         preferences.registerOnSharedPreferenceChangeListener(listener)
     }
 
-    fun removeSharedPreferenceChangeListener(listener: SharedPreferences.OnSharedPreferenceChangeListener) {
+    internal fun removeSharedPreferenceChangeListener(listener: SharedPreferences.OnSharedPreferenceChangeListener) {
         preferences.unregisterOnSharedPreferenceChangeListener(listener)
     }
 
-    fun getCurrencyCode(): String = preferences.getString(CURRENCY, "USD")
-    fun getCurrency(): Currency = Currency.getInstance(getCurrencyCode())
-    fun getSymbol(): String {
+    internal fun getCurrencyCode(): String = preferences.getString(CURRENCY, "USD")
+    internal fun getCurrency(): Currency = Currency.getInstance(getCurrencyCode())
+    internal fun getSymbol(): String {
         val currency = getCurrency()
         return currency.currencyCode
     }
 
-    fun getRoundingMode() = RoundingMode.HALF_EVEN
-    fun getValuesHidden() = preferences.getBoolean(HIDDEN_VALUES, false)
-    fun getFirstLoad() = preferences.getBoolean(FIRST_LOAD, true)
-    fun getRefreshGap() = preferences.getLong(REFRESH_GAP, 5L)
-    fun getExchange(): String = preferences.getString(EXCHANGE_SOURCE, "CCCAGG")
-    fun getMarketLimit() = preferences.getInt(MARKET_LIMIT, 1000)
-    fun getSort() = preferences.getInt(SORT_BY, SORT_RANK)
-    fun getIconPackId() = preferences.getInt(ICON_PACK, 0)
-    fun getIconPack(): IconPack {
+    internal fun getRoundingMode() = RoundingMode.HALF_EVEN
+
+    internal fun getValuesHidden() = preferences.getBoolean(HIDDEN_VALUES, false)
+
+    internal fun getFirstLoad() = preferences.getBoolean(FIRST_LOAD, true)
+
+    internal fun getRefreshGap() = preferences.getLong(REFRESH_GAP, 5L)
+
+    internal fun getExchange(): String = preferences.getString(EXCHANGE_SOURCE, "CCCAGG")
+
+    internal fun getMarketLimit() = preferences.getInt(MARKET_LIMIT, 1000)
+
+    internal fun getSort() = preferences.getInt(SORT_BY, SORT_RANK)
+
+    internal fun getIconPackId() = preferences.getInt(ICON_PACK, 0)
+
+    internal fun getIconPack(): IconPack {
         val packKey = getIconPackId()
         return when (packKey) {
             0    -> DefaultIconPack()
@@ -72,23 +77,50 @@ object ALTSharedPreferences {
         }
     }
 
-    fun getCoinListRedrawRequired() = preferences.getBoolean(COIN_REDRAW_REQUIRED, false)
+    internal fun getCoinListRedrawRequired() = preferences.getBoolean(COIN_REDRAW_REQUIRED, false)
 
-    fun getTrackerListRedrawRequired() = preferences.getBoolean(TRACKER_REDRAW_REQUIRED, false)
+    internal fun getTrackerListRedrawRequired() =
+        preferences.getBoolean(TRACKER_REDRAW_REQUIRED, false)
 
-    fun setTrackerListRedrawRequired(required: Boolean) =
+    internal fun setTrackerListRedrawRequired(required: Boolean) =
         putBoolean(TRACKER_REDRAW_REQUIRED, required)
 
-    fun setCoinListRedrawRequired(required: Boolean) = putBoolean(COIN_REDRAW_REQUIRED, required)
+    internal fun setCoinListRedrawRequired(required: Boolean) =
+        putBoolean(COIN_REDRAW_REQUIRED, required)
 
-    fun setSort(sort: Int) = putInt(SORT_BY, sort)
+    internal fun setSort(sort: Int) = putInt(SORT_BY, sort)
 
-    fun setMarketLimit(limit: Int) = putInt(MARKET_LIMIT, limit)
+    internal fun setMarketLimit(limit: Int) = putInt(MARKET_LIMIT, limit)
 
-    fun setValuesHidden(hidden: Boolean) = putBoolean(HIDDEN_VALUES, hidden)
+    internal fun setValuesHidden(hidden: Boolean) = putBoolean(HIDDEN_VALUES, hidden)
 
-    fun setIconPack(key: Int) = putInt(ICON_PACK, key)
+    internal fun setIconPack(key: Int) = putInt(ICON_PACK, key)
 
+    internal fun getValueForMarketThreshold(index: Int): Float {
+        val key = MARKET_THRESHOLDS + index
+        val default = marketDefaults[index]
+        return preferences.getFloat(key, default)
+    }
+
+    internal fun getValueForTrackerThreshold(index: Int): Float {
+        val key = TRACKER_THRESHOLDS + index
+        val default = trackerDefaults[index]
+        return preferences.getFloat(key, default)
+    }
+
+    @SuppressLint("ApplySharedPref")
+    internal fun setValueForMarketThreshold(index: Int, value: Float) {
+        val key = MARKET_THRESHOLDS + index
+        preferences.edit().putFloat(key, value).commit()
+    }
+
+    @SuppressLint("ApplySharedPref")
+    internal fun setValueForTrackerThreshold(index: Int, value: Float) {
+        val key = TRACKER_THRESHOLDS + index
+        preferences.edit().putFloat(key, value).commit()
+    }
+
+    // Private Functions
     @SuppressLint("ApplySharedPref")
     private fun putInt(key: String, value: Int) {
         preferences
@@ -111,32 +143,5 @@ object ALTSharedPreferences {
             .edit()
             .putBoolean(key, value)
             .commit()
-    }
-
-    private val marketDefaults = listOf(50f, 15f, 5f, -5f, -15f, -50f)
-    private val trackerDefaults = listOf(1.5f, 0.5f, 0.15f, -0.1f, -0.25f, -0.5f)
-
-    fun getValueForMarketThreshold(index: Int): Float {
-        val key = MARKET_THRESHOLDS + index
-        val default = marketDefaults[index]
-        return preferences.getFloat(key, default)
-    }
-
-    fun getValueForTrackerThreshold(index: Int): Float {
-        val key = TRACKER_THRESHOLDS + index
-        val default = trackerDefaults[index]
-        return preferences.getFloat(key, default)
-    }
-
-    @SuppressLint("ApplySharedPref")
-    fun setValueForMarketThreshold(index: Int, value: Float) {
-        val key = MARKET_THRESHOLDS + index
-        preferences.edit().putFloat(key, value).commit()
-    }
-
-    @SuppressLint("ApplySharedPref")
-    fun setValueForTrackerThreshold(index: Int, value: Float) {
-        val key = TRACKER_THRESHOLDS + index
-        preferences.edit().putFloat(key, value).commit()
     }
 }

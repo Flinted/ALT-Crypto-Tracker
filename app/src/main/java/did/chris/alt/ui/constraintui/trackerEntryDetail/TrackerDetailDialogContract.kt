@@ -6,12 +6,9 @@ import did.chris.alt.data.trackerListItem.TrackerListItem
 import did.chris.alt.data.trackerListItem.TrackerTransaction
 import rx.Observable
 
-/**
- * TrackerEntryDialogContract
- * Copyright © 2018 ChrisDidThis. All rights reserved.
- */
-
 interface TrackerDetailDialogContractView : BaseContractView {
+
+    // Functions
     fun displayTrackerEntry(trackerEntry: TrackerListItem)
     fun initialiseTransactionsList(transactions: MutableList<TrackerTransaction>)
     fun initialiseDeleteButton()
@@ -22,6 +19,8 @@ interface TrackerDetailDialogContractView : BaseContractView {
 }
 
 interface TrackerDetailDialogContractPresenter : BaseContractPresenter<TrackerDetailDialogContractView> {
+
+    // Functions
     fun initialise(entry: TrackerListItem)
     fun deleteCurrentEntry()
 }

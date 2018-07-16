@@ -11,17 +11,12 @@ import com.github.mikephil.charting.data.LineDataSet
 import did.chris.alt.R
 import did.chris.alt.data.response.histoResponse.HistoricalDataUnitResponse
 
-/**
- * HistoricalDataChartFactory
- * Copyright © 2018 ChrisDidThis. All rights reserved.
- */
 class HistoricalDataChartFactory(
     private var dataSet: Array<HistoricalDataUnitResponse>,
     private var label: String
 ) {
 
     // Internal Functions
-
     internal fun updateDataSet(newData: Array<HistoricalDataUnitResponse>, label: String) {
         this.dataSet = newData
         this.label = label
@@ -39,7 +34,6 @@ class HistoricalDataChartFactory(
     }
 
     // Private Functions
-
     private fun makeEntries(): MutableList<Entry> {
         val entries: MutableList<Entry> = mutableListOf()
         var count = 0f

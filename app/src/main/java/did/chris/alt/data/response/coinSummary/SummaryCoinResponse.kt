@@ -4,15 +4,9 @@ import com.google.gson.annotations.SerializedName
 import did.chris.alt.data.response.CoinResponse
 import java.math.BigDecimal
 
-/**
- * CoinResponse
- * Copyright © 2018 ChrisDidThis. All rights reserved.
- */
-
 class SummaryCoinResponse : CoinResponse {
 
     // Properties
-
     @SerializedName("name")
     override lateinit var name: String
 
@@ -53,7 +47,6 @@ class SummaryCoinResponse : CoinResponse {
     override var percentChange7D: String? = null
 
     // Overrides
-
     override fun provideRank() = rank.toInt()
 
     override fun providePriceUSD(): BigDecimal? {

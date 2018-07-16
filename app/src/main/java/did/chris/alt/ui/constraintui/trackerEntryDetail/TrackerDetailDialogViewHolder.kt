@@ -6,12 +6,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import did.chris.alt.R
 
-/**
- * TrackerDetailDialogViewHolder
- * Copyright © 2018 ChrisDidThis. All rights reserved.
- */
 class TrackerDetailDialogViewHolder(view: View) {
 
+    // Properties
     internal var deleteButton: ImageView = view.findViewById(R.id.dialog_tracker_delete)
     internal var coinName: TextView = view.findViewById(R.id.dialog_tracker_coin_name)
     internal var coinSymbol: TextView = view.findViewById(R.id.dialog_tracker_coin_symbol)

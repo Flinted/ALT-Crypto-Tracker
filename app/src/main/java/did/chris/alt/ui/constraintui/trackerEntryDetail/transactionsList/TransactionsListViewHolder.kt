@@ -6,11 +6,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import did.chris.alt.R
 
-/**
- * TransactionsListViewHolder
- * Copyright © 2018 ChrisDidThis. All rights reserved.
- */
 class TransactionsListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+    // Properties
     var date: TextView = itemView.findViewById(R.id.transaction_item_date)
     var exchange: TextView = itemView.findViewById(R.id.transaction_item_exchange)
     var quantity: TextView = itemView.findViewById(R.id.transaction_item_quantity)

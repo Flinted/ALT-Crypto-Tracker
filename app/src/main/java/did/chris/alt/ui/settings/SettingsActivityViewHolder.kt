@@ -6,53 +6,52 @@ import android.widget.Spinner
 import com.michaelmuenzer.android.scrollablennumberpicker.ScrollableNumberPicker
 import did.chris.alt.R
 
-/**
- * SettingsActivityViewHolder
- */
 class SettingsActivityViewHolder(settingsActivity: SettingsActivity) {
-    val sortSpinner: Spinner = settingsActivity.findViewById(R.id.settings_default_sort_selector)
-    val iconPackSpinner: Spinner = settingsActivity.findViewById(R.id.settings_icon_pack_selector)
-    val marketSelector: Spinner =
+
+    // Properties
+    internal val sortSpinner: Spinner = settingsActivity.findViewById(R.id.settings_default_sort_selector)
+    internal val iconPackSpinner: Spinner = settingsActivity.findViewById(R.id.settings_icon_pack_selector)
+    internal val marketSelector: Spinner =
         settingsActivity.findViewById(R.id.settings_market_size_selector)
-    val hiddenValuesSwitch: SwitchCompat =
+    internal val hiddenValuesSwitch: SwitchCompat =
         settingsActivity.findViewById(R.id.settings_hide_values_switch)
-    val upExtremeIcon: ImageView = settingsActivity.findViewById(R.id.settings_up_extreme_icon)
-    val upSignificantIcon: ImageView =
+    internal val upExtremeIcon: ImageView = settingsActivity.findViewById(R.id.settings_up_extreme_icon)
+    internal val upSignificantIcon: ImageView =
         settingsActivity.findViewById(R.id.settings_up_significant_icon)
-    val upModerateIcon: ImageView = settingsActivity.findViewById(R.id.settings_up_moderate_icon)
-    val downExtremeIcon: ImageView = settingsActivity.findViewById(R.id.settings_down_extreme_icon)
-    val downSignificantIcon: ImageView =
+    internal val upModerateIcon: ImageView = settingsActivity.findViewById(R.id.settings_up_moderate_icon)
+    internal val downExtremeIcon: ImageView = settingsActivity.findViewById(R.id.settings_down_extreme_icon)
+    internal val downSignificantIcon: ImageView =
         settingsActivity.findViewById(R.id.settings_down_significant_icon)
-    val downModerateIcon: ImageView =
+    internal val downModerateIcon: ImageView =
         settingsActivity.findViewById(R.id.settings_down_moderate_icon)
 
-    val marketThresholdUpExtreme: ScrollableNumberPicker =
+    private val marketThresholdUpExtreme: ScrollableNumberPicker =
         settingsActivity.findViewById(R.id.threshold_market_up_extreme)
-    val marketThresholdUpSignificant: ScrollableNumberPicker =
+    private val marketThresholdUpSignificant: ScrollableNumberPicker =
         settingsActivity.findViewById(R.id.threshold_market_up_significant)
-    val marketThresholdUpModerate: ScrollableNumberPicker =
+    private val marketThresholdUpModerate: ScrollableNumberPicker =
         settingsActivity.findViewById(R.id.threshold_market_up_moderate)
-    val marketThresholdDownModerate: ScrollableNumberPicker =
+    private val marketThresholdDownModerate: ScrollableNumberPicker =
         settingsActivity.findViewById(R.id.threshold_market_down_moderate)
-    val marketThresholdDownSignificant: ScrollableNumberPicker =
+    private val marketThresholdDownSignificant: ScrollableNumberPicker =
         settingsActivity.findViewById(R.id.threshold_market_down_significant)
-    val marketThresholdDownExtreme: ScrollableNumberPicker =
+    private val marketThresholdDownExtreme: ScrollableNumberPicker =
         settingsActivity.findViewById(R.id.threshold_market_down_extreme)
 
-    val trackerThresholdUpExtreme: ScrollableNumberPicker =
+    private val trackerThresholdUpExtreme: ScrollableNumberPicker =
         settingsActivity.findViewById(R.id.threshold_tracker_up_extreme)
-    val trackerThresholdUpSignificant: ScrollableNumberPicker =
+    private val trackerThresholdUpSignificant: ScrollableNumberPicker =
         settingsActivity.findViewById(R.id.threshold_tracker_up_significant)
-    val trackerThresholdUpModerate: ScrollableNumberPicker =
+    private val trackerThresholdUpModerate: ScrollableNumberPicker =
         settingsActivity.findViewById(R.id.threshold_tracker_up_moderate)
-    val trackerThresholdDownModerate: ScrollableNumberPicker =
+    private val trackerThresholdDownModerate: ScrollableNumberPicker =
         settingsActivity.findViewById(R.id.threshold_tracker_down_moderate)
-    val trackerThresholdDownSignificant: ScrollableNumberPicker =
+    private val trackerThresholdDownSignificant: ScrollableNumberPicker =
         settingsActivity.findViewById(R.id.threshold_tracker_down_significant)
-    val trackerThresholdDownExtreme: ScrollableNumberPicker =
+    private val trackerThresholdDownExtreme: ScrollableNumberPicker =
         settingsActivity.findViewById(R.id.threshold_tracker_down_extreme)
 
-    val marketThresholds = listOf(
+    internal val marketThresholds = listOf(
         marketThresholdUpExtreme,
         marketThresholdUpSignificant,
         marketThresholdUpModerate,
@@ -61,7 +60,7 @@ class SettingsActivityViewHolder(settingsActivity: SettingsActivity) {
         marketThresholdDownExtreme
     )
 
-    val trackerThresholds = listOf(
+    internal val trackerThresholds = listOf(
         trackerThresholdUpExtreme,
         trackerThresholdUpSignificant,
         trackerThresholdUpModerate,
@@ -69,6 +68,4 @@ class SettingsActivityViewHolder(settingsActivity: SettingsActivity) {
         trackerThresholdDownSignificant,
         trackerThresholdDownExtreme
     )
-
-
 }

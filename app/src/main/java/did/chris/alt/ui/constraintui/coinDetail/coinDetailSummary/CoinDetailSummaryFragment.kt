@@ -18,8 +18,7 @@ const val COIN_SYMBOL_KEY = "CoinSymbolKey"
 
 class CoinDetailSummaryFragment : BaseFragment(), CoinDetailContractView {
 
-    // Static Initializer
-
+    // Companion
     companion object {
         fun getInstanceFor(coinSymbol: String): CoinDetailSummaryFragment {
             val coinDetail = CoinDetailSummaryFragment()
@@ -31,12 +30,10 @@ class CoinDetailSummaryFragment : BaseFragment(), CoinDetailContractView {
     }
 
     // Properties
-
     private lateinit var coinDetailPresenter: CoinDetailContractPresenter
     private lateinit var views: CoinDetailSummaryViewHolder
 
     // Lifecycle
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         coinDetailPresenter = getPresenterComponent().provideCoinDetailPresenter()
@@ -59,7 +56,6 @@ class CoinDetailSummaryFragment : BaseFragment(), CoinDetailContractView {
     }
 
     // Overrides
-
     override fun displayCoinDetail(coin: CoinListItem?) {
         views.coinName.text = coin?.name
         views.coinSymbol.text = coin?.symbolFormatted
@@ -88,26 +84,18 @@ class CoinDetailSummaryFragment : BaseFragment(), CoinDetailContractView {
         checkDogeMuchWow(coin?.symbol)
     }
 
-    override fun initialiseDYORButton(coin: CoinListItem?) {
-        coin ?: return
+    override fun initialiseDYORButton(coinSymbol: String) {
         views.dyorButton.setOnClickListener {
-            val bottomSheetFragment = DYORBottomSheet.getInstanceFor(coin.symbol)
+            val bottomSheetFragment = DYORBottomSheet.getInstanceFor(coinSymbol)
             bottomSheetFragment.show(activity?.supportFragmentManager, bottomSheetFragment.tag)
         }
     }
 
     override fun showError(stringId: Int?) = ErrorHandler.showError(activity, stringId)
 
-    private fun initialiseBackButton() {
-        views.backButton.setOnClickListener {
-            (activity as LayoutCoordinatable).updateLayout(home)
-        }
-    }
-
-    override fun initialiseAddEntryButton(coin: CoinListItem?) {
+    override fun initialiseAddEntryButton(searchKey: String) {
         views.addEntryButton.setOnClickListener {
-            val coinKey = coin?.searchKey
-            val fragment = AddCoinDialogFragment.createForAsset(coinKey)
+            val fragment = AddCoinDialogFragment.getInstanceFor(searchKey)
             val fragmentManager = activity?.fragmentManager
             val shownCoinDetail = fragmentManager?.findFragmentByTag("AddCoinDialog")
             shownCoinDetail?.let { shownDialog ->
@@ -123,6 +111,12 @@ class CoinDetailSummaryFragment : BaseFragment(), CoinDetailContractView {
         if (coinSymbol == "DOGE") {
             views.priceBTCTitle.text = getString(R.string.dialog_coinDetail_title_doge_price)
             views.priceBTC.text = getString(R.string.dialog_coinDetail_placeholder_doge_price)
+        }
+    }
+
+    private fun initialiseBackButton() {
+        views.backButton.setOnClickListener {
+            (activity as LayoutCoordinatable).updateLayout(home)
         }
     }
 }

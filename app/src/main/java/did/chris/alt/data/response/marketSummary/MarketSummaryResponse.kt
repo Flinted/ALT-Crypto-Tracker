@@ -5,14 +5,9 @@ import did.chris.alt.data.coinListItem.marketData.MarketData
 import did.chris.alt.utility.NumberFormatter
 import java.math.BigDecimal
 
-/**
- * MarketSummaryResponse
- * Copyright © 2018 ChrisDidThis. All rights reserved.
- */
 class MarketSummaryResponse {
 
     // Properties
-
     @SerializedName("total_market_cap_usd")
     private var marketCapUSD: Double = 0.0
 
@@ -22,7 +17,6 @@ class MarketSummaryResponse {
     internal lateinit var marketData: MarketData
 
     // Internal Functions
-
     internal fun marketCapUSDFormatted(): String {
         val bigDecimalMarketCap = BigDecimal(marketCapUSD)
         return NumberFormatter.formatCurrency(bigDecimalMarketCap, 0, 0)

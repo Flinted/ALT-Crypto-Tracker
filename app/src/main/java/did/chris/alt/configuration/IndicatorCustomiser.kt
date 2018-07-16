@@ -2,11 +2,7 @@ package did.chris.alt.configuration
 
 import did.chris.alt.data.coinListItem.*
 
-/**
- * IndicatorCustomiser
- * Copyright © 2018  ChrisDidThis. All rights reserved.
- */
-class IndicatorCustomiser constructor(internal var icons: IconPack) {
+internal class IndicatorCustomiser constructor(internal var icons: IconPack) {
 
     // Internal Functions
     internal fun getIcon(status: Int): Int {
@@ -22,9 +18,9 @@ class IndicatorCustomiser constructor(internal var icons: IconPack) {
         }
     }
 
-    fun getColor(state: Int) = icons.getColor(state)
+    internal fun getColor(state: Int) = icons.getColor(state)
 
-    fun updateIconPack(iconPack: IconPack) {
+    internal fun updateIconPack(iconPack: IconPack) {
         this.icons = iconPack
     }
 }

@@ -2,15 +2,9 @@ package did.chris.alt.data.response
 
 import java.math.BigDecimal
 
-/**
- * CoinResponse
- * Copyright © 2018 ChrisDidThis. All rights reserved.
- */
-
 interface CoinResponse {
 
     // Properties
-
     var name: String
     var id: String
     var symbol: String
@@ -19,7 +13,6 @@ interface CoinResponse {
     var percentChange7D: String?
 
     // Functions
-
     fun provideRank(): Int
     fun providePriceUSD(): BigDecimal?
     fun providePriceBTC(): BigDecimal?

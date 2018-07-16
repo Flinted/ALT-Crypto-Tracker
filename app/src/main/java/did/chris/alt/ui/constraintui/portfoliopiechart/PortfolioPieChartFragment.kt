@@ -19,12 +19,10 @@ import did.chris.alt.ui.constraintui.trackerSummary.PortfolioContractView
 class PortfolioPieChartFragment : BaseFragment(), PortfolioContractView {
 
     // Properties
-
     private lateinit var pieChart: PieChart
     private lateinit var portfolioPieChartPresenter: PortfolioContractPresenter
 
     // Lifecycle
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -51,7 +49,6 @@ class PortfolioPieChartFragment : BaseFragment(), PortfolioContractView {
     }
 
     // Overrides
-
     override fun updateForSummary(summary: Summary) {
         val data = summary.getTrackerEntries()
         val pieEntries = data.map {
@@ -94,7 +91,6 @@ class PortfolioPieChartFragment : BaseFragment(), PortfolioContractView {
     }
 
     // Private Functions
-
     private fun bindViews(view: View) {
         this.pieChart = view.findViewById(R.id.fragment_chart_pie)
     }

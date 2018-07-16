@@ -19,14 +19,11 @@ import did.chris.alt.ui.settings.SettingsPresenter
 import did.chris.alt.ui.tracker.trackerEntryDialog.transactionsList.TransactionsAdapterPresenter
 import javax.inject.Singleton
 
-/**
- * PresenterComponent
- * Copyright © 2018 ChrisDidThis.. All rights reserved.
- */
 @Singleton
 @Component(modules = arrayOf(PresenterModule::class, DataModule::class))
 interface PresenterComponent {
 
+    // Functions
     fun provideLayoutPresenter(): LayoutPresenter
 
     fun provideCoinListPresenter(): CoinListPresenter

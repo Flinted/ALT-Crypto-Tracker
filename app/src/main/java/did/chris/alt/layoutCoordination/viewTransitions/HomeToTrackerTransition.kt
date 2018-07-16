@@ -14,10 +14,12 @@ import did.chris.alt.ui.constraintui.trackerList.TrackerListFragment
 
 class HomeToTrackerTransition(context: Context) : ViewStateTransition {
 
+    // Properties
     private val transactions: List<ViewAction<FragmentTransaction>>
     override val constraintSet = ConstraintSet()
 
-    init {
+    // Lifecycle
+    init  {
         val replaceCentre = Replace(R.id.frame_top, PortfolioPieChartFragment::class.java)
         val replacePopFrameBottom = Replace(R.id.pop_frame_bottom, TrackerListFragment::class.java)
         val transition = ViewTransition(FragmentTransaction.TRANSIT_ENTER_MASK)
@@ -25,6 +27,7 @@ class HomeToTrackerTransition(context: Context) : ViewStateTransition {
         transactions = listOf(replaceCentre, replacePopFrameBottom, transition)
     }
 
+    // Overrides
     override fun preExecute(fragmentManager: FragmentManager, constraintLayout: ConstraintLayout) {
         super.preExecute(fragmentManager, constraintLayout)
         val transaction = fragmentManager.beginTransaction()

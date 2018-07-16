@@ -9,10 +9,6 @@ import did.chris.alt.R
 import did.chris.alt.errors.ErrorHandler
 import did.chris.alt.injection.components.PresenterComponent
 
-/**
- * BaseDialogFragment
- * Copyright © 2018 ChrisDidThis. All rights reserved.
- */
 open class BaseDialogFragment : DialogFragment() {
 
     // Properties

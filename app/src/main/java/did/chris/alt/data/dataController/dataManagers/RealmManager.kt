@@ -1,25 +1,19 @@
 package did.chris.alt.data.dataController.dataManagers
 
-import io.realm.Realm
-import io.realm.RealmObject
 import did.chris.alt.data.dataController.dataSource.DataSource
 import did.chris.alt.data.favouriteCoins.FavouriteCoin
 import did.chris.alt.data.tracker.TrackerDataEntry
 import did.chris.alt.data.tracker.TrackerDataTransaction
+import io.realm.Realm
+import io.realm.RealmObject
 import javax.inject.Inject
 
-/**
- * RealmManager
- * Copyright © 2018 ChrisDidThis.. All rights reserved.
- */
 class RealmManager @Inject constructor() : DataSource {
 
     // Properties
-
     private var realm = Realm.getDefaultInstance()
 
     // Internal Functions
-
     internal fun open() {
         if (realm.isClosed) {
             realm = Realm.getDefaultInstance()

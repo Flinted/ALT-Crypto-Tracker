@@ -3,6 +3,8 @@ package did.chris.alt.configuration
 import did.chris.alt.R
 
 class DefaultIconPack : IconPack {
+
+    // Properties
     override val upExtreme = R.drawable.ic_up_extreme_24dp
     override val upSignificant = R.drawable.ic_up_significant_24dp
     override val upModerate = R.drawable.ic_up_moderate_24dp

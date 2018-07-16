@@ -6,12 +6,13 @@ import android.support.v4.app.FragmentManager
 import did.chris.alt.R
 import did.chris.alt.ui.interfaces.ListScrollController
 
-/**
- * ViewStateTransition
- * Copyright © 2018 Intelligent Loyalty Limited. All rights reserved.
- */
+
 interface ViewStateTransition {
+
+    // Properties
     val constraintSet: ConstraintSet
+
+    // Functions
     fun preExecute(fragmentManager: FragmentManager, constraintLayout: ConstraintLayout) {
         val fragment =  fragmentManager.findFragmentById(R.id.frame_bottom)
         (fragment as? ListScrollController)?.stopListScroll()

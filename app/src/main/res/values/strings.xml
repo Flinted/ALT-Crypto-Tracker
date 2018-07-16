@@ -156,6 +156,10 @@
     <string name="icon_pack_signals">"Signal Strength"</string>
     <string name="icon_pack_dice">"Dice"</string>
     <string name="hidden_values">\???????.??</string>
+    <string name="dialog_yes">Yes</string>
+    <string name="dialog_no">No</string>
+    <string name="dialog_transactions_delete_confirmation">This will delete this transaction irreversibly. Are you sure?</string>
+    <string name="tracker_dialog_delete_confirmation">This will delete ALL transactions for this asset irreversibly. Are you sure?</string>
     <!--Settings Arrays-->
 
     <string-array name="market_size_options">

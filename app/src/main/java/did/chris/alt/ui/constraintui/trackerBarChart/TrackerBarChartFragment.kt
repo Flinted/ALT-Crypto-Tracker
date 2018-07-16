@@ -7,18 +7,16 @@ import android.view.ViewGroup
 import did.chris.alt.R
 import did.chris.alt.base.BaseFragment
 import did.chris.alt.data.trackerListItem.TrackerListItem
-import did.chris.alt.factories.trackerBarChartFactory.TRACKER_ITEM_LIMIT
 import did.chris.alt.factories.trackerBarChartFactory.TrackerBarChartFactory
 
-/**
- * TrackerBarChartFragment
- * Copyright © 2018 ChrisDidThis. All rights reserved.
- */
+
 class TrackerBarChartFragment : BaseFragment(), TrackerBarChartContractView {
 
+    // Properties
     private lateinit var views: TrackerBarChartViewHolder
     private lateinit var trackerChartPresenter: TrackerBarChartContractPresenter
 
+    // Lifecycle
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -33,21 +31,21 @@ class TrackerBarChartFragment : BaseFragment(), TrackerBarChartContractView {
         return view
     }
 
+    // Overrides
     override fun displayTrackerEntriesChart(trackerListItems: List<TrackerListItem>) {
         views.noEntriesMessage.visibility = View.GONE
         val factory = TrackerBarChartFactory()
         val chart = factory.makeChart(requireContext(), trackerListItems)
-        displayMoreItemsIconIfRequired(trackerListItems.count())
         views.chartHolder.removeAllViews()
         views.chartHolder.addView(chart)
     }
 
-    private fun displayMoreItemsIconIfRequired(count: Int) {
-        if (count <= TRACKER_ITEM_LIMIT) {
-            views.moreIndicator.visibility = View.GONE
-            return
-        }
+    override fun showMoreItemsIndicator() {
         views.moreIndicator.visibility = View.VISIBLE
+    }
+
+    override fun hideMoreItemsIndicator() {
+        views.moreIndicator.visibility = View.GONE
     }
 
     override fun showNoTrackerEntriesMessage() {

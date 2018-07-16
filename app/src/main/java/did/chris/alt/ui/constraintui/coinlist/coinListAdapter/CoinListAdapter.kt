@@ -16,10 +16,6 @@ import did.chris.alt.data.coinListItem.CoinListItem
 import did.chris.alt.injection.components.PresenterComponent
 import rx.subjects.PublishSubject
 
-/**
- * CoinListAdapter
- * Copyright © 2018 ChrisDidThis. All rights reserved.
- */
 class CoinListAdapter(presenterComponent: PresenterComponent) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>(), CoinListAdapterContractView, Filterable {
 
@@ -36,16 +32,11 @@ class CoinListAdapter(presenterComponent: PresenterComponent) :
             notifyDataSetChanged()
         }
 
-    override fun updateIconPack() {
-        indicatorCustomizer.updateIconPack(ALTSharedPreferences.getIconPack())
-    }
-
     private var presenter = presenterComponent.provideCoinListAdapterPresenter()
     private var indicatorCustomizer = IndicatorCustomiser(ALTSharedPreferences.getIconPack())
 
     // RX Actions
     private val coinSelected: PublishSubject<String> = PublishSubject.create()
-
     override fun onCoinSelected() = coinSelected.asObservable()
 
     private val sortTypeChanged: PublishSubject<Int> = PublishSubject.create()
@@ -86,6 +77,9 @@ class CoinListAdapter(presenterComponent: PresenterComponent) :
     override fun onDestroy() = presenter.onDestroy()
 
     // Overrides
+    override fun updateIconPack() {
+        indicatorCustomizer.updateIconPack(ALTSharedPreferences.getIconPack())
+    }
 
     override fun emitSortTypeChanged(sortId: Int) {
         sortTypeChanged.onNext(sortId)
@@ -128,7 +122,6 @@ class CoinListAdapter(presenterComponent: PresenterComponent) :
     }
 
     // Private Functions
-
     private fun setDogeIcons(holder: CoinListViewHolder) {
         val context = holder.card.context
         val doge = ContextCompat.getDrawable(context, R.drawable.ic_doge_up_24dp)

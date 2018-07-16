@@ -14,22 +14,14 @@ import did.chris.alt.data.response.histoResponse.HistoricalDataUnitResponse
 import did.chris.alt.errors.ErrorHandler
 import did.chris.alt.factories.HistoricalDataChartFactory
 import did.chris.alt.ui.constraintui.coinDetail.coinDetailSummary.COIN_SYMBOL_KEY
-import did.chris.alt.utility.NumberFormatter
-import org.threeten.bp.Instant
-import org.threeten.bp.ZoneId
-import org.threeten.bp.format.DateTimeFormatter
-import java.math.BigDecimal
-
-/**
- * CoinDetailChart
- * Copyright © 2018 ChrisDidThis. All rights reserved.
- */
 
 class CoinDetailChart : BaseFragment(), CoinDetailChartContractView {
 
+    // Properties
     private lateinit var views: CoinDetailChartViewHolder
     private lateinit var coinDetailChartPresenter: CoinDetailChartContractPresenter
 
+    // Lifecycle
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -41,10 +33,12 @@ class CoinDetailChart : BaseFragment(), CoinDetailChartContractView {
         coinDetailChartPresenter.attachView(this)
         attachPresenter(coinDetailChartPresenter)
         val coinSymbol = arguments?.get(COIN_SYMBOL_KEY) as String
-        coinDetailChartPresenter.initialise(coinSymbol)
+        coinDetailChartPresenter.setCoinSymbol(coinSymbol)
+        coinDetailChartPresenter.initialise()
         return view
     }
 
+    // Overrides
     override fun displayChart(currentData: Array<HistoricalDataUnitResponse>) {
         val factory = HistoricalDataChartFactory(currentData, "Data")
         val chart = factory.createLineChart(views.chartHolder.context) ?: let {
@@ -70,43 +64,8 @@ class CoinDetailChart : BaseFragment(), CoinDetailChartContractView {
                 R.id.coin_detail_radio_all -> CHART_ALL
                 else                       -> CHART_24H
             }
-            hideHighlightedData()
             coinDetailChartPresenter.getHistoricalDataFor(chartResolution)
         }
-    }
-
-    private fun addHighlightListener(
-        chart: LineChart,
-        currentData: Array<HistoricalDataUnitResponse>
-    ) {
-        chart.setOnChartValueSelectedListener(object : OnChartValueSelectedListener {
-            override fun onNothingSelected() {
-            }
-
-            override fun onValueSelected(entry: Entry?, highlight: Highlight?) {
-                val index = entry?.x ?: return
-                val dataPoint = currentData[index.toInt()]
-                presentHighlightedData(dataPoint)
-            }
-        })
-    }
-
-    private fun presentHighlightedData(dataPoint: HistoricalDataUnitResponse) {
-        val closeFloat = dataPoint.close ?: return
-        val close = BigDecimal(closeFloat.toDouble())
-        views.chartHighlightValue.text = NumberFormatter.formatCurrencyAutomaticDigit(close)
-        val formatter = DateTimeFormatter.ofPattern("dd-MM-YYYY ha")
-        val time = dataPoint.time?.toLong() ?: return
-        val zoneId = ZoneId.systemDefault()
-        val instant = Instant.ofEpochSecond(time).atZone(zoneId)
-        views.chartHighlightTimeStamp.text = formatter.format(instant)
-        views.chartHighlightValue.visibility = View.VISIBLE
-        views.chartHighlightTimeStamp.visibility = View.VISIBLE
-    }
-
-    private fun hideHighlightedData() {
-        views.chartHighlightValue.visibility = View.GONE
-        views.chartHighlightTimeStamp.visibility = View.GONE
     }
 
     override fun hideLoading() {
@@ -121,5 +80,36 @@ class CoinDetailChart : BaseFragment(), CoinDetailChartContractView {
 
         views.progressBar.visibility = View.VISIBLE
         views.chartSelectButtons.visibility = View.INVISIBLE
+    }
+
+    override fun displayHighlightTime(formattedTime: String?) {
+        views.chartHighlightTimeStamp.text = formattedTime
+        views.chartHighlightTimeStamp.visibility = View.VISIBLE
+    }
+
+    override fun displayHighlightValue(formattedAmount: String) {
+        views.chartHighlightValue.text = formattedAmount
+        views.chartHighlightValue.visibility = View.VISIBLE
+    }
+
+    override fun hideHighlightedData() {
+        views.chartHighlightValue.visibility = View.GONE
+        views.chartHighlightTimeStamp.visibility = View.GONE
+    }
+
+    // Private Functions
+    private fun addHighlightListener(
+        chart: LineChart,
+        currentData: Array<HistoricalDataUnitResponse>
+    ) {
+        chart.setOnChartValueSelectedListener(object : OnChartValueSelectedListener {
+            override fun onNothingSelected() {}
+
+            override fun onValueSelected(entry: Entry?, highlight: Highlight?) {
+                val index = entry?.x ?: return
+                val dataPoint = currentData[index.toInt()]
+                coinDetailChartPresenter.valueSelected(dataPoint)
+            }
+        })
     }
 }

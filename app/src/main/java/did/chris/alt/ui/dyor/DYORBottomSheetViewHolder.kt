@@ -6,8 +6,9 @@ import did.chris.alt.R
 
 class DYORBottomSheetViewHolder(view: View) {
 
-    internal var googleButton: TextView = view.findViewById(R.id.DYOR_google)
-    internal var facebookButton: TextView = view.findViewById(R.id.DYOR_facebook)
-    internal var githubButton: TextView = view.findViewById(R.id.DYOR_github)
-    internal var cmcButton: TextView = view.findViewById(R.id.DYOR_coinmarketcap)
+    // Properties
+    internal val googleButton: TextView = view.findViewById(R.id.DYOR_google)
+    internal val facebookButton: TextView = view.findViewById(R.id.DYOR_facebook)
+    internal val githubButton: TextView = view.findViewById(R.id.DYOR_github)
+    internal val cmcButton: TextView = view.findViewById(R.id.DYOR_coinmarketcap)
 }

@@ -5,6 +5,7 @@ import did.chris.alt.utility.NumberFormatter
 import java.math.BigDecimal
 import java.math.RoundingMode
 
+// Private Const Properties
 private const val ONE_BILLION = "1000000000"
 private const val NO_INFORMATION = ""
 private const val THRESHOLD_3_DECIMAL = "0.99"
@@ -23,7 +24,6 @@ class PriceData(coinResponse: CoinResponse) {
     internal val marketCapFormatted = marketCapFormatted()
 
     // Private Functions
-
     private fun priceUSDFormatted(): String {
         priceUSD ?: return "No Price"
         return NumberFormatter.formatCurrencyAutomaticDigit(priceUSD)
@@ -52,10 +52,9 @@ class PriceData(coinResponse: CoinResponse) {
     }
 
     // Companion
-
     companion object {
-        val decimal3Threshold = BigDecimal(THRESHOLD_3_DECIMAL)
-        val decimal4Threshold = BigDecimal(THRESHOLD_4_DECIMAL)
-        val decimal5Threshold = BigDecimal(THRESHOLD_5_DECIMAL)
+        internal val decimal3Threshold = BigDecimal(THRESHOLD_3_DECIMAL)
+        internal val decimal4Threshold = BigDecimal(THRESHOLD_4_DECIMAL)
+        internal val decimal5Threshold = BigDecimal(THRESHOLD_5_DECIMAL)
     }
 }

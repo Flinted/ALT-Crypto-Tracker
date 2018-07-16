@@ -4,27 +4,10 @@ import android.content.Context
 import android.widget.ArrayAdapter
 import did.chris.alt.data.coinListItem.CoinListItem
 
-/**
- * CoinAutoCompleteAdapter
- * Copyright © 2018 ChrisDidThis. All rights reserved.
- */
 class CoinAutoCompleteAdapter private constructor(context: Context, layoutId: Int, items: Array<String>)
     : ArrayAdapter<String>(context, layoutId, items) {
 
-    // Properties
-
-    private lateinit var coinListItems: List<CoinListItem>
-
-    // Internal Functions
-
-    internal fun getCoinListItemForId(stringId: String): CoinListItem? {
-        return coinListItems.find {
-            it.searchKey == stringId
-        }
-    }
-
     // Companion
-
     companion object {
         fun makeInstanceFor(context: Context, layoutId: Int, items: List<CoinListItem>): CoinAutoCompleteAdapter {
             val stringArray = mapItemsToString(items)
@@ -38,6 +21,16 @@ class CoinAutoCompleteAdapter private constructor(context: Context, layoutId: In
                 it.searchKey
             }
             return keys.toTypedArray()
+        }
+    }
+
+    // Properties
+    private lateinit var coinListItems: List<CoinListItem>
+
+    // Internal Functions
+    internal fun getCoinListItemForId(stringId: String): CoinListItem? {
+        return coinListItems.find {
+            it.searchKey == stringId
         }
     }
 }

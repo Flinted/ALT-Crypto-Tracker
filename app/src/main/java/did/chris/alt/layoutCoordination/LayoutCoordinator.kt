@@ -12,10 +12,7 @@ import did.chris.alt.injection.scopes.UserScope
 import did.chris.alt.layoutCoordination.viewTransitions.*
 import javax.inject.Inject
 
-/**
- * LayoutCoordinator
- * Copyright © 2018 ChrisDidThis. All rights reserved.
- */
+// Const Properties
 const val loading = "LOADING"
 const val home = "HOME"
 const val coin = "COIN"
@@ -29,18 +26,12 @@ const val coinToSearch = "SEARCH"
 @UserScope
 class LayoutCoordinator @Inject constructor(context: Context) {
 
+    // Properties
     private var layouts: MutableMap<String, ViewStateTransition> = makeConstraintSetsMap(context)
     internal var currentViewState = loading
         private set
 
-    private fun makeConstraintSetsMap(context: Context) = mutableMapOf(
-        home to HomeTransition(context),
-        coinToSearch to HomeToSearchTransition(context),
-        coinToTracker to HomeToTrackerTransition(context),
-        trackerToSearch to TrackerToSearchTransition(context),
-        searchToTracker to SearchToTrackerTransition(context)
-    )
-
+    // Internal Functions
     internal fun changeConstraints(
         viewKey: String,
         masterLayout: ConstraintLayout,
@@ -61,6 +52,7 @@ class LayoutCoordinator @Inject constructor(context: Context) {
         updateForViewStateTransition(viewState, masterLayout, fragmentManager)
     }
 
+    // Private Functions
     private fun updateForViewStateTransition(
         viewStateTransition: ViewStateTransition,
         masterLayout: ConstraintLayout,
@@ -80,4 +72,12 @@ class LayoutCoordinator @Inject constructor(context: Context) {
         TransitionManager.go(Scene(masterLayout), transition)
         viewStateTransition.constraintSet.applyTo(masterLayout)
     }
+
+    private fun makeConstraintSetsMap(context: Context) = mutableMapOf(
+        home to HomeTransition(context),
+        coinToSearch to HomeToSearchTransition(context),
+        coinToTracker to HomeToTrackerTransition(context),
+        trackerToSearch to TrackerToSearchTransition(context),
+        searchToTracker to SearchToTrackerTransition(context)
+    )
 }

@@ -9,6 +9,8 @@ import did.chris.alt.injection.components.PresenterComponent
 
 open class BaseBottomSheetDialogFragment : BottomSheetDialogFragment() {
 
+    // Properties
+
     internal var presenter: BaseContractPresenter<*>? = null
 
     // Protected Functions

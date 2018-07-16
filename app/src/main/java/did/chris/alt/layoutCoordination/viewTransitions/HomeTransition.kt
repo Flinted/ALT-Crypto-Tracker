@@ -12,16 +12,14 @@ import did.chris.alt.layoutCoordination.viewTransitions.viewActions.ViewAction
 import did.chris.alt.layoutCoordination.viewTransitions.viewActions.ViewTransition
 import did.chris.alt.ui.constraintui.trackerBarChart.TrackerBarChartFragment
 
-/**
- * HomeTransition
- * Copyright © 2018 Intelligent Loyalty Limited. All rights reserved.
- */
 class HomeTransition(context: Context) : ViewStateTransition {
 
+    // Properties
     private val transactions: List<ViewAction<FragmentTransaction>>
     private val clears: List<ViewAction<ConstraintLayout>>
     override val constraintSet = ConstraintSet()
 
+    // Lifecycle
     init {
         val replaceCentre = Replace(R.id.frame_top, TrackerBarChartFragment::class.java)
         val transition = ViewTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
@@ -32,6 +30,7 @@ class HomeTransition(context: Context) : ViewStateTransition {
         clears = listOf(clearPopBottom, clearPopTop)
     }
 
+    // Overrides
     override fun preExecute(fragmentManager: FragmentManager, constraintLayout: ConstraintLayout) {
         super.preExecute(fragmentManager, constraintLayout)
         return
