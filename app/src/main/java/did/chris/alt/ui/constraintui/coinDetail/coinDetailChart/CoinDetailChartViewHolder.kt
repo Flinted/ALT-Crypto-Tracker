@@ -7,12 +7,9 @@ import android.widget.RadioGroup
 import android.widget.TextView
 import did.chris.alt.R
 
-/**
- * CoinDetailChartViewHolder
- * Copyright © 2018 ChrisDidThis. All rights reserved.
- */
 class CoinDetailChartViewHolder(view: View) {
 
+    // Properties
     internal var chartHolder: FrameLayout = view.findViewById(R.id.coin_detail_chart_holder)
     internal var chartHighlightTimeStamp: TextView = view.findViewById(R.id.coin_detail_chart_highlight_timestamp)
     internal var chartHighlightValue: TextView = view.findViewById(R.id.coin_detail_chart_highlight_value)

@@ -23,10 +23,12 @@ import did.chris.alt.ui.search.SearchSummaryCallback
 
 class CoinListFragment : BaseFragment(), CoinListContractView, ListScrollController {
 
+    // Properties
     private lateinit var views: CoinListViewHolder
     private lateinit var coinListPresenter: CoinListContractPresenter
     private lateinit var coinListAdapter: CoinListAdapterContractView
 
+    // Lifecycle
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -48,6 +50,7 @@ class CoinListFragment : BaseFragment(), CoinListContractView, ListScrollControl
         coinListPresenter.onDestroy()
     }
 
+    // Overrides
     override fun initialiseSearchOnClick() {
         views.coinSearchBar.setCallback(object : SearchSummaryCallback {
             override fun keyboardRequested() {
@@ -98,7 +101,7 @@ class CoinListFragment : BaseFragment(), CoinListContractView, ListScrollControl
             var yPosition = 0
             override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
                 yPosition += dy
-                handleScrollChange(yPosition)
+                coinListPresenter.assessScrollChange(yPosition)
                 super.onScrolled(recyclerView, dx, dy)
             }
         })
@@ -121,22 +124,6 @@ class CoinListFragment : BaseFragment(), CoinListContractView, ListScrollControl
         views.coinSearchBar.displayMarketSummary(requireContext(), marketSummaryResponse)
     }
 
-    private fun handleScrollChange(yPosition: Int) {
-        if (yPosition < 2500) {
-            hideGoToTopFAB()
-            return
-        }
-        showGoToTopFAB()
-    }
-
-    private fun showGoToTopFAB() {
-        views.goToTopFAB.show()
-    }
-
-    private fun hideGoToTopFAB() {
-        views.goToTopFAB.hide()
-    }
-
     override fun showLoading() {
         super.showLoading()
         views.swipeRefresh.isRefreshing = true
@@ -149,5 +136,13 @@ class CoinListFragment : BaseFragment(), CoinListContractView, ListScrollControl
 
     override fun stopListScroll() {
         views.coinList.stopScroll()
+    }
+
+    override fun showGoToTopFAB() {
+        views.goToTopFAB.show()
+    }
+
+    override fun hideGoToTopFAB() {
+        views.goToTopFAB.hide()
     }
 }

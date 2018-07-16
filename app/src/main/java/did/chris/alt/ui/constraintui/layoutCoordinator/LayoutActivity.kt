@@ -14,10 +14,12 @@ import java.util.*
 
 class LayoutActivity : BaseActivity(), LayoutActivityContractView, LayoutCoordinatable {
 
+    // Properties
     private lateinit var views: LayoutViewHolder
     private lateinit var presenter: LayoutActivityContractPresenter
     private lateinit var coordinator: LayoutCoordinator
 
+    // Lifecycle
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_template)
@@ -35,6 +37,12 @@ class LayoutActivity : BaseActivity(), LayoutActivityContractView, LayoutCoordin
         presenter.emitData()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        presenter.onDestroy()
+    }
+
+    // Overrides
     override fun loadInitialScreens() {
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.frame_bottom, CoinListFragment())
@@ -85,10 +93,5 @@ class LayoutActivity : BaseActivity(), LayoutActivityContractView, LayoutCoordin
             return
         }
         super.onBackPressed()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        presenter.onDestroy()
     }
 }

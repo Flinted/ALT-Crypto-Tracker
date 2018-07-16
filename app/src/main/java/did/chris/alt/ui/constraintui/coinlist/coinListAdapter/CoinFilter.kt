@@ -3,14 +3,9 @@ package did.chris.alt.ui.constraintui.coinlist.coinListAdapter
 import android.widget.Filter
 import did.chris.alt.data.coinListItem.CoinListItem
 
-/**
- * CoinFilter
- * Copyright © 2018 ChrisDidThis. All rights reserved.
- */
 class CoinFilter(private var originalList: MutableList<CoinListItem>, private var callback: CoinFilterCallback?) : Filter() {
 
     // Overrides
-
     override fun performFiltering(constraint: CharSequence): Filter.FilterResults {
         val filteredResults = getFilteredResults(constraint)
         val results = Filter.FilterResults()
@@ -25,7 +20,6 @@ class CoinFilter(private var originalList: MutableList<CoinListItem>, private va
     }
 
     // Private Functions
-
     private fun getFilteredResults(constraint: CharSequence): List<CoinListItem> {
         if (constraint.isEmpty()) {
             return originalList
@@ -40,5 +34,7 @@ class CoinFilter(private var originalList: MutableList<CoinListItem>, private va
 }
 
 interface CoinFilterCallback {
+
+    // Functions
     fun publishResults(filteredList: MutableList<CoinListItem>)
 }

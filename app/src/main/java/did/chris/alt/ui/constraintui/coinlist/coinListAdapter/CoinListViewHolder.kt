@@ -7,12 +7,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import did.chris.alt.R
 
-/**
- * CoinListViewHolder
- * Copyright © 2018 ChrisDidThis. All rights reserved.
- */
 class CoinListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
+    // Properties
     var card: ConstraintLayout = itemView.findViewById(R.id.main_card)
     var name: TextView = itemView.findViewById(R.id.coin_list_name)
     var ticker: TextView = itemView.findViewById(R.id.coin_ticker)

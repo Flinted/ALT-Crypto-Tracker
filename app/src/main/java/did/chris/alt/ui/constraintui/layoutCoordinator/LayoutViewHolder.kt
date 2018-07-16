@@ -5,11 +5,9 @@ import android.widget.FrameLayout
 import android.widget.TextView
 import did.chris.alt.R
 
-/**
- * LayoutViewHolder
- * Copyright © 2018 ChrisDidThis. All rights reserved.
- */
 class LayoutViewHolder(activity: LayoutActivity) {
+
+    // Properties
     internal var masterLayout: ConstraintLayout = activity.findViewById(R.id.master_layout)
     internal var frameTop: FrameLayout = activity.findViewById(R.id.frame_top)
     internal var frameCentre: FrameLayout = activity.findViewById(R.id.frame_centre)

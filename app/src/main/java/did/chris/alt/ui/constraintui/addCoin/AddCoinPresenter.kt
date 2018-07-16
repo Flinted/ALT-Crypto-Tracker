@@ -10,22 +10,16 @@ import rx.Subscription
 import java.math.BigDecimal
 import javax.inject.Inject
 
-/**
- * AddCoinPresenter
- * Copyright © 2018 ChrisDidThis. All rights reserved.
- */
 class AddCoinPresenter @Inject constructor(
     private val dataController: DataController,
     private val trackerEntryDataFactory: TrackerEntryDataFactory
 ) : BasePresenter<AddCoinContractView>(), AddCoinContractPresenter {
 
     // Properties
-
     private var selectedCoin: CoinListItem? = null
     private var coinListSubscriber: Subscription? = null
 
     // Lifecycle
-
     override fun initialise() {
         setPlaceholdersForValues()
         initialiseCoinListSubscriber()
@@ -42,7 +36,6 @@ class AddCoinPresenter @Inject constructor(
     }
 
     // Overrides
-
     override fun updateSelectedCoin(coin: CoinListItem?) {
         this.selectedCoin = coin
     }
@@ -105,7 +98,6 @@ class AddCoinPresenter @Inject constructor(
     }
 
     // Private Functions
-
     private fun initialiseCoinListSubscriber() {
         val subscription = dataController.coinRefreshSubscriber()
         this.coinListSubscriber = subscription.first.subscribe {

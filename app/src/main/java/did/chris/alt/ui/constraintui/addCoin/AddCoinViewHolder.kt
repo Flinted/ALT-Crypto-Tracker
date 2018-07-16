@@ -7,12 +7,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import did.chris.alt.R
 
-/**
- * AddCoinViewHolder
- * Copyright © 2018 ChrisDidThis. All rights reserved.
- */
 class AddCoinViewHolder(view: View) {
 
+    // Properties
     internal var assetSearch: AutoCompleteTextView = view.findViewById(R.id.asset_search)
     internal var selectedAsset: TextView = view.findViewById(R.id.selected_coin)
     internal var exchangeInput: EditText = view.findViewById(R.id.exchange_used)

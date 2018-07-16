@@ -8,20 +8,14 @@ import did.chris.alt.data.favouriteCoins.FavouriteCoin
 import rx.Subscription
 import javax.inject.Inject
 
-/**
- * CoinListAdapterPresenter
- * Copyright © 2018 ChrisDidThis. All rights reserved.
- */
 class CoinListAdapterPresenter @Inject constructor(private var dataController: DataController) :
         CoinListAdapterContractPresenter {
 
     // Properties
-
     private var cacheSubscription: Subscription? = null
     private var adapter: CoinListAdapterContractView? = null
 
     // Lifecycle
-
     override fun initialise() {
         subscribeToCache()
     }
@@ -40,7 +34,6 @@ class CoinListAdapterPresenter @Inject constructor(private var dataController: D
     }
 
     // Overrides
-
     override fun onFavouriteStateChanged(isFavourite: Boolean, coin: CoinListItem, position: Int) {
         val symbol = coin.symbol
         if (!isFavourite) {
@@ -54,7 +47,6 @@ class CoinListAdapterPresenter @Inject constructor(private var dataController: D
     }
 
     // Private Functions
-
     private fun addCoinAsFavourite(symbol: String) {
         val favouriteCoin = FavouriteCoin(symbol)
         dataController.storeFavouriteCoin(favouriteCoin)

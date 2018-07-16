@@ -7,12 +7,9 @@ import android.widget.TextView
 import did.chris.alt.R
 import did.chris.alt.ui.interfaces.FragmentViewHolder
 
-/**
- * CoinDetailSummaryViewHolder
- * Copyright © 2018 ChrisDidThis. All rights reserved.
- */
 class CoinDetailSummaryViewHolder(view: View) : FragmentViewHolder {
 
+    // Properties
     internal var coinName: TextView = view.findViewById(R.id.dialog_coin_detail_name)
     internal var coinSymbol: TextView = view.findViewById(R.id.dialog_coin_detail_symbol)
     internal var priceFiat: TextView = view.findViewById(R.id.dialog_coin_detail_price_fiat)

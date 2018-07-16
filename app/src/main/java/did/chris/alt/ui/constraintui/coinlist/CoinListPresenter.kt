@@ -5,17 +5,16 @@ import did.chris.alt.data.dataController.DataController
 import rx.Subscription
 import javax.inject.Inject
 
-/**
- * CoinListPresenter
- * Copyright © 2018 ChrisDidThis. All rights reserved.
- */
-class CoinListPresenter @Inject constructor(private val dataController: DataController) : BasePresenter<CoinListContractView>(), CoinListContractPresenter {
+class CoinListPresenter @Inject constructor(private val dataController: DataController) :
+    BasePresenter<CoinListContractView>(), CoinListContractPresenter {
 
+    // Properties
     private var timeStampSubscription: Subscription? = null
     private var updateSubscription: Subscription? = null
     private var marketSubscription: Subscription? = null
     private var errorSubscription: Subscription? = null
 
+    // Overrides
     override fun initialise() {
         subscribeForRefreshUpdates()
         view?.initialiseSearchOnClick()
@@ -25,6 +24,15 @@ class CoinListPresenter @Inject constructor(private val dataController: DataCont
         view?.initialiseFABonClick()
     }
 
+    override fun assessScrollChange(yPosition: Int) {
+        if (yPosition < 2500) {
+            view?.hideGoToTopFAB()
+            return
+        }
+        view?.showGoToTopFAB()
+    }
+
+    // Private Functions
     private fun subscribeForRefreshUpdates() {
         val subscription = dataController.lastSyncSubscriber()
         timeStampSubscription = subscription.first.subscribe {
@@ -38,7 +46,7 @@ class CoinListPresenter @Inject constructor(private val dataController: DataCont
         marketSubscription = marketRefreshSubscription.first.subscribe {
             view?.displayMarketSummary(it)
         }
-        errorSubscription = dataController.getErrorSubscription().subscribe{
+        errorSubscription = dataController.getErrorSubscription().subscribe {
             view?.hideLoading()
         }
     }

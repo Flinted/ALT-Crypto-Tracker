@@ -5,12 +5,12 @@ import did.chris.alt.base.BaseContractView
 import did.chris.alt.data.coinListItem.CoinListItem
 import rx.Observable
 
-/**
- * CoinListAdapterContract
- * Copyright © 2018 ChrisDidThis. All rights reserved.
- */
 interface CoinListAdapterContractView : BaseContractView {
+
+    // Properties
     var coinList: MutableList<CoinListItem>
+
+    // Functions
     fun filterFor(input: String)
     fun itemChangedAt(position: Int)
     fun onCoinSelected(): Observable<String>
@@ -22,6 +22,8 @@ interface CoinListAdapterContractView : BaseContractView {
 }
 
 interface CoinListAdapterContractPresenter : BaseContractPresenter<BaseContractView> {
+
+    // Functions
     fun onFavouriteStateChanged(isFavourite: Boolean, coin: CoinListItem, position: Int)
     fun onDestroy()
 }

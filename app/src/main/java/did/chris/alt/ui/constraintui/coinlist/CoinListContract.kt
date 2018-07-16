@@ -4,11 +4,9 @@ import did.chris.alt.base.BaseContractPresenter
 import did.chris.alt.base.BaseContractView
 import did.chris.alt.data.response.marketSummary.MarketSummaryResponse
 
-/**
- * CoinListContract
- * Copyright © 2018 ChrisDidThis. All rights reserved.
- */
 interface CoinListContractView : BaseContractView {
+
+    // Functions
     fun initialiseListAdapter()
     fun initialiseSwipeRefreshListener()
     fun initialiseScrollListener()
@@ -16,11 +14,15 @@ interface CoinListContractView : BaseContractView {
     fun showDialogForCoin(coinSymbol: String)
     fun initialiseSearchOnClick()
     fun displayMarketSummary(marketSummaryResponse: MarketSummaryResponse?)
+    fun hideGoToTopFAB()
+    fun showGoToTopFAB()
 }
 
 interface CoinListContractPresenter : BaseContractPresenter<CoinListContractView> {
+
+    // Functions
     fun refresh()
     fun onCoinSelected(coinSymbol: String)
     fun onDestroy()
-
+    fun assessScrollChange(yPosition: Int)
 }

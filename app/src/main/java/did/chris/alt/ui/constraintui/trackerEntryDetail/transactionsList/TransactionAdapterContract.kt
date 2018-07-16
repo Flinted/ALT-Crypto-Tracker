@@ -5,15 +5,15 @@ import did.chris.alt.base.BaseContractView
 import did.chris.alt.data.trackerListItem.TrackerTransaction
 import rx.Observable
 
-/**
- * TransactionAdapterContract
- * Copyright © 2018 ChrisDidThis. All rights reserved.
- */
 interface TransactionAdapterContractView : BaseContractView {
+
+    // Functions
     fun successfullyDeletedTransaction(entry: TrackerTransaction)
     fun onSummaryRefreshRequired(): Observable<Boolean>?
 }
 
 interface TransactionAdapterContractPresenter : BaseContractPresenter<TransactionAdapterContractView> {
+
+    // Functions
     fun deleteCurrentEntry(entry: TrackerTransaction, position: Int)
 }
