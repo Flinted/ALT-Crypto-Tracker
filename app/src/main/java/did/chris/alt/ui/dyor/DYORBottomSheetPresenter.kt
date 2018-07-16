@@ -8,8 +8,10 @@ class DYORBottomSheetPresenter @Inject constructor(private val dataController: D
     BasePresenter<DYORBottomSheetContractView>(),
     DYORBottomSheetContractPresenter {
 
+    // Properties
     private lateinit var coinSymbol: String
 
+    // Overrides
     override fun setCoinSymbol(coinSymbol: String?) {
         coinSymbol ?: return
         this.coinSymbol = coinSymbol

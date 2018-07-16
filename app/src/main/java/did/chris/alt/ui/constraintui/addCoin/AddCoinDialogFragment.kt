@@ -22,7 +22,7 @@ class AddCoinDialogFragment : BaseDialogFragment(), AddCoinContractView {
 
     // Companion
     companion object {
-        fun createForAsset(asset: String?): AddCoinDialogFragment {
+        fun getInstanceFor(asset: String?): AddCoinDialogFragment {
             val bundle = Bundle()
             bundle.putString(ASSET_KEY, asset)
             val fragment = AddCoinDialogFragment()

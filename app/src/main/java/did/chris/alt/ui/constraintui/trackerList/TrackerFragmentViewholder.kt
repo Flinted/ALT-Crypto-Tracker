@@ -10,10 +10,11 @@ import did.chris.alt.ui.search.SearchSummaryView
 
 class TrackerFragmentViewholder(view: View) {
 
-    internal var trackerRecycler: RecyclerView = view.findViewById(R.id.tracker_recycler_view)
-    internal var swipeRefresh: SwipeRefreshLayout = view.findViewById(R.id.tracker_refresh_layout)
-    internal var summarySearchBar: SearchSummaryView = view.findViewById(R.id.tracker_summary_search_bar)
-    internal var noEntriesMessage: TextView = view.findViewById(R.id.tracker_list_no_entries_message)
-    internal var addButton: ImageView =view.findViewById(R.id.dialog_tracker_detail_add_entry)
-    internal var backButton: ImageView =view.findViewById(R.id.back_button)
+    // Properties
+    internal val trackerRecycler: RecyclerView = view.findViewById(R.id.tracker_recycler_view)
+    internal val swipeRefresh: SwipeRefreshLayout = view.findViewById(R.id.tracker_refresh_layout)
+    internal val summarySearchBar: SearchSummaryView = view.findViewById(R.id.tracker_summary_search_bar)
+    internal val noEntriesMessage: TextView = view.findViewById(R.id.tracker_list_no_entries_message)
+    internal val addButton: ImageView =view.findViewById(R.id.dialog_tracker_detail_add_entry)
+    internal val backButton: ImageView =view.findViewById(R.id.back_button)
 }

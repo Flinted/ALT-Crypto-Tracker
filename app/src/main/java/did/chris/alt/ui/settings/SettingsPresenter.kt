@@ -5,12 +5,10 @@ import did.chris.alt.configuration.ALTSharedPreferences
 import did.chris.alt.data.dataController.DataController
 import javax.inject.Inject
 
-/**
- * SettingsPresenter
- */
 class SettingsPresenter @Inject constructor(private val dataController: DataController) :
     BasePresenter<SettingsContractView>(), SettingsContractPresenter {
 
+    // Overrides
     override fun initialise() {
         view?.initialiseIconFields()
         view?.initialiseSortSpinner()

@@ -95,7 +95,7 @@ class CoinDetailSummaryFragment : BaseFragment(), CoinDetailContractView {
 
     override fun initialiseAddEntryButton(searchKey: String) {
         views.addEntryButton.setOnClickListener {
-            val fragment = AddCoinDialogFragment.createForAsset(searchKey)
+            val fragment = AddCoinDialogFragment.getInstanceFor(searchKey)
             val fragmentManager = activity?.fragmentManager
             val shownCoinDetail = fragmentManager?.findFragmentByTag("AddCoinDialog")
             shownCoinDetail?.let { shownDialog ->

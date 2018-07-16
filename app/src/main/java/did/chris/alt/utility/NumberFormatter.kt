@@ -7,18 +7,15 @@ import java.text.DecimalFormat
 import java.text.NumberFormat
 import java.util.*
 
-/**
- * NumberFormatter
- * Copyright © 2018 ChrisDidThis. All rights reserved.
- */
-
 object NumberFormatter {
 
+    // Properties
     private var currencyFormatter = makeCurrencyFormatter()
     private var percentageFormatter = makePercentageFormatter()
     private var numberFormatter = makeNumberFormatter()
 
-    fun formatCurrencyAutomaticDigit(numberToFormat: BigDecimal): String {
+    // Internal Functions
+    internal fun formatCurrencyAutomaticDigit(numberToFormat: BigDecimal): String {
         val roundingMode = ALTSharedPreferences.getRoundingMode()
         val roundedNumber = when {
             numberToFormat > PriceData.decimal3Threshold -> numberToFormat.setScale(2, roundingMode)
@@ -29,7 +26,7 @@ object NumberFormatter {
         return formatCurrency(roundedNumber)
     }
 
-    fun formatCurrency(
+    internal fun formatCurrency(
         numberToFormat: BigDecimal,
         maximumDecimals: Int = 8,
         minimumDecimals: Int = 2
@@ -41,19 +38,20 @@ object NumberFormatter {
         return formatted
     }
 
-    fun format(numberToFormat: BigDecimal, decimals: Int = 8): String {
+    internal fun format(numberToFormat: BigDecimal, decimals: Int = 8): String {
         val number = numberToFormat.toDouble()
         numberFormatter.maximumFractionDigits = decimals
         return numberFormatter.format(number)
     }
 
-    fun formatPercentage(numberToFormat: BigDecimal, decimals: Int = 2): String {
+    internal fun formatPercentage(numberToFormat: BigDecimal, decimals: Int = 2): String {
         val number = numberToFormat.toDouble()
         percentageFormatter.maximumFractionDigits = decimals
         percentageFormatter.minimumFractionDigits = decimals
         return percentageFormatter.format(number)
     }
 
+    // Private Functions
     private fun makeNumberFormatter() = NumberFormat.getNumberInstance()
 
     private fun makeCurrencyFormatter(): NumberFormat {
@@ -63,5 +61,4 @@ object NumberFormatter {
     }
 
     private fun makePercentageFormatter() = NumberFormat.getPercentInstance()
-
 }

@@ -19,12 +19,10 @@ import did.chris.alt.ui.settings.SettingsActivity
 class PortfolioSummaryFragment : BaseFragment(), PortfolioContractView {
 
     // Properties
-
     private lateinit var views: PortfolioSummaryFragmentViewHolder
     private lateinit var summaryPresenter: PortfolioContractPresenter
 
     // Lifecycle
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -45,7 +43,6 @@ class PortfolioSummaryFragment : BaseFragment(), PortfolioContractView {
     }
 
     // Overrides
-
     override fun setFABOnClickListener() {
         views.summaryFAB.setOnClickListener {
             (activity as LayoutCoordinatable).updateLayout(coinToTracker)
@@ -82,6 +79,7 @@ class PortfolioSummaryFragment : BaseFragment(), PortfolioContractView {
         views.progressSpinner.visibility = View.GONE
     }
 
+    // Private Functions
     private fun setActualValues(summary: Summary) {
         views.initialValue.text =
                 getString(R.string.fragment_summary_initial_value, summary.initialValueFormatted())

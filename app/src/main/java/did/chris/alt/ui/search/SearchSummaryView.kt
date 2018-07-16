@@ -17,11 +17,12 @@ class SearchSummaryView @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : ConstraintLayout(context, attrs, defStyleAttr) {
 
+    // Properties
     private lateinit var views: SearchSummaryViewHolder
-
     private var callback: SearchSummaryCallback? = null
 
-    fun initialise(context: Context) {
+    // Internal Functions
+    internal fun initialise(context: Context) {
         val view = LayoutInflater.from(context).inflate(R.layout.search_bar_summary, this, true)
         views = SearchSummaryViewHolder(view)
         initialiseMarketSummaryOnClick()
@@ -31,11 +32,14 @@ class SearchSummaryView @JvmOverloads constructor(
         initialiseSearchTextChangedListener()
     }
 
-    fun setCallback(callback: SearchSummaryCallback) {
+    internal fun setCallback(callback: SearchSummaryCallback) {
         this.callback = callback
     }
 
-    fun displayMarketSummary(context: Context, marketSummaryResponse: MarketSummaryResponse?) {
+    internal fun displayMarketSummary(
+        context: Context,
+        marketSummaryResponse: MarketSummaryResponse?
+    ) {
         marketSummaryResponse ?: return
         views.marketTotalCap.text = context.getString(
             R.string.market_summary_marketcap, marketSummaryResponse.marketCapUSDFormatted()
@@ -56,6 +60,7 @@ class SearchSummaryView @JvmOverloads constructor(
         )
     }
 
+    // Private Functions
     private fun initialiseSearchButtonOnClick() {
         views.coinSearchButton.setOnClickListener {
             callback?.searchStateRequested()
@@ -107,6 +112,8 @@ class SearchSummaryView @JvmOverloads constructor(
 }
 
 interface SearchSummaryCallback {
+
+    // Functions
     fun keyboardRequested()
     fun keyboardDismissed(windowToken: IBinder)
     fun searchStateRequested()

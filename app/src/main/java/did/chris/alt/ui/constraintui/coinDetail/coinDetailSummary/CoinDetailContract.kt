@@ -8,8 +8,8 @@ interface CoinDetailContractView : BaseContractView {
 
     // Functions
     fun displayCoinDetail(coin: CoinListItem?)
-    fun initialiseDYORButton(coin: String)
-    fun initialiseAddEntryButton(coin: String)
+    fun initialiseDYORButton(coinSymbol: String)
+    fun initialiseAddEntryButton(searchKey: String)
 }
 
 interface CoinDetailContractPresenter : BaseContractPresenter<CoinDetailContractView> {

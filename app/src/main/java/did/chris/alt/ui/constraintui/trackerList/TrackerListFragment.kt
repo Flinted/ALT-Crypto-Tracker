@@ -27,13 +27,11 @@ import did.chris.alt.ui.search.SearchSummaryCallback
 class TrackerListFragment : BaseFragment(), TrackerContractView, FilterView, ListScrollController {
 
     // Properties
-
     private lateinit var views: TrackerFragmentViewholder
     private lateinit var trackerPresenter: TrackerContractPresenter
     private lateinit var trackerListAdapter: TrackerAdapterContractView
 
     // Lifecycle
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -50,20 +48,13 @@ class TrackerListFragment : BaseFragment(), TrackerContractView, FilterView, Lis
         return view
     }
 
-    private fun initialiseBackButton() {
-        views.backButton.setOnClickListener {
-            (activity as LayoutCoordinatable).updateLayout(home)
-        }
-    }
-
     override fun onDestroy() {
         super.onDestroy()
         trackerListAdapter.onDestroy()
         trackerPresenter.onDestroy()
     }
 
-    // Other Overrides
-
+    // Overrides
     override fun initialiseTrackerList() {
         views.noEntriesMessage.visibility = View.GONE
         trackerListAdapter = TrackerListAdapter(getPresenterComponent(), getScreenWidth())
@@ -72,32 +63,17 @@ class TrackerListFragment : BaseFragment(), TrackerContractView, FilterView, Lis
         views.trackerRecycler.adapter = trackerListAdapter as TrackerListAdapter
     }
 
-    private fun getScreenWidth(): Int {
-        val display = activity?.windowManager?.defaultDisplay
-        val size = Point()
-        display?.getSize(size)
-        val width = size.x
-        val padding = views.swipeRefresh.paddingStart * 3
-        return width - padding
-    }
-
     override fun initialiseTrackerListListeners() {
         trackerListAdapter.onTrackerEntrySelected().subscribe {
-            makeTrackerEntryDialogFor(it)
+            showTrackerEntryDialogFor(it)
         }
         val subscription = trackerListAdapter.onNoEntriesPresent()
-        subscription.first.subscribe({ noEntriesPresent ->
-                                         handleTrackerEntriesChange(noEntriesPresent)
-                                     })
-        handleTrackerEntriesChange(subscription.second)
-    }
-
-    private fun handleTrackerEntriesChange(noEntriesPresent: Boolean) {
-        if (!noEntriesPresent) {
-            hideNoTrackerEntriesMessage()
-            return
+        subscription.first.subscribe { noEntriesPresent ->
+            trackerPresenter.handleTrackerEntriesChange(
+                noEntriesPresent
+            )
         }
-        showNoTrackerEntriesMessage()
+        trackerPresenter.handleTrackerEntriesChange(subscription.second)
     }
 
     override fun initialiseRefreshListener() {
@@ -110,13 +86,7 @@ class TrackerListFragment : BaseFragment(), TrackerContractView, FilterView, Lis
 
     override fun initialiseAddEntryButton() {
         views.addButton.setOnClickListener {
-            val fragmentManager = activity?.fragmentManager
-            val shownCoinDetail = fragmentManager?.findFragmentByTag("AddCoinDialog")
-            shownCoinDetail?.let {
-                fragmentManager.beginTransaction().remove(it).commit()
-            }
-            val newCoinDetail = AddCoinDialogFragment.createForAsset(null)
-            newCoinDetail.show(fragmentManager, "AddCoinDialog")
+            showAddCoinDialog()
         }
     }
 
@@ -157,7 +127,7 @@ class TrackerListFragment : BaseFragment(), TrackerContractView, FilterView, Lis
         views.noEntriesMessage.visibility = View.VISIBLE
     }
 
-    private fun hideNoTrackerEntriesMessage() {
+    override fun hideNoTrackerEntriesMessage() {
         views.swipeRefresh.visibility = View.VISIBLE
         views.noEntriesMessage.visibility = View.GONE
     }
@@ -177,15 +147,42 @@ class TrackerListFragment : BaseFragment(), TrackerContractView, FilterView, Lis
     override fun stopListScroll() {
         views.trackerRecycler.stopScroll()
     }
-    // Private Functions
 
-    private fun makeTrackerEntryDialogFor(item: TrackerListItem) {
-        val fragmentManager = activity?.fragmentManager
-        val shownCoinDetail = fragmentManager?.findFragmentByTag("TrackerEntryDetail")
-        shownCoinDetail?.let {
-            fragmentManager.beginTransaction().remove(it).commit()
-        }
+    // Private Functions
+    private fun showTrackerEntryDialogFor(item: TrackerListItem) {
+        removeDialogWithTag("TrackerEntryDetail")
         val newCoinDetail = TrackerDetailDialog.getInstanceFor(item)
+        val fragmentManager = activity?.fragmentManager
         newCoinDetail.show(fragmentManager, "TrackerEntryDetail")
+    }
+
+    private fun showAddCoinDialog() {
+        removeDialogWithTag("AddCoinDialog")
+        val newCoinDetail = AddCoinDialogFragment.getInstanceFor(null)
+        val fragmentManager = activity?.fragmentManager
+        newCoinDetail.show(fragmentManager, "AddCoinDialog")
+    }
+
+    private fun removeDialogWithTag(tag: String) {
+        val fragmentManager = activity?.fragmentManager
+        val dialog = fragmentManager?.findFragmentByTag(tag)
+        dialog?.let { shownDialog ->
+            fragmentManager.beginTransaction().remove(shownDialog).commit()
+        }
+    }
+
+    private fun initialiseBackButton() {
+        views.backButton.setOnClickListener {
+            (activity as LayoutCoordinatable).updateLayout(home)
+        }
+    }
+
+    private fun getScreenWidth(): Int {
+        val display = activity?.windowManager?.defaultDisplay
+        val size = Point()
+        display?.getSize(size)
+        val width = size.x
+        val padding = views.swipeRefresh.paddingStart * 3
+        return width - padding
     }
 }

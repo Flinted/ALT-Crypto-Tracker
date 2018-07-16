@@ -12,7 +12,7 @@
 [![][threeten img]][threeten]
 
 [release]:https://github.com/intelligentpos/loyalty-android/releases
-[release img]:https://img.shields.io/badge/release-0.2.0-yellow.svg
+[release img]:https://img.shields.io/badge/release-1.0.1-yellow.svg
 
 [languagekotlin]:https://www.kotlin.com/en/
 [languagekotlin img]:https://img.shields.io/badge/language-kotlin-orange.svg?style=flat

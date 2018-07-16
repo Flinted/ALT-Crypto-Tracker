@@ -50,6 +50,14 @@ class TrackerListPresenter @Inject constructor(private var dataController: DataC
     override fun refreshTrackerEntries() {
     }
 
+    override fun handleTrackerEntriesChange(noEntriesPresent: Boolean) {
+        if (noEntriesPresent) {
+            view?.showNoTrackerEntriesMessage()
+            return
+        }
+        view?.hideNoTrackerEntriesMessage()
+    }
+
     // Private Functions
 
     private fun initialiseSubscriptions() {

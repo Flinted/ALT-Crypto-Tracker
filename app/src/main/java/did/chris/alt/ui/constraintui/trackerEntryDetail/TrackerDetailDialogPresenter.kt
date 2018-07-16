@@ -6,20 +6,14 @@ import did.chris.alt.data.trackerListItem.TrackerListItem
 import did.chris.alt.factories.TrackerItemFactory
 import javax.inject.Inject
 
-/**
- * TrackerDetailDialogPresenter
- * Copyright © 2018 ChrisDidThis. All rights reserved.
- */
 class TrackerDetailDialogPresenter @Inject constructor(private var dataController: DataController,
                                                        private var trackerItemFactory: TrackerItemFactory)
     : BasePresenter<TrackerDetailDialogContractView>(), TrackerDetailDialogContractPresenter {
 
     // Properties
-
     private lateinit var trackerEntry: TrackerListItem
 
     // Lifecycle
-
     override fun initialise(entry: TrackerListItem) {
         this.trackerEntry = entry
         view?.displayTrackerEntry(trackerEntry)
@@ -32,7 +26,6 @@ class TrackerDetailDialogPresenter @Inject constructor(private var dataControlle
     override fun initialise() {}
 
     // Overrides
-
     override fun deleteCurrentEntry() {
         val id = trackerEntry.id
         dataController.deleteTrackerEntryFor(id)

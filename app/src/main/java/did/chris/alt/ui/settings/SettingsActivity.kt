@@ -9,14 +9,9 @@ import did.chris.alt.R
 import did.chris.alt.base.BaseActivity
 import did.chris.alt.configuration.ALTSharedPreferences
 
-/**
- * SettingsActivity
- */
 class SettingsActivity : BaseActivity(), SettingsContractView {
 
-    private lateinit var views: SettingsActivityViewHolder
-    private lateinit var presenter: SettingsContractPresenter
-
+    // Companion
     companion object {
         fun start(activity: Activity) {
             val intent = Intent(activity, SettingsActivity::class.java)
@@ -24,6 +19,11 @@ class SettingsActivity : BaseActivity(), SettingsContractView {
         }
     }
 
+    // Properties
+    private lateinit var views: SettingsActivityViewHolder
+    private lateinit var presenter: SettingsContractPresenter
+
+    // Lifecycle
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fragment_settings)
@@ -34,6 +34,7 @@ class SettingsActivity : BaseActivity(), SettingsContractView {
         presenter.initialise()
     }
 
+    // Overrides
     override fun initialiseSortSpinner() {
         views.sortSpinner.setSelection(ALTSharedPreferences.getSort())
         views.sortSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -73,23 +74,7 @@ class SettingsActivity : BaseActivity(), SettingsContractView {
         views.hiddenValuesSwitch.setOnCheckedChangeListener { compoundButton, value ->
             presenter.newHiddenValueStateSet(value)
         }
-        initialiseIconThreshholds()
-    }
-
-    fun initialiseIconThreshholds() {
-        views.marketThresholds.forEachIndexed { index, numberPicker ->
-            numberPicker.value = ALTSharedPreferences.getValueForMarketThreshold(index).toInt()
-            numberPicker.setListener { value ->
-                presenter.newMarketThresholdSet(index, value)
-            }
-        }
-        views.trackerThresholds.forEachIndexed { index, numberPicker ->
-            val percentageFloat = ALTSharedPreferences.getValueForTrackerThreshold(index) * 100
-            numberPicker.value = percentageFloat.toInt()
-            numberPicker.setListener { value ->
-                presenter.newTrackerThresholdSet(index, value)
-            }
-        }
+        initialiseIconThresholds()
     }
 
     override fun initialiseIconFields() {
@@ -114,6 +99,23 @@ class SettingsActivity : BaseActivity(), SettingsContractView {
                 p3: Long
             ) {
                 presenter.newIconPackSelected(iconKey)
+            }
+        }
+    }
+
+    // Private Functions
+    private fun initialiseIconThresholds() {
+        views.marketThresholds.forEachIndexed { index, numberPicker ->
+            numberPicker.value = ALTSharedPreferences.getValueForMarketThreshold(index).toInt()
+            numberPicker.setListener { value ->
+                presenter.newMarketThresholdSet(index, value)
+            }
+        }
+        views.trackerThresholds.forEachIndexed { index, numberPicker ->
+            val percentageFloat = ALTSharedPreferences.getValueForTrackerThreshold(index) * 100
+            numberPicker.value = percentageFloat.toInt()
+            numberPicker.setListener { value ->
+                presenter.newTrackerThresholdSet(index, value)
             }
         }
     }

@@ -7,10 +7,10 @@ import did.chris.alt.data.dataController.callbacks.RepositoryCallbackSingle
 import did.chris.alt.data.response.histoResponse.HistoricalDataResponse
 import did.chris.alt.data.response.histoResponse.HistoricalDataUnitResponse
 import did.chris.alt.errors.ErrorHandler
+import did.chris.alt.utility.DateFormatter
 import did.chris.alt.utility.NumberFormatter
 import org.threeten.bp.Instant
 import org.threeten.bp.ZoneId
-import org.threeten.bp.format.DateTimeFormatter
 import java.math.BigDecimal
 import javax.inject.Inject
 
@@ -67,10 +67,9 @@ class CoinDetailChartPresenter @Inject constructor(private val dataController: D
 
     // Private Functions
     private fun formatTimeForHighlight(time: Long) {
-        val formatter = DateTimeFormatter.ofPattern("dd-MM-YYYY ha")
         val zoneId = ZoneId.systemDefault()
         val instant = Instant.ofEpochSecond(time).atZone(zoneId)
-        val formattedTime = formatter.format(instant)
+        val formattedTime = DateFormatter.DATE_HOUR_AMPM.format(instant)
         view?.displayHighlightTime(formattedTime)
     }
 

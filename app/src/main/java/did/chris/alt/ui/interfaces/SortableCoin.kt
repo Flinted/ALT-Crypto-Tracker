@@ -5,10 +5,7 @@ import did.chris.alt.data.coinListItem.PriceData
 import java.math.BigDecimal
 import java.util.*
 
-/**
- * SortableCoin
- * Copyright © 2018  ChrisDidThis. All rights reserved.
- */
+// Const Properties
 const val SORT_RANK = 0
 const val SORT_RANK_REV = 1
 const val SORT_NAME = 2
@@ -23,6 +20,8 @@ const val SORT_VOLUME = 10
 const val SORT_VOLUME_REV = 11
 
 interface SortableCoin {
+
+    // Properties
     var isFavourite: Boolean
     val name: String
     val rank: Int
@@ -33,8 +32,7 @@ interface SortableCoin {
 }
 
 // Extension Functions
-
-fun <T : SortableCoin> MutableList<T>.sortedByFavouritesThen(sortId: Int): MutableList<T> {
+internal fun <T : SortableCoin> MutableList<T>.sortedByFavouritesThen(sortId: Int): MutableList<T> {
     val sorted = when (sortId) {
         SORT_RANK -> this.sortByRank()
         SORT_RANK_REV -> this.sortByRank().reversed()
@@ -56,6 +54,7 @@ fun <T : SortableCoin> MutableList<T>.sortedByFavouritesThen(sortId: Int): Mutab
     return (favourites + splitLists.second).toMutableList()
 }
 
+// Private Extensions
 private fun SortableCoin.compareRank(comparator: SortableCoin): Int {
     return when {
         this.rank == comparator.rank -> 0

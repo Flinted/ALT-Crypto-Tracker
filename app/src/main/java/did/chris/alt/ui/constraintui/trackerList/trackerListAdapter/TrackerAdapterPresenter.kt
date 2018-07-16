@@ -6,15 +6,12 @@ import did.chris.alt.data.trackerListItem.TrackerListItem
 import rx.Subscription
 import javax.inject.Inject
 
-/**
- * TrackerAdapterPresenter
- * Copyright © 2018 ChrisDidThis. All rights reserved.
- */
-class TrackerAdapterPresenter @Inject constructor(private var dataController: DataController
+
+class TrackerAdapterPresenter @Inject constructor(
+    private var dataController: DataController
 ) : BasePresenter<TrackerAdapterContractView>(), TrackerAdapterContractPresenter {
 
     // Properties
-
     private var trackerItemSubscription: Subscription? = null
     private var summarySubscription: Subscription? = null
 
@@ -23,7 +20,7 @@ class TrackerAdapterPresenter @Inject constructor(private var dataController: Da
         subscribeToCache()
     }
 
-    fun onDestroy() {
+    internal fun onDestroy() {
         trackerItemSubscription?.unsubscribe()
         summarySubscription?.unsubscribe()
         trackerItemSubscription = null
@@ -32,7 +29,6 @@ class TrackerAdapterPresenter @Inject constructor(private var dataController: Da
     }
 
     // Private Functions
-
     private fun subscribeToCache() {
         val subscription = dataController.trackerRefreshSubscriber()
         trackerItemSubscription = subscription.first.subscribe {

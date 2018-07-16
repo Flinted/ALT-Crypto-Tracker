@@ -3,10 +3,9 @@ package did.chris.alt.ui.settings
 import did.chris.alt.base.BaseContractPresenter
 import did.chris.alt.base.BaseContractView
 
-/**
- * SettingsContract
- */
 interface SettingsContractView : BaseContractView {
+
+    // Functions
     fun initialiseSortSpinner()
     fun initialiseMarketSizeSelector()
     fun initialiseHiddenValuesSwitch()
@@ -15,6 +14,8 @@ interface SettingsContractView : BaseContractView {
 }
 
 interface SettingsContractPresenter : BaseContractPresenter<SettingsContractView> {
+
+    // Functions
     fun newMarketLimitSet(adjustedLimit: Int)
     fun newSortPreferenceSet(preferenceKey: Int)
     fun newHiddenValueStateSet(value: Boolean)

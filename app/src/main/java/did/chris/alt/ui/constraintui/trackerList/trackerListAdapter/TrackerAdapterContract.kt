@@ -5,11 +5,9 @@ import did.chris.alt.base.BaseContractView
 import did.chris.alt.data.trackerListItem.TrackerListItem
 import rx.Observable
 
-/**
- * TrackerContract
- * Copyright © 2018 ChrisDidThis. All rights reserved.
- */
 interface TrackerAdapterContractView : BaseContractView {
+
+    // Functions
     var trackerEntries: MutableList<TrackerListItem>
     fun filterFor(input: String)
     fun initialiseTrackerList()
