@@ -16,9 +16,11 @@ import did.chris.alt.ui.constraintui.coinDetail.coinDetailSummary.CoinDetailSumm
 
 class HomeToCoinDetailTransition(context: Context, coinSymbol: String) : ViewStateTransition {
 
+    // Properties
     private val transactions: List<ViewAction<FragmentTransaction>>
     override val constraintSet = ConstraintSet()
 
+    // Lifecycle
     init {
         val bundle = Bundle()
         bundle.putString(COIN_SYMBOL_KEY, coinSymbol)
@@ -29,6 +31,7 @@ class HomeToCoinDetailTransition(context: Context, coinSymbol: String) : ViewSta
         transactions = listOf(replaceCentre, replacePopFrameBottom, transition)
     }
 
+    // Overrides
     override fun preExecute(fragmentManager: FragmentManager, constraintLayout: ConstraintLayout) {
         super.preExecute(fragmentManager, constraintLayout)
         return

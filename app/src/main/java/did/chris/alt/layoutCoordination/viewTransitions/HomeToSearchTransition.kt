@@ -6,18 +6,17 @@ import android.support.constraint.ConstraintSet
 import android.support.v4.app.FragmentManager
 import did.chris.alt.R
 
-/**
- * HomeToSearchTransition
- * Copyright © 2018 Intelligent Loyalty Limited. All rights reserved.
- */
 class HomeToSearchTransition(context: Context) : ViewStateTransition {
 
+    // Properties
     override val constraintSet = ConstraintSet()
 
+    // Lifecycle
     init {
         constraintSet.clone(context, R.layout.constraint_search_coins)
     }
 
+    // Overrides
     override fun preExecute(fragmentManager: FragmentManager, constraintLayout: ConstraintLayout) {
         super.preExecute(fragmentManager, constraintLayout)
         return

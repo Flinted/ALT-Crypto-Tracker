@@ -8,12 +8,15 @@ import did.chris.alt.R
 
 class TrackerToSearchTransition(context: Context) : ViewStateTransition {
 
+    // Properties
     override val constraintSet = ConstraintSet()
 
+    // Lifecycle
     init {
         constraintSet.clone(context, R.layout.constraint_search_tracker)
     }
 
+    // Overrides
     override fun preExecute(fragmentManager: FragmentManager, constraintLayout: ConstraintLayout) {
         super.preExecute(fragmentManager, constraintLayout)
         return
