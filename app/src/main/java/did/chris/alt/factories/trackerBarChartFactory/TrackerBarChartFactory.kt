@@ -14,15 +14,12 @@ import did.chris.alt.R
 import did.chris.alt.configuration.ALTSharedPreferences
 import did.chris.alt.data.trackerListItem.TrackerListItem
 
-
-/**
- * TrackerBarChartFactory
- * Copyright © 2018 ChrisDidThis. All rights reserved.
- */
+// Const Properties
 const val TRACKER_ITEM_LIMIT = 6f
 
 class TrackerBarChartFactory {
 
+    //Internal Functions
     internal fun makeChart(context: Context, dataSet: List<TrackerListItem>): BarChart? {
         if (dataSet.isEmpty()) {
             return null
@@ -38,6 +35,7 @@ class TrackerBarChartFactory {
         return chart
     }
 
+    // Private Functions
     private fun makeBarChart(context: Context, labelFormatter: IAxisValueFormatter): BarChart {
         return BarChart(context).apply {
             setBackgroundColor(Color.TRANSPARENT)

@@ -8,14 +8,9 @@ import did.chris.alt.data.tracker.TrackerDataEntry
 import did.chris.alt.data.tracker.TrackerDataTransaction
 import javax.inject.Inject
 
-/**
- * TrackerEntryDataFactory
- * Copyright © 2018 ChrisDidThis. All rights reserved.
- */
 class TrackerEntryDataFactory @Inject constructor() {
 
     // Internal Functions
-
     internal fun makeTrackerEntryDataFor(trackerEntryData: TrackerDataEntry?,
                                          coin: CoinListItem?,
                                          exchange: String?,
@@ -47,7 +42,6 @@ class TrackerEntryDataFactory @Inject constructor() {
     }
 
     // Private Functions
-
     private fun getQuantityForType(type: String, quantity: String?): String {
         quantity ?: return "0"
         if (type == TRANSACTION_SELL) {
